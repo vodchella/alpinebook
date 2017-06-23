@@ -1,0 +1,33 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd" logicalFilePath="/v.1.0/2017-06-23--11--triggers.xml">
+	<changeSet author="twister" id="public.ascent_members.after_update_statement">
+        <sqlFile path="objects/triggers/public/ascent_members/after_update_statement.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            DROP TRIGGER after_update_statement ON public.ascent_members;
+        </rollback>
+    </changeSet>
+    <changeSet author="twister" id="public.ascent_members.fill_rank">
+        <sqlFile path="objects/triggers/public/ascent_members/fill_rank.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            DROP TRIGGER fill_rank ON public.ascent_members;
+        </rollback>
+    </changeSet>
+    <changeSet author="twister" id="public.ascent_members.on_ascent_complete">
+        <sqlFile path="objects/triggers/public/ascent_members/on_ascent_complete.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            DROP TRIGGER on_ascent_complete ON public.ascent_members;
+        </rollback>
+    </changeSet>
+    <changeSet author="twister" id="public.ascent_members.on_ascent_complete_cancelation">
+        <sqlFile path="objects/triggers/public/ascent_members/on_ascent_complete_cancelation.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            DROP TRIGGER on_ascent_complete_cancelation ON public.ascent_members;
+        </rollback>
+    </changeSet>
+    <changeSet author="twister" id="public.routes.check_route_validity">
+        <sqlFile path="objects/triggers/public/routes/check_route_validity.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            DROP TRIGGER check_route_validity ON public.routes;
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

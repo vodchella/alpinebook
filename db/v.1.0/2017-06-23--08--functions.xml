@@ -1,0 +1,57 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd" logicalFilePath="/v.1.0/2017-06-23--08--functions.xml">
+	<changeSet author="twister" id="util.list_tables_sequences">
+        <createProcedure path="objects/functions/util/list_tables_sequences.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            DROP FUNCTION util.list_tables_sequences();
+        </rollback>
+    </changeSet>
+    <changeSet author="twister" id="util.correct_sequences">
+        <createProcedure path="objects/functions/util/correct_sequences.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            DROP FUNCTION util.correct_sequences();
+        </rollback>
+    </changeSet>
+    <changeSet author="twister" id="util.string_is_null_or_empty">
+        <createProcedure path="objects/functions/util/string_is_null_or_empty.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            DROP FUNCTION util.string_is_null_or_empty(text);
+        </rollback>
+    </changeSet>
+    <changeSet author="twister" id="public.get_ascent_members_text">
+        <createProcedure path="objects/functions/public/get_ascent_members_text.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            DROP FUNCTION public.get_ascent_members_text(integer, integer);
+        </rollback>
+    </changeSet>
+    <changeSet author="twister" id="public.check_route_validity">
+        <createProcedure path="objects/functions/public/check_route_validity.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            DROP FUNCTION public.check_route_validity();
+        </rollback>
+    </changeSet>
+    <changeSet author="twister" id="public.fill_rank">
+        <createProcedure path="objects/functions/public/fill_rank.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            DROP FUNCTION public.fill_rank();
+        </rollback>
+    </changeSet>
+    <changeSet author="twister" id="public.on_ascent_complete">
+        <createProcedure path="objects/functions/public/on_ascent_complete.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            DROP FUNCTION public.on_ascent_complete();
+        </rollback>
+    </changeSet>
+    <changeSet author="twister" id="public.on_ascent_complete_cancelation">
+        <createProcedure path="objects/functions/public/on_ascent_complete_cancelation.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            DROP FUNCTION public.on_ascent_complete_cancelation();
+        </rollback>
+    </changeSet>
+    <changeSet author="twister" id="public.write_in_summits">
+        <createProcedure path="objects/functions/public/write_in_summits.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            DROP FUNCTION public.write_in_summits();
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

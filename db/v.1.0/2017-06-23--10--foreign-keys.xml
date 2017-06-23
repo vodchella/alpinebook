@@ -1,0 +1,42 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd" logicalFilePath="/v.1.0/2017-06-23--10--foreign-keys.xml">
+    <changeSet author="twister" id="alpinist_summits_ref_alpinists">
+        <addForeignKeyConstraint baseColumnNames="alpinist_id" baseTableName="alpinist_summits" constraintName="alpinist_summits_ref_alpinists" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="alpinist_id" referencedTableName="alpinists"/>
+    </changeSet>
+    <changeSet author="twister" id="alpinist_summits_ref_ascents">
+        <addForeignKeyConstraint baseColumnNames="ascent_id" baseTableName="alpinist_summits" constraintName="alpinist_summits_ref_ascents" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="CASCADE" referencedColumnNames="ascent_id" referencedTableName="ascents"/>
+    </changeSet>
+    <changeSet author="twister" id="alpinist_summits_ref_routes">
+        <addForeignKeyConstraint baseColumnNames="route_id" baseTableName="alpinist_summits" constraintName="alpinist_summits_ref_routes" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="CASCADE" referencedColumnNames="route_id" referencedTableName="routes"/>
+    </changeSet>
+    <changeSet author="twister" id="areas_ref_regions">
+        <addForeignKeyConstraint baseColumnNames="region_id" baseTableName="areas" constraintName="areas_ref_regions" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="region_id" referencedTableName="regions"/>
+    </changeSet>
+    <changeSet author="twister" id="ascent_members_ref_alpinists">
+        <addForeignKeyConstraint baseColumnNames="alpinist_id" baseTableName="ascent_members" constraintName="ascent_members_ref_alpinists" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="CASCADE" referencedColumnNames="alpinist_id" referencedTableName="alpinists"/>
+    </changeSet>
+    <changeSet author="twister" id="ascent_members_ref_ascents">
+        <addForeignKeyConstraint baseColumnNames="ascent_id" baseTableName="ascent_members" constraintName="ascent_members_ref_ascents" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="ascent_id" referencedTableName="ascents"/>
+    </changeSet>
+    <changeSet author="twister" id="ascents_ref_routes">
+        <addForeignKeyConstraint baseColumnNames="route_id" baseTableName="ascents" constraintName="ascents_ref_routes" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="CASCADE" referencedColumnNames="route_id" referencedTableName="routes"/>
+    </changeSet>
+    <changeSet author="twister" id="ascents_ref_users">
+        <addForeignKeyConstraint baseColumnNames="created_by" baseTableName="ascents" constraintName="ascents_ref_users" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="CASCADE" referencedColumnNames="user_id" referencedTableName="users"/>
+    </changeSet>
+    <changeSet author="twister" id="mountains_ref_areas">
+        <addForeignKeyConstraint baseColumnNames="area_id" baseTableName="mountains" constraintName="mountains_ref_areas" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="area_id" referencedTableName="areas"/>
+    </changeSet>
+    <changeSet author="twister" id="routes_ref_alpinists">
+        <addForeignKeyConstraint baseColumnNames="alpinist_id" baseTableName="routes" constraintName="routes_ref_alpinists" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="alpinist_id" referencedTableName="alpinists"/>
+    </changeSet>
+    <changeSet author="twister" id="routes_ref_mountains">
+        <addForeignKeyConstraint baseColumnNames="mountain_id" baseTableName="routes" constraintName="routes_ref_mountains" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="mountain_id" referencedTableName="mountains"/>
+    </changeSet>
+    <changeSet author="twister" id="routes_ref_mountains_2">
+        <addForeignKeyConstraint baseColumnNames="ending_mountain_id" baseTableName="routes" constraintName="routes_ref_mountains_2" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="mountain_id" referencedTableName="mountains"/>
+    </changeSet>
+    <changeSet author="twister" id="users_ref_alpinists">
+        <addForeignKeyConstraint baseColumnNames="alpinist_id" baseTableName="users" constraintName="users_ref_alpinists" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="CASCADE" referencedColumnNames="alpinist_id" referencedTableName="alpinists"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,30 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd" logicalFilePath="/v.1.0/2017-06-23--03--tables.xml">
+	<changeSet author="twister" id="alpinists">
+        <createTable remarks="Альпинисты" tableName="alpinists">
+            <column autoIncrement="true" name="alpinist_id" remarks="Альпинист" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="pk_alpinists"/>
+            </column>
+            <column name="last_name" remarks="Фамилия" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_name" remarks="Имя" type="TEXT"/>
+            <column name="middle_name" remarks="Отчество" type="TEXT"/>
+            <column name="rank" remarks="Спортивное звание" type="SPORT_RANK"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="twister" id="users">
+        <createTable remarks="Пользователи" tableName="users">
+            <column autoIncrement="true" name="user_id" remarks="Пользователь" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="pk_users"/>
+            </column>
+            <column name="alpinist_id" remarks="Альпинист" type="INT"/>
+            <column name="email" remarks="Электронная почта" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueBoolean="false" name="active_bool" remarks="Активен" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

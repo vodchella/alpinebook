@@ -1,0 +1,21 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd" logicalFilePath="/v.1.0/changelog-v.1.0-cumulative.xml">
+
+	<include file="2017-06-23--01--schemas.xml"      relativeToChangelogFile="true"/>
+	<include file="2017-06-23--02--domains.xml"      relativeToChangelogFile="true"/>
+	<include file="2017-06-23--03--tables.xml"       relativeToChangelogFile="true"/>
+	<include file="2017-06-23--04--functions.xml"    relativeToChangelogFile="true"/>
+	<include file="2017-06-23--05--tables.xml"       relativeToChangelogFile="true"/>
+	<include file="2017-06-23--06--constraints.xml"  relativeToChangelogFile="true"/>
+	<include file="2017-06-23--07--indexes.xml"      relativeToChangelogFile="true"/>
+	<include file="2017-06-23--08--functions.xml"    relativeToChangelogFile="true"/>
+	<include file="2017-06-23--09--tables-data.xml"  relativeToChangelogFile="true"/>
+	<include file="2017-06-23--10--foreign-keys.xml" relativeToChangelogFile="true"/>
+	<include file="2017-06-23--11--triggers.xml"     relativeToChangelogFile="true"/>
+
+	<include file="2017-06-23--99--finalize.xml"     relativeToChangelogFile="true"/>
+	<changeSet author="twister" id="tag_databese:v.1.0">
+        <tagDatabase tag="v.1.0"/>
+    </changeSet>
+
+</databaseChangeLog>
