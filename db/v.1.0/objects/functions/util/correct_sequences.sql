@@ -9,11 +9,11 @@ begin
             from   util.list_tables_sequences() t
             where  t.max_id is not null and
                    t.sequence_value is not null and
-                   t.max_id > t.sequence_value) loop
+                   (t.max_id > t.sequence_value or (not t.is_called and t.sequence_value = 1))) loop
     execute i.sql_command;
     r := r + 1;
   end loop;
   return r;
 end
 $BODY$
-  LANGUAGE plpgsql;
+  LANGUAGE plpgsql
