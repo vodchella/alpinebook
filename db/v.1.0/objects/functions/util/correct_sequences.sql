@@ -16,4 +16,4 @@ begin
   return r;
 end
 $BODY$
-  LANGUAGE plpgsql
+  LANGUAGE plpgsql;
