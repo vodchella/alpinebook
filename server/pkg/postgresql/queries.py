@@ -10,12 +10,9 @@ order by r.region
 """
 
 SQL_GET_REGION = """
-select json_build_object('region_id', r.region_id,
-                         'region', max(r.region)) as region
+select get_region_json(r.region_id) as region
 from   regions r
-       left join areas a  on (a.region_id = r.region_id)
 where  r.region_id = $1
-group by r.region_id
 """
 
 SQL_GET_AREAS = """
@@ -27,15 +24,11 @@ order by a.area
 """
 
 SQL_GET_AREA = """
-select json_build_object('area_id', a.area_id,
-                         'area', max(a.area),
-                         'region', json_build_object('region_id', max(r.region_id),
-                                                     'region', max(r.region))) as area
+select get_area_json(a.area_id) as area
 from   areas a
        inner join regions   r  on (r.region_id = a.region_id)
 where  r.region_id = $1 and
        a.area_id = $2
-group by a.area_id
 """
 
 SQL_GET_MOUNTAINS = """
@@ -49,20 +42,13 @@ order by a.area
 """
 
 SQL_GET_MOUNTAIN = """
-select json_build_object('mountain_id', m.mountain_id,
-                         'mountain', max(m.mountain),
-                         'altitude', max(m.altitude),
-                         'area', json_build_object('area_id', max(a.area_id),
-                                                   'area', max(a.area),
-                                                   'region', json_build_object('region_id', max(r.region_id),
-                                                                               'region', max(r.region)))) as mountain
+select get_mountain_json(m.mountain_id) as mountain
 from   mountains m
        inner join areas     a  on (a.area_id = m.area_id)
        inner join regions   r  on (r.region_id = a.region_id)
 where  r.region_id = $1 and
        a.area_id = $2 and
        m.mountain_id = $3
-group by m.mountain_id
 """
 
 SQL_GET_ROUTES = """

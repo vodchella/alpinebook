@@ -60,4 +60,22 @@
             DROP FUNCTION public.get_route_text(integer);
         </rollback>
     </changeSet>
+    <changeSet author="twister" id="public.get_region_json">
+        <createProcedure path="objects/functions/public/get_region_json.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            DROP FUNCTION public.get_region_json(integer);
+        </rollback>
+    </changeSet>
+    <changeSet author="twister" id="public.get_area_json">
+        <createProcedure path="objects/functions/public/get_area_json.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            DROP FUNCTION public.get_area_json(integer);
+        </rollback>
+    </changeSet>
+    <changeSet author="twister" id="public.get_mountain_json">
+        <createProcedure path="objects/functions/public/get_mountain_json.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            DROP FUNCTION public.get_mountain_json(integer);
+        </rollback>
+    </changeSet>
 </databaseChangeLog>
