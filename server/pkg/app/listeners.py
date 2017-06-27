@@ -12,7 +12,8 @@ async def setup(app, loop):
                                          command_timeout=60)
     async with app.pool.acquire() as conn:
         for query in filter(lambda q: 'SQL_' == q[:4], dir(pkg.postgresql.queries)):
-            app.db_statements[query.lower()[4:]] = await conn.prepare(getattr(pkg.postgresql.queries, query))
+            app.db_queries[query.lower()[4:]] = getattr(pkg.postgresql.queries, query)
+        await conn.close()
 
 
 @app.listener('after_server_stop')

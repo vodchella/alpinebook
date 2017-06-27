@@ -1,6 +1,14 @@
 #
-# Имена констант должны начинаться с префикса «SQL_»
+# Имена констант должны начинаться с префикса «SQL_», тогда они будут доступны в app.db_queries
 #
+
+SQL_SET_USER_ID = """
+select auth.set_user_id($1)
+"""
+
+SQL_GET_USER_ID = """
+select auth.get_user_id()
+"""
 
 SQL_GET_REGIONS = """
 select json_build_object('region_id', r.region_id,

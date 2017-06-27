@@ -2,4 +2,4 @@ from sanic import Sanic
 
 
 app = Sanic()
-app.db_statements = {}
+app.db_queries = {}
