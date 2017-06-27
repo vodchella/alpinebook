@@ -63,3 +63,15 @@ where  a.region_id = $1 and
        r.mountain_id = $3
 order by r.complexity, r.route
 """
+
+SQL_GET_ROUTE = """
+select get_route_json(rt.route_id) as mountain
+from   routes rt
+       inner join mountains m  on (m.mountain_id = rt.mountain_id)
+       inner join areas     a  on (a.area_id = m.area_id)
+       inner join regions   r  on (r.region_id = a.region_id)
+where  r.region_id = $1 and
+       a.area_id = $2 and
+       m.mountain_id = $3 and
+       rt.route_id = $4
+"""

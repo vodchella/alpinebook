@@ -78,4 +78,16 @@
             DROP FUNCTION public.get_mountain_json(integer);
         </rollback>
     </changeSet>
+    <changeSet author="twister" id="public.get_alpinist_json">
+        <createProcedure path="objects/functions/public/get_alpinist_json.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            DROP FUNCTION public.get_alpinist_json(integer);
+        </rollback>
+    </changeSet>
+    <changeSet author="twister" id="public.get_route_json">
+        <createProcedure path="objects/functions/public/get_route_json.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            DROP FUNCTION public.get_route_json(integer);
+        </rollback>
+    </changeSet>
 </databaseChangeLog>
