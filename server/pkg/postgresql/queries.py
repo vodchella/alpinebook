@@ -75,5 +75,5 @@ from   routes r
 where  a.region_id = $1 and
        m.area_id = $2 and
        r.mountain_id = $3
-order by a.area
+order by r.complexity, r.route
 """
