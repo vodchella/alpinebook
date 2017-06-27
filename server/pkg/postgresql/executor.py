@@ -9,7 +9,7 @@ class Executor:
     def __init__(self, http_request):
         self._http_request = http_request
 
-    async def _setup_db(self, conn):
+    async def _setup_db_values(self, conn):
         session_id = AuthHelper().get_session_id(self._http_request)
         user_id = await AuthHelper().get_user_id(session_id)
         statement = await conn.prepare(app.db_queries['set_user_id'])
@@ -17,7 +17,7 @@ class Executor:
 
     async def _query(self, only_one, sql, *args):
         async with app.pool.acquire() as conn:
-            await self._setup_db(conn)
+            await self._setup_db_values(conn)
             statement = await conn.prepare(sql)
             val = await statement.fetchval(*args) if only_one else await statement.fetch(*args)
         return val
