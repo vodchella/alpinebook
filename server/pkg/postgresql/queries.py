@@ -33,13 +33,16 @@ order by a.area_id
 SQL_GET_AREA = """
 select json_build_object('area_id', a.area_id,
                          'area', max(a.area),
+                         'region', json_build_object('region_id', max(r.region_id),
+                                                     'region', max(r.region)),
                          'mountains', array_agg(case
                                                   when m.mountain_id is not null then
                                                     json_build_object('mountain_id', m.mountain_id,
-                                                                      'area', m.mountain)
+                                                                      'mountain', m.mountain)
                                                 end)) as area
 from   areas a
-       left join mountains m  on (m.area_id = a.area_id)
+       left  join mountains m  on (m.area_id = a.area_id)
+       inner join regions   r  on (r.region_id = a.region_id)
 where  a.area_id = $1
 group by a.area_id
 """
