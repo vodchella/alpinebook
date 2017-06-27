@@ -54,4 +54,10 @@
             DROP FUNCTION public.write_in_summits();
         </rollback>
     </changeSet>
+    <changeSet author="twister" id="public.get_route_text">
+        <createProcedure path="objects/functions/public/get_route_text.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            DROP FUNCTION public.get_route_text(integer);
+        </rollback>
+    </changeSet>
 </databaseChangeLog>
