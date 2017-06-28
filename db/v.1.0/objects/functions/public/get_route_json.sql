@@ -9,7 +9,7 @@ $BODY$
                            'route', r.route,
                            'traverse', r.traverse_bool,
                            'ending_mountain', get_mountain_json(r.ending_mountain_id),
-                           'first_ascender', get_alpinist_json(r.alpinist_id),
+                           'first_ascender', get_alpinist_json(r.first_ascender_id),
                            'first_ascent_year', r.first_ascent_year) as route
   from   routes r
   where  r.route_id = id;

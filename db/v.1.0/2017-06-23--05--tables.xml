@@ -118,7 +118,6 @@
                 <constraints nullable="false"/>
             </column>
             <column name="route" remarks="Маршрут" type="TEXT"/>
-            <column name="alpinist_id" remarks="Руководитель первопрохождения" type="INT"/>
             <column name="complexity" remarks="Сложность" type="ROUTE_COMPLEXITY">
                 <constraints nullable="false"/>
             </column>
@@ -126,7 +125,8 @@
             <column name="route_nature" remarks="Характер маршрута" type="ROUTE_NATURE">
                 <constraints nullable="false"/>
             </column>
-            <column name="first_ascent_year" type="SMALLINT"/>
+            <column name="first_ascender_id" remarks="Руководитель первопрохождения" type="INT"/>
+            <column name="first_ascent_year" remarks="Год первопрохождения" type="SMALLINT"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>

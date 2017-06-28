@@ -47,12 +47,12 @@
     </changeSet>
     <changeSet author="twister" id="routes">
         <sql>
-            INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, alpinist_id, complexity, winter_complexity, route_nature, first_ascent_year) VALUES (1, 1, NULL, false, 'с запада', 1, '1Б', NULL, 'ск', NULL);
-            INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, alpinist_id, complexity, winter_complexity, route_nature, first_ascent_year) VALUES (2, 1, NULL, false, 'В гребень', 5, '2Б', NULL, 'ск', NULL);
-            INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, alpinist_id, complexity, winter_complexity, route_nature, first_ascent_year) VALUES (3, 1, NULL, false, 'СЗ ребро', NULL, '2Б', NULL, 'ск', NULL);
-            INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, alpinist_id, complexity, winter_complexity, route_nature, first_ascent_year) VALUES (4, 1, NULL, false, 'С стена', 4, '3Б', NULL, 'к', NULL);
-            INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, alpinist_id, complexity, winter_complexity, route_nature, first_ascent_year) VALUES (5, 1, NULL, false, 'ЮЗ гребень', 3, '2А', NULL, 'ск', NULL);
-            INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, alpinist_id, complexity, winter_complexity, route_nature, first_ascent_year) VALUES (6, 1, 2, true, NULL, 2, '4А', NULL, 'к', NULL);
+            INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, first_ascender_id, complexity, winter_complexity, route_nature, first_ascent_year) VALUES (1, 1, NULL, false, 'с запада', 1, '1Б', NULL, 'ск', NULL);
+            INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, first_ascender_id, complexity, winter_complexity, route_nature, first_ascent_year) VALUES (2, 1, NULL, false, 'В гребень', 5, '2Б', NULL, 'ск', NULL);
+            INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, first_ascender_id, complexity, winter_complexity, route_nature, first_ascent_year) VALUES (3, 1, NULL, false, 'СЗ ребро', NULL, '2Б', NULL, 'ск', NULL);
+            INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, first_ascender_id, complexity, winter_complexity, route_nature, first_ascent_year) VALUES (4, 1, NULL, false, 'С стена', 4, '3Б', NULL, 'к', NULL);
+            INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, first_ascender_id, complexity, winter_complexity, route_nature, first_ascent_year) VALUES (5, 1, NULL, false, 'ЮЗ гребень', 3, '2А', NULL, 'ск', NULL);
+            INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, first_ascender_id, complexity, winter_complexity, route_nature, first_ascent_year) VALUES (6, 1, 2, true, NULL, 2, '4А', NULL, 'к', NULL);
         </sql>
         <rollback>
             TRUNCATE routes;

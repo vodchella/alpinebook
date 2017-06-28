@@ -28,7 +28,7 @@
         <addForeignKeyConstraint baseColumnNames="area_id" baseTableName="mountains" constraintName="mountains_ref_areas" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="area_id" referencedTableName="areas"/>
     </changeSet>
     <changeSet author="twister" id="routes_ref_alpinists">
-        <addForeignKeyConstraint baseColumnNames="alpinist_id" baseTableName="routes" constraintName="routes_ref_alpinists" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="alpinist_id" referencedTableName="alpinists"/>
+        <addForeignKeyConstraint baseColumnNames="first_ascender_id" baseTableName="routes" constraintName="routes_ref_alpinists" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="alpinist_id" referencedTableName="alpinists"/>
     </changeSet>
     <changeSet author="twister" id="routes_ref_mountains">
         <addForeignKeyConstraint baseColumnNames="mountain_id" baseTableName="routes" constraintName="routes_ref_mountains" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="mountain_id" referencedTableName="mountains"/>
