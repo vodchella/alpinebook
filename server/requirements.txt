@@ -1,7 +1,11 @@
 aiofiles==0.3.1
 asyncpg==0.11.0
+decorator==4.0.11
 httptools==0.0.9
+jsonpath-rw==1.4.0
+ply==3.10
 sanic==0.5.4
+six==1.10.0
 ujson==1.35
 uvloop==0.8.0
 websockets==3.3
