@@ -5,9 +5,6 @@ from urllib.parse import urlparse
 class SimpleRefResolver:
     _json_obj = None
 
-    def __init__(self, json_obj):
-        self._json_obj = json_obj
-
     def _resolve(self, json_obj):
         if isinstance(json_obj, dict):
             for key, value in json_obj.items():
@@ -29,5 +26,6 @@ class SimpleRefResolver:
                     json_obj[key] = resolved
         return None
 
-    def resolve(self):
-        self._resolve(self._json_obj)
+    def resolve(self, json_obj):
+        self._json_obj = json_obj
+        self._resolve(json_obj)
