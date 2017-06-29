@@ -1,33 +1,33 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd" logicalFilePath="/v.1.0/2017-06-23--02--domains.xml">
-	<changeSet author="twister" id="route_complexity">
-		<sql>
-			CREATE DOMAIN route_complexity
-			  AS character varying(2)
-			  CONSTRAINT route_complexity_check CHECK (VALUE::text = ANY (ARRAY['1А'::character varying::text, '1Б'::character varying::text, '2А'::character varying::text, '2Б'::character varying::text, '3А'::character varying::text, '3Б'::character varying::text, '4А'::character varying::text, '4Б'::character varying::text, '5А'::character varying::text, '5Б'::character varying::text, '6А'::character varying::text, '6Б'::character varying::text]));
-		</sql>
+    <changeSet author="twister" id="route_complexity">
+        <sql>
+            CREATE DOMAIN route_complexity
+              AS character varying(2)
+              CONSTRAINT route_complexity_check CHECK (VALUE::text = ANY (ARRAY['1А'::character varying::text, '1Б'::character varying::text, '2А'::character varying::text, '2Б'::character varying::text, '3А'::character varying::text, '3Б'::character varying::text, '4А'::character varying::text, '4Б'::character varying::text, '5А'::character varying::text, '5Б'::character varying::text, '6А'::character varying::text, '6Б'::character varying::text]));
+        </sql>
         <rollback>
             DROP DOMAIN IF EXISTS route_complexity RESTRICT;
         </rollback>
-	</changeSet>
-	<changeSet author="twister" id="route_nature">
-		<sql>
-			CREATE DOMAIN route_nature
-			  AS character varying(2)
-			  CONSTRAINT route_nature_check CHECK (VALUE::text = ANY (ARRAY['к'::character varying::text, 'ск'::character varying::text, 'лс'::character varying::text]));
-		</sql>
+    </changeSet>
+    <changeSet author="twister" id="route_nature">
+        <sql>
+            CREATE DOMAIN route_nature
+              AS character varying(2)
+              CONSTRAINT route_nature_check CHECK (VALUE::text = ANY (ARRAY['к'::character varying::text, 'ск'::character varying::text, 'лс'::character varying::text]));
+        </sql>
         <rollback>
             DROP DOMAIN IF EXISTS route_nature RESTRICT;
         </rollback>
-	</changeSet>
-	<changeSet author="twister" id="sport_rank">
-		<sql>
-			CREATE DOMAIN sport_rank
-			  AS character varying(4)
-			  CONSTRAINT sport_rank_check CHECK (VALUE::text = ANY (ARRAY['БР'::character varying, 'ЗН'::character varying, 'III'::character varying, 'II'::character varying, 'I'::character varying, 'КМС'::character varying, 'МС'::character varying, 'МСМК'::character varying, 'ЗМС'::character varying]::text[]));
-		</sql>
+    </changeSet>
+    <changeSet author="twister" id="sport_rank">
+        <sql>
+            CREATE DOMAIN sport_rank
+              AS character varying(4)
+              CONSTRAINT sport_rank_check CHECK (VALUE::text = ANY (ARRAY['БР'::character varying, 'ЗН'::character varying, 'III'::character varying, 'II'::character varying, 'I'::character varying, 'КМС'::character varying, 'МС'::character varying, 'МСМК'::character varying, 'ЗМС'::character varying]::text[]));
+        </sql>
         <rollback>
             DROP DOMAIN IF EXISTS sport_rank RESTRICT;
         </rollback>
-	</changeSet>
+    </changeSet>
 </databaseChangeLog>

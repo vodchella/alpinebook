@@ -1,19 +1,19 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd" logicalFilePath="/v.1.0/2017-06-23--01--schemas.xml">
-	<changeSet author="twister" id="auth">
-		<sql>
-			CREATE SCHEMA auth;
-		</sql>
+    <changeSet author="twister" id="auth">
+        <sql>
+            CREATE SCHEMA auth;
+        </sql>
         <rollback>
             DROP SCHEMA IF EXISTS auth RESTRICT;
         </rollback>
-	</changeSet>
-	<changeSet author="twister" id="util">
-		<sql>
-			CREATE SCHEMA util;
-		</sql>
+    </changeSet>
+    <changeSet author="twister" id="util">
+        <sql>
+            CREATE SCHEMA util;
+        </sql>
         <rollback>
             DROP SCHEMA IF EXISTS util RESTRICT;
         </rollback>
-	</changeSet>
+    </changeSet>
 </databaseChangeLog>
