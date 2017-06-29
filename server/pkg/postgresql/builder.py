@@ -16,6 +16,11 @@ class QueryBuilder:
     def _get_fields(self, json_object):
         if self._validate_json:
             Validator().validate_and_raise_error(json_object, self._table_name)
+        primary_key = ''
+        for fld in self._map['fields'].items():
+            field = fld[1]
+            field_name = field['db_name'] if 'db_name' in field else fld[0]
+            primary_key = field_name if 'primary_key' in field and field['primary_key'] else primary_key
         fields = []
         out_values = []
         in_values = [v for v in json_object.values()]
@@ -30,10 +35,11 @@ class QueryBuilder:
                 field_value = in_values[i]
             fields.append(field_name)
             out_values.append(field_value)
-        return {'fields': fields, 'values': out_values}
+        return {'fields': fields, 'primary_key': primary_key, 'values': out_values}
 
     def generate_insert(self, json_object):
         fields = self._get_fields(json_object)
+        ret = 'returning %s' % fields['primary_key'] if fields['primary_key'] else ''
         vals = ', '.join(['$%s' % i for (i, v) in enumerate(fields['values'], start=1)])
-        sql = 'insert into %s (%s) values (%s);' % (self._table_name, ', '.join(fields['fields']), vals)
+        sql = 'insert into %s (%s) values (%s) %s;' % (self._table_name, ', '.join(fields['fields']), vals, ret)
         return {'sql': sql, 'values': fields['values']}

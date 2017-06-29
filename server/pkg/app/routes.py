@@ -1,6 +1,22 @@
 from pkg.postgresql.executor import Executor
+from pkg.postgresql.builder import QueryBuilder
+from pkg.utils.decorators.validate_request import validate_request
 from sanic import response
 from . import app
+
+
+@app.route('/summits',
+           methods=['POST'])
+@validate_request('alpinist_summits')
+async def insert_summit(request):
+    query_data = QueryBuilder('alpinist_summits').generate_insert(request.json)
+    result = await Executor(request).query_one(query_data['sql'], *query_data['values'])
+    return response.json({'new_id': result})
+
+
+#
+# Просмотр справочников
+#
 
 
 @app.route('/regions',

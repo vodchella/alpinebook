@@ -1,7 +1,9 @@
 mappings = {
     'alpinist_summits': {
         'fields': {
-            'alpinist_summit_id': {},
+            'alpinist_summit_id': {
+                'primary_key': True
+            },
             'alpinist_id': {},
             'summit_date': {
                 'type': 'date',

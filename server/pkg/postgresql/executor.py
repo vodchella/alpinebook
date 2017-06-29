@@ -35,3 +35,10 @@ class Executor:
     async def query_one(self, sql, *args):
         value = await self._query(True, sql, *args)
         return value
+
+    async def execute(self, sql, *args):
+        async with app.pool.acquire() as conn:
+            async with conn.transaction():
+                await self._setup_db_values(conn)
+                result = await conn.execute(sql, *args)
+        return result
