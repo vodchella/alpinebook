@@ -7,8 +7,7 @@ from sanic import response
 from . import app
 
 
-@app.route('/summits',
-           methods=['POST'])
+@app.route('/summits', methods=['POST'])
 @validate_request('alpinist_summits')
 async def insert_summit(request):
     query_data = QueryBuilder('alpinist_summits').generate_insert(request.json)
@@ -24,14 +23,12 @@ async def insert_summit(request):
 #
 
 
-@app.route('/regions',
-           methods=['GET'])
+@app.route('/regions', methods=['GET'])
 async def list_regions(request):
     return response.json(await Executor(request).query_all_json(app.db_queries['get_regions']))
 
 
-@app.route('/regions/<region_id:int>',
-           methods=['GET'])
+@app.route('/regions/<region_id:int>', methods=['GET'])
 async def get_region(request, region_id: int):
     return response.json(await Executor(request).query_one_json(app.db_queries['get_region'],
                                                          region_id))
@@ -44,15 +41,13 @@ async def list_regions(request, region_id: int):
                                                          region_id))
 
 
-@app.route('/regions/<region_id:int>/areas/<area_id:int>',
-           methods=['GET'])
+@app.route('/regions/<region_id:int>/areas/<area_id:int>', methods=['GET'])
 async def list_regions(request, region_id: int, area_id: int):
     return response.json(await Executor(request).query_one_json(app.db_queries['get_area'],
                                                          region_id, area_id))
 
 
-@app.route('/regions/<region_id:int>/areas/<area_id:int>/mountains',
-           methods=['GET'])
+@app.route('/regions/<region_id:int>/areas/<area_id:int>/mountains', methods=['GET'])
 async def list_regions(request, region_id: int, area_id: int):
     return response.json(await Executor(request).query_all_json(app.db_queries['get_mountains'],
                                                          region_id, area_id))
