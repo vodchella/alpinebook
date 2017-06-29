@@ -21,6 +21,8 @@ class QueryBuilder:
             field = fld[1]
             field_name = field['db_name'] if 'db_name' in field else fld[0]
             primary_key = field_name if 'primary_key' in field and field['primary_key'] else primary_key
+            if primary_key:
+                break
         fields = []
         out_values = []
         in_values = [v for v in json_object.values()]
