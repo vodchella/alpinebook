@@ -1,4 +1,4 @@
-from pkg.utils.decorators import singleton
+from pkg.utils.decorators.singleton import singleton
 
 
 @singleton
