@@ -4,6 +4,7 @@ from sanic import response
 
 
 ERROR_SCHEMA_VALIDATION = -32001
+ERROR_UNIQUE_VIOLATION = -32002
 
 
 def get_raised_error(full=False):
