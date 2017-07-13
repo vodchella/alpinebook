@@ -15,5 +15,5 @@ def get_raised_error(full=False):
         return e[-1:][0]
 
 
-def response_error(code, message):
-    return response.json({'error': {'code': code, 'message': message}})
+def response_error(code, message, status=200):
+    return response.json({'error': {'code': code, 'message': message}}, status=status)
