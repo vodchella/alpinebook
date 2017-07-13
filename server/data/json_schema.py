@@ -1,4 +1,5 @@
 from pkg.utils.json.ref_resolver import SimpleRefResolver
+from data.regex import REGEX_DATE, REGEX_DATETIME
 
 schemas = {
     'alpinist_summits': {
@@ -25,14 +26,13 @@ schemas = {
                 'type': 'number',
                 'minimum': 1
             },
-            'date_time': {
+            'datetime': {
                 'type': 'string',
-                'pattern': '^(0?[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])\.\d\d\d\d (00|[0-9]|1[0-9]|2[0-3]):([0-9]|['
-                           '0-5][0-9]):([0-9]|[0-5][0-9])$'
+                'pattern': REGEX_DATETIME
             },
             'date': {
                 'type': 'string',
-                'pattern': '^(0?[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])\.\d\d\d\d$'
+                'pattern': REGEX_DATE
             }
         }
     }
