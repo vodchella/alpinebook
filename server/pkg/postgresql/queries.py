@@ -83,3 +83,13 @@ where  r.region_id = $1 and
        m.mountain_id = $3 and
        rt.route_id = $4
 """
+
+SQL_GET_SUMMITS = """
+select json_build_object('summit_id', s.alpinist_summit_id,
+                         'summit_date', to_char(s.summit_date, 'DD.MM.YYYY'),
+                         'route', get_route_json(s.route_id),
+                         'leader', s.leader_bool,
+                         'members', s.members)
+from   alpinist_summits s
+where  s.alpinist_id = $1
+"""

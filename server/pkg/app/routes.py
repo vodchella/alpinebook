@@ -7,6 +7,11 @@ from sanic import response
 from . import app
 
 
+@app.route('/summits/alpinist/<alpinist_id:int>', methods=['GET'])
+async def get_summits(request, alpinist_id: int):
+    return response.json(await Executor(request).query_all_json(app.db_queries['get_summits'], alpinist_id))
+
+
 @app.route('/summits', methods=['POST'])
 @validate_request('alpinist_summits')
 async def insert_summit(request):
