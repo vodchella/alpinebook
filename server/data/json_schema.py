@@ -7,12 +7,12 @@ schemas = {
         '$schema': 'http://json-schema.org/draft-04/schema#',
         'type': 'object',
         'properties': {
-            'alpinist_summit_id': {'$ref': 'schemas://field_types#/definitions/id'},
-            'alpinist_id':        {'$ref': 'schemas://field_types#/definitions/id'},
-            'summit_date':        {'$ref': 'schemas://field_types#/definitions/date'},
-            'route_id':           {'$ref': 'schemas://field_types#/definitions/id'},
-            'leader':             {'type': 'boolean'},
-            'members':            {'type': 'string'}
+            'summit_id':    {'$ref': 'schemas://field_types#/definitions/id'},
+            'alpinist_id':  {'$ref': 'schemas://field_types#/definitions/id'},
+            'summit_date':  {'$ref': 'schemas://field_types#/definitions/date'},
+            'route_id':     {'$ref': 'schemas://field_types#/definitions/id'},
+            'leader':       {'type': 'boolean'},
+            'members':      {'type': 'string'}
         },
         'required': ['alpinist_id', 'summit_date', 'route_id', 'leader']
     },
