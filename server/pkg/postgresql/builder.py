@@ -60,3 +60,8 @@ class QueryBuilder:
         sql = 'with rows as (update %s set %s where %s = $1 returning 1) select count(*) from rows' % \
               (self._table_name, cols, pk)
         return {'sql': sql, 'values': fields_values}
+
+    def generate_delete(self):
+        sql = 'with rows as (delete from %s where %s = $1 returning 1) select count(*) from rows' % \
+              (self._table_name, self._primary_key)
+        return {'sql': sql}
