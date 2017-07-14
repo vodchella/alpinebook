@@ -45,3 +45,13 @@ class QueryBuilder:
         vals = ', '.join(['$%s' % i for (i, v) in enumerate(fields['values'], start=1)])
         sql = 'insert into %s (%s) values (%s) %s;' % (self._table_name, ', '.join(fields['fields']), vals, ret)
         return {'sql': sql, 'values': fields['values']}
+
+    def generate_update(self, json_object):
+        fields_data = self._get_fields(json_object)
+        pk = fields_data['primary_key']
+        fields_names = [n for (i, n) in enumerate(fields_data['fields']) if n != pk]
+        fields_values = [v for (i, v) in enumerate(fields_data['values']) if fields_data['fields'][i] != pk]
+        cols = ', '.join(['%s = $%s' % (fields_names[i], i + 2) for (i, v) in enumerate(fields_names)])
+        sql = 'with rows as (update %s set %s where %s = $1 returning 1) select count(*) from rows' % \
+              (self._table_name, cols, pk)
+        return {'sql': sql, 'values': fields_values}
