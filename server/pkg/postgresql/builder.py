@@ -5,6 +5,7 @@ from pkg.utils.json.validator import Validator
 
 class QueryBuilder:
     _table_name = None
+    _primary_key = None
     _map = None
     _validate_json = False
 
@@ -12,10 +13,9 @@ class QueryBuilder:
         self._table_name = table_name
         self._map = mappings[table_name]
         self._validate_json = validate_json
+        self._primary_key = self._get_primary_key()
 
-    def _get_fields(self, json_object):
-        if self._validate_json:
-            Validator().validate_and_raise_error(json_object, self._table_name)
+    def _get_primary_key(self):
         primary_key = ''
         for fld in self._map['fields'].items():
             field = fld[1]
@@ -23,6 +23,11 @@ class QueryBuilder:
             primary_key = field_name if 'primary_key' in field and field['primary_key'] else primary_key
             if primary_key:
                 break
+        return primary_key
+
+    def _get_fields(self, json_object):
+        if self._validate_json:
+            Validator().validate_and_raise_error(json_object, self._table_name)
         fields = []
         out_values = []
         in_values = [v for v in json_object.values()]
@@ -37,7 +42,7 @@ class QueryBuilder:
                 field_value = in_values[i]
             fields.append(field_name)
             out_values.append(field_value)
-        return {'fields': fields, 'primary_key': primary_key, 'values': out_values}
+        return {'fields': fields, 'primary_key': self._primary_key, 'values': out_values}
 
     def generate_insert(self, json_object):
         fields = self._get_fields(json_object)
