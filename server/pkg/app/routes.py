@@ -8,10 +8,23 @@ from sanic import response
 from . import app
 
 
+#
+# Методы для работы с восхождениями альпиниста
+#
+
+
 @app.route('/summits/alpinist/<alpinist_id:int>', methods=['GET'])
 @handle_exceptions
 async def get_summits(request, alpinist_id: int):
     return response.json(await Executor(request).query_all_json(app.db_queries['get_summits'], alpinist_id))
+
+
+@app.route('/summits/<summit_id:int>', methods=['DELETE'])
+@handle_exceptions
+async def delete_summit(request, summit_id: int):
+    query_data = QueryBuilder('alpinist_summits').generate_delete()
+    result = await Executor(request).query_one(query_data['sql'], summit_id)
+    return response.json({'deleted': result})
 
 
 @app.route('/summits/<summit_id:int>', methods=['POST'])
