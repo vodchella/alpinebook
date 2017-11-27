@@ -30,7 +30,7 @@ async def delete_summit(request, summit_id: int):
     return response.json({'deleted': result})
 
 
-@app.route('/summits/<summit_id:int>', methods=['POST'])
+@app.route('/summits/<summit_id:int>', methods=['PUT'])
 @validate_request('alpinist_summits')
 @handle_exceptions
 async def update_summit(request, summit_id: int):
