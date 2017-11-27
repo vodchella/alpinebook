@@ -4,15 +4,15 @@ $BODY$
 declare
   res bool;
 begin
-	select count(*) > 0
-	into   res
-	from   public.users u
-	where  u.user_id = id and
-	       u.active_bool;
-	
-	if res then
-	  perform set_config('alpinebook.current_user_id', id::text, false);
-	end if;
+  select count(*) > 0
+  into   res
+  from   public.users u
+  where  u.user_id = id and
+         u.active_bool;
+
+  if res then
+    perform set_config('alpinebook.current_user_id', id::text, false);
+  end if;
   
   return res;
 end 
