@@ -221,7 +221,7 @@
 			"description": "",
 			"item": [
 				{
-					"name": "get_summits_by_alpinist_id",
+					"name": "get_summits",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -235,6 +235,40 @@
 								"summits",
 								"alpinist",
 								":alpinist_id"
+							],
+							"variable": [
+								{
+									"key": "alpinist_id",
+									"value": "1"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "get_summits_with_full_info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{alpinebook-server}}/summits/alpinist/:alpinist_id?full_route_info=True",
+							"host": [
+								"{{alpinebook-server}}"
+							],
+							"path": [
+								"summits",
+								"alpinist",
+								":alpinist_id"
+							],
+							"query": [
+								{
+									"key": "full_route_info",
+									"value": "True",
+									"equals": true
+								}
 							],
 							"variable": [
 								{

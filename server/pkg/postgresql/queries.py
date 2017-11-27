@@ -52,7 +52,7 @@ where  m.mountain_id = $1
 
 SQL_GET_ROUTES = """
 select json_build_object('route_id', r.route_id,
-                         'route', get_route_text(r.route_id)) as mountain
+                         'route', get_route_text(r.route_id, false)) as mountain
 from   routes r
 where  r.mountain_id = $1
 order by r.complexity, r.route
@@ -67,7 +67,13 @@ where  rt.route_id = $1
 SQL_GET_SUMMITS = """
 select json_build_object('summit_id', s.alpinist_summit_id,
                          'summit_date', to_char(s.summit_date, 'DD.MM.YYYY'),
-                         'route', get_route_json(s.route_id),
+                         'route', case
+                                    when $2 = false then
+                                      json_build_object('route_id', s.route_id,
+                                                        'name', get_route_text(s.route_id, true))
+                                    else
+                                      get_route_json(s.route_id)
+                                  end,
                          'leader', s.leader_bool,
                          'members', s.members)
 from   alpinist_summits s

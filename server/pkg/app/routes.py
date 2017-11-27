@@ -16,7 +16,10 @@ from . import app
 @app.route('/summits/alpinist/<alpinist_id:int>', methods=['GET'])
 @handle_exceptions
 async def get_summits(request, alpinist_id: int):
-    return response.json(await Executor(request).query_all_json(app.db_queries['get_summits'], alpinist_id))
+    full = False
+    if 'full_route_info' in request.raw_args:
+        full = request.raw_args['full_route_info'].lower() == 'true'
+    return response.json(await Executor(request).query_all_json(app.db_queries['get_summits'], alpinist_id, full))
 
 
 @app.route('/summits/<summit_id:int>', methods=['DELETE'])

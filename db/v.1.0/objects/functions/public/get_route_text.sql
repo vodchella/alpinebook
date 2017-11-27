@@ -1,7 +1,15 @@
-CREATE OR REPLACE FUNCTION public.get_route_text(r_id integer)
+CREATE OR REPLACE FUNCTION public.get_route_text(
+    r_id integer,
+    include_mountain_name_bool boolean)
   RETURNS text AS
 $BODY$
-  select r.complexity || ' ' ||
+  select case
+           when include_mountain_name_bool = true then
+             m.mountain || ' '
+           else
+             ''
+         end ||
+         r.complexity || ' ' ||
          case r.traverse_bool
            when true then
              'траверс до ' || em.mountain
@@ -9,6 +17,7 @@ $BODY$
              r.route
          end
   from   routes r
+         inner join mountains  m on (m.mountain_id = r.mountain_id)
          left  join mountains em on (em.mountain_id = r.ending_mountain_id)
   where  r.route_id = r_id;
 $BODY$
