@@ -34,54 +34,34 @@ order by a.area
 SQL_GET_AREA = """
 select get_area_json(a.area_id) as area
 from   areas a
-       inner join regions   r  on (r.region_id = a.region_id)
-where  r.region_id = $1 and
-       a.area_id = $2
+where  a.area_id = $1
 """
 
 SQL_GET_MOUNTAINS = """
 select json_build_object('mountain_id', m.mountain_id,
                          'mountain', m.mountain) as mountain
 from   mountains m
-       inner join areas a on (a.area_id = m.area_id)
-where  a.region_id = $1 and
-       m.area_id = $2
-order by a.area
+where  m.area_id = $1
 """
 
 SQL_GET_MOUNTAIN = """
 select get_mountain_json(m.mountain_id) as mountain
 from   mountains m
-       inner join areas     a  on (a.area_id = m.area_id)
-       inner join regions   r  on (r.region_id = a.region_id)
-where  r.region_id = $1 and
-       a.area_id = $2 and
-       m.mountain_id = $3
+where  m.mountain_id = $1
 """
 
 SQL_GET_ROUTES = """
 select json_build_object('route_id', r.route_id,
                          'route', get_route_text(r.route_id)) as mountain
 from   routes r
-       inner join mountains  m on (m.mountain_id = r.mountain_id)
-       inner join areas      a on (a.area_id = m.area_id)
-       left  join mountains em on (em.mountain_id = r.ending_mountain_id)
-where  a.region_id = $1 and
-       m.area_id = $2 and
-       r.mountain_id = $3
+where  r.mountain_id = $1
 order by r.complexity, r.route
 """
 
 SQL_GET_ROUTE = """
 select get_route_json(rt.route_id) as mountain
 from   routes rt
-       inner join mountains m  on (m.mountain_id = rt.mountain_id)
-       inner join areas     a  on (a.area_id = m.area_id)
-       inner join regions   r  on (r.region_id = a.region_id)
-where  r.region_id = $1 and
-       a.area_id = $2 and
-       m.mountain_id = $3 and
-       rt.route_id = $4
+where  rt.route_id = $1
 """
 
 SQL_GET_SUMMITS = """
