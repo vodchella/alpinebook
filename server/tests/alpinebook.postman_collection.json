@@ -1,0 +1,349 @@
+{
+	"info": {
+		"name": "alpinebook",
+		"_postman_id": "8ec54b40-8fdb-fbf8-97ee-ca15a4125bd4",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "view_dictionary_data",
+			"description": "",
+			"item": [
+				{
+					"name": "get_regions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{alpinebook-server}}/regions",
+							"host": [
+								"{{alpinebook-server}}"
+							],
+							"path": [
+								"regions"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "get_region_by_id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{alpinebook-server}}/regions/:region_id",
+							"host": [
+								"{{alpinebook-server}}"
+							],
+							"path": [
+								"regions",
+								":region_id"
+							],
+							"variable": [
+								{
+									"key": "region_id",
+									"value": "1"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "get_areas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{alpinebook-server}}/regions/:region_id/areas",
+							"host": [
+								"{{alpinebook-server}}"
+							],
+							"path": [
+								"regions",
+								":region_id",
+								"areas"
+							],
+							"variable": [
+								{
+									"key": "region_id",
+									"value": "1"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "get_area_by_id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{alpinebook-server}}/areas/:area_id",
+							"host": [
+								"{{alpinebook-server}}"
+							],
+							"path": [
+								"areas",
+								":area_id"
+							],
+							"variable": [
+								{
+									"key": "area_id",
+									"value": "1"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "get_mountains",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{alpinebook-server}}/areas/:area_id/mountains",
+							"host": [
+								"{{alpinebook-server}}"
+							],
+							"path": [
+								"areas",
+								":area_id",
+								"mountains"
+							],
+							"variable": [
+								{
+									"key": "area_id",
+									"value": "1"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "get_mountain_by_id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{alpinebook-server}}/mountains/:mountain_id",
+							"host": [
+								"{{alpinebook-server}}"
+							],
+							"path": [
+								"mountains",
+								":mountain_id"
+							],
+							"variable": [
+								{
+									"key": "mountain_id",
+									"value": "1"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "get_routes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{alpinebook-server}}/mountains/:mountain_id/routes",
+							"host": [
+								"{{alpinebook-server}}"
+							],
+							"path": [
+								"mountains",
+								":mountain_id",
+								"routes"
+							],
+							"variable": [
+								{
+									"key": "mountain_id",
+									"value": "1"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "get_route_by_id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{alpinebook-server}}/routes/:route_id",
+							"host": [
+								"{{alpinebook-server}}"
+							],
+							"path": [
+								"routes",
+								":route_id"
+							],
+							"variable": [
+								{
+									"key": "route_id",
+									"value": "6"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "summits",
+			"description": "",
+			"item": [
+				{
+					"name": "get_summits_by_alpinist_id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{alpinebook-server}}/summits/alpinist/:alpinist_id",
+							"host": [
+								"{{alpinebook-server}}"
+							],
+							"path": [
+								"summits",
+								"alpinist",
+								":alpinist_id"
+							],
+							"variable": [
+								{
+									"key": "alpinist_id",
+									"value": "1"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "insert_summit",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"summit_id\": 666,\n\t\"alpinist_id\": 1,\n\t\"summit_date\": \"01.01.2017\",\n\t\"route_id\": 1,\n\t\"leader\": true,\n\t\"members\": \"Разные люди\"\n}"
+						},
+						"url": {
+							"raw": "{{alpinebook-server}}/summits/",
+							"host": [
+								"{{alpinebook-server}}"
+							],
+							"path": [
+								"summits",
+								""
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "update_summit",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"summit_id\": 666,\n\t\"alpinist_id\": 1,\n\t\"summit_date\": \"02.01.2017\",\n\t\"route_id\": 1,\n\t\"leader\": false,\n\t\"members\": \"Разные люди +1\"\n}"
+						},
+						"url": {
+							"raw": "{{alpinebook-server}}/summits/:summit_id",
+							"host": [
+								"{{alpinebook-server}}"
+							],
+							"path": [
+								"summits",
+								":summit_id"
+							],
+							"variable": [
+								{
+									"key": "summit_id",
+									"value": "666"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "delete_summit",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{alpinebook-server}}/summits/:summit_id",
+							"host": [
+								"{{alpinebook-server}}"
+							],
+							"path": [
+								"summits",
+								":summit_id"
+							],
+							"variable": [
+								{
+									"key": "summit_id",
+									"value": "666"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
