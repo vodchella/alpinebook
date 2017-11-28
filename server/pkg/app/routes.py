@@ -2,10 +2,38 @@ from pkg.postgresql.executor import Executor
 from pkg.postgresql.builder import QueryBuilder
 from pkg.utils.decorators.validate_request import validate_request
 from pkg.utils.decorators.handle_exceptions import handle_exceptions
-from pkg.utils.errors import response_error, ERROR_UNIQUE_VIOLATION
+from pkg.utils.errors import *
 from asyncpg.exceptions import UniqueViolationError
 from sanic import response
 from . import app
+
+
+@app.route('/users/signin/<user_name:[A-z0-9@-_\.]+>', methods=['POST'])
+@handle_exceptions
+async def signin(request, user_name: str):
+    if 'method' in request.raw_args:
+        method = request.raw_args['method'].lower()
+        if method == 'telegram':
+            ip = request.ip[0]
+            if ip == '127.0.0.1':
+                try:
+                    telegram_id = int(user_name)
+                except ValueError:
+                    return response_error(ERROR_INVALID_IDENTIFIER, 'Неверный идентификатор Telegram')
+                user = await Executor(request).query_one_json(app.db_queries['get_user_by_telegram_id'], telegram_id)
+                if user['id']:
+                    if user['active']:
+                        return response.json({'alpinebook_session': 'fake_session_id'})
+                    else:
+                        return response_error(ERROR_USER_NOT_ACTIVE, 'Пользователь заблокирован')
+                else:
+                    return response_error(ERROR_INVALID_CREDENTIALS, 'Логин или пароль неверны')
+            else:
+                return response_error(ERROR_IP_ADDRESS_NOT_ALLOWED, 'Подключения с внешних адресов запрещены')
+        else:
+            return response_error(ERROR_INVALID_AUTH_METHOD_SPECIFIED, 'Указан неверный метод авторизации')
+    else:
+        return response_error(ERROR_NO_AUTH_METHOD_SPECIFIED, 'Не указан метод авторизации')
 
 
 #

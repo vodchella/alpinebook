@@ -25,7 +25,7 @@
 								"regions"
 							]
 						},
-						"description": null
+						"description": ""
 					},
 					"response": []
 				},
@@ -51,7 +51,7 @@
 								}
 							]
 						},
-						"description": null
+						"description": ""
 					},
 					"response": []
 				},
@@ -78,7 +78,7 @@
 								}
 							]
 						},
-						"description": null
+						"description": ""
 					},
 					"response": []
 				},
@@ -104,7 +104,7 @@
 								}
 							]
 						},
-						"description": null
+						"description": ""
 					},
 					"response": []
 				},
@@ -131,7 +131,7 @@
 								}
 							]
 						},
-						"description": null
+						"description": ""
 					},
 					"response": []
 				},
@@ -157,7 +157,7 @@
 								}
 							]
 						},
-						"description": null
+						"description": ""
 					},
 					"response": []
 				},
@@ -184,7 +184,7 @@
 								}
 							]
 						},
-						"description": null
+						"description": ""
 					},
 					"response": []
 				},
@@ -210,7 +210,7 @@
 								}
 							]
 						},
-						"description": null
+						"description": ""
 					},
 					"response": []
 				}
@@ -243,7 +243,7 @@
 								}
 							]
 						},
-						"description": null
+						"description": ""
 					},
 					"response": []
 				},
@@ -277,7 +277,7 @@
 								}
 							]
 						},
-						"description": null
+						"description": ""
 					},
 					"response": []
 				},
@@ -293,7 +293,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"summit_id\": 666,\n  \"alpinist_id\": 1,\n  \"summit_date\": \"01.01.2017\",\n  \"route_id\": 1,\n  \"leader\": true,\n  \"members\": \"Разные люди\"\n}"
+							"raw": "{\n\t\"summit_id\": 666,\n\t\"alpinist_id\": 1,\n\t\"summit_date\": \"01.01.2017\",\n\t\"route_id\": 1,\n\t\"leader\": true,\n\t\"members\": \"Разные люди\"\n}"
 						},
 						"url": {
 							"raw": "{{alpinebook-server}}/summits/",
@@ -305,7 +305,7 @@
 								""
 							]
 						},
-						"description": null
+						"description": ""
 					},
 					"response": []
 				},
@@ -373,7 +373,47 @@
 								}
 							]
 						},
-						"description": null
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"description": "",
+			"item": [
+				{
+					"name": "signin_via_telegram",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{alpinebook-server}}/users/signin/:user_name?method=telegram",
+							"host": [
+								"{{alpinebook-server}}"
+							],
+							"path": [
+								"users",
+								"signin",
+								":user_name"
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": "telegram",
+									"equals": true
+								}
+							],
+							"variable": [
+								{
+									"key": "user_name",
+									"value": "111111111"
+								}
+							]
+						},
+						"description": ""
 					},
 					"response": []
 				}
