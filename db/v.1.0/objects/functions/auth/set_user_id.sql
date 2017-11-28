@@ -6,7 +6,7 @@ declare
 begin
   select count(*) > 0
   into   res
-  from   public.users u
+  from   auth.users u
   where  u.user_id = id and
          u.active_bool;
 

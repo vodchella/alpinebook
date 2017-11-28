@@ -14,7 +14,7 @@
         </createTable>
     </changeSet>
     <changeSet author="twister" id="users">
-        <createTable remarks="Пользователи" tableName="users">
+        <createTable remarks="Пользователи" tableName="users" schemaName="auth">
             <column autoIncrement="true" name="user_id" remarks="Пользователь" type="SERIAL">
                 <constraints primaryKey="true" primaryKeyName="pk_users"/>
             </column>
