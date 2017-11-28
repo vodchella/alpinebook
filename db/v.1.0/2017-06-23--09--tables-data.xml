@@ -14,7 +14,7 @@
     </changeSet>
     <changeSet author="twister" id="users">
         <sql>
-            INSERT INTO auth.users (user_id, alpinist_id, email, active_bool) VALUES (1, NULL, 'twister.kz@gmail.com', true);
+            INSERT INTO auth.users (user_id, alpinist_id, email, telegram_id, telegram_name, active_bool) VALUES (1, NULL, 'twister.kz@gmail.com', 111111111, 'vodchella', true);
         </sql>
         <rollback>
             TRUNCATE auth.users;

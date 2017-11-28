@@ -6,4 +6,10 @@
     <changeSet author="twister" id="unq_region">
         <addUniqueConstraint columnNames="region" constraintName="unq_region" tableName="regions"/>
     </changeSet>
+    <changeSet author="twister" id="unq_email">
+        <addUniqueConstraint columnNames="email" constraintName="unq_email" tableName="users" schemaName="auth"/>
+    </changeSet>
+    <changeSet author="twister" id="unq_telegram_id">
+        <addUniqueConstraint columnNames="telegram_id" constraintName="unq_telegram_id" tableName="users" schemaName="auth"/>
+    </changeSet>
 </databaseChangeLog>
