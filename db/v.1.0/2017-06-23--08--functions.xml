@@ -102,4 +102,16 @@
             DROP FUNCTION auth.check_self_id_not_in_exceptions();
         </rollback>
     </changeSet>
+    <changeSet author="twister" id="auth.check_access">
+        <createProcedure path="objects/functions/auth/check_access.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            DROP FUNCTION auth.check_access(integer, auth.access_group, integer[]);
+        </rollback>
+    </changeSet>
+    <changeSet author="twister" id="auth.check_read_access">
+        <createProcedure path="objects/functions/auth/check_read_access.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            DROP FUNCTION auth.check_read_access(integer, text);
+        </rollback>
+    </changeSet>
 </databaseChangeLog>

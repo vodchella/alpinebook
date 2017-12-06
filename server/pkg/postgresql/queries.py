@@ -85,5 +85,7 @@ select json_build_object('summit_id', s.alpinist_summit_id,
                          'leader', s.leader_bool,
                          'members', s.members)
 from   alpinist_summits s
-where  s.alpinist_id = $1
+       left join auth.users  u on (u.alpinist_id = s.alpinist_id)
+where  s.alpinist_id = $1 and
+       auth.check_read_access(u.user_id, 'summits')
 """

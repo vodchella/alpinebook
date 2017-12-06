@@ -4,9 +4,10 @@
         <sql>
             INSERT INTO alpinists (alpinist_id, last_name, first_name, middle_name, rank) VALUES (1, 'Зимин', 'В', NULL, NULL);
             INSERT INTO alpinists (alpinist_id, last_name, first_name, middle_name, rank) VALUES (2, 'Лебедев', 'Тимофей', NULL, NULL);
+            INSERT INTO alpinists (alpinist_id, last_name, first_name, middle_name, rank) VALUES (3, 'Горбунов', 'Юрий', NULL, 'МС');
             INSERT INTO alpinists (alpinist_id, last_name, first_name, middle_name, rank) VALUES (4, 'Саланов', 'Д', NULL, NULL);
             INSERT INTO alpinists (alpinist_id, last_name, first_name, middle_name, rank) VALUES (5, 'Неаронский', 'В', NULL, NULL);
-            INSERT INTO alpinists (alpinist_id, last_name, first_name, middle_name, rank) VALUES (3, 'Горбунов', 'Юрий', NULL, 'МС');
+            INSERT INTO alpinists (alpinist_id, last_name, first_name, middle_name, rank) VALUES (6, 'Павлов', 'Максим', 'Андреевич', 'I');
         </sql>
         <rollback>
             TRUNCATE alpinists;
@@ -14,7 +15,7 @@
     </changeSet>
     <changeSet author="twister" id="users">
         <sql>
-            INSERT INTO auth.users (user_id, alpinist_id, email, telegram_id, telegram_name, active_bool) VALUES (1, NULL, 'twister.kz@gmail.com', 111111111, 'vodchella', true);
+            INSERT INTO auth.users (user_id, alpinist_id, email, telegram_id, telegram_name, active_bool) VALUES (1, 6, 'twister.kz@gmail.com', 111111111, 'vodchella', true);
         </sql>
         <rollback>
             TRUNCATE auth.users;
