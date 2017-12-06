@@ -15,4 +15,12 @@
     <changeSet author="twister" id="unq_resource_access">
         <addUniqueConstraint columnNames="user_id, resource_name" constraintName="unq_resource_access" tableName="resources_access" schemaName="auth"/>
     </changeSet>
+    <changeSet author="twister" id="required_email_or_telegram">
+        <sql>
+            ALTER TABLE auth.users ADD CONSTRAINT required_email_or_telegram CHECK (email IS NOT NULL or telegram_id IS NOT NULL)
+        </sql>
+        <rollback>
+            ALTER TABLE auth.users DROP CONSTRAINT IF EXISTS required_email_or_telegram RESTRICT
+        </rollback>
+    </changeSet>
 </databaseChangeLog>
