@@ -10,8 +10,8 @@ class Executor:
         self._http_request = http_request
 
     async def _setup_db_values(self, conn):
-        session_id = AuthHelper().get_session_id(self._http_request)
-        user_id = await AuthHelper().get_user_id(session_id)
+        jwt = AuthHelper().get_jwt_from_request(self._http_request)
+        user_id = jwt['id'] if jwt else 0
         statement = await conn.prepare(app.db_queries['set_user_id'])
         await statement.fetchval(user_id)
 

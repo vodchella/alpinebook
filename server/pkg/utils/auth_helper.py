@@ -15,13 +15,14 @@ class AuthHelper:
         payload = {
             'id': user['id'],
             'name': user['name'],
-            'exp': datetime.utcnow() + timedelta(hours=12),
-            'prm': []
+            'exp': datetime.utcnow() + timedelta(hours=12)
         }
         return jwt.encode(payload, self.__secret_key, algorithm='HS512')
 
-    def get_session_id(self, request):
-        return 'fake_session_id'  # TODO: Реализовать получение сессии из http-запроса
-
-    async def get_user_id(self, session_id):
-        return 1  # TODO: Реализовать получение текущего ID пользователя из сессии
+    def get_jwt_from_request(self, request):
+        if 'authorization' in request.headers:
+            authorization = request.headers['authorization']
+            if authorization[:6] == 'Bearer':
+                encoded_jwt = authorization[7:]
+                decoded_jwt = jwt.decode(encoded_jwt, self.__secret_key, algorithms='HS512')
+                return decoded_jwt
