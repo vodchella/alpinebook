@@ -20,6 +20,14 @@
             TRUNCATE auth.users;
         </rollback>
     </changeSet>
+    <changeSet author="twister" id="resources_access">
+        <sql>
+            INSERT INTO auth.resources_access (user_id, resource_name, read_access) VALUES (1, 'summits', 'authorized');
+        </sql>
+        <rollback>
+            TRUNCATE auth.resources_access;
+        </rollback>
+    </changeSet>
     <changeSet author="twister" id="regions">
         <sql>
             INSERT INTO regions (region_id, region) VALUES (1, 'Тянь-Шань');

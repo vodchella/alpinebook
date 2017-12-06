@@ -90,4 +90,10 @@
             DROP FUNCTION public.get_route_json(integer);
         </rollback>
     </changeSet>
+    <changeSet author="twister" id="auth.on_user_insert">
+        <createProcedure path="objects/functions/auth/on_user_insert.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            DROP FUNCTION auth.on_user_insert();
+        </rollback>
+    </changeSet>
 </databaseChangeLog>

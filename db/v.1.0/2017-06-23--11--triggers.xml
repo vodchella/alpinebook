@@ -30,4 +30,10 @@
             DROP TRIGGER check_route_validity ON public.routes;
         </rollback>
     </changeSet>
+    <changeSet author="twister" id="auth.users.after_insert_user">
+        <sqlFile path="objects/triggers/auth/users/after_insert_user.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            DROP TRIGGER after_insert_user ON auth.users;
+        </rollback>
+    </changeSet>
 </databaseChangeLog>
