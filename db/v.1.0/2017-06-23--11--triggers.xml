@@ -36,4 +36,10 @@
             DROP TRIGGER after_insert_user ON auth.users;
         </rollback>
     </changeSet>
+    <changeSet author="twister" id="auth.resources_access.before_insert_or_update_resources_access">
+        <sqlFile path="objects/triggers/auth/resources_access/before_insert_or_update_resources_access.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            DROP TRIGGER before_insert_or_update_resources_access ON auth.resources_access;
+        </rollback>
+    </changeSet>
 </databaseChangeLog>

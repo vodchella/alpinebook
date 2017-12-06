@@ -96,4 +96,10 @@
             DROP FUNCTION auth.on_user_insert();
         </rollback>
     </changeSet>
+    <changeSet author="twister" id="auth.check_self_id_not_in_exceptions">
+        <createProcedure path="objects/functions/auth/check_self_id_not_in_exceptions.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            DROP FUNCTION auth.check_self_id_not_in_exceptions();
+        </rollback>
+    </changeSet>
 </databaseChangeLog>
