@@ -12,4 +12,7 @@
     <changeSet author="twister" id="unq_telegram_id">
         <addUniqueConstraint columnNames="telegram_id" constraintName="unq_telegram_id" tableName="users" schemaName="auth"/>
     </changeSet>
+    <changeSet author="twister" id="unq_resource_access">
+        <addUniqueConstraint columnNames="user_id, resource_name" constraintName="unq_resource_access" tableName="resources_access" schemaName="auth"/>
+    </changeSet>
 </databaseChangeLog>

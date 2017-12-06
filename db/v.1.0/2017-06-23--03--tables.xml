@@ -29,4 +29,21 @@
             </column>
         </createTable>
     </changeSet>
+    <changeSet author="twister" id="resources_access">
+        <createTable remarks="Настройки доступа к ресурсам" tableName="resources_access" schemaName="auth">
+            <column autoIncrement="true" name="resource_access_id" remarks="Настройка" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="pk_resources_access"/>
+            </column>
+            <column name="user_id" remarks="Пользователь" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="resource_name" remarks="Ресурс" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="read_access" remarks="Могут просматривать" type="AUTH.ACCESS_GROUP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="read_access_except" remarks="Могут просматривать кроме" type="INT[]"/>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>

@@ -30,4 +30,14 @@
             DROP DOMAIN IF EXISTS sport_rank RESTRICT;
         </rollback>
     </changeSet>
+    <changeSet author="twister" id="access_group">
+        <sql>
+            CREATE DOMAIN auth.access_group
+              AS character varying(10)
+              CONSTRAINT route_nature_check CHECK (VALUE::text = ANY (ARRAY['all'::text, 'authorized'::text, 'me'::text, 'nobody'::text]));
+        </sql>
+        <rollback>
+            DROP DOMAIN IF EXISTS auth.access_group RESTRICT;
+        </rollback>
+    </changeSet>
 </databaseChangeLog>

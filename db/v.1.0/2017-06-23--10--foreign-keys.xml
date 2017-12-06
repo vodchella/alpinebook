@@ -39,4 +39,7 @@
     <changeSet author="twister" id="users_ref_alpinists">
         <addForeignKeyConstraint baseColumnNames="alpinist_id" baseTableName="users" baseTableSchemaName="auth" constraintName="users_ref_alpinists" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="CASCADE" referencedColumnNames="alpinist_id" referencedTableName="alpinists"/>
     </changeSet>
+    <changeSet author="twister" id="resources_access_ref_users">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="resources_access" baseTableSchemaName="auth" constraintName="resources_access_ref_users" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="user_id" referencedTableName="users" referencedTableSchemaName="auth"/>
+    </changeSet>
 </databaseChangeLog>
