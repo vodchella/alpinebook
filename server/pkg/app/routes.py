@@ -1,5 +1,6 @@
 from pkg.postgresql.executor import Executor
 from pkg.postgresql.builder import QueryBuilder
+from pkg.utils.auth_helper import AuthHelper
 from pkg.utils.decorators.validate_request import validate_request
 from pkg.utils.decorators.handle_exceptions import handle_exceptions
 from pkg.utils.errors import *
@@ -23,11 +24,11 @@ async def signin(request, user_name: str):
                 user = await Executor(request).query_one_json(app.db_queries['get_user_by_telegram_id'], telegram_id)
                 if user['id']:
                     if user['active']:
-                        return response.json({'alpinebook_session': 'fake_session_id'})
+                        return response.json({'jwt': AuthHelper().create_jwt_by_user(user)})
                     else:
                         return response_error(ERROR_USER_NOT_ACTIVE, 'Пользователь заблокирован')
                 else:
-                    return response_error(ERROR_INVALID_CREDENTIALS, 'Логин или пароль неверны')
+                    return response_error(ERROR_INVALID_CREDENTIALS, 'Пара логин/пароль неверна')
             else:
                 return response_error(ERROR_IP_ADDRESS_NOT_ALLOWED, 'Подключения с внешних адресов запрещены')
         else:
