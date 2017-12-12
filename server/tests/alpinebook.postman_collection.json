@@ -398,7 +398,37 @@
 				},
 				{
 					"name": "update_summit",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "428bdf53-8d60-45bf-bdb1-d68d49b592f4",
+								"type": "text/javascript",
+								"exec": [
+									"const postRequest = {",
+									"    url: pm.environment.get(\"alpinebook-server\") + \"/users/signin/111111111?method=telegram\",",
+									"    method: \"POST\"",
+									"}",
+									"pm.sendRequest(postRequest, function (err, response) {",
+									"    resp = response.json()",
+									"    jwt = resp[\"jwt\"]",
+									"    pm.globals.set(\"current_jwt\", resp[\"jwt\"]);",
+									"});"
+								]
+							}
+						}
+					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{current_jwt}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [
 							{
@@ -408,7 +438,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"summit_id\": 666,\n  \"alpinist_id\": 6,\n  \"summit_date\": \"02.01.2017\",\n  \"route_id\": 1,\n  \"leader\": false,\n  \"members\": \"Разные люди +1\"\n}"
+							"raw": "{\n  \"summit_id\": 666,\n  \"alpinist_id\": 1,\n  \"summit_date\": \"02.01.2017\",\n  \"route_id\": 2,\n  \"leader\": false,\n  \"members\": \"Разные люди +1\"\n}"
 						},
 						"url": {
 							"raw": "{{alpinebook-server}}/summits/:summit_id",
