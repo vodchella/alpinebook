@@ -87,7 +87,7 @@ class QueryBuilder:
                                                                                                      fields['fields']),
                                                                              vals, ret)
         else:
-            sql = 'insert into %s (%s)\nvalues (%s) %s' % (self._table_name, ', '.join(fields['fields']), vals, ret)
+            sql = '\ninsert into %s (%s)\nvalues (%s) %s' % (self._table_name, ', '.join(fields['fields']), vals, ret)
         return {'sql': sql, 'values': fields['values']}
 
     def generate_update(self, json_object, secure=True):
@@ -99,7 +99,7 @@ class QueryBuilder:
         secure_sql = fields_data['secure_write_sql'] if secure else ''
         sql_with = 'with r as (\n  update %s t\n  set    %s \n  where  %s = $1 %s\n  returning 1\n)' % \
                    (self._table_name, cols, pk, secure_sql)
-        sql = '%s\nselect count(*) from r\n' % sql_with
+        sql = '\n%s\nselect count(*) from r\n' % sql_with
         return {'sql': sql, 'values': fields_values}
 
     def generate_delete(self, secure=True):
@@ -112,6 +112,6 @@ class QueryBuilder:
             secure_field_name = arr[0] if len(arr) else ''
             if secure_field_name:
                 _, secure_sql = self._get_secure_sqls(secure_field_name, 0)
-        sql = 'with r as (\n  delete from %s t\n  where  %s = $1 %s\n  returning 1\n)\nselect count(*) from r\n' % \
+        sql = '\nwith r as (\n  delete from %s t\n  where  %s = $1 %s\n  returning 1\n)\nselect count(*) from r\n' % \
               (self._table_name, self._primary_key, secure_sql)
         return {'sql': sql}
