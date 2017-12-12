@@ -2,8 +2,8 @@ from pkg.utils.json.ref_resolver import SimpleRefResolver
 from data.regex import REGEX_DATE, REGEX_DATETIME
 
 schemas = {
-    'alpinist_summits': {
-        'id': 'alpinist_summits',
+    'summits': {
+        'id': 'summits',
         '$schema': 'http://json-schema.org/draft-04/schema#',
         'type': 'object',
         'properties': {
@@ -39,4 +39,4 @@ schemas = {
 }
 
 with SimpleRefResolver(schemas) as resolver:
-    resolver.resolve(schemas['alpinist_summits'])
+    resolver.resolve(schemas['summits'])

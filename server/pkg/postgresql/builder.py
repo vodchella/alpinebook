@@ -9,9 +9,9 @@ class QueryBuilder:
     _map = None
     _validate_json = False
 
-    def __init__(self, table_name, validate_json=False):
-        self._table_name = table_name
-        self._map = mappings[table_name]
+    def __init__(self, resource_name, validate_json=False):
+        self._map = mappings[resource_name]
+        self._table_name = self._map['table_name']
         self._validate_json = validate_json
         self._primary_key = self._get_primary_key()
 
@@ -44,11 +44,18 @@ class QueryBuilder:
             out_values.append(field_value)
         return {'fields': fields, 'primary_key': self._primary_key, 'values': out_values}
 
-    def generate_insert(self, json_object):
+    def generate_insert(self, json_object, secure=True):
         fields = self._get_fields(json_object)
         ret = 'returning %s' % fields['primary_key'] if fields['primary_key'] else ''
         vals = ', '.join(['$%s' % i for (i, v) in enumerate(fields['values'], start=1)])
-        sql = 'insert into %s (%s) values (%s) %s;' % (self._table_name, ', '.join(fields['fields']), vals, ret)
+        if secure:
+            alpinist_field_num = [i for (i, f) in enumerate(fields['fields'], start=1) if f == 'alpinist_id'][0]
+            sql = ('with rows as (%s)\n' % self._map['write_access_rule']) % alpinist_field_num
+            sql += 'insert into %s (%s) select %s from rows %s;' % (self._table_name,
+                                                                    ', '.join(fields['fields']),
+                                                                    vals, ret)
+        else:
+            sql = 'insert into %s (%s) values (%s) %s;' % (self._table_name, ', '.join(fields['fields']), vals, ret)
         return {'sql': sql, 'values': fields['values']}
 
     def generate_update(self, json_object):

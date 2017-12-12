@@ -1,5 +1,6 @@
 mappings = {
-    'alpinist_summits': {
+    'summits': {
+        'table_name': 'alpinist_summits',
         'fields': {
             'summit_id': {
                 'primary_key': True,
@@ -16,6 +17,12 @@ mappings = {
             },
             'members': {},
             'ascent_id': {}
-        }
+        },
+        'write_access_rule': """
+            select 1
+            from   auth.users u
+            where  u.alpinist_id = $%s and
+                   auth.check_write_access(u.user_id, 'summits')
+            """
     }
 }

@@ -54,26 +54,26 @@ async def get_summits(request, alpinist_id: int):
 @app.route('/summits/<summit_id:int>', methods=['DELETE'])
 @handle_exceptions
 async def delete_summit(request, summit_id: int):
-    query_data = QueryBuilder('alpinist_summits').generate_delete()
+    query_data = QueryBuilder('summits').generate_delete()
     result = await Executor(request).query_one(query_data['sql'], summit_id)
     return response.json({'deleted': result})
 
 
 @app.route('/summits/<summit_id:int>', methods=['PUT'])
-@validate_request('alpinist_summits')
+@validate_request('summits')
 @handle_exceptions
 async def update_summit(request, summit_id: int):
-    query_data = QueryBuilder('alpinist_summits').generate_update(request.json)
+    query_data = QueryBuilder('summits').generate_update(request.json)
     result = await Executor(request).query_one(query_data['sql'], summit_id, *query_data['values'])
     return response.json({'updated': result})
 
 
 @app.route('/summits', methods=['POST'])
-@validate_request('alpinist_summits')
+@validate_request('summits')
 @handle_exceptions
 async def insert_summit(request):
     try:
-        query_data = QueryBuilder('alpinist_summits').generate_insert(request.json)
+        query_data = QueryBuilder('summits').generate_insert(request.json)
         result = await Executor(request).query_one(query_data['sql'], *query_data['values'])
         return response.json({'new_id': result})
     except UniqueViolationError:

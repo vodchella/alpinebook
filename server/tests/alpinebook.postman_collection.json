@@ -25,7 +25,7 @@
 								"regions"
 							]
 						},
-						"description": null
+						"description": ""
 					},
 					"response": []
 				},
@@ -51,7 +51,7 @@
 								}
 							]
 						},
-						"description": null
+						"description": ""
 					},
 					"response": []
 				},
@@ -78,7 +78,7 @@
 								}
 							]
 						},
-						"description": null
+						"description": ""
 					},
 					"response": []
 				},
@@ -104,7 +104,7 @@
 								}
 							]
 						},
-						"description": null
+						"description": ""
 					},
 					"response": []
 				},
@@ -131,7 +131,7 @@
 								}
 							]
 						},
-						"description": null
+						"description": ""
 					},
 					"response": []
 				},
@@ -157,7 +157,7 @@
 								}
 							]
 						},
-						"description": null
+						"description": ""
 					},
 					"response": []
 				},
@@ -184,7 +184,7 @@
 								}
 							]
 						},
-						"description": null
+						"description": ""
 					},
 					"response": []
 				},
@@ -210,7 +210,7 @@
 								}
 							]
 						},
-						"description": null
+						"description": ""
 					},
 					"response": []
 				}
@@ -268,7 +268,7 @@
 							"variable": [
 								{
 									"key": "alpinist_id",
-									"value": "6"
+									"value": "1"
 								}
 							]
 						},
@@ -331,7 +331,7 @@
 							"variable": [
 								{
 									"key": "alpinist_id",
-									"value": "6"
+									"value": "1"
 								}
 							]
 						},
@@ -341,7 +341,36 @@
 				},
 				{
 					"name": "insert_summit",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const postRequest = {",
+									"    url: pm.environment.get(\"alpinebook-server\") + \"/users/signin/111111111?method=telegram\",",
+									"    method: \"POST\"",
+									"}",
+									"pm.sendRequest(postRequest, function (err, response) {",
+									"    resp = response.json()",
+									"    jwt = resp[\"jwt\"]",
+									"    pm.globals.set(\"current_jwt\", resp[\"jwt\"]);",
+									"});"
+								]
+							}
+						}
+					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{current_jwt}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -351,7 +380,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"summit_id\": 666,\n  \"alpinist_id\": 6,\n  \"summit_date\": \"01.01.2017\",\n  \"route_id\": 1,\n  \"leader\": true,\n  \"members\": \"Разные люди\"\n}"
+							"raw": "{\n\t\"summit_id\": 666,\n\t\"alpinist_id\": 1,\n\t\"summit_date\": \"01.01.2017\",\n\t\"route_id\": 1,\n\t\"leader\": true,\n\t\"members\": \"Разные люди\"\n}"
 						},
 						"url": {
 							"raw": "{{alpinebook-server}}/summits/",
@@ -363,7 +392,7 @@
 								""
 							]
 						},
-						"description": null
+						"description": ""
 					},
 					"response": []
 				},
@@ -431,7 +460,7 @@
 								}
 							]
 						},
-						"description": null
+						"description": ""
 					},
 					"response": []
 				}
@@ -471,7 +500,7 @@
 								}
 							]
 						},
-						"description": null
+						"description": ""
 					},
 					"response": []
 				}
