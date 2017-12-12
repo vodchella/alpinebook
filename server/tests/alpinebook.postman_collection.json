@@ -462,7 +462,37 @@
 				},
 				{
 					"name": "delete_summit",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "51be15c2-fd67-4afa-ae02-2620e8ca68ba",
+								"type": "text/javascript",
+								"exec": [
+									"const postRequest = {",
+									"    url: pm.environment.get(\"alpinebook-server\") + \"/users/signin/111111111?method=telegram\",",
+									"    method: \"POST\"",
+									"}",
+									"pm.sendRequest(postRequest, function (err, response) {",
+									"    resp = response.json()",
+									"    jwt = resp[\"jwt\"]",
+									"    pm.globals.set(\"current_jwt\", resp[\"jwt\"]);",
+									"});"
+								]
+							}
+						}
+					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{current_jwt}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [
 							{

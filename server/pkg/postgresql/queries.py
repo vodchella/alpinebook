@@ -89,14 +89,3 @@ from   alpinist_summits s
 where  s.alpinist_id = $1 and
        auth.check_read_access(u.user_id, 'summits')
 """
-
-SQL_SECURE_UPDATE_TEMPLATE = """,
-     rows as (
-             update %s
-             set    %s
-             where  %s = $1 and
-                    exists (select * from secure)
-             returning 1
-             )
-     select count(*) from rows
-"""

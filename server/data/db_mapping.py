@@ -18,11 +18,7 @@ mappings = {
             'members': {},
             'ascent_id': {}
         },
-        'write_access_rule': """
-            select 1
-            from   auth.users u
-            where  u.alpinist_id = $%s and
-                   auth.check_write_access(u.user_id, 'summits')
-            """
+        'insert_access_rule': 'auth.check_write_access((select max(u.user_id) from auth.users u where u.alpinist_id = $%s), \'summits\')',
+        'write_access_rule': 'auth.check_write_access((select max(u.user_id) from auth.users u where u.alpinist_id = t.alpinist_id), \'summits\')'
     }
 }
