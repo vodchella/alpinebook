@@ -42,6 +42,10 @@
                 <constraints nullable="false"/>
             </column>
             <column name="read_access_except" remarks="Могут просматривать кроме" type="INT[]"/>
+            <column name="write_access" remarks="Могут редактировать" type="AUTH.ACCESS_GROUP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="write_access_except" remarks="Могут редактировать кроме" type="INT[]"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>

@@ -2,12 +2,12 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd" logicalFilePath="/v.1.0/2017-06-23--09--tables-data.xml">
     <changeSet author="twister" id="alpinists">
         <sql>
-            INSERT INTO alpinists (alpinist_id, last_name, first_name, middle_name, rank) VALUES (1, 'Зимин', 'В', NULL, NULL);
+            INSERT INTO alpinists (alpinist_id, last_name, first_name, middle_name, rank) VALUES (1, 'Павлов', 'Максим', 'Андреевич', 'I');
             INSERT INTO alpinists (alpinist_id, last_name, first_name, middle_name, rank) VALUES (2, 'Лебедев', 'Тимофей', NULL, NULL);
             INSERT INTO alpinists (alpinist_id, last_name, first_name, middle_name, rank) VALUES (3, 'Горбунов', 'Юрий', NULL, 'МС');
             INSERT INTO alpinists (alpinist_id, last_name, first_name, middle_name, rank) VALUES (4, 'Саланов', 'Д', NULL, NULL);
             INSERT INTO alpinists (alpinist_id, last_name, first_name, middle_name, rank) VALUES (5, 'Неаронский', 'В', NULL, NULL);
-            INSERT INTO alpinists (alpinist_id, last_name, first_name, middle_name, rank) VALUES (6, 'Павлов', 'Максим', 'Андреевич', 'I');
+            INSERT INTO alpinists (alpinist_id, last_name, first_name, middle_name, rank) VALUES (6, 'Зимин', 'В', NULL, NULL);
         </sql>
         <rollback>
             TRUNCATE alpinists;
@@ -15,7 +15,7 @@
     </changeSet>
     <changeSet author="twister" id="users">
         <sql>
-            INSERT INTO auth.users (user_id, alpinist_id, email, telegram_id, telegram_name, active_bool) VALUES (1, 6, 'twister.kz@gmail.com', 111111111, 'vodchella', true);
+            INSERT INTO auth.users (user_id, alpinist_id, email, telegram_id, telegram_name, active_bool) VALUES (1, 1, 'twister.kz@gmail.com', 111111111, 'vodchella', true);
         </sql>
         <rollback>
             TRUNCATE auth.users;
@@ -23,7 +23,7 @@
     </changeSet>
     <changeSet author="twister" id="resources_access">
         <sql>
-            INSERT INTO auth.resources_access (user_id, resource_name, read_access) VALUES (1, 'summits', 'authorized');
+            INSERT INTO auth.resources_access (user_id, resource_name, read_access, write_access) VALUES (1, 'summits', 'authorized', 'nobody');
         </sql>
         <rollback>
             TRUNCATE auth.resources_access;
@@ -56,7 +56,7 @@
     </changeSet>
     <changeSet author="twister" id="routes">
         <sql>
-            INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, first_ascender_id, complexity, winter_complexity, route_nature, first_ascent_year) VALUES (1, 1, NULL, false, 'с запада', 1, '1Б', NULL, 'ск', NULL);
+            INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, first_ascender_id, complexity, winter_complexity, route_nature, first_ascent_year) VALUES (1, 1, NULL, false, 'с запада', 6, '1Б', NULL, 'ск', NULL);
             INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, first_ascender_id, complexity, winter_complexity, route_nature, first_ascent_year) VALUES (2, 1, NULL, false, 'В гребень', 5, '2Б', NULL, 'ск', NULL);
             INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, first_ascender_id, complexity, winter_complexity, route_nature, first_ascent_year) VALUES (3, 1, NULL, false, 'СЗ ребро', NULL, '2Б', NULL, 'ск', NULL);
             INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, first_ascender_id, complexity, winter_complexity, route_nature, first_ascent_year) VALUES (4, 1, NULL, false, 'С стена', 4, '3Б', NULL, 'к', NULL);
