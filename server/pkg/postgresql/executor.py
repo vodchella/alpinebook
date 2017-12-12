@@ -16,10 +16,13 @@ class Executor:
         await statement.fetchval(user_id)
 
     async def _query(self, only_one, sql, *args):
+        print(sql)
+        print('ARGS: %s' % [*args])
         async with app.pool.acquire() as conn:
             await self._setup_db_values(conn)
             statement = await conn.prepare(sql)
             val = await statement.fetchval(*args) if only_one else await statement.fetch(*args)
+        print('RESULT: %s' % val)
         return val
 
     async def query_all_json(self, sql, *args):
