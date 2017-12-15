@@ -7,6 +7,7 @@ jsonschema==2.6.0
 ply==3.10
 PyJWT==1.5.3
 sanic==0.5.4
+sh==1.12.14
 six==1.10.0
 ujson==1.35
 uvloop==0.8.0
