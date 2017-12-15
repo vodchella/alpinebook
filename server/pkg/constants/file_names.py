@@ -1,3 +1,1 @@
-from pkg.constants import DEBUG
-
-LOG_FILE_NAME = '/dev/null/' if DEBUG else 'alpinebook.log'
+PID_FILE_NAME = 'alpinebook_%s'

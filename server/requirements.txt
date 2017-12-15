@@ -4,6 +4,7 @@ decorator==4.0.11
 httptools==0.0.9
 jsonpath-rw==1.4.0
 jsonschema==2.6.0
+pid==2.1.1
 ply==3.10
 PyJWT==1.5.3
 sanic==0.5.4

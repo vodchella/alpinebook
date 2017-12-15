@@ -1,15 +1,52 @@
+import logging
 import asyncpg
 import pkg.postgresql.queries
+from pkg.constants import CONFIG
+from pkg.utils.console import panic
 from . import app
 
 
 @app.listener('before_server_start')
 async def setup(app, loop):
-    app.pool = await asyncpg.create_pool(dsn='postgres://postgres:postgres@localhost:5432/alpinebook_dev',
-                                         min_size=1,
-                                         max_size=10,
-                                         max_inactive_connection_lifetime=0,
-                                         command_timeout=60)
+    def get_dsn():
+        return 'postgres://%s:%s@%s:%s/%s' % (CONFIG['postgres']['user'],
+                                              CONFIG['postgres']['pass'],
+                                              CONFIG['postgres']['host'],
+                                              CONFIG['postgres']['port'],
+                                              CONFIG['postgres']['db'])
+
+    dsn = get_dsn()
+
+    logger = logging.getLogger('postgres')
+    logger.info('Connecting to %s' % dsn)
+
+    try:
+        try:
+            min_size = CONFIG['postgres']['pool']['min_size']
+        except:
+            min_size = 1
+        try:
+            max_size = CONFIG['postgres']['pool']['max_size']
+        except:
+            max_size = 10
+        try:
+            max_inactive_connection_lifetime = CONFIG['postgres']['pool']['max_inactive_connection_lifetime']
+        except:
+            max_inactive_connection_lifetime = 0
+        try:
+            command_timeout = CONFIG['postgres']['pool']['command_timeout']
+        except:
+            command_timeout = 60
+        app.pool = await asyncpg.create_pool(dsn=dsn,
+                                             min_size=min_size,
+                                             max_size=max_size,
+                                             max_inactive_connection_lifetime=max_inactive_connection_lifetime,
+                                             command_timeout=command_timeout)
+    except Exception as e:
+        logger.error(str(e))
+        logging.getLogger('alpinebook').critical('Can\'t connect to PostgreSQL, goodbye honey!')
+        panic()
+
     for query in filter(lambda q: 'SQL_' == q[:4], dir(pkg.postgresql.queries)):
         app.db_queries[query.lower()[4:]] = getattr(pkg.postgresql.queries, query)
 
@@ -17,3 +54,4 @@ async def setup(app, loop):
 @app.listener('after_server_stop')
 async def close_pool(app, loop):
     await app.pool.close()
+    logging.getLogger('alpinebook').info('Leaving, don\'t think badly...')

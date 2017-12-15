@@ -1,18 +1,24 @@
 import sys
+from pkg.constants import DEBUG, CONFIG
 from pkg.constants.date_formats import DATE_FORMAT_FULL
-from pkg.constants.file_names import LOG_FILE_NAME
 from sanic.config import LOGGING
 
 
 def setup_logging():
+    try:
+        disabled = CONFIG['logging']['disabled']
+    except:
+        disabled = False
+    log_file_name = '/dev/null/' if disabled else CONFIG['logging']['file-name']
+
     LOGGING['formatters']['simple']['format'] = '%(levelname)s\t%(asctime)s\t%(name)s: %(message)s'
     LOGGING['formatters']['access'][
         'format'] = '%(levelname)s\t%(asctime)s\t%(name)s [%(host)s]: %(request)s %(message)s %(status)d %(byte)d'
     LOGGING['formatters']['simple']['datefmt'] = DATE_FORMAT_FULL
     LOGGING['formatters']['access']['datefmt'] = DATE_FORMAT_FULL
 
-    LOGGING['handlers']['accessTimedRotatingFile']['filename'] = LOG_FILE_NAME
-    LOGGING['handlers']['errorTimedRotatingFile']['filename'] = LOG_FILE_NAME
+    LOGGING['handlers']['accessTimedRotatingFile']['filename'] = log_file_name
+    LOGGING['handlers']['errorTimedRotatingFile']['filename'] = log_file_name
     LOGGING['handlers']['internal'] = {
         'class': 'logging.StreamHandler',
         'formatter': 'simple',
@@ -22,13 +28,13 @@ def setup_logging():
         'class': 'logging.handlers.TimedRotatingFileHandler',
         'formatter': 'simple',
         'when': 'midnight',
-        'filename': LOG_FILE_NAME
+        'filename': log_file_name
     }
     LOGGING['handlers']['alpinebookAccessTimedRotatingFile'] = {
         'class': 'logging.handlers.TimedRotatingFileHandler',
         'formatter': 'access',
         'when': 'midnight',
-        'filename': LOG_FILE_NAME
+        'filename': log_file_name
     }
 
     LOGGING['loggers']['sanic']['handlers'] += ['alpinebookTimedRotatingFile']
