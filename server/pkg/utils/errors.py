@@ -29,10 +29,12 @@ def get_raised_error(full=False):
         return (e[-1:][0]).strip('\n')
 
 
-def response_error(code, message, status=200, default_logger='alpinebook'):
-    error_stacktrace = get_raised_error(True)
+def response_error(code, message, status=200, default_logger='alpinebook', log_stacktrace=True):
     error_json = {'error': {'code': code, 'message': message}}
-    stacktrace_log_msg = '\n%s\n' % error_stacktrace if error_stacktrace else ''
+    stacktrace_log_msg = ''
+    if log_stacktrace:
+        error_stacktrace = get_raised_error(True)
+        stacktrace_log_msg = '\n%s\n' % error_stacktrace if error_stacktrace else ''
 
     logger = logging.getLogger(default_logger)
     logger.error('Status: %s, JSON: %s%s' % (status, error_json, stacktrace_log_msg))

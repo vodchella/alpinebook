@@ -531,38 +531,79 @@
 			"description": "",
 			"item": [
 				{
-					"name": "signin_via_telegram",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {},
-						"url": {
-							"raw": "{{alpinebook-server}}/users/signin/:user_name?method=telegram",
-							"host": [
-								"{{alpinebook-server}}"
-							],
-							"path": [
-								"users",
-								"signin",
-								":user_name"
-							],
-							"query": [
-								{
-									"key": "method",
-									"value": "telegram",
-									"equals": true
-								}
-							],
-							"variable": [
-								{
-									"key": "user_name",
-									"value": "111111111"
-								}
-							]
+					"name": "trusted_authorization",
+					"description": "",
+					"item": [
+						{
+							"name": "signin_via_telegram",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {},
+								"url": {
+									"raw": "{{alpinebook-server}}/users/signin/:user_name?method=telegram",
+									"host": [
+										"{{alpinebook-server}}"
+									],
+									"path": [
+										"users",
+										"signin",
+										":user_name"
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "telegram",
+											"equals": true
+										}
+									],
+									"variable": [
+										{
+											"key": "user_name",
+											"value": "111111111"
+										}
+									]
+								},
+								"description": ""
+							},
+							"response": []
 						},
-						"description": ""
-					},
-					"response": []
+						{
+							"name": "signin_via_email",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {},
+								"url": {
+									"raw": "{{alpinebook-server}}/users/signin/:user_name?method=trusted",
+									"host": [
+										"{{alpinebook-server}}"
+									],
+									"path": [
+										"users",
+										"signin",
+										":user_name"
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "trusted",
+											"equals": true
+										}
+									],
+									"variable": [
+										{
+											"key": "user_name",
+											"value": "twister.kz@gmail.com"
+										}
+									]
+								},
+								"description": ""
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
 				}
 			]
 		}

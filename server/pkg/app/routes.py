@@ -10,30 +10,47 @@ from sanic import response
 from . import app
 
 
+#
+# Авторизация
+#
+
+
 @app.route('/users/signin/<user_name:[A-z0-9@-_\.]+>', methods=['POST'])
 @handle_exceptions
 async def signin(request, user_name: str):
     if 'method' in request.raw_args:
         method = request.raw_args['method'].lower()
-        if method == 'telegram':
+
+        # Для этих методов авторизации подключения разрешены только
+        # с локальных адресов, т.к. они не запрашивают пароль
+        if method in ('telegram', 'trusted'):
             ip = request.ip[0]
-            if ip == '127.0.0.1':
-                try:
-                    telegram_id = int(user_name)
-                except ValueError:
-                    return response_error(ERROR_INVALID_IDENTIFIER, 'Неверный идентификатор Telegram')
-                user = await Executor(request).query_one_json(app.db_queries['get_user_by_telegram_id'], telegram_id)
-                if user['id']:
-                    if user['active']:
-                        return response.json({'jwt': AuthHelper().create_jwt_by_user(user)})
-                    else:
-                        return response_error(ERROR_USER_NOT_ACTIVE, 'Пользователь заблокирован')
-                else:
-                    return response_error(ERROR_INVALID_CREDENTIALS, 'Пара логин/пароль неверна')
-            else:
+            if ip != '127.0.0.1':
                 return response_error(ERROR_IP_ADDRESS_NOT_ALLOWED, 'Подключения с внешних адресов запрещены')
+
+        if method == 'telegram':
+            field = 'telegram_id'
+            try:
+                telegram_id = int(user_name)
+                param = telegram_id
+            except ValueError:
+                return response_error(ERROR_INVALID_IDENTIFIER, 'Неверный идентификатор Telegram', log_stacktrace=False)
+        elif method == 'trusted':
+            field = 'email'
+            param = user_name
         else:
             return response_error(ERROR_INVALID_AUTH_METHOD_SPECIFIED, 'Указан неверный метод авторизации')
+
+        sql = app.db_queries['get_user_by_param'] % field
+        user = await Executor(request).query_one_json(sql, param)
+        if user['id']:
+            if user['active']:
+                return response.json({'jwt': AuthHelper().create_jwt_by_user(user)})
+            else:
+                return response_error(ERROR_USER_NOT_ACTIVE, 'Пользователь заблокирован')
+        else:
+            return response_error(ERROR_INVALID_CREDENTIALS, 'Пара логин/пароль неверна')
+
     else:
         return response_error(ERROR_NO_AUTH_METHOD_SPECIFIED, 'Не указан метод авторизации')
 

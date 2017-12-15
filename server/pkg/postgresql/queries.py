@@ -10,12 +10,12 @@ SQL_GET_USER_ID = """
 select auth.get_user_id()
 """
 
-SQL_GET_USER_BY_TELEGRAM_ID = """
+SQL_GET_USER_BY_PARAM = """
 select json_build_object('id', coalesce(max(u.user_id), 0),
                          'name', max(u.telegram_name),
                          'active', coalesce(bool_and(u.active_bool), false))
 from   auth.users u
-where  u.telegram_id = $1
+where  u.%s = $1
 """
 
 SQL_GET_REGIONS = """
