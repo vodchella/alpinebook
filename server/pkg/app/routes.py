@@ -4,6 +4,7 @@ from pkg.utils.auth_helper import AuthHelper
 from pkg.utils.decorators.validate_request import validate_request
 from pkg.utils.decorators.handle_exceptions import handle_exceptions
 from pkg.utils.errors import *
+from pkg.constants import APPLICATION_VERSION
 from asyncpg.exceptions import UniqueViolationError
 from sanic import response
 from . import app
@@ -131,3 +132,11 @@ async def list_routes(request, mountain_id: int):
 @handle_exceptions
 async def get_route(request, route_id: int):
     return response.json(await Executor(request).query_one_json(app.db_queries['get_route'], route_id))
+
+
+#
+#  Главная страница
+#
+@app.route('/')
+async def main_page(request):
+    return response.text(APPLICATION_VERSION)
