@@ -18,15 +18,17 @@ class Executor:
         await statement.fetchval(user_id)
 
     async def _query(self, only_one, sql, *args):
-        rand_id = StringGenerator(r'[\u\d]{8}').render()
-        logger = logging.getLogger('postgres')
-        logger.info('Execute %s (args: %s)\n%s' % (rand_id, [*args], sql))
         async with app.pool.acquire() as conn:
+            rand_id = StringGenerator(r'[\u\d]{8}').render()
+            logger = logging.getLogger('postgres')
+            arg = '\nARGS: %s' % [*args] if args else ''
+            log_sql = sql.replace('\n', '\n     ').lstrip('\n    ')
+            logger.info('Execute %s:%s\nSQL: %s' % (rand_id, arg, log_sql))
             await self._setup_db_values(conn)
             statement = await conn.prepare(sql)
             val = await statement.fetchval(*args) if only_one else await statement.fetch(*args)
-        logger.info('Result %s\n%s\n' % (rand_id, val))
-        return val
+            logger.info('Result %s:\n%s\n' % (rand_id, val))
+            return val
 
     async def query_all_json(self, sql, *args):
         values = await self._query(False, sql, *args)
