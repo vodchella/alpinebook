@@ -28,6 +28,9 @@ async def log_request(request):
 @app.middleware('response')
 async def log_response(request, response):
     logger = logging.getLogger('rest-http')
-    body = '\nBODY: ' +\
-           json.dumps(json.loads(response.body.decode('utf-8')), ensure_ascii=False) if response.body else ''
+    try:
+        body = json.dumps(json.loads(response.body.decode('utf-8')), ensure_ascii=False) if response.body else ''
+    except:
+        body = response.body.decode('utf-8') if response.body else ''
+    body = '\nBODY: ' + body
     logger.info('RESPONSE %s:%s\n' % (response.content_type, body))
