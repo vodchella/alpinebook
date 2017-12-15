@@ -12,7 +12,7 @@ def handle_exceptions(func):
         try:
             return await func(*positional, **named)
         except PostgresError as e:
-            return response_error(ERROR_DATABASE_EXCEPTION, str(e))
+            return response_error(ERROR_DATABASE_EXCEPTION, str(e), default_logger='postgres')
         except InvalidTokenError:
             return response_error(ERROR_JWT_INVALID_TOKEN, get_raised_error())
         except InvalidKeyError:
