@@ -20,14 +20,14 @@ async def log_response(request):
     args = '\nARGS: ' + str(request.raw_args) if request.raw_args else ''
     log_body = '%s%s%s' % (auth, args, body)
     log_body = log_body + '\n' if log_body else ''
-    logger = logging.getLogger('alpinebook')
+    logger = logging.getLogger('rest-http')
     logger.info('REQUEST %s %s from %s %s%s' %
                 (request.method, request.path, request.ip[0], user_agent, log_body))
 
 
 @app.middleware('response')
 async def log_response(request, response):
-    logger = logging.getLogger('alpinebook')
+    logger = logging.getLogger('rest-http')
     body = '\nBODY: ' +\
            json.dumps(json.loads(response.body.decode('utf-8')), ensure_ascii=False) if response.body else ''
     logger.info('RESPONSE %s:%s\n' % (response.content_type, body))

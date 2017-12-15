@@ -66,7 +66,9 @@ async def get_summits(request, alpinist_id: int):
     full = False
     if 'full_route_info' in request.raw_args:
         full = request.raw_args['full_route_info'].lower() == 'true'
-    return response.json(await Executor(request).query_all_json(app.db_queries['get_summits'], alpinist_id, full))
+    return response.json(await Executor(request, False).query_all_json(app.db_queries['get_summits'],
+                                                                       alpinist_id,
+                                                                       full))
 
 
 @app.route('/summits/<summit_id:int>', methods=['DELETE'])
@@ -106,49 +108,49 @@ async def insert_summit(request):
 @app.route('/regions', methods=['GET'])
 @handle_exceptions
 async def list_regions(request):
-    return response.json(await Executor(request).query_all_json(app.db_queries['get_regions']))
+    return response.json(await Executor(request, False).query_all_json(app.db_queries['get_regions']))
 
 
 @app.route('/regions/<region_id:int>', methods=['GET'])
 @handle_exceptions
 async def get_region(request, region_id: int):
-    return response.json(await Executor(request).query_one_json(app.db_queries['get_region'], region_id))
+    return response.json(await Executor(request, False).query_one_json(app.db_queries['get_region'], region_id))
 
 
 @app.route('/regions/<region_id:int>/areas', methods=['GET'])
 @handle_exceptions
 async def list_areas(request, region_id: int):
-    return response.json(await Executor(request).query_all_json(app.db_queries['get_areas'], region_id))
+    return response.json(await Executor(request, False).query_all_json(app.db_queries['get_areas'], region_id))
 
 
 @app.route('/areas/<area_id:int>', methods=['GET'])
 @handle_exceptions
 async def get_area(request, area_id: int):
-    return response.json(await Executor(request).query_one_json(app.db_queries['get_area'], area_id))
+    return response.json(await Executor(request, False).query_one_json(app.db_queries['get_area'], area_id))
 
 
 @app.route('/areas/<area_id:int>/mountains', methods=['GET'])
 @handle_exceptions
 async def list_mountains(request, area_id: int):
-    return response.json(await Executor(request).query_all_json(app.db_queries['get_mountains'], area_id))
+    return response.json(await Executor(request, False).query_all_json(app.db_queries['get_mountains'], area_id))
 
 
 @app.route('/mountains/<mountain_id:int>', methods=['GET'])
 @handle_exceptions
 async def get_mountain(request, mountain_id: int):
-    return response.json(await Executor(request).query_one_json(app.db_queries['get_mountain'], mountain_id))
+    return response.json(await Executor(request, False).query_one_json(app.db_queries['get_mountain'], mountain_id))
 
 
 @app.route('/mountains/<mountain_id:int>/routes', methods=['GET'])
 @handle_exceptions
 async def list_routes(request, mountain_id: int):
-    return response.json(await Executor(request).query_all_json(app.db_queries['get_routes'], mountain_id))
+    return response.json(await Executor(request, False).query_all_json(app.db_queries['get_routes'], mountain_id))
 
 
 @app.route('/routes/<route_id:int>', methods=['GET'])
 @handle_exceptions
 async def get_route(request, route_id: int):
-    return response.json(await Executor(request).query_one_json(app.db_queries['get_route'], route_id))
+    return response.json(await Executor(request, False).query_one_json(app.db_queries['get_route'], route_id))
 
 
 #

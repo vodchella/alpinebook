@@ -33,6 +33,10 @@ def setup_logging():
 
     LOGGING['loggers']['sanic']['handlers'] += ['alpinebookTimedRotatingFile']
     LOGGING['loggers']['network']['handlers'] += ['alpinebookAccessTimedRotatingFile']
+    LOGGING['loggers']['rest-http'] = {
+        'level': 'DEBUG',
+        'handlers': ['internal', 'alpinebookTimedRotatingFile']
+    }
     LOGGING['loggers']['postgres'] = {
         'level': 'DEBUG',
         'handlers': ['internal', 'alpinebookTimedRotatingFile']

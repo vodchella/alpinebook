@@ -7,9 +7,11 @@ from pkg.app import app
 
 class Executor:
     _http_request = None
+    _log_full_sql_result = True
 
-    def __init__(self, http_request):
+    def __init__(self, http_request, log_full_sql_result=True):
         self._http_request = http_request
+        self._log_full_sql_result = log_full_sql_result
 
     async def _setup_db_values(self, conn):
         jwt = AuthHelper().get_jwt_from_request(self._http_request)
@@ -24,10 +26,13 @@ class Executor:
             arg = '\nARGS: %s' % [*args] if args else ''
             log_sql = sql.replace('\n', '\n     ').lstrip('\n    ')
             logger.info('Execute %s:%s\nSQL: %s' % (rand_id, arg, log_sql))
+
             await self._setup_db_values(conn)
             statement = await conn.prepare(sql)
             val = await statement.fetchval(*args) if only_one else await statement.fetch(*args)
-            logger.info('Result %s:\n%s\n' % (rand_id, val))
+
+            log_result = val if self._log_full_sql_result else '<see http response>'
+            logger.info('Result %s:\n%s\n' % (rand_id, log_result))
             return val
 
     async def query_all_json(self, sql, *args):
