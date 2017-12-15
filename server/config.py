@@ -1,4 +1,5 @@
 CONFIG = {
+    'name': 'DEVELOPMENT',
     'debug': True,
     'http': {
         'listen-host': 'localhost',
@@ -9,7 +10,14 @@ CONFIG = {
         'port': 5432,
         'user': 'postgres',
         'pass': 'postgres',
-        'db': 'alpinebook_dev'
+        'db': 'alpinebook_dev',
+        'ssl': False,
+        'pool': {
+            'min_size': 1,
+            'max_size': 10,
+            'max_inactive_connection_lifetime': 0,
+            'command_timeout': 60
+        }
     },
     'logging': {
         'file-name': 'alpinebook.log',

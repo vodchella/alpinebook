@@ -27,10 +27,11 @@ if __name__ == '__main__':
     from pkg.constants import APPLICATION_VERSION, DEBUG
     from pkg.constants.file_names import PID_FILE_NAME
 
+    config_name = ('"%s" ' % pkg.constants.CONFIG['name']) if 'name' in pkg.constants.CONFIG else ''
     logger = logging.getLogger('alpinebook')
     logger.info(APPLICATION_VERSION + ' started')
-    logger.info('Environment variable ALPINEBOOK_CONFIG_PATH: %s' % env_config_path)
-    logger.info('Configuration loaded from %s', config_path)
+    logger.info('ALPINEBOOK_CONFIG_PATH: %s' % env_config_path)
+    logger.info('Configuration %sloaded from %s', config_name, config_path)
     logger.info('Debug mode %s' % ('on' if DEBUG else 'off'))
 
     host = pkg.constants.CONFIG['http']['listen-host']
