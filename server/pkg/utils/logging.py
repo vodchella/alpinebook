@@ -1,5 +1,5 @@
 import sys
-from pkg.constants import DEBUG, CONFIG
+from pkg.constants import CONFIG
 from pkg.constants.date_formats import DATE_FORMAT_FULL
 from sanic.config import LOGGING
 
