@@ -10,7 +10,7 @@ async def custom_headers(request, resp):
 
 
 @app.middleware('request')
-async def log_response(request):
+async def log_request(request):
     try:
         body = '\nBODY: ' + request.body.decode('utf-8') if request.body else ''
     except:
