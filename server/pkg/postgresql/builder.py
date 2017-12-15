@@ -1,7 +1,6 @@
 from datetime import datetime
 from data.db_mapping import mappings
 from pkg.utils.json.validator import Validator
-from pkg.app import app
 
 
 class QueryBuilder:

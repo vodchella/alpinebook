@@ -1,5 +1,5 @@
 *.jar
-*.log
+*.log*
 *.pyc
 .idea
 venv

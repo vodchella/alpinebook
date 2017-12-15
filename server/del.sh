@@ -7,4 +7,4 @@ del() {
 
 del pkg
 del data
-rm -rf *.log
+rm -rf *.log*
