@@ -7,6 +7,8 @@ from pkg.utils.errors import *
 from pkg.constants import APPLICATION_VERSION
 from asyncpg.exceptions import UniqueViolationError
 from sanic import response
+from aio_pika import connect
+from aio_pika.patterns import RPC
 from . import app
 
 
@@ -154,8 +156,25 @@ async def get_route(request, route_id: int):
 
 
 #
+#  Отчётность
+#
+
+
+@app.route('/reports/test', methods=['GET'])
+@handle_exceptions
+async def test_report(request):
+    connection = await connect("amqp://guest:guest@localhost/", loop=app.loop)
+    channel = await connection.channel()
+    rpc = await RPC.create(channel)
+    result = await rpc.proxy.test(txt='Text from http server')
+    return response.text(result)
+
+
+#
 #  Главная страница
 #
+
+
 @app.route('/')
 async def main_page(request):
     return response.text(APPLICATION_VERSION)
