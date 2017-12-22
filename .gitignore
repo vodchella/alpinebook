@@ -1,7 +1,8 @@
 config
+server/http/config.py
 *.jar
 *.log*
 *.pyc
 .idea
-venv
+venv*
 __pycache__
