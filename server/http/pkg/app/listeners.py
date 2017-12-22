@@ -50,7 +50,7 @@ async def setup(app, loop):
             ctx = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
             ctx.verify_mode = ssl.CERT_NONE
         else:
-            ctx=False
+            ctx = False
 
         app.pool = await asyncpg.create_pool(dsn=get_dsn(),
                                              min_size=min_size,
