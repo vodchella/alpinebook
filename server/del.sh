@@ -5,6 +5,5 @@ del() {
 	find $1 -type d -name "__pycache__"  -exec rmdir {} \; 2> /dev/null
 }
 
-del pkg
-del data
+del http
 rm -rf *.log*

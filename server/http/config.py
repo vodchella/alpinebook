@@ -20,7 +20,7 @@ CONFIG = {
         }
     },
     'logging': {
-        'file-name': 'alpinebook.log',
-        'disabled': True
+        'file-name': 'alpinebook-http.log',
+        'disabled': False
     }
 }

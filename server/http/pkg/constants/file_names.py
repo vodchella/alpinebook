@@ -1,1 +1,1 @@
-PID_FILE_NAME = 'alpinebook_%s'
+PID_FILE_NAME = 'alpinebook_http_%s'

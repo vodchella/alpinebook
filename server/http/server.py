@@ -10,7 +10,7 @@ from pkg.utils.console import panic
 
 
 if __name__ == '__main__':
-    env_config_path = os.environ['ALPINEBOOK_CONFIG_PATH'] if 'ALPINEBOOK_CONFIG_PATH' in os.environ else None
+    env_config_path = os.environ['ALPINEBOOK_HTTP_CONFIG_PATH'] if 'ALPINEBOOK_HTTP_CONFIG_PATH' in os.environ else None
     config_path = env_config_path
     if not config_path:
         server_dir, _ = os.path.split(os.path.abspath(__file__))
@@ -30,7 +30,7 @@ if __name__ == '__main__':
     config_name = ('"%s" ' % pkg.constants.CONFIG['name']) if 'name' in pkg.constants.CONFIG else ''
     logger = logging.getLogger('alpinebook')
     logger.info(APPLICATION_VERSION + ' started')
-    logger.info('ALPINEBOOK_CONFIG_PATH: %s' % env_config_path)
+    logger.info('ALPINEBOOK_HTTP_CONFIG_PATH: %s' % env_config_path)
     logger.info('Configuration %sloaded from %s', config_name, config_path)
     logger.info('Debug mode %s' % ('on' if DEBUG else 'off'))
 
