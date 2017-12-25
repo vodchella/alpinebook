@@ -1,5 +1,5 @@
 from pkg.utils.errors import response_error, get_raised_error
-from pkg.utils.errors import (
+from pkg.constants.error_codes import (
     ERROR_INTERNAL_EXCEPTION, ERROR_DATABASE_EXCEPTION,
     ERROR_JWT_INVALID_TOKEN, ERROR_JWT_INVALID_KEY,
     ERROR_RABBITMQ_EXCEPTION

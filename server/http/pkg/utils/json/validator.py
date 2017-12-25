@@ -2,7 +2,8 @@ import jsonschema
 from jsonschema.exceptions import ValidationError
 from data.json_schema import schemas
 from pkg.utils.decorators.singleton import singleton
-from pkg.utils.errors import response_error, ERROR_SCHEMA_VALIDATION
+from pkg.utils.errors import response_error
+from pkg.constants.error_codes import ERROR_SCHEMA_VALIDATION
 
 
 @singleton

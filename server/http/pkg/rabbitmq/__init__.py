@@ -1,6 +1,7 @@
 from sanic import response
-from pkg.utils.errors import response_error, ERROR_RABBITMQ_NOT_AVAIBLE, ERROR_RABBITMQ_UNKNOWN_ANSWER_FORMAT
+from pkg.utils.errors import response_error
 from pkg.utils.decorators.handle_exceptions import handle_exceptions
+from pkg.constants.error_codes import ERROR_RABBITMQ_NOT_AVAIBLE, ERROR_RABBITMQ_UNKNOWN_ANSWER_FORMAT
 
 
 class Rabbit:
@@ -24,14 +25,18 @@ class Rabbit:
     def process_rpc_result(rpc_result):
         content_type = rpc_result['content-type'] if 'content-type' in rpc_result else 'text/plain'
         body = rpc_result['result'] if 'result' in rpc_result else ''
-        if content_type == 'text/html':
-            resp = response.html(body)
-        elif content_type == 'text/plain':
-            resp = response.text(rpc_result['result'])
-        elif content_type == 'application/json':
-            resp = response.json(body)
+        error = rpc_result['error'] if 'error' in rpc_result else None
+        if error:
+            resp = response_error(error['code'], error['message'], status=404, default_logger='rabbitmq')
         else:
-            resp = response_error(ERROR_RABBITMQ_UNKNOWN_ANSWER_FORMAT,
-                                  'Неизвестный формат ответа от RabbitMQ',
-                                  default_logger='rabbitmq')
+            if content_type == 'text/html':
+                resp = response.html(body)
+            elif content_type == 'text/plain':
+                resp = response.text(body)
+            elif content_type == 'application/json':
+                resp = response.json(body)
+            else:
+                resp = response_error(ERROR_RABBITMQ_UNKNOWN_ANSWER_FORMAT,
+                                      'Неизвестный формат ответа от RabbitMQ',
+                                      default_logger='rabbitmq')
         return resp
