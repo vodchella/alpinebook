@@ -1,5 +1,6 @@
 import tempfile
 import os
+import sys
 import asyncio
 import pkg.constants
 from aio_pika import connect
@@ -47,6 +48,9 @@ async def main(loop):
 
 
 if __name__ == '__main__':
+    if sys.version_info < (3, 6):
+        panic('We need mininum Python verion 3.6 to run. Current version: %s.%s.%s' % sys.version_info[:3])
+
     # TODO: Реализовать логирование
     # TODO: Дублирующийся с http-сервером код вынести в общий каталог
     env_config_path = os.environ['ALPINEBOOK_REPORT_CONFIG_PATH'] \

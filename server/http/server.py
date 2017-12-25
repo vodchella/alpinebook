@@ -2,6 +2,7 @@ import logging
 import importlib
 import tempfile
 import os
+import sys
 import pkg.constants
 from glob import glob
 from pid import PidFile
@@ -10,6 +11,9 @@ from pkg.utils.console import panic
 
 
 if __name__ == '__main__':
+    if sys.version_info < (3, 5):
+        panic('We need mininum Python verion 3.6 to run. Current version: %s.%s.%s' % sys.version_info[:3])
+
     env_config_path = os.environ['ALPINEBOOK_HTTP_CONFIG_PATH'] if 'ALPINEBOOK_HTTP_CONFIG_PATH' in os.environ else None
     config_path = env_config_path
     if not config_path:
