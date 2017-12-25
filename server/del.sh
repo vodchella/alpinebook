@@ -6,4 +6,5 @@ del() {
 }
 
 del http
+del report
 rm -rf *.log*
