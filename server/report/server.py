@@ -9,16 +9,18 @@ from pkg.constants.error_codes import ERROR_REPORT_NOT_FOUND
 env = None
 
 
-def generate_html(*, jwt, report_name, params):
+async def generate_html(*, jwt, report_name, params):
     if report_name in env.list_templates():
         template = env.get_template(report_name)
         report = ReportLoader(report_name, params, jwt)
-        rendered = template.render(title=report.get_title(), data=report.get_data())
+        data = await report.get_data()
+        if 'error' in data:
+            return data
+        rendered = template.render(title=report.get_title(), data=data)
         return {'result': rendered, 'content-type': 'text/html'}
     else:
         return {'error': {'code': ERROR_REPORT_NOT_FOUND,
-                          'message': 'Report doesn\'t exists'},
-                'content-type': 'application/json'}
+                          'message': 'Report doesn\'t exists'}}
 
 
 async def main(loop):

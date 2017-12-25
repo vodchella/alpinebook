@@ -3,10 +3,12 @@
     <title>{{ title }}</title>
 </head>
 <body>
+{%- if data %}
     <ul>
-    {% for summit in data %}
+        {%- for summit in data %}
         <li>{{ summit.route.name }}</li>
-    {% endfor %}
+        {% endfor %}
     </ul>
+{% endif %}
 </body>
 </html>

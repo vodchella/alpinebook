@@ -648,7 +648,7 @@
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "{{alpinebook-server}}/reports/html/:report_name",
+							"raw": "{{alpinebook-server}}/reports/html/:report_name?alpinist_id=1",
 							"host": [
 								"{{alpinebook-server}}"
 							],
@@ -656,6 +656,13 @@
 								"reports",
 								"html",
 								":report_name"
+							],
+							"query": [
+								{
+									"key": "alpinist_id",
+									"value": "1",
+									"equals": true
+								}
 							],
 							"variable": [
 								{

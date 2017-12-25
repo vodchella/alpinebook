@@ -13,7 +13,7 @@ class IReportTemplate:
         """Not implemented"""
 
     @abstractmethod
-    def get_data(self):
+    async def get_data(self):
         """Not implemented"""
 
     @abstractmethod
@@ -73,6 +73,6 @@ class ReportLoader(IReportTemplate):
         if self._report:
             return self._report.get_title()
 
-    def get_data(self):
+    async def get_data(self):
         if self._report:
-            return self._report.get_data()
+            return await self._report.get_data()

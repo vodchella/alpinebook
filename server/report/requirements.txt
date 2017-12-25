@@ -1,4 +1,7 @@
 aio-pika==1.7.1
+aiohttp==2.3.6
+async-timeout==2.0.0
+chardet==3.0.4
 Jinja2==2.10
 MarkupSafe==1.0
 multidict==3.3.2
