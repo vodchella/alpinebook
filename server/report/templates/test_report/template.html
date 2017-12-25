@@ -2,5 +2,11 @@
 <head>
     <title>{{ title }}</title>
 </head>
-<body></body>
+<body>
+    <ul>
+    {% for summit in data %}
+        <li>{{ summit.route.name }}</li>
+    {% endfor %}
+    </ul>
+</body>
 </html>
