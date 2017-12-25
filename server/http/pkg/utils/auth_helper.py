@@ -19,10 +19,10 @@ class AuthHelper:
         }
         return jwt.encode(payload, self.__secret_key, algorithm='HS512')
 
-    def get_jwt_from_request(self, request):
+    def get_jwt_from_request(self, request, return_encoded=False):
         if 'authorization' in request.headers:
             authorization = request.headers['authorization']
             if authorization[:6] == 'Bearer':
                 encoded_jwt = authorization[7:]
                 decoded_jwt = jwt.decode(encoded_jwt, self.__secret_key, algorithms='HS512')
-                return decoded_jwt
+                return encoded_jwt if return_encoded else decoded_jwt

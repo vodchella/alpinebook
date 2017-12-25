@@ -7,8 +7,6 @@ from pkg.utils.errors import *
 from pkg.constants import APPLICATION_VERSION
 from asyncpg.exceptions import UniqueViolationError
 from sanic import response
-from aio_pika import connect
-from aio_pika.patterns import RPC
 from . import app
 
 
@@ -160,14 +158,14 @@ async def get_route(request, route_id: int):
 #
 
 
-@app.route('/reports/test', methods=['GET'])
+@app.route('/reports/html/<report_name:[A-z0-9-]+>', methods=['GET'])
 @handle_exceptions
-async def test_report(request):
-    connection = await connect("amqp://guest:guest@localhost/", loop=app.loop)
-    channel = await connection.channel()
-    rpc = await RPC.create(channel)
-    result = await rpc.proxy.test(txt='Text from http server')
-    return response.text(result)
+async def html_report(request, report_name: str):
+    jwt = AuthHelper().get_jwt_from_request(request, return_encoded=True)
+    result = await app.rabbitmq.rpc_call('generate_html', dict(jwt=jwt,
+                                                               report_name=report_name,
+                                                               params=request.raw_args))
+    return app.rabbitmq.process_rpc_result(result)
 
 
 #

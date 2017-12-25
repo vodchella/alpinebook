@@ -51,3 +51,7 @@ def setup_logging():
         'level': 'DEBUG',
         'handlers': ['internal', 'alpinebookTimedRotatingFile']
     }
+    LOGGING['loggers']['rabbitmq'] = {
+        'level': 'DEBUG',
+        'handlers': ['internal', 'alpinebookTimedRotatingFile']
+    }

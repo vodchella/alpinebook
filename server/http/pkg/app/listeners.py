@@ -2,13 +2,32 @@ import ssl
 import logging
 import asyncpg
 import pkg.postgresql.queries
+from aio_pika import connect
+from aio_pika.patterns import RPC
 from pkg.constants import CONFIG
 from pkg.utils.console import panic
+from pkg.rabbitmq import Rabbit
 from . import app
 
 
+@app.listener('after_server_start')
+async def setup_rabbitmq(app, loop):
+    connection = None
+    channel = None
+    rpc = None
+    try:
+        connection = await connect("amqp://guest:guest@localhost/", loop=loop)
+        channel = await connection.channel()
+        rpc = await RPC.create(channel)
+    except:
+        logger = logging.getLogger('rabbitmq')
+        logger.error('Can\'t connect to RabbitMQ. Report generaging isn\'t avaible')
+
+    app.rabbitmq = Rabbit(connection, channel, rpc)
+
+
 @app.listener('before_server_start')
-async def setup(app, loop):
+async def setup_postgres(app, loop):
     def get_dsn(secure=False):
         return 'postgres://%s:%s@%s:%s/%s' % (CONFIG['postgres']['user'],
                                               '*****' if secure else CONFIG['postgres']['pass'],
