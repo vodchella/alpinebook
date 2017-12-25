@@ -27,6 +27,7 @@ class Executor:
         async with app.pool.acquire() as conn:
             await self._setup_db_values(conn)
 
+            # TODO: Запоминать этот ID запроса в базе
             rand_id = StringGenerator(r'[\u\d]{8}').render()
             logger = logging.getLogger('postgres')
             arg = '\nARGS: %s' % [*args] if args else ''

@@ -1,6 +1,6 @@
-import aiohttp
 from pkg.reports import IReportTemplate
 from pkg.constants import HTTP_SERVER_URL
+from pkg.utils.http import request
 
 
 class Report(IReportTemplate):
@@ -18,6 +18,4 @@ class Report(IReportTemplate):
     async def get_data(self):
         alpinist_id = self._params['alpinist_id'] if 'alpinist_id' in self._params else 0
         url = '%s/summits/alpinist/%s' % (HTTP_SERVER_URL, alpinist_id)
-        async with aiohttp.ClientSession() as session:
-            async with session.get(url, headers={'Authorization': 'Bearer ' + self._jwt}) as response:
-                return await response.json()
+        return await request(url, self._jwt)

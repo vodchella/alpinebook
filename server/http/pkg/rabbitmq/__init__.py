@@ -1,3 +1,4 @@
+import logging
 from sanic import response
 from pkg.utils.errors import response_error
 from pkg.utils.decorators.handle_exceptions import handle_exceptions
@@ -17,6 +18,10 @@ class Rabbit:
     @handle_exceptions
     async def rpc_call(self, method, args):
         if self._rpc:
+            # TODO: добавить уникальный ID запроса
+            logger = logging.getLogger('rabbitmq')
+            a = {e: args[e] for e in args if e != 'jwt'}
+            logger.info('Send RPC request:\nMETHOD:\t%s\nARGS:\t%s\n' % (method, a))
             return await self._rpc.call(method, kwargs=args)
         else:
             return response_error(ERROR_RABBITMQ_NOT_AVAIBLE, 'Генерация отчётов недоступна', default_logger='rabbitmq')
@@ -49,4 +54,6 @@ class Rabbit:
                                   'Неизвестный формат ответа от RabbitMQ',
                                   default_logger='rabbitmq')
 
+        logger = logging.getLogger('rabbitmq')
+        logger.info('RPC answer:\n<see http response>\n')
         return resp
