@@ -438,7 +438,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"summit_id\": 666,\n  \"alpinist_id\": 1,\n  \"summit_date\": \"02.01.2017\",\n  \"route_id\": 2,\n  \"leader\": false,\n  \"members\": \"Разные люди +1\"\n}"
+							"raw": "{\n  \"alpinist_id\": 1,\n  \"summit_date\": \"02.01.2017\",\n  \"route_id\": 2,\n  \"leader\": false,\n  \"members\": \"Разные люди +1\"\n}"
 						},
 						"url": {
 							"raw": "{{alpinebook-server}}/summits/:summit_id",
@@ -604,6 +604,69 @@
 						}
 					],
 					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "reports",
+			"description": "",
+			"item": [
+				{
+					"name": "html_report",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "0d356ab9-63d5-489c-a159-3c263c28b484",
+								"type": "text/javascript",
+								"exec": [
+									"const postRequest = {",
+									"    url: pm.environment.get(\"alpinebook-server\") + \"/users/signin/111111111?method=telegram\",",
+									"    method: \"POST\"",
+									"}",
+									"pm.sendRequest(postRequest, function (err, response) {",
+									"    resp = response.json()",
+									"    jwt = resp[\"jwt\"]",
+									"    pm.globals.set(\"current_jwt\", resp[\"jwt\"]);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{current_jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{alpinebook-server}}/reports/html/:report_name",
+							"host": [
+								"{{alpinebook-server}}"
+							],
+							"path": [
+								"reports",
+								"html",
+								":report_name"
+							],
+							"variable": [
+								{
+									"key": "report_name",
+									"value": "test_report"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
 				}
 			]
 		}

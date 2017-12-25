@@ -3,6 +3,7 @@ from aio_pika import connect
 from aio_pika.patterns import RPC
 from jinja2 import Environment, select_autoescape
 from pkg.reports import TemplateLoader, ReportLoader
+from pkg.constants.error_codes import ERROR_REPORT_NOT_FOUND
 
 
 env = None
@@ -15,7 +16,9 @@ def generate_html(*, jwt, report_name, params):
         rendered = template.render(title=report.get_title(), data=report.get_data())
         return {'result': rendered, 'content-type': 'text/html'}
     else:
-        return {'error': {'code': 1, 'message': 'Report doesn\'t exists'}, 'content-type': 'application/json'}
+        return {'error': {'code': ERROR_REPORT_NOT_FOUND,
+                          'message': 'Report doesn\'t exists'},
+                'content-type': 'application/json'}
 
 
 async def main(loop):
