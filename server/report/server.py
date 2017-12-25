@@ -13,7 +13,7 @@ from pkg.reports import TemplateLoader, ReportLoader
 from pkg.utils.decorators.handle_exceptions import handle_exceptions
 from pkg.utils.settings import load_config
 from pkg.utils.console import panic
-from pkg.utils.errors import response_error
+from pkg.utils.errors import response_error, get_raised_error
 from pkg.constants.error_codes import ERROR_REPORT_NOT_FOUND
 from pkg.constants.file_names import PID_FILE_NAME
 
@@ -47,9 +47,16 @@ async def main(aio_loop):
                                         '*****' if secure else conf['rabbit']['pass'],
                                         conf['rabbit']['host'],
                                         conf['rabbit']['port'])
-    connection = await connect(get_dsn(), loop=aio_loop)
-    channel = await connection.channel()
-    rpc = await RPC.create(channel)
+
+    try:
+        connection = await connect(get_dsn(), loop=aio_loop)
+        channel = await connection.channel()
+        rpc = await RPC.create(channel)
+    except:
+        logger.error(get_raised_error())
+        logger.critical('Can\'t connect to RabbitMQ, goodbye honey!\n')
+        panic()
+
     await rpc.register('generate_html', generate_html)
 
     logger.info('Register RPC method: generate_html()')
