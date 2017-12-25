@@ -31,7 +31,7 @@ class Rabbit:
             body = rpc_result['result'] if 'result' in rpc_result else ''
             error = rpc_result['error'] if 'error' in rpc_result else None
             if error:
-                resp = response_error(error['code'], error['message'], status=404, default_logger='rabbitmq')
+                resp = response_error(error['code'], error['message'], default_logger='rabbitmq')
             else:
                 if content_type == 'text/html':
                     resp = response.html(body)

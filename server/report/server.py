@@ -7,8 +7,10 @@ from aio_pika.patterns import RPC
 from jinja2 import Environment, select_autoescape
 from pid import PidFile
 from pkg.reports import TemplateLoader, ReportLoader
+from pkg.utils.decorators.handle_exceptions import handle_exceptions
 from pkg.utils.settings import load_config
 from pkg.utils.console import panic
+from pkg.utils.errors import response_error
 from pkg.constants.error_codes import ERROR_REPORT_NOT_FOUND
 from pkg.constants.file_names import PID_FILE_NAME
 
@@ -16,8 +18,8 @@ from pkg.constants.file_names import PID_FILE_NAME
 env = None
 
 
+@handle_exceptions
 async def generate_html(*, jwt, report_name, params):
-    # TODO: Реализовать отлов ошибок
     if report_name in env.list_templates():
         template = env.get_template(report_name)
         report = ReportLoader(report_name, params, jwt)
@@ -27,8 +29,7 @@ async def generate_html(*, jwt, report_name, params):
         rendered = template.render(title=report.get_title(), data=data)
         return {'result': rendered, 'content-type': 'text/html'}
     else:
-        return {'error': {'code': ERROR_REPORT_NOT_FOUND,
-                          'message': 'Report doesn\'t exists'}}
+        return response_error(ERROR_REPORT_NOT_FOUND, 'Report doesn\'t exists')
 
 
 async def main(loop):
