@@ -9,7 +9,11 @@ def setup_logging():
         disabled = CONFIG['logging']['disabled']
     except:
         disabled = False
-    log_file_name = '/dev/null/' if disabled else CONFIG['logging']['file-name']
+    log_file_name = None
+    try:
+        log_file_name = '/dev/null' if disabled else CONFIG['logging']['file-name']
+    except:
+        disabled = True
 
     LOGGING['formatters']['simple']['format'] = '%(levelname)s\t%(asctime)s\t%(name)s: %(message)s'
     LOGGING['formatters']['access'][
@@ -37,21 +41,26 @@ def setup_logging():
         'filename': log_file_name
     }
 
-    LOGGING['loggers']['sanic']['handlers'] += ['alpinebookTimedRotatingFile']
-    LOGGING['loggers']['network']['handlers'] += ['alpinebookAccessTimedRotatingFile']
+    if disabled:
+        alpinebook_handlers = ['internal']
+    else:
+        alpinebook_handlers = ['internal', 'alpinebookTimedRotatingFile']
+        LOGGING['loggers']['sanic']['handlers'] += ['alpinebookTimedRotatingFile']
+        LOGGING['loggers']['network']['handlers'] += ['alpinebookAccessTimedRotatingFile']
+
     LOGGING['loggers']['rest-http'] = {
         'level': 'DEBUG',
-        'handlers': ['internal', 'alpinebookTimedRotatingFile']
+        'handlers': alpinebook_handlers
     }
     LOGGING['loggers']['postgres'] = {
         'level': 'DEBUG',
-        'handlers': ['internal', 'alpinebookTimedRotatingFile']
+        'handlers': alpinebook_handlers
     }
     LOGGING['loggers']['alpinebook'] = {
         'level': 'DEBUG',
-        'handlers': ['internal', 'alpinebookTimedRotatingFile']
+        'handlers': alpinebook_handlers
     }
     LOGGING['loggers']['rabbitmq'] = {
         'level': 'DEBUG',
-        'handlers': ['internal', 'alpinebookTimedRotatingFile']
+        'handlers': alpinebook_handlers
     }
