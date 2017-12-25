@@ -12,15 +12,22 @@ from . import app
 
 @app.listener('after_server_start')
 async def setup_rabbitmq(app, loop):
+    def get_dsn(secure=False):
+        return 'amqp://%s:%s@%s:%s/' % (CONFIG['rabbit']['user'],
+                                        '*****' if secure else CONFIG['rabbit']['pass'],
+                                        CONFIG['rabbit']['host'],
+                                        CONFIG['rabbit']['port'])
+
     connection = None
     channel = None
     rpc = None
+    logger = logging.getLogger('rabbitmq')
     try:
-        connection = await connect("amqp://guest:guest@localhost/", loop=loop)
+        logger.info('Connecting to %s' % get_dsn(secure=True))
+        connection = await connect(get_dsn(), loop=loop)
         channel = await connection.channel()
         rpc = await RPC.create(channel)
     except:
-        logger = logging.getLogger('rabbitmq')
         logger.error('Can\'t connect to RabbitMQ. Report generaging isn\'t avaible')
 
     app.rabbitmq = Rabbit(connection, channel, rpc)
