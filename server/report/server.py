@@ -26,7 +26,7 @@ async def generate_html(*, jwt, report_name, params):
         data = await report.get_data()
         if 'error' in data:
             return data
-        rendered = template.render(title=report.get_title(), data=data)
+        rendered = await template.render_async(title=report.get_title(), data=data)
         return {'result': rendered, 'content-type': 'text/html'}
     else:
         return response_error(ERROR_REPORT_NOT_FOUND, 'Report doesn\'t exists')
@@ -68,7 +68,9 @@ if __name__ == '__main__':
     with PidFile(PID_FILE_NAME, piddir=tempfile.gettempdir()) as p:
         env = Environment(
             loader=TemplateLoader(),
-            autoescape=select_autoescape(['html', 'xml'])
+            autoescape=select_autoescape(['html', 'xml']),
+            auto_reload=True,
+            enable_async=True
         )
         loop = asyncio.get_event_loop()
         loop.create_task(main(loop))
