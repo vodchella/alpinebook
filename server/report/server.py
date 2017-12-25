@@ -17,6 +17,7 @@ env = None
 
 
 async def generate_html(*, jwt, report_name, params):
+    # TODO: Реализовать отлов ошибок
     if report_name in env.list_templates():
         template = env.get_template(report_name)
         report = ReportLoader(report_name, params, jwt)
@@ -58,6 +59,8 @@ if __name__ == '__main__':
         cfg_module = load_config(config_path)
         pkg.constants.CONFIG = cfg_module.CONFIG
         pkg.constants.DEBUG = cfg_module.CONFIG['debug'] if 'debug' in cfg_module.CONFIG else False
+        pkg.constants.HTTP_SERVER_URL = 'http://%s:%s' % (cfg_module.CONFIG['http']['listen-host'],
+                                                          cfg_module.CONFIG['http']['listen-port'])
     except:
         panic('Can\'t load config file %s' % config_path)
 

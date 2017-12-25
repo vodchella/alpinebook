@@ -23,20 +23,30 @@ class Rabbit:
 
     @staticmethod
     def process_rpc_result(rpc_result):
-        content_type = rpc_result['content-type'] if 'content-type' in rpc_result else 'text/plain'
-        body = rpc_result['result'] if 'result' in rpc_result else ''
-        error = rpc_result['error'] if 'error' in rpc_result else None
-        if error:
-            resp = response_error(error['code'], error['message'], status=404, default_logger='rabbitmq')
-        else:
-            if content_type == 'text/html':
-                resp = response.html(body)
-            elif content_type == 'text/plain':
-                resp = response.text(body)
-            elif content_type == 'application/json':
-                resp = response.json(body)
+        resp = None
+        send_resp_unknown = False
+
+        if type(rpc_result) == dict:
+            content_type = rpc_result['content-type'] if 'content-type' in rpc_result else 'text/plain'
+            body = rpc_result['result'] if 'result' in rpc_result else ''
+            error = rpc_result['error'] if 'error' in rpc_result else None
+            if error:
+                resp = response_error(error['code'], error['message'], status=404, default_logger='rabbitmq')
             else:
-                resp = response_error(ERROR_RABBITMQ_UNKNOWN_ANSWER_FORMAT,
-                                      'Неизвестный формат ответа от RabbitMQ',
-                                      default_logger='rabbitmq')
+                if content_type == 'text/html':
+                    resp = response.html(body)
+                elif content_type == 'text/plain':
+                    resp = response.text(body)
+                elif content_type == 'application/json':
+                    resp = response.json(body)
+                else:
+                    send_resp_unknown = True
+        else:
+            send_resp_unknown = True
+
+        if send_resp_unknown:
+            return response_error(ERROR_RABBITMQ_UNKNOWN_ANSWER_FORMAT,
+                                  'Неизвестный формат ответа от RabbitMQ',
+                                  default_logger='rabbitmq')
+
         return resp
