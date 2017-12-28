@@ -17,11 +17,13 @@
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "{{alpinebook-server}}/regions",
+							"raw": "{{alpinebook-server}}/api/v1/regions",
 							"host": [
 								"{{alpinebook-server}}"
 							],
 							"path": [
+								"api",
+								"v1",
 								"regions"
 							]
 						},
@@ -36,11 +38,13 @@
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "{{alpinebook-server}}/regions/:region_id",
+							"raw": "{{alpinebook-server}}/api/v1/regions/:region_id",
 							"host": [
 								"{{alpinebook-server}}"
 							],
 							"path": [
+								"api",
+								"v1",
 								"regions",
 								":region_id"
 							],
@@ -62,11 +66,13 @@
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "{{alpinebook-server}}/regions/:region_id/areas",
+							"raw": "{{alpinebook-server}}/api/v1/regions/:region_id/areas",
 							"host": [
 								"{{alpinebook-server}}"
 							],
 							"path": [
+								"api",
+								"v1",
 								"regions",
 								":region_id",
 								"areas"
@@ -89,11 +95,13 @@
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "{{alpinebook-server}}/areas/:area_id",
+							"raw": "{{alpinebook-server}}/api/v1/areas/:area_id",
 							"host": [
 								"{{alpinebook-server}}"
 							],
 							"path": [
+								"api",
+								"v1",
 								"areas",
 								":area_id"
 							],
@@ -115,11 +123,13 @@
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "{{alpinebook-server}}/areas/:area_id/mountains",
+							"raw": "{{alpinebook-server}}/api/v1/areas/:area_id/mountains",
 							"host": [
 								"{{alpinebook-server}}"
 							],
 							"path": [
+								"api",
+								"v1",
 								"areas",
 								":area_id",
 								"mountains"
@@ -142,11 +152,13 @@
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "{{alpinebook-server}}/mountains/:mountain_id",
+							"raw": "{{alpinebook-server}}/api/v1/mountains/:mountain_id",
 							"host": [
 								"{{alpinebook-server}}"
 							],
 							"path": [
+								"api",
+								"v1",
 								"mountains",
 								":mountain_id"
 							],
@@ -168,11 +180,13 @@
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "{{alpinebook-server}}/mountains/:mountain_id/routes",
+							"raw": "{{alpinebook-server}}/api/v1/mountains/:mountain_id/routes",
 							"host": [
 								"{{alpinebook-server}}"
 							],
 							"path": [
+								"api",
+								"v1",
 								"mountains",
 								":mountain_id",
 								"routes"
@@ -195,11 +209,13 @@
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "{{alpinebook-server}}/routes/:route_id",
+							"raw": "{{alpinebook-server}}/api/v1/routes/:route_id",
 							"host": [
 								"{{alpinebook-server}}"
 							],
 							"path": [
+								"api",
+								"v1",
 								"routes",
 								":route_id"
 							],
@@ -226,10 +242,11 @@
 						{
 							"listen": "prerequest",
 							"script": {
+								"id": "110c03e0-c212-4ef6-b7c2-aaffa58f9fb3",
 								"type": "text/javascript",
 								"exec": [
 									"const postRequest = {",
-									"    url: pm.environment.get(\"alpinebook-server\") + \"/users/signin/111111111?method=telegram\",",
+									"    url: pm.environment.get(\"alpinebook-server\") + \"/api/v1/users/signin/111111111?method=telegram\",",
 									"    method: \"POST\"",
 									"}",
 									"pm.sendRequest(postRequest, function (err, response) {",
@@ -256,11 +273,13 @@
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "{{alpinebook-server}}/summits/alpinist/:alpinist_id",
+							"raw": "{{alpinebook-server}}/api/v1/summits/alpinist/:alpinist_id",
 							"host": [
 								"{{alpinebook-server}}"
 							],
 							"path": [
+								"api",
+								"v1",
 								"summits",
 								"alpinist",
 								":alpinist_id"
@@ -282,10 +301,11 @@
 						{
 							"listen": "prerequest",
 							"script": {
+								"id": "c0c37e0a-505a-4ce4-86d0-8d1aafe43711",
 								"type": "text/javascript",
 								"exec": [
 									"const postRequest = {",
-									"    url: pm.environment.get(\"alpinebook-server\") + \"/users/signin/111111111?method=telegram\",",
+									"    url: pm.environment.get(\"alpinebook-server\") + \"/api/v1/users/signin/111111111?method=telegram\",",
 									"    method: \"POST\"",
 									"}",
 									"pm.sendRequest(postRequest, function (err, response) {",
@@ -312,11 +332,13 @@
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "{{alpinebook-server}}/summits/alpinist/:alpinist_id?full_route_info=True",
+							"raw": "{{alpinebook-server}}/api/v1/summits/alpinist/:alpinist_id?full_route_info=True",
 							"host": [
 								"{{alpinebook-server}}"
 							],
 							"path": [
+								"api",
+								"v1",
 								"summits",
 								"alpinist",
 								":alpinist_id"
@@ -345,10 +367,11 @@
 						{
 							"listen": "prerequest",
 							"script": {
+								"id": "15dde6d4-4e4b-4baa-b6a8-02631ed770d9",
 								"type": "text/javascript",
 								"exec": [
 									"const postRequest = {",
-									"    url: pm.environment.get(\"alpinebook-server\") + \"/users/signin/111111111?method=telegram\",",
+									"    url: pm.environment.get(\"alpinebook-server\") + \"/api/v1/users/signin/111111111?method=telegram\",",
 									"    method: \"POST\"",
 									"}",
 									"pm.sendRequest(postRequest, function (err, response) {",
@@ -383,11 +406,13 @@
 							"raw": "{\n\t\"summit_id\": 666,\n\t\"alpinist_id\": 1,\n\t\"summit_date\": \"01.01.2017\",\n\t\"route_id\": 1,\n\t\"leader\": true,\n\t\"members\": \"Разные люди\"\n}"
 						},
 						"url": {
-							"raw": "{{alpinebook-server}}/summits/",
+							"raw": "{{alpinebook-server}}/api/v1/summits/",
 							"host": [
 								"{{alpinebook-server}}"
 							],
 							"path": [
+								"api",
+								"v1",
 								"summits",
 								""
 							]
@@ -402,11 +427,11 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "428bdf53-8d60-45bf-bdb1-d68d49b592f4",
+								"id": "3dacb981-2a68-4b07-b3e8-d7c78de9aa9a",
 								"type": "text/javascript",
 								"exec": [
 									"const postRequest = {",
-									"    url: pm.environment.get(\"alpinebook-server\") + \"/users/signin/111111111?method=telegram\",",
+									"    url: pm.environment.get(\"alpinebook-server\") + \"/api/v1/users/signin/111111111?method=telegram\",",
 									"    method: \"POST\"",
 									"}",
 									"pm.sendRequest(postRequest, function (err, response) {",
@@ -441,11 +466,13 @@
 							"raw": "{\n  \"alpinist_id\": 1,\n  \"summit_date\": \"02.01.2017\",\n  \"route_id\": 2,\n  \"leader\": false,\n  \"members\": \"Разные люди +1\"\n}"
 						},
 						"url": {
-							"raw": "{{alpinebook-server}}/summits/:summit_id",
+							"raw": "{{alpinebook-server}}/api/v1/summits/:summit_id",
 							"host": [
 								"{{alpinebook-server}}"
 							],
 							"path": [
+								"api",
+								"v1",
 								"summits",
 								":summit_id"
 							],
@@ -466,11 +493,11 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "51be15c2-fd67-4afa-ae02-2620e8ca68ba",
+								"id": "ccd4323a-57ea-45d0-9649-df4a0a17692b",
 								"type": "text/javascript",
 								"exec": [
 									"const postRequest = {",
-									"    url: pm.environment.get(\"alpinebook-server\") + \"/users/signin/111111111?method=telegram\",",
+									"    url: pm.environment.get(\"alpinebook-server\") + \"/api/v1/users/signin/111111111?method=telegram\",",
 									"    method: \"POST\"",
 									"}",
 									"pm.sendRequest(postRequest, function (err, response) {",
@@ -505,11 +532,13 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{alpinebook-server}}/summits/:summit_id",
+							"raw": "{{alpinebook-server}}/api/v1/summits/:summit_id",
 							"host": [
 								"{{alpinebook-server}}"
 							],
 							"path": [
+								"api",
+								"v1",
 								"summits",
 								":summit_id"
 							],
@@ -541,11 +570,13 @@
 								"header": [],
 								"body": {},
 								"url": {
-									"raw": "{{alpinebook-server}}/users/signin/:user_name?method=telegram",
+									"raw": "{{alpinebook-server}}/api/v1/users/signin/:user_name?method=telegram",
 									"host": [
 										"{{alpinebook-server}}"
 									],
 									"path": [
+										"api",
+										"v1",
 										"users",
 										"signin",
 										":user_name"
@@ -575,11 +606,13 @@
 								"header": [],
 								"body": {},
 								"url": {
-									"raw": "{{alpinebook-server}}/users/signin/:user_name?method=trusted",
+									"raw": "{{alpinebook-server}}/api/v1/users/signin/:user_name?method=trusted",
 									"host": [
 										"{{alpinebook-server}}"
 									],
 									"path": [
+										"api",
+										"v1",
 										"users",
 										"signin",
 										":user_name"
@@ -617,11 +650,11 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "0d356ab9-63d5-489c-a159-3c263c28b484",
+								"id": "9d220d22-f4a2-4a69-9dfd-1bebfcc373cd",
 								"type": "text/javascript",
 								"exec": [
 									"const postRequest = {",
-									"    url: pm.environment.get(\"alpinebook-server\") + \"/users/signin/111111111?method=telegram\",",
+									"    url: pm.environment.get(\"alpinebook-server\") + \"/api/v1/users/signin/111111111?method=telegram\",",
 									"    method: \"POST\"",
 									"}",
 									"pm.sendRequest(postRequest, function (err, response) {",

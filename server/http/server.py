@@ -31,7 +31,7 @@ if __name__ == '__main__':
 
     asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 
-    from pkg.app import app
+    from pkg.app import app, v1
     from pkg.constants import APPLICATION_VERSION, DEBUG
     from pkg.constants.file_names import PID_FILE_NAME
 
@@ -51,4 +51,5 @@ if __name__ == '__main__':
         logger.info(f'PID: {p.pid}  FILE: {pid_dir}/{pid_file}.pid')
         for md in [os.path.basename(x)[:-3] for x in glob('./pkg/app/*.py') if x[-11:] != '__init__.py']:
             importlib.import_module(f'pkg.app.{md}')
+        app.blueprint(v1)
         app.run(host=host, port=port, access_log=False)

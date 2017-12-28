@@ -8,7 +8,7 @@ from pkg.constants import APPLICATION_VERSION
 from pkg.constants.error_codes import *
 from asyncpg.exceptions import UniqueViolationError
 from sanic import response
-from . import app
+from . import app, v1
 
 
 #
@@ -16,7 +16,7 @@ from . import app
 #
 
 
-@app.post('/users/signin/<user_name:[A-z0-9@-_\.]+>')
+@v1.post('/users/signin/<user_name:[A-z0-9@-_\.]+>')
 @handle_exceptions
 async def signin(request, user_name: str):
     if 'method' in request.raw_args:
@@ -60,7 +60,7 @@ async def signin(request, user_name: str):
 #
 
 
-@app.get('/summits/alpinist/<alpinist_id:int>')
+@v1.get('/summits/alpinist/<alpinist_id:int>')
 @handle_exceptions
 async def get_summits(request, alpinist_id: int):
     full = False
@@ -71,7 +71,7 @@ async def get_summits(request, alpinist_id: int):
                                                                        full))
 
 
-@app.delete('/summits/<summit_id:int>')
+@v1.delete('/summits/<summit_id:int>')
 @handle_exceptions
 async def delete_summit(request, summit_id: int):
     query_data = QueryBuilder('summits').generate_delete()
@@ -79,7 +79,7 @@ async def delete_summit(request, summit_id: int):
     return response.json({'deleted': result})
 
 
-@app.put('/summits/<summit_id:int>')
+@v1.put('/summits/<summit_id:int>')
 @validate_request('summits')
 @handle_exceptions
 async def update_summit(request, summit_id: int):
@@ -88,7 +88,7 @@ async def update_summit(request, summit_id: int):
     return response.json({'updated': result})
 
 
-@app.post('/summits')
+@v1.post('/summits')
 @validate_request('summits')
 @handle_exceptions
 async def insert_summit(request):
@@ -105,49 +105,49 @@ async def insert_summit(request):
 #
 
 
-@app.get('/regions')
+@v1.get('/regions')
 @handle_exceptions
 async def list_regions(request):
     return response.json(await Executor(request, False).query_all_json(app.db_queries['get_regions']))
 
 
-@app.get('/regions/<region_id:int>')
+@v1.get('/regions/<region_id:int>')
 @handle_exceptions
 async def get_region(request, region_id: int):
     return response.json(await Executor(request, False).query_one_json(app.db_queries['get_region'], region_id))
 
 
-@app.get('/regions/<region_id:int>/areas')
+@v1.get('/regions/<region_id:int>/areas')
 @handle_exceptions
 async def list_areas(request, region_id: int):
     return response.json(await Executor(request, False).query_all_json(app.db_queries['get_areas'], region_id))
 
 
-@app.get('/areas/<area_id:int>')
+@v1.get('/areas/<area_id:int>')
 @handle_exceptions
 async def get_area(request, area_id: int):
     return response.json(await Executor(request, False).query_one_json(app.db_queries['get_area'], area_id))
 
 
-@app.get('/areas/<area_id:int>/mountains')
+@v1.get('/areas/<area_id:int>/mountains')
 @handle_exceptions
 async def list_mountains(request, area_id: int):
     return response.json(await Executor(request, False).query_all_json(app.db_queries['get_mountains'], area_id))
 
 
-@app.get('/mountains/<mountain_id:int>')
+@v1.get('/mountains/<mountain_id:int>')
 @handle_exceptions
 async def get_mountain(request, mountain_id: int):
     return response.json(await Executor(request, False).query_one_json(app.db_queries['get_mountain'], mountain_id))
 
 
-@app.get('/mountains/<mountain_id:int>/routes')
+@v1.get('/mountains/<mountain_id:int>/routes')
 @handle_exceptions
 async def list_routes(request, mountain_id: int):
     return response.json(await Executor(request, False).query_all_json(app.db_queries['get_routes'], mountain_id))
 
 
-@app.get('/routes/<route_id:int>')
+@v1.get('/routes/<route_id:int>')
 @handle_exceptions
 async def get_route(request, route_id: int):
     return response.json(await Executor(request, False).query_one_json(app.db_queries['get_route'], route_id))
@@ -181,6 +181,5 @@ async def main_page(request):
 #
 #  Статика
 #
-
 
 app.static('/favicon.png', './pkg/app/static/images/favicon.png')
