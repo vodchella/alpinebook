@@ -1,15 +1,45 @@
 <html>
-<head>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>{{ title }}</title>
-    <link id="favicon" rel="shortcut icon" href="/favicon.png" type="image/png" />
-</head>
-<body>
-{%- if data %}
-    <ul>
-        {%- for summit in data %}
-        <li>{{ summit.route.name }}</li>
-        {%- endfor %}
-    </ul>
-{%- endif %}
-</body>
+    <link id="favicon" rel="shortcut icon" href="/favicon.png" type="image/png">
+    <link rel="stylesheet" href="/css/material.min.css">
+  </head>
+  <body>
+    <br>
+    <p style="margin-bottom: 0cm; line-height: 100%" align="center"><font style="font-size: 14pt" size="4"><b>Tittle</b></font></p>
+    <br>
+    {%- if data %} 
+    <table width="900px" class="mdl-data-table mdl-shadow--2dp" style="margin: auto;">
+      <thead>
+        <tr>
+          <th style="width: 61.6333px; text-align: left;"><b>Num</b></th>
+          <th style="width: 116.017px; text-align: left;"><b>Date</b></th>
+          <th style="width: 406.667px; text-align: left;"><b>Route<br></b></th>
+          <th style="width: 94.667px; text-align: left;"><b>Complexity</b></th>
+          <th style="width: 59.017px; text-align: left;"><b>Who</b></th>
+          <th style="width: 343px; text-align: left;"><b>With</b></th>
+        </tr>
+      </thead>
+      {%- for summit in data %}
+      <tbody>
+        <tr>
+          <td><br>
+          </td>
+          <td style="text-align: left;">{{ summit.summit_date }}
+          </td>
+          <td style="text-align: left;">{{ summit.route.name }}<br>
+          </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+        </tr>
+      </tbody>
+      {%- endfor %}
+    </table>
+    {%- endif %}
+  </body>
 </html>
