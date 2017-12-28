@@ -48,8 +48,6 @@ if __name__ == '__main__':
     pid_file = PID_FILE_NAME % port
     pid_dir = tempfile.gettempdir()
     with PidFile(pid_file, piddir=pid_dir) as p:
-        app.static('/favicon.png', './pkg/app/static/images/favicon.png')
-
         logger.info(f'PID: {p.pid}  FILE: {pid_dir}/{pid_file}.pid')
         for md in [os.path.basename(x)[:-3] for x in glob('./pkg/app/*.py') if x[-11:] != '__init__.py']:
             importlib.import_module(f'pkg.app.{md}')
