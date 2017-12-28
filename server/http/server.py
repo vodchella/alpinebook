@@ -49,4 +49,4 @@ if __name__ == '__main__':
         logger.info('PID: %s' % p.pid)
         for md in [os.path.basename(x)[:-3] for x in glob('./pkg/app/*.py') if x[-11:] != '__init__.py']:
             importlib.import_module('pkg.app.' + md)
-        app.run(host=host, port=port)
+        app.run(host=host, port=port, access_log=False)

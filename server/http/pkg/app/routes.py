@@ -5,6 +5,7 @@ from pkg.utils.decorators.validate_request import validate_request
 from pkg.utils.decorators.handle_exceptions import handle_exceptions
 from pkg.utils.errors import *
 from pkg.constants import APPLICATION_VERSION
+from pkg.constants.error_codes import *
 from asyncpg.exceptions import UniqueViolationError
 from sanic import response
 from . import app
@@ -24,8 +25,7 @@ async def signin(request, user_name: str):
         # Для этих методов авторизации подключения разрешены только
         # с локальных адресов, т.к. они не запрашивают пароль
         if method in ('telegram', 'trusted'):
-            ip = request.ip[0]
-            if ip != '127.0.0.1':
+            if request.ip != '127.0.0.1':
                 return response_error(ERROR_IP_ADDRESS_NOT_ALLOWED, 'Подключения с внешних адресов запрещены')
 
         if method == 'telegram':

@@ -1,11 +1,10 @@
 from sanic import Sanic
-from pkg.utils.logging import setup_logging
+from pkg.utils.logging import LOGGING
 from pkg.utils.console import panic
 
 
 try:
-    setup_logging()
-    app = Sanic()
+    app = Sanic(log_config=LOGGING)
 except:
     panic()
 
