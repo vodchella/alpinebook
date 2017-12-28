@@ -18,5 +18,5 @@ def panic(msg=None, show_original_error=False):
         msg = get_raised_error()
     elif show_original_error:
         write_stderr(get_raised_error())
-    write_stderr(msg)
+    write_stderr(f'{msg}\n')
     os._exit(0)
