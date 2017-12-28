@@ -9,4 +9,5 @@ pid==2.1.1
 pika==0.10.0
 sh==1.12.14
 shortuuid==0.5.0
+uvloop==0.9.1
 yarl==0.16.0

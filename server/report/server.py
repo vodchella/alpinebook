@@ -2,6 +2,7 @@ import tempfile
 import os
 import sys
 import asyncio
+import uvloop
 import pkg.constants
 import logging
 from logging import config
@@ -101,6 +102,7 @@ if __name__ == '__main__':
             auto_reload=True,
             enable_async=True
         )
+        asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
         loop = asyncio.get_event_loop()
         loop.create_task(main(loop))
         loop.run_forever()

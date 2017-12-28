@@ -1,3 +1,5 @@
+import asyncio
+import uvloop
 import logging
 import importlib
 import tempfile
@@ -26,6 +28,8 @@ if __name__ == '__main__':
         pkg.constants.DEBUG = cfg_module.CONFIG['debug'] if 'debug' in cfg_module.CONFIG else False
     except:
         panic('Can\'t load config file %s' % config_path)
+
+    asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 
     from pkg.app import app
     from pkg.constants import APPLICATION_VERSION, DEBUG
