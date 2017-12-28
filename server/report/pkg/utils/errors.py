@@ -19,9 +19,9 @@ def response_error(code, message, default_logger='report', log_stacktrace=True):
     stacktrace_log_msg = ''
     if log_stacktrace:
         error_stacktrace = get_raised_error(True)
-        stacktrace_log_msg = '\n%s\n' % error_stacktrace if error_stacktrace else ''
+        stacktrace_log_msg = f'\n{error_stacktrace}\n' if error_stacktrace else ''
 
     logger = logging.getLogger(default_logger)
-    logger.error('JSON: %s%s' % (error_json, stacktrace_log_msg))
+    logger.error(f'JSON: {error_json}{stacktrace_log_msg}')
 
     return error_json

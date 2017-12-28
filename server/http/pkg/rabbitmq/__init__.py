@@ -21,7 +21,7 @@ class Rabbit:
             # TODO: добавить уникальный ID запроса
             logger = logging.getLogger('rabbitmq')
             a = {e: args[e] for e in args if e != 'jwt'}
-            logger.info('Send RPC request:\nMETHOD:\t%s\nARGS:\t%s\n' % (method, a))
+            logger.info(f'Send RPC request:\nMETHOD:\t{method}\nARGS:\t{a}\n')
             return await self._rpc.call(method, kwargs=args)
         else:
             return response_error(ERROR_RABBITMQ_NOT_AVAIBLE, 'Генерация отчётов недоступна', default_logger='rabbitmq')

@@ -20,9 +20,9 @@ def response_error(code, message, status=200, default_logger='alpinebook', log_s
     stacktrace_log_msg = ''
     if log_stacktrace:
         error_stacktrace = get_raised_error(True)
-        stacktrace_log_msg = '\n%s\n' % error_stacktrace if error_stacktrace else ''
+        stacktrace_log_msg = f'\n{error_stacktrace}\n' if error_stacktrace else ''
 
     logger = logging.getLogger(default_logger)
-    logger.error('Status: %s, JSON: %s%s' % (status, error_json, stacktrace_log_msg))
+    logger.error(f'Status: {status}, JSON: {error_json}{stacktrace_log_msg}')
 
     return response.json(error_json, status=status)

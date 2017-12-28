@@ -18,7 +18,7 @@ class Executor:
         user_id = jwt['id'] if jwt else 0
 
         logger = logging.getLogger('postgres')
-        logger.info('Setup user id: %s' % user_id)
+        logger.info(f'Setup user id: {user_id}')
 
         statement = await conn.prepare(app.db_queries['set_user_id'])
         await statement.fetchval(user_id)
@@ -30,15 +30,15 @@ class Executor:
             # TODO: Запоминать этот ID запроса в базе
             rand_id = StringGenerator(r'[\u\d]{8}').render()
             logger = logging.getLogger('postgres')
-            arg = '\nARGS: %s' % [*args] if args else ''
+            arg = f'\nARGS: {[*args]}' if args else ''
             log_sql = sql.replace('\n', '\n     ').lstrip('\n    ')
-            logger.info('Execute %s:%s\nSQL: %s' % (rand_id, arg, log_sql))
+            logger.info(f'Execute {rand_id}:{arg}\nSQL: {log_sql}')
 
             statement = await conn.prepare(sql)
             val = await statement.fetchval(*args) if only_one else await statement.fetch(*args)
 
             log_result = val if self._log_full_sql_result else '<see http response>'
-            logger.info('Result %s:\n%s\n' % (rand_id, log_result))
+            logger.info(f'Result {rand_id}:\n{log_result}\n')
             return val
 
     async def query_all_json(self, sql, *args):

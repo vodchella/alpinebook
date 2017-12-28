@@ -27,7 +27,7 @@ if __name__ == '__main__':
         pkg.constants.CONFIG = cfg_module.CONFIG
         pkg.constants.DEBUG = cfg_module.CONFIG['debug'] if 'debug' in cfg_module.CONFIG else False
     except:
-        panic('Can\'t load config file %s' % config_path)
+        panic(f'Can\'t load config file {config_path}')
 
     asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 
@@ -35,18 +35,20 @@ if __name__ == '__main__':
     from pkg.constants import APPLICATION_VERSION, DEBUG
     from pkg.constants.file_names import PID_FILE_NAME
 
-    config_name = ('"%s" ' % pkg.constants.CONFIG['name']) if 'name' in pkg.constants.CONFIG else ''
+    config_name = f'"{pkg.constants.CONFIG["name"]}" ' if 'name' in pkg.constants.CONFIG else ''
     logger = logging.getLogger('alpinebook')
-    logger.info(APPLICATION_VERSION + ' started')
-    logger.info('ALPINEBOOK_HTTP_CONFIG_PATH: %s' % env_config_path)
-    logger.info('Configuration %sloaded from %s', config_name, config_path)
-    logger.info('Debug mode %s' % ('on' if DEBUG else 'off'))
+    logger.info(f'{APPLICATION_VERSION} started')
+    logger.info(f'ALPINEBOOK_HTTP_CONFIG_PATH: {env_config_path}')
+    logger.info(f'Configuration {config_name}loaded from {config_path}')
+    logger.info(f'Debug mode {"on" if DEBUG else "off"}')
 
     host = pkg.constants.CONFIG['http']['listen-host']
     port = pkg.constants.CONFIG['http']['listen-port']
 
-    with PidFile(PID_FILE_NAME % port, piddir=tempfile.gettempdir()) as p:
-        logger.info('PID: %s' % p.pid)
+    pid_file = PID_FILE_NAME % port
+    pid_dir = tempfile.gettempdir()
+    with PidFile(pid_file, piddir=pid_dir) as p:
+        logger.info(f'PID: {p.pid}  FILE: {pid_dir}/{pid_file}.pid')
         for md in [os.path.basename(x)[:-3] for x in glob('./pkg/app/*.py') if x[-11:] != '__init__.py']:
-            importlib.import_module('pkg.app.' + md)
+            importlib.import_module(f'pkg.app.{md}')
         app.run(host=host, port=port, access_log=False)

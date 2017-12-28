@@ -16,13 +16,12 @@ async def log_request(request):
     except:
         body = '\nBODY: <binary data>'
     user_agent = request.headers['user-agent'] if 'user-agent' in request.headers else ''
-    auth = '\nAUTH: ' + request.headers['authorization'] if 'authorization' in request.headers else ''
-    args = '\nARGS: ' + str(request.raw_args) if request.raw_args else ''
-    log_body = '%s%s%s' % (auth, args, body)
-    log_body = log_body + '\n' if log_body else ''
+    auth = f'\nAUTH: {request.headers["authorization"]}' if 'authorization' in request.headers else ''
+    args = f'\nARGS: {str(request.raw_args)}' if request.raw_args else ''
+    log_body = f'{auth}{args}{body}'
+    log_body = f'{log_body}\n' if log_body else ''
     logger = logging.getLogger('rest-http')
-    logger.info('REQUEST %s %s from %s %s%s' %
-                (request.method, request.path, request.ip, user_agent, log_body))
+    logger.info(f'REQUEST {request.method} {request.path} from {request.ip} {user_agent}{log_body}')
 
 
 @app.middleware('response')
@@ -32,5 +31,5 @@ async def log_response(request, response):
         body = json.dumps(json.loads(response.body.decode('utf-8')), ensure_ascii=False) if response.body else ''
     except:
         body = response.body.decode('utf-8') if response.body else ''
-    body = '\nBODY: ' + body
-    logger.info('RESPONSE %s:%s\n' % (response.content_type, body))
+    body = f'\nBODY: {body}'
+    logger.info(f'RESPONSE {response.content_type}:{body}\n')

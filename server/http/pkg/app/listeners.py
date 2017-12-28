@@ -13,17 +13,18 @@ from . import app
 @app.listener('after_server_start')
 async def setup_rabbitmq(app, loop):
     def get_dsn(secure=False):
-        return 'amqp://%s:%s@%s:%s/' % (CONFIG['rabbit']['user'],
-                                        '*****' if secure else CONFIG['rabbit']['pass'],
-                                        CONFIG['rabbit']['host'],
-                                        CONFIG['rabbit']['port'])
+        user = CONFIG['rabbit']['user']
+        pswd = '*****' if secure else CONFIG['rabbit']['pass']
+        host = CONFIG['rabbit']['host']
+        port = CONFIG['rabbit']['port']
+        return f'amqp://{user}:{pswd}@{host}:{port}/'
 
     connection = None
     channel = None
     rpc = None
     logger = logging.getLogger('rabbitmq')
     try:
-        logger.info('Connecting to %s' % get_dsn(secure=True))
+        logger.info(f'Connecting to {get_dsn(secure=True)}')
         connection = await connect(get_dsn(), loop=loop)
         channel = await connection.channel()
         rpc = await RPC.create(channel)
@@ -36,28 +37,29 @@ async def setup_rabbitmq(app, loop):
 @app.listener('before_server_start')
 async def setup_postgres(app, loop):
     def get_dsn(secure=False):
-        return 'postgres://%s:%s@%s:%s/%s' % (CONFIG['postgres']['user'],
-                                              '*****' if secure else CONFIG['postgres']['pass'],
-                                              CONFIG['postgres']['host'],
-                                              CONFIG['postgres']['port'],
-                                              CONFIG['postgres']['db'])
+        user = CONFIG['postgres']['user']
+        pswd = '*****' if secure else CONFIG['postgres']['pass']
+        host = CONFIG['postgres']['host']
+        port = CONFIG['postgres']['port']
+        db = CONFIG['postgres']['db']
+        return f'postgres://{user}:{pswd}@{host}:{port}/{db}'
 
     logger = logging.getLogger('postgres')
-    logger.info('Connecting to %s' % get_dsn(secure=True))
+    logger.info(f'Connecting to {get_dsn(secure=True)}')
 
     try:
         try:
-            min_size = CONFIG['postgres']['pool']['min_size']
+            min_s = CONFIG['postgres']['pool']['min_size']
         except:
-            min_size = 1
+            min_s = 1
         try:
-            max_size = CONFIG['postgres']['pool']['max_size']
+            max_s = CONFIG['postgres']['pool']['max_size']
         except:
-            max_size = 10
+            max_s = 10
         try:
-            max_inactive_connection_lifetime = CONFIG['postgres']['pool']['max_inactive_connection_lifetime']
+            micl = CONFIG['postgres']['pool']['max_inactive_connection_lifetime']
         except:
-            max_inactive_connection_lifetime = 0
+            micl = 0
         try:
             command_timeout = CONFIG['postgres']['pool']['command_timeout']
         except:
@@ -67,10 +69,8 @@ async def setup_postgres(app, loop):
         except:
             use_ssl = False
 
-        pool_info = 'pool.min_size: %s, pool.max_size: %s, pool.max_inactive_connection_lifetime: %s' % \
-                    (min_size, max_size, max_inactive_connection_lifetime)
-        logger.info('Connection settings: %s, command_timeout: %s, ssl: %s' %
-                    (pool_info, command_timeout, use_ssl))
+        pool_info = f'pool.min_size: {min_s}, pool.max_size: {max_s}, pool.max_inactive_connection_lifetime: {micl}'
+        logger.info(f'Connection settings: {pool_info}, command_timeout: {command_timeout}, ssl: {use_ssl}')
 
         if use_ssl:
             ctx = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
@@ -79,9 +79,9 @@ async def setup_postgres(app, loop):
             ctx = False
 
         app.pool = await asyncpg.create_pool(dsn=get_dsn(),
-                                             min_size=min_size,
-                                             max_size=max_size,
-                                             max_inactive_connection_lifetime=max_inactive_connection_lifetime,
+                                             min_size=min_s,
+                                             max_size=max_s,
+                                             max_inactive_connection_lifetime=micl,
                                              command_timeout=command_timeout,
                                              ssl=ctx)
     except Exception as e:

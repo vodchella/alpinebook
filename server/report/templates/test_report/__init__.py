@@ -17,5 +17,5 @@ class Report(IReportTemplate):
 
     async def get_data(self):
         alpinist_id = self._params['alpinist_id'] if 'alpinist_id' in self._params else 0
-        url = '%s/summits/alpinist/%s' % (HTTP_SERVER_URL, alpinist_id)
+        url = f'{HTTP_SERVER_URL}/summits/alpinist/{alpinist_id}'
         return await request(url, self._jwt)

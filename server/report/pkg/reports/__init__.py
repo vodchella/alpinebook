@@ -26,7 +26,7 @@ class TemplateLoader(BaseLoader):
         pass
 
     def get_source(self, environment, template):
-        filename = 'templates/%s/template.html' % template
+        filename = f'templates/{template}/template.html'
         f = open_if_exists(filename)
         if f:
             try:
