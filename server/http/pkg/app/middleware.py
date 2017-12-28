@@ -22,7 +22,7 @@ async def log_request(request):
     log_body = log_body + '\n' if log_body else ''
     logger = logging.getLogger('rest-http')
     logger.info('REQUEST %s %s from %s %s%s' %
-                (request.method, request.path, request.ip[0], user_agent, log_body))
+                (request.method, request.path, request.ip, user_agent, log_body))
 
 
 @app.middleware('response')
