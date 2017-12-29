@@ -7,29 +7,29 @@
   </head>
   <body>
     <br>
-    <p style="margin-bottom: 0cm; line-height: 100%" align="center"><font style="font-size: 14pt" size="4"><b>{{ title }}</b></font></p>
+    <p style="margin-bottom: 0cm; line-height: 100%; font-size: 14pt;" align="center"><b>{{ title }}</b></p>
     <br>
     {%- if data %} 
     <table width="900px" class="mdl-data-table mdl-shadow--2dp" style="margin: auto;">
       <thead>
         <tr>
-          <th style="width: 31.6333px; text-align: left;"><b>№</b></th>
-          <th style="width: 116.017px; text-align: left;"><b>Дата</b></th>
-          <th style="width: 406.667px; text-align: left;"><b>Вершина, маршрут<br></b></th>
-          <th style="width: 94.667px; text-align: left;"><b>Сложность</b></th>
-          <th style="width: 59.017px; text-align: left;"><b>Роль</b></th>
-          <th style="width: 373px; text-align: left;"><b>Состав</b></th>
+          <th style="width: 31.6333px;">№</th>
+          <th style="width: 116.017px;" class="mdl-data-table__cell--non-numeric">Дата</th>
+          <th style="width: 406.667px;" class="mdl-data-table__cell--non-numeric">Вершина, маршрут</th>
+          <th style="width: 94.667px;" class="mdl-data-table__cell--non-numeric">Сложность</th>
+          <th style="width: 59.017px;" class="mdl-data-table__cell--non-numeric">Роль</th>
+          <th style="width: 373px;" class="mdl-data-table__cell--non-numeric">Состав</th>
         </tr>
       </thead>
       {%- for summit in data %}
       <tbody>
         <tr>
-          <td style="text-align: left;">{{ summit.num }}</td>
-          <td style="text-align: left;">{{ summit.summit_date }}</td>
-          <td style="text-align: left;">{{ summit.route.name }}</td>
-          <td style="text-align: left;">{{ summit.route.complexity }}</td>
-          <td style="text-align: left;">{{ summit.who }}</td>
-          <td style="text-align: left;">{{ summit.members }}</td>
+          <td>{{ summit.num }}</td>
+          <td class="mdl-data-table__cell--non-numeric">{{ summit.summit_date }}</td>
+          <td class="mdl-data-table__cell--non-numeric">{{ summit.route.name }}</td>
+          <td class="mdl-data-table__cell--non-numeric">{{ summit.route.complexity }}</td>
+          <td class="mdl-data-table__cell--non-numeric">{{ summit.who }}</td>
+          <td class="mdl-data-table__cell--non-numeric">{{ summit.members }}</td>
         </tr>
       </tbody>
       {%- endfor %}
