@@ -1,6 +1,7 @@
 CREATE OR REPLACE FUNCTION public.get_route_text(
     r_id integer,
-    include_mountain_name_bool boolean)
+    include_mountain_name_bool boolean,
+    include_complexity_bool boolean)
   RETURNS text AS
 $BODY$
   select case
@@ -9,7 +10,12 @@ $BODY$
            else
              ''
          end ||
-         r.complexity || ' ' ||
+         case
+           when include_complexity_bool = true then
+             r.complexity || ' '
+           else
+             ''
+         end ||
          case r.traverse_bool
            when true then
              'траверс до ' || em.mountain

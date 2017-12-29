@@ -60,7 +60,7 @@ where  m.mountain_id = $1
 
 SQL_GET_ROUTES = """
 select json_build_object('route_id', r.route_id,
-                         'route', get_route_text(r.route_id, false)) as mountain
+                         'route', get_route_text(r.route_id, false, true)) as mountain
 from   routes r
 where  r.mountain_id = $1
 order by r.complexity, r.route
@@ -73,19 +73,29 @@ where  rt.route_id = $1
 """
 
 SQL_GET_SUMMITS = """
-select json_build_object('summit_id', s.alpinist_summit_id,
+select json_build_object('num', row_number() over (order by s.summit_date),
+                         'summit_id', s.alpinist_summit_id,
                          'summit_date', to_char(s.summit_date, 'DD.MM.YYYY'),
                          'route', case
                                     when $2 = false then
                                       json_build_object('route_id', s.route_id,
-                                                        'name', get_route_text(s.route_id, true))
+                                                        'name', get_route_text(s.route_id, true, false),
+                                                        'complexity', r.complexity)
                                     else
                                       get_route_json(s.route_id)
                                   end,
                          'leader', s.leader_bool,
+                         'who', case
+                                  when s.leader_bool then
+                                    'рук.'
+                                  else
+                                    'уч.'
+                                end,
                          'members', s.members)
 from   alpinist_summits s
-       left join auth.users  u on (u.alpinist_id = s.alpinist_id)
+       inner join routes      r on (r.route_id = s.route_id)
+       left  join auth.users  u on (u.alpinist_id = s.alpinist_id)
 where  s.alpinist_id = $1 and
        auth.check_read_access(u.user_id, 'summits')
+order by s.summit_date
 """

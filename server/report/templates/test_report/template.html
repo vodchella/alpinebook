@@ -13,29 +13,23 @@
     <table width="900px" class="mdl-data-table mdl-shadow--2dp" style="margin: auto;">
       <thead>
         <tr>
-          <th style="width: 61.6333px; text-align: left;"><b>Num</b></th>
+          <th style="width: 31.6333px; text-align: left;"><b>Num</b></th>
           <th style="width: 116.017px; text-align: left;"><b>Date</b></th>
           <th style="width: 406.667px; text-align: left;"><b>Route<br></b></th>
           <th style="width: 94.667px; text-align: left;"><b>Complexity</b></th>
           <th style="width: 59.017px; text-align: left;"><b>Who</b></th>
-          <th style="width: 343px; text-align: left;"><b>With</b></th>
+          <th style="width: 373px; text-align: left;"><b>With</b></th>
         </tr>
       </thead>
       {%- for summit in data %}
       <tbody>
         <tr>
-          <td><br>
-          </td>
-          <td style="text-align: left;">{{ summit.summit_date }}
-          </td>
-          <td style="text-align: left;">{{ summit.route.name }}<br>
-          </td>
-          <td><br>
-          </td>
-          <td><br>
-          </td>
-          <td><br>
-          </td>
+          <td style="text-align: left;">{{ summit.num }}</td>
+          <td style="text-align: left;">{{ summit.summit_date }}</td>
+          <td style="text-align: left;">{{ summit.route.name }}</td>
+          <td style="text-align: left;">{{ summit.route.complexity }}</td>
+          <td style="text-align: left;">{{ summit.who }}</td>
+          <td style="text-align: left;">{{ summit.members }}</td>
         </tr>
       </tbody>
       {%- endfor %}

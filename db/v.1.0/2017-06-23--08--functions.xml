@@ -57,7 +57,7 @@
     <changeSet author="twister" id="public.get_route_text">
         <createProcedure path="objects/functions/public/get_route_text.sql" relativeToChangelogFile="true"/>
         <rollback>
-            DROP FUNCTION public.get_route_text(integer, boolean);
+            DROP FUNCTION public.get_route_text(integer, boolean, boolean);
         </rollback>
     </changeSet>
     <changeSet author="twister" id="public.get_region_json">
