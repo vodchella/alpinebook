@@ -13,7 +13,7 @@ class Report(IReportTemplate):
         self._params = params
 
     def get_title(self):
-        return 'Тестовый отчёт'
+        return 'Учётная карточка альпиниста'
 
     async def get_data(self):
         alpinist_id = self._params['alpinist_id'] if 'alpinist_id' in self._params else 0

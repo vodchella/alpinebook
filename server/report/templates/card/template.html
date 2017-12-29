@@ -7,18 +7,18 @@
   </head>
   <body>
     <br>
-    <p style="margin-bottom: 0cm; line-height: 100%" align="center"><font style="font-size: 14pt" size="4"><b>Tittle</b></font></p>
+    <p style="margin-bottom: 0cm; line-height: 100%" align="center"><font style="font-size: 14pt" size="4"><b>{{ title }}</b></font></p>
     <br>
     {%- if data %} 
     <table width="900px" class="mdl-data-table mdl-shadow--2dp" style="margin: auto;">
       <thead>
         <tr>
-          <th style="width: 31.6333px; text-align: left;"><b>Num</b></th>
-          <th style="width: 116.017px; text-align: left;"><b>Date</b></th>
-          <th style="width: 406.667px; text-align: left;"><b>Route<br></b></th>
-          <th style="width: 94.667px; text-align: left;"><b>Complexity</b></th>
-          <th style="width: 59.017px; text-align: left;"><b>Who</b></th>
-          <th style="width: 373px; text-align: left;"><b>With</b></th>
+          <th style="width: 31.6333px; text-align: left;"><b>№</b></th>
+          <th style="width: 116.017px; text-align: left;"><b>Дата</b></th>
+          <th style="width: 406.667px; text-align: left;"><b>Вершина, маршрут<br></b></th>
+          <th style="width: 94.667px; text-align: left;"><b>Сложность</b></th>
+          <th style="width: 59.017px; text-align: left;"><b>Роль</b></th>
+          <th style="width: 373px; text-align: left;"><b>Состав</b></th>
         </tr>
       </thead>
       {%- for summit in data %}

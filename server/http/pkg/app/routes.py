@@ -158,7 +158,7 @@ async def get_route(request, route_id: int):
 #
 
 
-@app.get('/reports/html/<report_name:[A-z0-9-]+>')
+@app.get('/reports/<report_name:[A-z0-9-]+>.html')
 @handle_exceptions
 async def html_report(request, report_name: str):
     jwt = AuthHelper().get_jwt_from_request(request, return_encoded=True)
