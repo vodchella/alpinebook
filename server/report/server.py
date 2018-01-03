@@ -1,4 +1,4 @@
-#!venv-report/bin/python3.6
+#!/usr/bin/env python3
 
 import tempfile
 import os
