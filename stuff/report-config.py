@@ -2,7 +2,7 @@ CONFIG = {
     'name': 'DEVELOPMENT',
     'debug': True,
     'http': {
-        'listen-host': '127.0.0.1',
+        'listen-host': 'alpinebook-server-host',
         'listen-port': 8000
     },
     'rabbit': {

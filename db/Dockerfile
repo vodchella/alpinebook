@@ -29,6 +29,7 @@ RUN wget -O /tmp/wait_for_postgres.py https://www.dropbox.com/s/iedbex0bcgzyid4/
 
 RUN echo "listen_addresses='*'" >> /etc/postgresql/9.6/main/postgresql.conf \
     && echo "host all  all    172.17.0.0/16  md5" >> /etc/postgresql/9.6/main/pg_hba.conf \
+    && echo "host all  all    172.19.0.0/16  md5" >> /etc/postgresql/9.6/main/pg_hba.conf \
     && echo "host all  all    127.0.0.1/32  md5" >> /etc/postgresql/9.6/main/pg_hba.conf \
     && service postgresql start \
     && psql --command "CREATE DATABASE alpinebook_dev" \

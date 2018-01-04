@@ -2,12 +2,12 @@ CONFIG = {
     'name': 'DEVELOPMENT',
     'debug': True,
     'http': {
-        'listen-host': '127.0.0.1',
+        'listen-host': 'alpinebook-server-host',
         'listen-port': 8000
     },
     'postgres': {
-        'host': 'alpinebook-postgres',
-        'port': 54320,
+        'host': 'alpinebook-postgres-host',
+        'port': 5432,
         'user': 'postgres',
         'pass': 'postgres',
         'db': 'alpinebook_dev',

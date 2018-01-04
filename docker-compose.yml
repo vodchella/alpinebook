@@ -1,0 +1,22 @@
+version: "3"
+services:
+  postgres:
+    image: vodchella/alpinebook-postgres
+    container_name: alpinebook-postgres-host
+    networks:
+      - alpinebook-net
+    ports:
+      - "54320:5432"
+  server:
+    image: vodchella/alpinebook-server
+    container_name: alpinebook-server-host
+    networks:
+      - alpinebook-net
+    ports:
+      - "8000:8000"
+
+networks:
+  alpinebook-net:
+    ipam:
+      config:
+        - subnet: 172.19.0.0/16
