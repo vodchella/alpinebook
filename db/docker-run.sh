@@ -1,0 +1,1 @@
+sudo docker run -d -p 54320:5432 alpinebook-postgres

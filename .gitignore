@@ -1,4 +1,6 @@
 config
+stuff
+db/connect.sh
 server/http/config.py
 *.jar
 *.log*
