@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3.6
 
 import asyncio
 import uvloop
@@ -51,7 +51,9 @@ if __name__ == '__main__':
     pid_dir = tempfile.gettempdir()
     with PidFile(pid_file, piddir=pid_dir) as p:
         logger.info(f'PID: {p.pid}  FILE: {pid_dir}/{pid_file}.pid')
+        logger.info(f'loading application modules...')
         for md in [os.path.basename(x)[:-3] for x in glob('./pkg/app/*.py') if x[-11:] != '__init__.py']:
             importlib.import_module(f'pkg.app.{md}')
+            logger.info(f'{md} loaded')
         app.blueprint(v1)
         app.run(host=host, port=port, access_log=False)

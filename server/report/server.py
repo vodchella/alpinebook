@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3.6
 
 import tempfile
 import os
@@ -53,6 +53,7 @@ async def main(aio_loop):
         return f'amqp://{user}:{pswd}@{host}:{port}/'
 
     try:
+        logger.info(f'Connecting to {get_dsn(secure=True)}')
         connection = await connect(get_dsn(), loop=aio_loop)
         channel = await connection.channel()
         rpc = await RPC.create(channel)
