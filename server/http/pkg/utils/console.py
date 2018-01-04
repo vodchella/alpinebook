@@ -19,4 +19,4 @@ def panic(msg=None, show_original_error=False):
     elif show_original_error:
         write_stderr(get_raised_error())
     write_stderr(f'{msg}\n')
-    os._exit(0)
+    os._exit(1)
