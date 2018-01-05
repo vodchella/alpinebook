@@ -14,6 +14,8 @@ services:
       - alpinebook-net
     ports:
       - "8000:8000"
+    volumes:
+      - ./:/usr/src/alpinebook-dev
 
 networks:
   alpinebook-net:
