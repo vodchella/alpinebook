@@ -5,7 +5,7 @@ RUN echo "deb http://ppa.launchpad.net/jonathonf/python-3.6/ubuntu xenial main" 
     && apt-key adv --keyserver hkp://keyserver.ubuntu.com:11371 --recv-keys F06FC659
 
 RUN apt update
-RUN apt install -y python3.6 python3.6-dev python2.7 python-pip build-essential rabbitmq-server wget curl nano mc
+RUN apt install -y python3.6 python3.6-dev python2.7 python-pip build-essential rabbitmq-server locales wget curl nano mc
 RUN curl https://bootstrap.pypa.io/get-pip.py | python3.6 \
     && pip2 install supervisor
 
@@ -18,8 +18,7 @@ RUN wget -O /etc/alpinebook/http-requirements.txt https://www.dropbox.com/s/7ftk
     && wget -O /etc/alpinebook/report-requirements.txt https://www.dropbox.com/s/bzj41epwotz7fye/report-requirements.txt \
     && pip3 install -r /etc/alpinebook/http-requirements.txt && pip3 install -r /etc/alpinebook/report-requirements.txt
 
-RUN apt install -y locales \
-    && locale-gen ru_RU \
+RUN locale-gen ru_RU \
     && locale-gen ru_RU.UTF-8 \
     && update-locale \
     #&& echo 'ru_RU.UTF-8 UTF-8' | tee /var/lib/locales/supported.d/local \
