@@ -37,7 +37,6 @@ RUN echo "listen_addresses='*'" >> /etc/postgresql/9.6/main/postgresql.conf \
     && psql --command "CREATE DATABASE alpinebook_dev" \
     && psql --command "ALTER USER postgres WITH PASSWORD 'postgres'"
 
-USER root
 COPY . /etc/alpinebook/db
 
 ENTRYPOINT ["/etc/alpinebook/start_alpinebook_db.sh"]
