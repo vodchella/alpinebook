@@ -14,9 +14,9 @@ RUN mkdir /var/log/alpinebook \
     && mkdir /etc/alpinebook \
     && mkdir /etc/supervisor
 
-RUN wget -O /etc/alpinebook/http-requirements.txt https://www.dropbox.com/s/7ftkytbe6qxinxl/http-requirements.txt \
-    && wget -O /etc/alpinebook/report-requirements.txt https://www.dropbox.com/s/bzj41epwotz7fye/report-requirements.txt \
-    && pip3 install -r /etc/alpinebook/http-requirements.txt && pip3 install -r /etc/alpinebook/report-requirements.txt
+COPY ./http/requirements.txt /etc/alpinebook/http-requirements.txt
+COPY ./report/requirements.txt /etc/alpinebook/report-requirements.txt
+RUN pip3 install -r /etc/alpinebook/http-requirements.txt && pip3 install -r /etc/alpinebook/report-requirements.txt
 
 RUN locale-gen ru_RU \
     && locale-gen ru_RU.UTF-8 \
@@ -29,16 +29,16 @@ ENV LANG ru_RU.UTF-8
 ENV LANGUAGE ru_RU.UTF-8
 ENV LC_ALL ru_RU.UTF-8
 
-ADD . /usr/src/alpinebook
+COPY . /usr/src/alpinebook
 RUN ln -s /usr/src/alpinebook/http/server.py /usr/bin/alpinebook-http-server \
     && ln -s /usr/src/alpinebook/report/server.py /usr/bin/alpinebook-report-server
-#RUN pip3 install -r /usr/src/alpinebook/report/requirements.txt && pip3 install -r /usr/src/alpinebook/http/requirements.txt
 
-RUN wget -O /etc/alpinebook/report-config.py https://www.dropbox.com/s/tc4r61m33s5qwxu/report-config.py \
-    && wget -O /etc/alpinebook/http-config.py https://www.dropbox.com/s/t673ac2lvzvn8co/http-config.py \
-    && wget -O /etc/supervisor/supervisord.conf https://www.dropbox.com/s/mi5lxthcpxfozw2/supervisord.conf \
-    && wget -O /etc/alpinebook/start.sh https://www.dropbox.com/s/k9v9duawvk1pgid/start_alpinebook_server.sh \
-    && chmod 777 /etc/alpinebook/start.sh
+COPY ./stuff-files/report-config.py /etc/alpinebook/report-config.py
+COPY ./stuff-files/http-config.py /etc/alpinebook/http-config.py
+COPY ./stuff-files/supervisord.conf /etc/supervisor/supervisord.conf
+COPY ./stuff-files/start_alpinebook_server.sh /etc/alpinebook/start.sh
+RUN chmod 777 /etc/alpinebook/start.sh
+
 ENV ALPINEBOOK_REPORT_CONFIG_PATH /etc/alpinebook/report-config.py
 ENV ALPINEBOOK_HTTP_CONFIG_PATH /etc/alpinebook/http-config.py
 

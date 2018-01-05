@@ -23,9 +23,9 @@ RUN wget https://github.com/liquibase/liquibase/releases/download/liquibase-pare
 ENV PGDATA /var/lib/postgresql/9.6/main
 
 USER postgres
-RUN wget -O /tmp/wait_for_postgres.py https://www.dropbox.com/s/iedbex0bcgzyid4/wait_for_postgres.py \
-    && wget -O /tmp/start_alpinebook_db.sh https://www.dropbox.com/s/humu2annumm3w28/start_alpinebook_db.sh \
-    && chmod 777 /tmp/start_alpinebook_db.sh
+COPY ./stuff-files/wait_for_postgres.py /tmp/wait_for_postgres.py
+COPY ./stuff-files/start_alpinebook_db.sh /usr/bin/start_alpinebook_db.sh
+RUN chmod 777 /usr/bin/start_alpinebook_db.sh
 
 RUN echo "listen_addresses='*'" >> /etc/postgresql/9.6/main/postgresql.conf \
     && echo "host all  all    172.17.0.0/16  md5" >> /etc/postgresql/9.6/main/pg_hba.conf \
@@ -39,4 +39,4 @@ RUN echo "listen_addresses='*'" >> /etc/postgresql/9.6/main/postgresql.conf \
 ENV POSTGRES_JDBC /usr/share/liquibase/postgresql-jdbc.jar
 ADD . /tmp/db
 
-ENTRYPOINT ["/tmp/start_alpinebook_db.sh"]
+ENTRYPOINT ["/usr/bin/start_alpinebook_db.sh"]
