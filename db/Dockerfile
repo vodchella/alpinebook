@@ -21,12 +21,14 @@ RUN wget https://github.com/liquibase/liquibase/releases/download/liquibase-pare
     && wget -O /usr/share/liquibase/postgresql-jdbc.jar https://jdbc.postgresql.org/download/postgresql-42.1.4.jar
 
 ENV PGDATA /var/lib/postgresql/9.6/main
+ENV POSTGRES_JDBC /usr/share/liquibase/postgresql-jdbc.jar
+
+RUN mkdir /etc/alpinebook
+COPY ./docker-stuff-files/wait_for_postgres.py /etc/alpinebook/wait_for_postgres.py
+COPY ./docker-stuff-files/start_alpinebook_db.sh /etc/alpinebook/start_alpinebook_db.sh
+RUN chmod 777 /etc/alpinebook/start_alpinebook_db.sh
 
 USER postgres
-COPY ./stuff-files/wait_for_postgres.py /tmp/wait_for_postgres.py
-COPY ./stuff-files/start_alpinebook_db.sh /usr/bin/start_alpinebook_db.sh
-RUN chmod 777 /usr/bin/start_alpinebook_db.sh
-
 RUN echo "listen_addresses='*'" >> /etc/postgresql/9.6/main/postgresql.conf \
     && echo "host all  all    172.17.0.0/16  md5" >> /etc/postgresql/9.6/main/pg_hba.conf \
     && echo "host all  all    172.19.0.0/16  md5" >> /etc/postgresql/9.6/main/pg_hba.conf \
@@ -35,8 +37,7 @@ RUN echo "listen_addresses='*'" >> /etc/postgresql/9.6/main/postgresql.conf \
     && psql --command "CREATE DATABASE alpinebook_dev" \
     && psql --command "ALTER USER postgres WITH PASSWORD 'postgres'"
 
+USER root
+COPY . /etc/alpinebook/db
 
-ENV POSTGRES_JDBC /usr/share/liquibase/postgresql-jdbc.jar
-ADD . /tmp/db
-
-ENTRYPOINT ["/usr/bin/start_alpinebook_db.sh"]
+ENTRYPOINT ["/etc/alpinebook/start_alpinebook_db.sh"]

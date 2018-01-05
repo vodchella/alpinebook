@@ -33,10 +33,10 @@ COPY . /usr/src/alpinebook
 RUN ln -s /usr/src/alpinebook/http/server.py /usr/bin/alpinebook-http-server \
     && ln -s /usr/src/alpinebook/report/server.py /usr/bin/alpinebook-report-server
 
-COPY ./stuff-files/report-config.py /etc/alpinebook/report-config.py
-COPY ./stuff-files/http-config.py /etc/alpinebook/http-config.py
-COPY ./stuff-files/supervisord.conf /etc/supervisor/supervisord.conf
-COPY ./stuff-files/start_alpinebook_server.sh /etc/alpinebook/start.sh
+COPY ./docker-stuff-files/report-config.py /etc/alpinebook/report-config.py
+COPY ./docker-stuff-files/http-config.py /etc/alpinebook/http-config.py
+COPY ./docker-stuff-files/supervisord.conf /etc/supervisor/supervisord.conf
+COPY ./docker-stuff-files/start_alpinebook_server.sh /etc/alpinebook/start.sh
 RUN chmod 777 /etc/alpinebook/start.sh
 
 ENV ALPINEBOOK_REPORT_CONFIG_PATH /etc/alpinebook/report-config.py
