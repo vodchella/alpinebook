@@ -34,7 +34,7 @@
         <sql>
             CREATE DOMAIN auth.access_group
               AS character varying(10)
-              CONSTRAINT route_nature_check CHECK (VALUE::text = ANY (ARRAY['all'::text, 'authorized'::text, 'nobody'::text]));
+              CONSTRAINT access_group_check CHECK (VALUE::text = ANY (ARRAY['all'::text, 'authorized'::text, 'nobody'::text]));
         </sql>
         <rollback>
             DROP DOMAIN IF EXISTS auth.access_group RESTRICT;
