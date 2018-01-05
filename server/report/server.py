@@ -100,15 +100,18 @@ if __name__ == '__main__':
     logger.info(f'Debug mode {"on" if DEBUG else "off"}')
 
     pid_dir = tempfile.gettempdir()
-    with PidFile(PID_FILE_NAME, piddir=pid_dir) as p:
-        logger.info(f'PID: {p.pid}  FILE: {pid_dir}/{PID_FILE_NAME}.pid')
-        env = Environment(
-            loader=TemplateLoader(),
-            autoescape=select_autoescape(['html', 'xml']),
-            auto_reload=True,
-            enable_async=True
-        )
-        asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
-        loop = asyncio.get_event_loop()
-        loop.create_task(main(loop))
-        loop.run_forever()
+    try:
+        with PidFile(PID_FILE_NAME, piddir=pid_dir) as p:
+            logger.info(f'PID: {p.pid}  FILE: {pid_dir}/{PID_FILE_NAME}.pid')
+            env = Environment(
+                loader=TemplateLoader(),
+                autoescape=select_autoescape(['html', 'xml']),
+                auto_reload=True,
+                enable_async=True
+            )
+            asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
+            loop = asyncio.get_event_loop()
+            loop.create_task(main(loop))
+            loop.run_forever()
+    except:
+        logger.critical(f'Something wrong with {pid_dir}/{PID_FILE_NAME}.pid. Maybe it\'s locked?')

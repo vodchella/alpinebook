@@ -21,6 +21,7 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='Alpinebook Http Server')
     parser.add_argument('--config', '-c', help='Path to config file')
+    parser.add_argument('--pid', '-p', help='Custom pid-file name')
     args = parser.parse_args()
 
     env_config_path = os.environ['ALPINEBOOK_HTTP_CONFIG_PATH'] if 'ALPINEBOOK_HTTP_CONFIG_PATH' in os.environ else None
@@ -52,13 +53,16 @@ if __name__ == '__main__':
     host = pkg.constants.CONFIG['http']['listen-host']
     port = pkg.constants.CONFIG['http']['listen-port']
 
-    pid_file = PID_FILE_NAME % port
+    pid_file = args.pid if args.pid else PID_FILE_NAME % port
     pid_dir = tempfile.gettempdir()
-    with PidFile(pid_file, piddir=pid_dir) as p:
-        logger.info(f'PID: {p.pid}  FILE: {pid_dir}/{pid_file}.pid')
-        logger.info(f'loading application modules...')
-        for md in [os.path.basename(x)[:-3] for x in glob('./pkg/app/*.py') if x[-11:] != '__init__.py']:
-            importlib.import_module(f'pkg.app.{md}')
-            logger.info(f'{md} loaded')
-        app.blueprint(v1)
-        app.run(host=host, port=port, access_log=False)
+    try:
+        with PidFile(pid_file, piddir=pid_dir) as p:
+            logger.info(f'PID: {p.pid}  FILE: {pid_dir}/{pid_file}.pid')
+            logger.info(f'loading application modules...')
+            for md in [os.path.basename(x)[:-3] for x in glob('./pkg/app/*.py') if x[-11:] != '__init__.py']:
+                importlib.import_module(f'pkg.app.{md}')
+                logger.info(f'{md} loaded')
+            app.blueprint(v1)
+            app.run(host=host, port=port, access_log=False)
+    except:
+        logger.critical(f'Something wrong with {pid_dir}/{pid_file}.pid. Maybe it\'s locked?')
