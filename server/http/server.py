@@ -25,7 +25,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     env_config_path = os.environ['ALPINEBOOK_HTTP_CONFIG_PATH'] if 'ALPINEBOOK_HTTP_CONFIG_PATH' in os.environ else None
-    config_path = args.config if args.config else env_config_path
+    config_path = args.config or env_config_path
     if not config_path:
         server_dir, _ = os.path.split(os.path.abspath(__file__))
         config_path = os.path.join(server_dir, 'config.py')
@@ -53,7 +53,7 @@ if __name__ == '__main__':
     host = pkg.constants.CONFIG['http']['listen-host']
     port = pkg.constants.CONFIG['http']['listen-port']
 
-    pid_file = args.pid if args.pid else PID_FILE_NAME % port
+    pid_file = args.pid or (PID_FILE_NAME % port)
     pid_dir = tempfile.gettempdir()
     try:
         with PidFile(pid_file, piddir=pid_dir) as p:
@@ -63,6 +63,7 @@ if __name__ == '__main__':
                 importlib.import_module(f'pkg.app.{md}')
                 logger.info(f'{md} loaded')
             app.blueprint(v1)
+            app.host, app.port = host, port
             app.run(host=host, port=port, access_log=False)
     except:
         logger.critical(f'Something wrong with {pid_dir}/{pid_file}.pid. Maybe it\'s locked?')
