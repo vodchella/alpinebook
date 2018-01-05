@@ -1,1 +1,1 @@
-sudo docker build -t alpinebook-server .
+sudo docker build -t vodchella/alpinebook-server .

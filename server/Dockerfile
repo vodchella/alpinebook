@@ -18,6 +18,18 @@ RUN wget -O /etc/alpinebook/http-requirements.txt https://www.dropbox.com/s/7ftk
     && wget -O /etc/alpinebook/report-requirements.txt https://www.dropbox.com/s/bzj41epwotz7fye/report-requirements.txt \
     && pip3 install -r /etc/alpinebook/http-requirements.txt && pip3 install -r /etc/alpinebook/report-requirements.txt
 
+RUN apt install -y locales \
+    && locale-gen ru_RU \
+    && locale-gen ru_RU.UTF-8 \
+    && update-locale \
+    #&& echo 'ru_RU.UTF-8 UTF-8' | tee /var/lib/locales/supported.d/local \
+    && echo 'ru_RU.UTF-8 UTF-8' >> /etc/locale.gen \
+    && dpkg-reconfigure -f noninteractive locales \
+    && echo 'LANG=ru_RU.UTF-8' | tee /etc/default/locale
+ENV LANG ru_RU.UTF-8
+ENV LANGUAGE ru_RU.UTF-8
+ENV LC_ALL ru_RU.UTF-8
+
 ADD . /usr/src/alpinebook
 RUN ln -s /usr/src/alpinebook/http/server.py /usr/bin/alpinebook-http-server \
     && ln -s /usr/src/alpinebook/report/server.py /usr/bin/alpinebook-report-server
