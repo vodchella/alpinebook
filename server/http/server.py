@@ -7,6 +7,7 @@ import importlib
 import tempfile
 import os
 import sys
+import argparse
 import pkg.constants
 from glob import glob
 from pid import PidFile
@@ -18,8 +19,12 @@ if __name__ == '__main__':
     if sys.version_info < (3, 6):
         panic('We need mininum Python verion 3.6 to run. Current version: %s.%s.%s' % sys.version_info[:3])
 
+    parser = argparse.ArgumentParser(description='Alpinebook Http Server')
+    parser.add_argument('--config', '-c', help='Path to config file')
+    args = parser.parse_args()
+
     env_config_path = os.environ['ALPINEBOOK_HTTP_CONFIG_PATH'] if 'ALPINEBOOK_HTTP_CONFIG_PATH' in os.environ else None
-    config_path = env_config_path
+    config_path = args.config if args.config else env_config_path
     if not config_path:
         server_dir, _ = os.path.split(os.path.abspath(__file__))
         config_path = os.path.join(server_dir, 'config.py')
