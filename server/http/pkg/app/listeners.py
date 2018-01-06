@@ -1,5 +1,7 @@
 import ssl
 import logging
+
+import asyncio
 import asyncpg
 import pkg.postgresql.queries
 from aio_pika import connect
@@ -29,13 +31,23 @@ async def setup_rabbitmq(app, loop):
     channel = None
     rpc = None
     logger = logging.getLogger('rabbitmq')
-    try:
-        logger.info(f'Connecting to {get_dsn(secure=True)}')
-        connection = await connect(get_dsn(), loop=loop)
-        channel = await connection.channel()
-        rpc = await RPC.create(channel)
-    except:
-        logger.error('Can\'t connect to RabbitMQ. Report generaging isn\'t avaible')
+    i, dsn = 0, get_dsn()
+    max_attempts = CONFIG['rabbit']['max_conn_attempts'] if 'max_conn_attempts' in CONFIG['rabbit'] else 20
+
+    logger.info(f'Connecting to {get_dsn(secure=True)}')
+    while i < max_attempts:
+        i += 1
+        try:
+            connection = await connect(dsn, loop=loop)
+            channel = await connection.channel()
+            rpc = await RPC.create(channel)
+            break
+        except:
+            if i >= max_attempts:
+                logger.exception('Can\'t connect to RabbitMQ. Report generating isn\'t avaible')
+            else:
+                logger.error(f'Can\'t connect to RabbitMQ, do another (#{i + 1}) attempt...')
+                await asyncio.sleep(1)
 
     app.rabbitmq = Rabbit(connection, channel, rpc)
 
