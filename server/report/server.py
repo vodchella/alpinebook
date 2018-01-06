@@ -52,15 +52,24 @@ async def main(aio_loop):
         port = conf['rabbit']['port']
         return f'amqp://{user}:{pswd}@{host}:{port}/'
 
-    try:
-        logger.info(f'Connecting to {get_dsn(secure=True)}')
-        connection = await connect(get_dsn(), loop=aio_loop)
-        channel = await connection.channel()
-        rpc = await RPC.create(channel)
-    except:
-        logger.error(get_raised_error())
-        logger.critical('Can\'t connect to RabbitMQ, goodbye honey!\n')
-        panic()
+    logger.info(f'Connecting to {get_dsn(secure=True)}')
+    i, dsn = 0, get_dsn()
+    max_attempts = conf['rabbit']['max_conn_attempts'] if 'max_conn_attempts' in conf['rabbit'] else 10
+    while i < max_attempts:
+        i += 1
+        try:
+            connection = await connect(dsn, loop=aio_loop)
+            channel = await connection.channel()
+            rpc = await RPC.create(channel)
+            break
+        except:
+            if i >= max_attempts:
+                logger.error(get_raised_error())
+                logger.critical('Can\'t connect to RabbitMQ, goodbye honey!\n')
+                panic()
+            else:
+                logger.error(f'Can\'t connect to RabbitMQ, do another (#{i + 1}) attempt...')
+                await asyncio.sleep(1)
 
     await rpc.register('generate_html', generate_html)
 
@@ -82,8 +91,8 @@ if __name__ == '__main__':
         cfg_module = load_config(config_path)
         pkg.constants.CONFIG = cfg_module.CONFIG
         pkg.constants.DEBUG = cfg_module.CONFIG['debug'] if 'debug' in cfg_module.CONFIG else False
-        host = cfg_module.CONFIG['http']['listen-host']
-        port = cfg_module.CONFIG['http']['listen-port']
+        host = cfg_module.CONFIG['http']['host']
+        port = cfg_module.CONFIG['http']['port']
         pkg.constants.HTTP_SERVER_URL = f'http://{host}:{port}'
     except:
         panic(f'Can\'t load config file {config_path}')
