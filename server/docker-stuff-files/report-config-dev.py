@@ -12,7 +12,7 @@ CONFIG = {
         'pass': 'guest'
     },
     'logging': {
-        'file-name': '/var/log/alpinebook/alpinebook-report-dev.log',
+        'file-name': '/var/log/alpinebook/report-dev.log',
         'disabled': False
     }
 }
