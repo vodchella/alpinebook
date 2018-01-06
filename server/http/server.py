@@ -66,6 +66,7 @@ if __name__ == '__main__':
                 logger.info(f'{md} loaded')
             app.blueprint(v1)
             app.host, app.port = host, port
+            app.static_routes = list(filter(lambda r: r.name == 'static', app.router.routes_all.values()))
             app.run(host=host, port=port, access_log=False)
     except:
         if pid_ok:

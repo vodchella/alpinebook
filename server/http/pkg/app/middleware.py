@@ -24,12 +24,25 @@ async def log_request(request):
     logger.info(f'REQUEST {request.method} {request.path} from {request.ip} {user_agent}{log_body}')
 
 
+def is_static_content(request):
+    path = request.path
+    for route in app.static_routes:
+        m = route.pattern.match(path)
+        if m:
+            return True, m.group()
+    return False, ''
+
+
 @app.middleware('response')
 async def log_response(request, response):
     logger = logging.getLogger('rest-http')
-    try:
-        body = json.dumps(json.loads(response.body.decode('utf-8')), ensure_ascii=False) if response.body else ''
-    except:
-        body = response.body.decode('utf-8') if response.body else ''
+    static = is_static_content(request)
+    if static[0]:
+        body = f'<see static file {static[1]}>'
+    else:
+        try:
+            body = json.dumps(json.loads(response.body.decode('utf-8')), ensure_ascii=False) if response.body else ''
+        except:
+            body = response.body.decode('utf-8') if response.body else ''
     body = f'\nBODY: {body}'
     logger.info(f'RESPONSE {response.content_type}:{body}\n')
