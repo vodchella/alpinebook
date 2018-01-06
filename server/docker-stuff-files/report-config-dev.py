@@ -1,9 +1,9 @@
 CONFIG = {
-    'name': 'PRODUCTION',
-    'debug': False,
+    'name': 'DEVELOPMENT',
+    'debug': True,
     'http': {
         'listen-host': 'alpinebook-server-host',
-        'listen-port': 8000
+        'listen-port': 8001
     },
     'rabbit': {
         'host': '127.0.0.1',
@@ -12,7 +12,7 @@ CONFIG = {
         'pass': 'guest'
     },
     'logging': {
-        'file-name': '/var/log/alpinebook/report.log',
+        'file-name': '/var/log/alpinebook/alpinebook-report-dev.log',
         'disabled': False
     }
 }

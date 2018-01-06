@@ -1,9 +1,9 @@
 CONFIG = {
-    'name': 'PRODUCTION',
-    'debug': False,
+    'name': 'DEVELOPMENT',
+    'debug': True,
     'http': {
         'listen-host': 'alpinebook-server-host',
-        'listen-port': 8000
+        'listen-port': 8001
     },
     'postgres': {
         'host': 'alpinebook-postgres-host',
@@ -26,7 +26,7 @@ CONFIG = {
         'pass': 'guest'
     },
     'logging': {
-        'file-name': '/var/log/alpinebook/http.log',
+        'file-name': '/var/log/alpinebook/http-dev.log',
         'disabled': False
     }
 }

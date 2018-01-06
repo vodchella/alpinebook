@@ -1,1 +1,0 @@
-sudo docker run --name alpinebook-server -d -p 8000:8000 vodchella/alpinebook-server

@@ -4,15 +4,15 @@ services:
     image: vodchella/alpinebook-postgres
     container_name: alpinebook-postgres-host
     networks:
-      - production
+      - development
   server:
-    image: vodchella/alpinebook-server
+    image: vodchella/alpinebook-server-dev
     container_name: alpinebook-server-host
     networks:
-      - production
+      - development
 
 networks:
-  production:
+  development:
     ipam:
       config:
         - subnet: 172.19.0.0/16
