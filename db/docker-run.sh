@@ -1,1 +1,0 @@
-sudo docker run --name alpinebook-postgres -d -p 54320:5432 vodchella/alpinebook-postgres

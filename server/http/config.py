@@ -18,7 +18,7 @@ CONFIG = {
             'max_inactive_connection_lifetime': 0,
             'command_timeout': 60
         },
-        'max_conn_attempts': 20
+        'max_conn_attempts': 60
     },
     'rabbit': {
         'host': 'alpinebook-mq',

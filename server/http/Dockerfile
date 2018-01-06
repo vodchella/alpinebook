@@ -26,9 +26,9 @@ ENV LC_ALL ru_RU.UTF-8
 ENV ALPINEBOOK_HTTP_CONFIG_PATH /etc/alpinebook/http-config.py
 
 COPY ./requirements.txt /etc/alpinebook/http-requirements.txt
-COPY ./config.py /etc/alpinebook/http-config.py
 RUN pip3 install -r /etc/alpinebook/http-requirements.txt
 
+COPY ./config.py /etc/alpinebook/http-config.py
 COPY . /usr/src/alpinebook/server/http
 WORKDIR /usr/src/alpinebook/server/http
 CMD /usr/src/alpinebook/server/http/server.py

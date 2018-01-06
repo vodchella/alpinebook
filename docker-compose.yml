@@ -1,18 +1,32 @@
 version: "3"
 services:
+  http-server:
+    image: vodchella/alpinebook-http-server
+    container_name: alpinebook-http-server
+    networks:
+      devel:
+        ipv4_address: 172.19.0.5
+  report-server:
+    image: vodchella/alpinebook-report-server
+    container_name: alpinebook-report-server
+    networks:
+      devel:
+        ipv4_address: 172.19.0.4
+  mq:
+    image: vodchella/alpinebook-mq
+    container_name: alpinebook-mq
+    networks:
+      devel:
+        ipv4_address: 172.19.0.3
   postgres:
     image: vodchella/alpinebook-postgres
-    container_name: alpinebook-postgres-host
+    container_name: alpinebook-postgres
     networks:
-      - production
-  server:
-    image: vodchella/alpinebook-server
-    container_name: alpinebook-server-host
-    networks:
-      - production
+      devel:
+        ipv4_address: 172.19.0.2
 
 networks:
-  production:
+  devel:
     ipam:
       config:
         - subnet: 172.19.0.0/16
