@@ -54,7 +54,7 @@ async def main(aio_loop):
 
     logger.info(f'Connecting to {get_dsn(secure=True)}')
     i, dsn = 0, get_dsn()
-    max_attempts = conf['rabbit']['max_conn_attempts'] if 'max_conn_attempts' in conf['rabbit'] else 10
+    max_attempts = conf['rabbit']['max_conn_attempts'] if 'max_conn_attempts' in conf['rabbit'] else 20
     while i < max_attempts:
         i += 1
         try:
@@ -109,9 +109,11 @@ if __name__ == '__main__':
     logger.info(f'Debug mode {"on" if DEBUG else "off"}')
 
     pid_dir = tempfile.gettempdir()
+    pid_ok = False
     try:
         with PidFile(PID_FILE_NAME, piddir=pid_dir) as p:
             logger.info(f'PID: {p.pid}  FILE: {pid_dir}/{PID_FILE_NAME}.pid')
+            pid_ok = True
             env = Environment(
                 loader=TemplateLoader(),
                 autoescape=select_autoescape(['html', 'xml']),
@@ -123,4 +125,7 @@ if __name__ == '__main__':
             loop.create_task(main(loop))
             loop.run_forever()
     except:
-        logger.critical(f'Something wrong with {pid_dir}/{PID_FILE_NAME}.pid. Maybe it\'s locked?')
+        if pid_ok:
+            logger.info('Leaving, don\'t think badly...')
+        else:
+            logger.critical(f'Something wrong with {pid_dir}/{PID_FILE_NAME}.pid. Maybe it\'s locked?')

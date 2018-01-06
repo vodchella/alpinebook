@@ -2,17 +2,18 @@ CONFIG = {
     'name': 'DEVELOPMENT',
     'debug': True,
     'http': {
-        'listen-host': 'localhost',
-        'listen-port': 8000
+        'host': 'alpinebook-http-server',
+        'port': 8001
     },
     'rabbit': {
-        'host': 'localhost',
+        'host': 'alpinebook-mq',
         'port': 5672,
         'user': 'guest',
-        'pass': 'guest'
+        'pass': 'guest',
+        'max_conn_attempts': 20
     },
     'logging': {
-        'file-name': 'alpinebook-report.log',
-        'disabled': True
+        'file-name': '/var/log/alpinebook/report.log',
+        'disabled': False
     }
 }
