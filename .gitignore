@@ -1,4 +1,3 @@
-server/http/config.py
 *.jar
 *.log*
 *.pyc

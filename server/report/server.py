@@ -61,6 +61,7 @@ async def main(aio_loop):
             connection = await connect(dsn, loop=aio_loop)
             channel = await connection.channel()
             rpc = await RPC.create(channel)
+            logger.info('Connection with RabbitMQ established')
             break
         except:
             if i >= max_attempts:

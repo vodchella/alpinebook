@@ -24,22 +24,23 @@ class Executor:
         await statement.fetchval(user_id)
 
     async def _query(self, only_one, sql, *args):
-        async with app.pool.acquire() as conn:
-            await self._setup_db_values(conn)
+        if app.pool:
+            async with app.pool.acquire() as conn:
+                await self._setup_db_values(conn)
 
-            # TODO: Запоминать этот ID запроса в базе
-            rand_id = StringGenerator(r'[\u\d]{8}').render()
-            logger = logging.getLogger('postgres')
-            arg = f'\nARGS: {[*args]}' if args else ''
-            log_sql = sql.replace('\n', '\n     ').lstrip('\n    ')
-            logger.info(f'Execute {rand_id}:{arg}\nSQL: {log_sql}')
+                # TODO: Запоминать этот ID запроса в базе
+                rand_id = StringGenerator(r'[\u\d]{8}').render()
+                logger = logging.getLogger('postgres')
+                arg = f'\nARGS: {[*args]}' if args else ''
+                log_sql = sql.replace('\n', '\n     ').lstrip('\n    ')
+                logger.info(f'Execute {rand_id}:{arg}\nSQL: {log_sql}')
 
-            statement = await conn.prepare(sql)
-            val = await statement.fetchval(*args) if only_one else await statement.fetch(*args)
+                statement = await conn.prepare(sql)
+                val = await statement.fetchval(*args) if only_one else await statement.fetch(*args)
 
-            log_result = val if self._log_full_sql_result else '<see http response>'
-            logger.info(f'Result {rand_id}:\n{log_result}\n')
-            return val
+                log_result = val if self._log_full_sql_result else '<see http response>'
+                logger.info(f'Result {rand_id}:\n{log_result}\n')
+                return val
 
     async def query_all_json(self, sql, *args):
         values = await self._query(False, sql, *args)
@@ -56,8 +57,9 @@ class Executor:
         return value
 
     async def execute(self, sql, *args):
-        async with app.pool.acquire() as conn:
-            async with conn.transaction():
-                await self._setup_db_values(conn)
-                result = await conn.execute(sql, *args)
-        return result
+        if app.pool:
+            async with app.pool.acquire() as conn:
+                async with conn.transaction():
+                    await self._setup_db_values(conn)
+                    result = await conn.execute(sql, *args)
+            return result

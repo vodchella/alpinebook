@@ -55,9 +55,11 @@ if __name__ == '__main__':
 
     pid_file = args.pid or (PID_FILE_NAME % port)
     pid_dir = tempfile.gettempdir()
+    pid_ok = False
     try:
         with PidFile(pid_file, piddir=pid_dir) as p:
             logger.info(f'PID: {p.pid}  FILE: {pid_dir}/{pid_file}.pid')
+            pid_ok = True
             logger.info(f'loading application modules...')
             for md in [os.path.basename(x)[:-3] for x in glob('./pkg/app/*.py') if x[-11:] != '__init__.py']:
                 importlib.import_module(f'pkg.app.{md}')
@@ -66,4 +68,7 @@ if __name__ == '__main__':
             app.host, app.port = host, port
             app.run(host=host, port=port, access_log=False)
     except:
-        logger.critical(f'Something wrong with {pid_dir}/{pid_file}.pid. Maybe it\'s locked?')
+        if pid_ok:
+            raise
+        else:
+            logger.critical(f'Something wrong with {pid_dir}/{pid_file}.pid. Maybe it\'s locked?')
