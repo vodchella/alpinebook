@@ -158,14 +158,24 @@ async def get_route(request, route_id: int):
 #
 
 
+async def process_report(request, report_name, report_type):
+    jwt = AuthHelper().get_jwt_from_request(request, return_encoded=True)
+    result = await app.rabbitmq.rpc_call(f'generate_{report_type}', dict(jwt=jwt,
+                                                                         report_name=report_name,
+                                                                         params=request.raw_args))
+    return app.rabbitmq.process_rpc_result(result)
+
+
 @app.get('/reports/<report_name:[A-z0-9-]+>.html')
 @handle_exceptions
 async def html_report(request, report_name: str):
-    jwt = AuthHelper().get_jwt_from_request(request, return_encoded=True)
-    result = await app.rabbitmq.rpc_call('generate_html', dict(jwt=jwt,
-                                                               report_name=report_name,
-                                                               params=request.raw_args))
-    return app.rabbitmq.process_rpc_result(result)
+    return await process_report(request, report_name, 'html')
+
+
+@app.get('/reports/<report_name:[A-z0-9-]+>.pdf')
+@handle_exceptions
+async def pdf_report(request, report_name: str):
+    return await process_report(request, report_name, 'pdf')
 
 
 #

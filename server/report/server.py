@@ -14,18 +14,11 @@ from aio_pika.patterns import RPC
 from jinja2 import Environment, select_autoescape
 from pid import PidFile
 from pkg.reports import TemplateLoader
-from pkg.reports.generator import gen_html
-from pkg.utils.decorators.handle_exceptions import handle_exceptions
+from pkg.rpc import init_handlers
 from pkg.utils.settings import load_config
 from pkg.utils.console import panic
 from pkg.utils.errors import get_raised_error
 from pkg.constants.file_names import PID_FILE_NAME
-
-
-@handle_exceptions
-async def generate_html(*, jwt, report_name, params):
-    logger.info(f'RPC call of generate_html():\nREPORT_NAME:\t{report_name}\nPARAMS:\t{params}\n')
-    return await gen_html(report_name, params, jwt)
 
 
 async def main(aio_loop):
@@ -58,9 +51,7 @@ async def main(aio_loop):
                 logger.error(f'Can\'t connect to RabbitMQ, do another (#{i + 1}) attempt...')
                 await asyncio.sleep(1)
 
-    await rpc.register('generate_html', generate_html)
-
-    logger.info('Register RPC method: generate_html()')
+    await init_handlers(rpc)
 
 
 if __name__ == '__main__':
