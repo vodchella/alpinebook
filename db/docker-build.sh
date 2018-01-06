@@ -1,1 +1,1 @@
-sudo docker build -t vodchella/alpinebook-postgres .
+docker build -t vodchella/alpinebook-postgres .
