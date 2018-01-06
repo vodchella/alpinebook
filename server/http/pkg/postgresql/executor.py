@@ -1,8 +1,57 @@
 import json
 import logging
+from asyncpg.pool import Pool
 from pkg.utils.auth_helper import AuthHelper
 from pkg.utils.strgen import StringGenerator
 from pkg.app import app
+
+
+class PoolAcquireContext:
+    _pool = None
+    _conn = None
+    _num_retries = None
+
+    def __init__(self, pool: Pool, num_retries=5):
+        self._pool = pool
+        self._num_retries = num_retries
+
+    # Если после создания пула Postgres был перезапущен, то имеющиеся соединения в пуле будут закыты.
+    # По умолчанию оно там одно, поэтому при первой попытке обратиться к базе вылетит ошибка
+    #    asyncpg.exceptions._base.InterfaceError: connection is closed
+    # однако, при повторной попытке пул произведёт реконнект и выдаст нормальное соединение.
+    # Этим мы и воспользуемся
+    async def __aenter__(self):
+        conn = None
+        if not self._conn:
+            for _ in range(self._num_retries):
+                conn = await self._pool.acquire()
+                if not conn.is_closed():
+                    self._conn = conn
+                    return conn
+                else:
+                    await self._pool.release(conn)
+        # Если все коннекты окажутся закрытыми, вернём последний найденный
+        # Если что-то пошло совсем не так, то вернётся None и мы перехватим ошибку выше
+        return conn
+
+    async def __aexit__(self, exc_type, exc, tb):
+        if self._conn and self._pool:
+            conn = self._conn
+            self._conn = None
+            await self._pool.release(conn)
+
+    def __await__(self):
+        return self.__aenter__().__await__()
+
+
+class PoolProxy:
+    _pool = None
+
+    def __init__(self, pool: Pool):
+        self._pool = pool
+
+    def acquire(self, num_retries=5):
+        return PoolAcquireContext(self._pool, num_retries)
 
 
 class Executor:
@@ -25,7 +74,7 @@ class Executor:
 
     async def _query(self, only_one, sql, *args):
         if app.pool:
-            async with app.pool.acquire() as conn:
+            async with PoolProxy(app.pool).acquire() as conn:
                 await self._setup_db_values(conn)
 
                 # TODO: Запоминать этот ID запроса в базе
@@ -58,7 +107,7 @@ class Executor:
 
     async def execute(self, sql, *args):
         if app.pool:
-            async with app.pool.acquire() as conn:
+            async with PoolProxy(app.pool).acquire() as conn:
                 async with conn.transaction():
                     await self._setup_db_values(conn)
                     result = await conn.execute(sql, *args)

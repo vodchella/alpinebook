@@ -110,6 +110,7 @@ async def setup_postgres(app, loop):
                                                  max_inactive_connection_lifetime=micl,
                                                  command_timeout=command_timeout,
                                                  ssl=ctx)
+            app.pool_max_size = max_s
             logger.info('Connection with PostgreSQL established')
             break
         except Exception as e:
