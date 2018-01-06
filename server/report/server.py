@@ -5,6 +5,7 @@ import os
 import sys
 import asyncio
 import uvloop
+import pkg
 import pkg.constants
 import logging
 from logging import config
@@ -12,34 +13,19 @@ from aio_pika import connect
 from aio_pika.patterns import RPC
 from jinja2 import Environment, select_autoescape
 from pid import PidFile
-from pkg.reports import TemplateLoader, ReportLoader
+from pkg.reports import TemplateLoader
+from pkg.reports.generator import gen_html
 from pkg.utils.decorators.handle_exceptions import handle_exceptions
 from pkg.utils.settings import load_config
 from pkg.utils.console import panic
-from pkg.utils.errors import response_error, get_raised_error
-from pkg.constants.error_codes import ERROR_REPORT_NOT_FOUND
+from pkg.utils.errors import get_raised_error
 from pkg.constants.file_names import PID_FILE_NAME
-
-
-env = None
 
 
 @handle_exceptions
 async def generate_html(*, jwt, report_name, params):
     logger.info(f'RPC call of generate_html():\nREPORT_NAME:\t{report_name}\nPARAMS:\t{params}\n')
-    if report_name in env.list_templates():
-        template = env.get_template(report_name)
-        report = ReportLoader(report_name, params, jwt)
-        title = report.get_title()
-        logger.info(f'Get data for \'{report_name}\' ({title})')
-        data = await report.get_data()
-        if 'error' in data:
-            return response_error(data['error']['code'], data['error']['message'])
-        rendered = await template.render_async(title=title, data=data)
-        logger.info(f'Result of generate_html():\n{rendered}\n')
-        return {'result': rendered, 'content-type': 'text/html'}
-    else:
-        return response_error(ERROR_REPORT_NOT_FOUND, f'Report \'{report_name}\' doesn\'t exists')
+    return await gen_html(report_name, params, jwt)
 
 
 async def main(aio_loop):
@@ -115,12 +101,14 @@ if __name__ == '__main__':
         with PidFile(PID_FILE_NAME, piddir=pid_dir) as p:
             logger.info(f'PID: {p.pid}  FILE: {pid_dir}/{PID_FILE_NAME}.pid')
             pid_ok = True
-            env = Environment(
+
+            pkg.env = Environment(
                 loader=TemplateLoader(),
                 autoescape=select_autoescape(['html', 'xml']),
                 auto_reload=True,
                 enable_async=True
             )
+
             asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
             loop = asyncio.get_event_loop()
             loop.create_task(main(loop))
