@@ -8,6 +8,7 @@
 	"item": [
 		{
 			"name": "view_dictionary_data",
+			"description": null,
 			"item": [
 				{
 					"name": "get_regions",
@@ -28,7 +29,8 @@
 								"v1",
 								"regions"
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				},
@@ -58,7 +60,8 @@
 									"value": "1"
 								}
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				},
@@ -89,7 +92,8 @@
 									"value": "1"
 								}
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				},
@@ -119,7 +123,8 @@
 									"value": "1"
 								}
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				},
@@ -150,7 +155,8 @@
 									"value": "1"
 								}
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				},
@@ -180,7 +186,8 @@
 									"value": "1"
 								}
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				},
@@ -211,7 +218,8 @@
 									"value": "1"
 								}
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				},
@@ -241,7 +249,8 @@
 									"value": "6"
 								}
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				}
@@ -249,6 +258,7 @@
 		},
 		{
 			"name": "summits",
+			"description": null,
 			"item": [
 				{
 					"name": "get_summits",
@@ -307,7 +317,8 @@
 									"value": "1"
 								}
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				},
@@ -375,7 +386,8 @@
 									"value": "1"
 								}
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				},
@@ -421,7 +433,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"summit_id\": 666,\n\t\"alpinist_id\": 1,\n\t\"summit_date\": \"01.01.2017\",\n\t\"route_id\": 1,\n\t\"leader\": true,\n\t\"members\": \"Разные люди\"\n}"
+							"raw": "{\n  \"summit_id\": 666,\n  \"alpinist_id\": 1,\n  \"summit_date\": \"01.01.2017\",\n  \"route_id\": 1,\n  \"leader\": true,\n  \"members\": \"Разные люди\"\n}"
 						},
 						"url": {
 							"raw": "{{alpinebook-server}}/api/v1/summits/",
@@ -434,7 +446,8 @@
 								"summits",
 								""
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				},
@@ -499,7 +512,8 @@
 									"value": "666"
 								}
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				},
@@ -564,7 +578,8 @@
 									"value": "666"
 								}
 							]
-						}
+						},
+						"description": null
 					},
 					"response": []
 				}
@@ -572,9 +587,11 @@
 		},
 		{
 			"name": "users",
+			"description": null,
 			"item": [
 				{
 					"name": "trusted_authorization",
+					"description": null,
 					"item": [
 						{
 							"name": "signin_via_telegram",
@@ -610,7 +627,8 @@
 											"value": "111111111"
 										}
 									]
-								}
+								},
+								"description": null
 							},
 							"response": []
 						},
@@ -648,7 +666,8 @@
 											"value": "twister.kz@gmail.com"
 										}
 									]
-								}
+								},
+								"description": null
 							},
 							"response": []
 						}
@@ -659,54 +678,91 @@
 		},
 		{
 			"name": "reports",
+			"description": null,
 			"item": [
 				{
-					"name": "html",
-					"description": "",
-					"item": [
+					"name": "card.html",
+					"event": [
 						{
-							"name": "card",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "8733d722-32e7-4953-9f69-464b2f45440e",
-										"type": "text/javascript",
-										"exec": [
-											""
-										]
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "GET",
-								"header": [],
-								"body": {},
-								"url": {
-									"raw": "{{alpinebook-server}}/reports/card.html?alpinist_id=1",
-									"host": [
-										"{{alpinebook-server}}"
-									],
-									"path": [
-										"reports",
-										"card.html"
-									],
-									"query": [
-										{
-											"key": "alpinist_id",
-											"value": "1",
-											"equals": true
-										}
-									]
-								}
-							},
-							"response": []
+							"listen": "prerequest",
+							"script": {
+								"id": "8733d722-32e7-4953-9f69-464b2f45440e",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
 						}
 					],
-					"_postman_isSubFolder": true
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{alpinebook-server}}/reports/card.html?alpinist_id=1",
+							"host": [
+								"{{alpinebook-server}}"
+							],
+							"path": [
+								"reports",
+								"card.html"
+							],
+							"query": [
+								{
+									"key": "alpinist_id",
+									"value": "1",
+									"equals": true
+								}
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "card.pdf",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "8733d722-32e7-4953-9f69-464b2f45440e",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{alpinebook-server}}/reports/card.pdf?alpinist_id=1",
+							"host": [
+								"{{alpinebook-server}}"
+							],
+							"path": [
+								"reports",
+								"card.pdf"
+							],
+							"query": [
+								{
+									"key": "alpinist_id",
+									"value": "1",
+									"equals": true
+								}
+							]
+						},
+						"description": null
+					},
+					"response": []
 				}
 			]
 		}

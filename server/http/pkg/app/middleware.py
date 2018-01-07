@@ -40,9 +40,12 @@ async def log_response(request, response):
     if static[0]:
         body = f'<see static file {static[1]}>'
     else:
-        try:
-            body = json.dumps(json.loads(response.body.decode('utf-8')), ensure_ascii=False) if response.body else ''
-        except:
-            body = response.body.decode('utf-8') if response.body else ''
+        if response.content_type == 'application/pdf':
+            body = f'PDF {len(response.body)} bytes length'
+        else:
+            try:
+                body = json.dumps(json.loads(response.body.decode('utf-8')), ensure_ascii=False) if response.body else ''
+            except:
+                body = response.body.decode('utf-8') if response.body else ''
     body = f'\nBODY: {body}'
     logger.info(f'RESPONSE {response.content_type}:{body}\n')

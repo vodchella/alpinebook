@@ -1,5 +1,8 @@
 import logging
+from base64 import b64decode
 from sanic import response
+from sanic.response import HTTPResponse
+
 from pkg.utils.errors import response_error
 from pkg.utils.decorators.handle_exceptions import handle_exceptions
 from pkg.constants.error_codes import ERROR_RABBITMQ_NOT_AVAIBLE, ERROR_RABBITMQ_UNKNOWN_ANSWER_FORMAT
@@ -44,6 +47,13 @@ class Rabbit:
                     resp = response.text(body)
                 elif content_type == 'application/json':
                     resp = response.json(body)
+                elif content_type == 'application/pdf_base64':
+                    raw_pdf = None
+                    try:
+                        raw_pdf = b64decode(body, validate=True)
+                    except:
+                        pass
+                    resp = HTTPResponse(content_type='application/pdf', body_bytes=raw_pdf)
                 else:
                     send_resp_unknown = True
         else:

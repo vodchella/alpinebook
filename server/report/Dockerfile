@@ -7,6 +7,16 @@ RUN echo "deb http://ppa.launchpad.net/jonathonf/python-3.6/ubuntu xenial main" 
 RUN apt update
 RUN apt install -y python3.6 python3.6-dev build-essential locales wget curl nano mc htop
 RUN curl https://bootstrap.pypa.io/get-pip.py | python3.6
+RUN apt install -y libxrender1 libfontconfig1 libxext6  # Для wkhtmltopdf
+
+WORKDIR /tmp
+RUN wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz \
+    && tar \
+            --extract \
+            --file wkhtmltox-0.12.4_linux-generic-amd64.tar.xz \
+            --directory /opt \
+    && rm wkhtmltox-0.12.4_linux-generic-amd64.tar.xz \
+    && ln -s /opt/wkhtmltox/bin/wkhtmltopdf /usr/bin/wkhtmltopdf
 
 RUN    mkdir /var/log/alpinebook \
     && mkdir /etc/alpinebook \
