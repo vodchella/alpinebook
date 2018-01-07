@@ -1,1 +1,1 @@
-docker build -t vodchella/alpinebook-report-server .
+docker build --build-arg tz=$(cat /etc/timezone) -t vodchella/alpinebook-report-server .

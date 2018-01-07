@@ -28,8 +28,11 @@ COPY ./docker-stuff-files/wait_for_postgres.py /etc/alpinebook/wait_for_postgres
 COPY ./docker-stuff-files/start_alpinebook_db.sh /etc/alpinebook/start_alpinebook_db.sh
 RUN chmod 777 /etc/alpinebook/start_alpinebook_db.sh
 
+ARG tz
+RUN echo $tz > /etc/timezone
+
 USER postgres
-RUN echo "listen_addresses='*'" >> /etc/postgresql/9.6/main/postgresql.conf \
+RUN    echo "listen_addresses='*'" >> /etc/postgresql/9.6/main/postgresql.conf \
     && echo "host all  all    172.17.0.0/16  md5" >> /etc/postgresql/9.6/main/pg_hba.conf \
     && echo "host all  all    172.19.0.0/16  md5" >> /etc/postgresql/9.6/main/pg_hba.conf \
     && echo "host all  all    127.0.0.1/32  md5" >> /etc/postgresql/9.6/main/pg_hba.conf \

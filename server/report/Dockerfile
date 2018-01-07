@@ -28,6 +28,9 @@ ENV ALPINEBOOK_REPORT_CONFIG_PATH /etc/alpinebook/report-config.py
 COPY ./requirements.txt /etc/alpinebook/report-requirements.txt
 RUN pip3 install -r /etc/alpinebook/report-requirements.txt
 
+ARG tz
+RUN echo $tz > /etc/timezone
+
 COPY ./config.py /etc/alpinebook/report-config.py
 COPY . /usr/src/alpinebook/server/report
 WORKDIR /usr/src/alpinebook/server/report

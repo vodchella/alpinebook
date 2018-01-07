@@ -9,6 +9,9 @@ RUN    locale-gen ru_RU \
     && dpkg-reconfigure -f noninteractive locales \
     && echo 'LANG=ru_RU.UTF-8' | tee /etc/default/locale
 
+ARG tz
+RUN echo $tz > /etc/timezone
+
 COPY ./rabbitmq.config /etc/rabbitmq/rabbitmq.config
 COPY ./start.sh /tmp/start.sh
 
