@@ -11,4 +11,4 @@ async def generate_html(*, jwt, report_name, params):
 @rpc_handler
 @handle_exceptions
 async def generate_pdf(*, jwt, report_name, params):
-    return await gen_html(report_name, params, jwt)
+    return await gen_html(report_name, params, jwt, for_pdf=True)
