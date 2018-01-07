@@ -193,4 +193,5 @@ async def main_page(request):
 #
 
 app.static('/favicon.png', './pkg/app/static/images/favicon.png')
+app.static('/favicon.ico', './pkg/app/static/images/favicon.ico')
 app.static('/css', './pkg/app/static/css')
