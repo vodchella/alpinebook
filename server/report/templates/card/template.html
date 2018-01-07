@@ -3,7 +3,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>{{ title }}</title>
     <link id="favicon" rel="shortcut icon" href="/favicon.png" type="image/png">
-    <link rel="stylesheet" href="/css/material.min.css">
+    <link rel="stylesheet" href="{{ data.server_url }}/css/material.min.css">
   </head>
   <body>
     <br>
@@ -21,7 +21,7 @@
           <th style="width: 373px;" class="mdl-data-table__cell--non-numeric">Состав</th>
         </tr>
       </thead>
-      {%- for summit in data %}
+      {%- for summit in data.rows %}
       <tbody>
         <tr>
           <td>{{ summit.num }}</td>
