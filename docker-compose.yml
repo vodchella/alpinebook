@@ -3,12 +3,14 @@ services:
   http-server:
     image: vodchella/alpinebook-http-server
     container_name: alpinebook-http-server
+    tmpfs: /tmp
     networks:
       devel:
         ipv4_address: 172.19.0.5
   report-server:
     image: vodchella/alpinebook-report-server
     container_name: alpinebook-report-server
+    tmpfs: /tmp
     networks:
       devel:
         ipv4_address: 172.19.0.4
