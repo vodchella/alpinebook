@@ -30,13 +30,18 @@ class AuthHelper:
                 return encoded_jwt if return_encoded else decoded_jwt
 
     @staticmethod
-    def verify_user_password(request, pswdhash):
+    def verify_user_password(request, pswdhash, pswd_param_name='password'):
         result = False
         global_salt = os.environ['GLOBAL_SALT'] if 'GLOBAL_SALT' in os.environ else ''
-        password = (request.raw_args['password'] + global_salt).encode('ascii')
-        # hash = argon2.using(rounds=12,
-        #                     salt=user['utc_created_at'].encode('utf-8'),
-        #                     digest_size=128).hash(password)
-        if argon2.verify(password, pswdhash):
-            result = True
+        if pswd_param_name in request.raw_args:
+            password = (request.raw_args[pswd_param_name] + global_salt).encode('ascii')
+            if argon2.verify(password, pswdhash):
+                result = True
         return result
+
+    @staticmethod
+    def get_hash_from_password(password, salt):
+        global_salt = os.environ['GLOBAL_SALT'] if 'GLOBAL_SALT' in os.environ else ''
+        return argon2.using(rounds=12,
+                            salt=salt,
+                            digest_size=128).hash((password + global_salt).encode('ascii'))

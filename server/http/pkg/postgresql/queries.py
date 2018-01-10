@@ -10,6 +10,17 @@ SQL_GET_USER_ID = """
 select auth.get_user_id()
 """
 
+SQL_UPDATE_USER_PASSWORD = """
+with rows as (
+  update auth.users
+  set    password = $1
+  where  user_id = $2
+  returning 1
+)
+select count(*)
+from   rows
+"""
+
 SQL_GET_USER_BY_PARAM = """
 select json_build_object('id', coalesce(max(u.user_id), 0),
                          'name', max(u.%s),

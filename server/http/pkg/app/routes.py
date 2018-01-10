@@ -1,4 +1,6 @@
+import os
 import asyncio
+from passlib.hash import argon2
 from ipaddress import IPv4Network, IPv4Address
 from pkg.postgresql.executor import Executor
 from pkg.postgresql.builder import QueryBuilder
@@ -17,6 +19,24 @@ from . import app, v1
 #
 # Аутентификация
 #
+
+
+@v1.post('/users/<user_name:[A-z0-9@-_\.]+>/change-password')
+@handle_exceptions
+async def change_user_password(request, user_name: str):
+    result = 0
+    jwt = AuthHelper().get_jwt_from_request(request)
+    if 'old' in request.raw_args and 'new' in request.raw_args:
+        user_id = jwt['id'] if jwt else 0
+        sql = app.db_queries['get_user_by_param'] % ('email', 'email')
+        user = await Executor(request).query_one_json(sql, user_name)
+        if user and user_id == user['id'] and user['active']:
+            if AuthHelper().verify_user_password(request, user['password'], pswd_param_name='old'):
+                hash = AuthHelper().get_hash_from_password(request.raw_args['new'],
+                                                           user['utc_created_at'].encode('utf-8'))
+                result = await Executor(request).query_one(app.db_queries['update_user_password'], hash, user_id)
+                await asyncio.sleep(2)
+    return response.json({'updated': result})
 
 
 @v1.post('/users/<user_name:[A-z0-9@-_\.]+>/signin')
@@ -69,7 +89,7 @@ async def signin(request, user_name: str):
         user = await Executor(request).query_one_json(sql, param)
 
         allow_signin = False
-        if user['id']:
+        if user and user['id']:
             if user['active']:
                 if method == 'password':
                     if 'password' in request.raw_args:
