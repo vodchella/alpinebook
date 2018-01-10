@@ -14,7 +14,7 @@ from . import app, v1
 
 
 #
-# Авторизация
+# Аутентификация
 #
 
 
@@ -35,6 +35,7 @@ async def signin(request, user_name: str):
                     gateway = IPv4Address(CONFIG['http']['gateway'])
                 except:
                     # Это не говнокод, просто так оно работает куда быстрее, нежели вызов trusted_subnet.hosts()
+                    # Вызов trusted_subnet.hosts() будет выискивать реально используемые хосты, а это нам не нужно
                     i = 0
                     for gateway in trusted_subnet:
                         i += 1
