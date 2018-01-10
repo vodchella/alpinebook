@@ -256,11 +256,11 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "df62a52a-1518-43b2-86f7-a94248b1baac",
+								"id": "3f833842-0f6f-4377-8110-8e67b6058f1e",
 								"type": "text/javascript",
 								"exec": [
 									"const postRequest = {",
-									"    url: pm.environment.get(\"alpinebook-server\") + \"/api/v1/users/signin/twister.kz@gmail.com?method=password&password=admin\",",
+									"    url: pm.environment.get(\"alpinebook-server\") + \"/api/v1/users/twister.kz@gmail.com/signin?method=password&password=admin\",",
 									"    method: \"POST\"",
 									"}",
 									"pm.sendRequest(postRequest, function (err, response) {",
@@ -314,11 +314,11 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "8585fcc5-7eca-4560-afca-a1522ff9b66d",
+								"id": "06c9daf6-fd9e-410e-8815-1a6c207733b2",
 								"type": "text/javascript",
 								"exec": [
 									"const postRequest = {",
-									"    url: pm.environment.get(\"alpinebook-server\") + \"/api/v1/users/signin/twister.kz@gmail.com?method=password&password=admin\",",
+									"    url: pm.environment.get(\"alpinebook-server\") + \"/api/v1/users/twister.kz@gmail.com/signin?method=password&password=admin\",",
 									"    method: \"POST\"",
 									"}",
 									"pm.sendRequest(postRequest, function (err, response) {",
@@ -379,11 +379,11 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "8168c4e2-37a9-4ed4-adf4-d0218c81d626",
+								"id": "175016fb-2379-441c-99b4-d3fbdccee7f6",
 								"type": "text/javascript",
 								"exec": [
 									"const postRequest = {",
-									"    url: pm.environment.get(\"alpinebook-server\") + \"/api/v1/users/signin/twister.kz@gmail.com?method=password&password=admin\",",
+									"    url: pm.environment.get(\"alpinebook-server\") + \"/api/v1/users/twister.kz@gmail.com/signin?method=password&password=admin\",",
 									"    method: \"POST\"",
 									"}",
 									"pm.sendRequest(postRequest, function (err, response) {",
@@ -438,11 +438,11 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "12718bd6-c492-459b-9032-9aeb45ad5256",
+								"id": "8684b4dc-75ad-4fab-bdd7-b450929d5f8d",
 								"type": "text/javascript",
 								"exec": [
 									"const postRequest = {",
-									"    url: pm.environment.get(\"alpinebook-server\") + \"/api/v1/users/signin/twister.kz@gmail.com?method=password&password=admin\",",
+									"    url: pm.environment.get(\"alpinebook-server\") + \"/api/v1/users/twister.kz@gmail.com/signin?method=password&password=admin\",",
 									"    method: \"POST\"",
 									"}",
 									"pm.sendRequest(postRequest, function (err, response) {",
@@ -503,11 +503,11 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "c3734dba-43fb-46b1-8678-4863ad32a469",
+								"id": "bd28e26d-8e79-4d03-80c6-645b08900b22",
 								"type": "text/javascript",
 								"exec": [
 									"const postRequest = {",
-									"    url: pm.environment.get(\"alpinebook-server\") + \"/api/v1/users/signin/twister.kz@gmail.com?method=password&password=admin\",",
+									"    url: pm.environment.get(\"alpinebook-server\") + \"/api/v1/users/twister.kz@gmail.com/signin?method=password&password=admin\",",
 									"    method: \"POST\"",
 									"}",
 									"pm.sendRequest(postRequest, function (err, response) {",
@@ -711,6 +711,76 @@
 						}
 					],
 					"_postman_isSubFolder": true
+				},
+				{
+					"name": "change_password",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b695d75b-e32b-471f-b4fb-cf425ca0bbcc",
+								"type": "text/javascript",
+								"exec": [
+									"const postRequest = {",
+									"    url: pm.environment.get(\"alpinebook-server\") + \"/api/v1/users/twister.kz@gmail.com/signin?method=password&password=admin\",",
+									"    method: \"POST\"",
+									"}",
+									"pm.sendRequest(postRequest, function (err, response) {",
+									"    resp = response.json()",
+									"    jwt = resp[\"jwt\"]",
+									"    pm.globals.set(\"current_jwt\", resp[\"jwt\"]);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{current_jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{alpinebook-server}}/api/v1/users/:user_name/change-password?old=admin&new=admin1",
+							"host": [
+								"{{alpinebook-server}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								":user_name",
+								"change-password"
+							],
+							"query": [
+								{
+									"key": "old",
+									"value": "admin",
+									"equals": true
+								},
+								{
+									"key": "new",
+									"value": "admin1",
+									"equals": true
+								}
+							],
+							"variable": [
+								{
+									"key": "user_name",
+									"value": "twister.kz@gmail.com"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
