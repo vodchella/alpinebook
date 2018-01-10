@@ -15,7 +15,7 @@
     </changeSet>
     <changeSet author="twister" id="users">
         <sql>
-            INSERT INTO auth.users (user_id, alpinist_id, email, telegram_id, telegram_name, active_bool) VALUES (1, 1, 'twister.kz@gmail.com', 111111111, 'vodchella', true);
+            INSERT INTO auth.users (user_id, alpinist_id, email, password, telegram_id, telegram_name, active_bool, created_at) VALUES (1, 1, 'twister.kz@gmail.com', '$argon2i$v=19$m=512,t=12,p=2$MTAuMDEuMjAxOCAxNzoxMjo1OQ$RUspE7+IN7COsBkeANAIEUI2i4VwKKrVg40gbkvRqoQ4NxLCqUbzpnxpJ460z4cK8n7pIDrYK8VCjYpFPmiK+DJ27HRAiTAL/T3DyjCY9eFLX9uDFx+RezvcZ9s98SUlr9ke945rJcq1r0JU+GWtiidJJ0yKtaRkRVUqQeoYthQ', 111111111, 'vodchella', true, '2018-01-10 23:12:59+06'::timestamptz);
         </sql>
         <rollback>
             TRUNCATE auth.users;

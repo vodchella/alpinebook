@@ -12,7 +12,9 @@ select auth.get_user_id()
 
 SQL_GET_USER_BY_PARAM = """
 select json_build_object('id', coalesce(max(u.user_id), 0),
-                         'name', max(u.telegram_name),
+                         'name', max(u.%s),
+                         'password', max(u.password),
+                         'utc_created_at', to_char(max(u.created_at), 'DD.MM.YYYY HH24:MI:SS'),
                          'active', coalesce(bool_and(u.active_bool), false))
 from   auth.users u
 where  u.%s = $1

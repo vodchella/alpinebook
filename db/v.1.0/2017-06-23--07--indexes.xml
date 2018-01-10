@@ -16,4 +16,14 @@
             <column name="successfully_completed_bool"/>
         </createIndex>
     </changeSet>
+    <changeSet author="twister" id="idx_users_email">
+        <createIndex indexName="idx_users_email" schemaName="auth" tableName="users" unique="true">
+            <column name="email"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="twister" id="idx_users_telegram_id">
+        <createIndex indexName="idx_users_telegram_id" schemaName="auth" tableName="users" unique="true">
+            <column name="telegram_id"/>
+        </createIndex>
+    </changeSet>
 </databaseChangeLog>

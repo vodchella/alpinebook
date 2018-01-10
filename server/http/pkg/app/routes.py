@@ -1,3 +1,4 @@
+import asyncio
 from ipaddress import IPv4Network, IPv4Address
 from pkg.postgresql.executor import Executor
 from pkg.postgresql.builder import QueryBuilder
@@ -47,29 +48,43 @@ async def signin(request, user_name: str):
                 block_connect = request_ip != IPv4Address('127.0.0.1')
             if block_connect:
                 return response_error(ERROR_IP_ADDRESS_NOT_ALLOWED,
-                                      'Неразрешённый ip-адрес для данного типа аутентификации')
+                                      'Запрещённый ip-адрес для данного типа аутентификации')
 
         if method == 'telegram':
-            field = 'telegram_id'
+            field_param = 'telegram_id'
+            field_name = 'telegram_name'
             try:
                 telegram_id = int(user_name)
                 param = telegram_id
             except ValueError:
                 return response_error(ERROR_INVALID_IDENTIFIER, 'Неверный идентификатор Telegram', log_stacktrace=False)
-        elif method == 'trusted':
-            field = 'email'
+        elif method in ('trusted', 'password'):
+            field_param = 'email'
+            field_name = 'email'
             param = user_name
         else:
             return response_error(ERROR_INVALID_AUTH_METHOD_SPECIFIED, 'Указан неверный метод аутентификации')
 
-        sql = app.db_queries['get_user_by_param'] % field
+        sql = app.db_queries['get_user_by_param'] % (field_name, field_param)
         user = await Executor(request).query_one_json(sql, param)
+
+        allow_signin = False
         if user['id']:
             if user['active']:
-                return response.json({'jwt': AuthHelper().create_jwt_by_user(user)})
+                if method == 'password':
+                    if 'password' in request.raw_args:
+                        allow_signin = AuthHelper().verify_user_password(request, user['password'])
+                elif method in ('telegram', 'trusted'):
+                    allow_signin = True
+
+                if allow_signin:
+                    return response.json({'jwt': AuthHelper().create_jwt_by_user(user)})
+                else:
+                    await asyncio.sleep(2)
             else:
                 return response_error(ERROR_USER_NOT_ACTIVE, 'Пользователь заблокирован')
-        else:
+
+        if not allow_signin:
             return response_error(ERROR_INVALID_CREDENTIALS, 'Пара логин/пароль неверна')
 
     else:

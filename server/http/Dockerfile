@@ -34,4 +34,6 @@ RUN echo $tz > /etc/timezone
 COPY ./config.py /etc/alpinebook/http-config.py
 COPY . /usr/src/alpinebook/server/http
 WORKDIR /usr/src/alpinebook/server/http
+
+ENV GLOBAL_SALT uWW:Z_![xy$uGQ9{,]opF7f%`nV.=9XTUiX!u/9a*H,/oLWC
 CMD /usr/src/alpinebook/server/http/server.py

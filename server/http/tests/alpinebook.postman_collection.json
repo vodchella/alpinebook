@@ -8,7 +8,6 @@
 	"item": [
 		{
 			"name": "view_dictionary_data",
-			"description": null,
 			"item": [
 				{
 					"name": "get_regions",
@@ -29,8 +28,7 @@
 								"v1",
 								"regions"
 							]
-						},
-						"description": null
+						}
 					},
 					"response": []
 				},
@@ -60,8 +58,7 @@
 									"value": "1"
 								}
 							]
-						},
-						"description": null
+						}
 					},
 					"response": []
 				},
@@ -92,8 +89,7 @@
 									"value": "1"
 								}
 							]
-						},
-						"description": null
+						}
 					},
 					"response": []
 				},
@@ -123,8 +119,7 @@
 									"value": "1"
 								}
 							]
-						},
-						"description": null
+						}
 					},
 					"response": []
 				},
@@ -155,8 +150,7 @@
 									"value": "1"
 								}
 							]
-						},
-						"description": null
+						}
 					},
 					"response": []
 				},
@@ -186,8 +180,7 @@
 									"value": "1"
 								}
 							]
-						},
-						"description": null
+						}
 					},
 					"response": []
 				},
@@ -218,8 +211,7 @@
 									"value": "1"
 								}
 							]
-						},
-						"description": null
+						}
 					},
 					"response": []
 				},
@@ -249,8 +241,7 @@
 									"value": "6"
 								}
 							]
-						},
-						"description": null
+						}
 					},
 					"response": []
 				}
@@ -258,7 +249,6 @@
 		},
 		{
 			"name": "summits",
-			"description": null,
 			"item": [
 				{
 					"name": "get_summits",
@@ -266,11 +256,11 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "110c03e0-c212-4ef6-b7c2-aaffa58f9fb3",
+								"id": "df62a52a-1518-43b2-86f7-a94248b1baac",
 								"type": "text/javascript",
 								"exec": [
 									"const postRequest = {",
-									"    url: pm.environment.get(\"alpinebook-server\") + \"/api/v1/users/signin/111111111?method=telegram\",",
+									"    url: pm.environment.get(\"alpinebook-server\") + \"/api/v1/users/signin/twister.kz@gmail.com?method=password&password=admin\",",
 									"    method: \"POST\"",
 									"}",
 									"pm.sendRequest(postRequest, function (err, response) {",
@@ -295,10 +285,7 @@
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "{{alpinebook-server}}/api/v1/summits/alpinist/:alpinist_id",
 							"host": [
@@ -317,8 +304,7 @@
 									"value": "1"
 								}
 							]
-						},
-						"description": null
+						}
 					},
 					"response": []
 				},
@@ -328,11 +314,11 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "c0c37e0a-505a-4ce4-86d0-8d1aafe43711",
+								"id": "8585fcc5-7eca-4560-afca-a1522ff9b66d",
 								"type": "text/javascript",
 								"exec": [
 									"const postRequest = {",
-									"    url: pm.environment.get(\"alpinebook-server\") + \"/api/v1/users/signin/111111111?method=telegram\",",
+									"    url: pm.environment.get(\"alpinebook-server\") + \"/api/v1/users/signin/twister.kz@gmail.com?method=password&password=admin\",",
 									"    method: \"POST\"",
 									"}",
 									"pm.sendRequest(postRequest, function (err, response) {",
@@ -357,10 +343,7 @@
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "{{alpinebook-server}}/api/v1/summits/alpinist/:alpinist_id?full_route_info=True",
 							"host": [
@@ -386,8 +369,7 @@
 									"value": "1"
 								}
 							]
-						},
-						"description": null
+						}
 					},
 					"response": []
 				},
@@ -397,11 +379,11 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "15dde6d4-4e4b-4baa-b6a8-02631ed770d9",
+								"id": "8168c4e2-37a9-4ed4-adf4-d0218c81d626",
 								"type": "text/javascript",
 								"exec": [
 									"const postRequest = {",
-									"    url: pm.environment.get(\"alpinebook-server\") + \"/api/v1/users/signin/111111111?method=telegram\",",
+									"    url: pm.environment.get(\"alpinebook-server\") + \"/api/v1/users/signin/twister.kz@gmail.com?method=password&password=admin\",",
 									"    method: \"POST\"",
 									"}",
 									"pm.sendRequest(postRequest, function (err, response) {",
@@ -433,7 +415,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"summit_id\": 666,\n  \"alpinist_id\": 1,\n  \"summit_date\": \"01.01.2017\",\n  \"route_id\": 1,\n  \"leader\": true,\n  \"members\": \"Разные люди\"\n}"
+							"raw": "{\n\t\"summit_id\": 666,\n\t\"alpinist_id\": 1,\n\t\"summit_date\": \"01.01.2017\",\n\t\"route_id\": 1,\n\t\"leader\": true,\n\t\"members\": \"Разные люди\"\n}"
 						},
 						"url": {
 							"raw": "{{alpinebook-server}}/api/v1/summits/",
@@ -446,8 +428,7 @@
 								"summits",
 								""
 							]
-						},
-						"description": null
+						}
 					},
 					"response": []
 				},
@@ -457,11 +438,11 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "3dacb981-2a68-4b07-b3e8-d7c78de9aa9a",
+								"id": "12718bd6-c492-459b-9032-9aeb45ad5256",
 								"type": "text/javascript",
 								"exec": [
 									"const postRequest = {",
-									"    url: pm.environment.get(\"alpinebook-server\") + \"/api/v1/users/signin/111111111?method=telegram\",",
+									"    url: pm.environment.get(\"alpinebook-server\") + \"/api/v1/users/signin/twister.kz@gmail.com?method=password&password=admin\",",
 									"    method: \"POST\"",
 									"}",
 									"pm.sendRequest(postRequest, function (err, response) {",
@@ -512,8 +493,7 @@
 									"value": "666"
 								}
 							]
-						},
-						"description": null
+						}
 					},
 					"response": []
 				},
@@ -523,11 +503,11 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "ccd4323a-57ea-45d0-9649-df4a0a17692b",
+								"id": "c3734dba-43fb-46b1-8678-4863ad32a469",
 								"type": "text/javascript",
 								"exec": [
 									"const postRequest = {",
-									"    url: pm.environment.get(\"alpinebook-server\") + \"/api/v1/users/signin/111111111?method=telegram\",",
+									"    url: pm.environment.get(\"alpinebook-server\") + \"/api/v1/users/signin/twister.kz@gmail.com?method=password&password=admin\",",
 									"    method: \"POST\"",
 									"}",
 									"pm.sendRequest(postRequest, function (err, response) {",
@@ -578,8 +558,7 @@
 									"value": "666"
 								}
 							]
-						},
-						"description": null
+						}
 					},
 					"response": []
 				}
@@ -587,11 +566,56 @@
 		},
 		{
 			"name": "users",
-			"description": null,
 			"item": [
 				{
-					"name": "trusted_authorization",
-					"description": null,
+					"name": "authentication",
+					"description": "",
+					"item": [
+						{
+							"name": "signin_with_password",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {},
+								"url": {
+									"raw": "{{alpinebook-server}}/api/v1/users/signin/:user_name?method=password&password=admin",
+									"host": [
+										"{{alpinebook-server}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"signin",
+										":user_name"
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "password",
+											"equals": true
+										},
+										{
+											"key": "password",
+											"value": "admin",
+											"equals": true
+										}
+									],
+									"variable": [
+										{
+											"key": "user_name",
+											"value": "twister.kz@gmail.com"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "trusted_authentication",
 					"item": [
 						{
 							"name": "signin_via_telegram",
@@ -627,8 +651,7 @@
 											"value": "111111111"
 										}
 									]
-								},
-								"description": null
+								}
 							},
 							"response": []
 						},
@@ -666,10 +689,31 @@
 											"value": "twister.kz@gmail.com"
 										}
 									]
-								},
-								"description": null
+								}
 							},
 							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "7678cbae-126e-44f8-ae45-b995fd4cb20d",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "e52bcc49-3963-46b1-b397-710f154983e3",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
 						}
 					],
 					"_postman_isSubFolder": true
@@ -755,8 +799,7 @@
 							"query": [
 								{
 									"key": "alpinist_id",
-									"value": "1",
-									"equals": true
+									"value": "1"
 								}
 							]
 						},

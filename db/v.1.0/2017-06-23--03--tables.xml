@@ -20,9 +20,13 @@
             </column>
             <column name="alpinist_id" remarks="Альпинист" type="INT"/>
             <column name="email" remarks="Электронная почта" type="TEXT"/>
+            <column name="password" remarks="Пароль" type="TEXT"/>
             <column name="telegram_id" remarks="Идентификатор Telegram" type="INT"/>
             <column name="telegram_name" remarks="Имя Telegram" type="TEXT"/>
             <column defaultValueBoolean="false" name="active_bool" remarks="Активен" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="now()" name="created_at" remarks="Когда создана запись" type="TIMESTAMP WITH TIME ZONE">
                 <constraints nullable="false"/>
             </column>
         </createTable>
