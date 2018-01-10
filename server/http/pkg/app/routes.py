@@ -30,7 +30,6 @@ async def signin(request, user_name: str):
             request_ip = IPv4Address(request.ip)
             block_connect = True
             try:
-                print(CONFIG['http']['trusted-subnet'])
                 trusted_subnet = IPv4Network(CONFIG['http']['trusted-subnet'])
                 try:
                     gateway = IPv4Address(CONFIG['http']['gateway'])
