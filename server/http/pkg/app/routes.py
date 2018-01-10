@@ -60,7 +60,7 @@ async def signin(request, user_name: str):
             field = 'email'
             param = user_name
         else:
-            return response_error(ERROR_INVALID_AUTH_METHOD_SPECIFIED, 'Указан неверный метод авторизации')
+            return response_error(ERROR_INVALID_AUTH_METHOD_SPECIFIED, 'Указан неверный метод аутентификации')
 
         sql = app.db_queries['get_user_by_param'] % field
         user = await Executor(request).query_one_json(sql, param)
@@ -73,7 +73,7 @@ async def signin(request, user_name: str):
             return response_error(ERROR_INVALID_CREDENTIALS, 'Пара логин/пароль неверна')
 
     else:
-        return response_error(ERROR_NO_AUTH_METHOD_SPECIFIED, 'Не указан метод авторизации')
+        return response_error(ERROR_NO_AUTH_METHOD_SPECIFIED, 'Не указан метод аутентификации')
 
 
 #
