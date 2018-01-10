@@ -1,3 +1,4 @@
+from ipaddress import IPv4Network, IPv4Address
 from pkg.postgresql.executor import Executor
 from pkg.postgresql.builder import QueryBuilder
 from pkg.utils.auth_helper import AuthHelper
@@ -6,6 +7,7 @@ from pkg.utils.decorators.handle_exceptions import handle_exceptions
 from pkg.utils.errors import *
 from pkg.constants import APPLICATION_VERSION
 from pkg.constants.error_codes import *
+from pkg.constants import CONFIG
 from asyncpg.exceptions import UniqueViolationError
 from sanic import response
 from . import app, v1
@@ -25,8 +27,27 @@ async def signin(request, user_name: str):
         # Для этих методов авторизации подключения разрешены только
         # с локальных адресов, т.к. они не запрашивают пароль
         if method in ('telegram', 'trusted'):
-            if request.ip != '127.0.0.1':
-                return response_error(ERROR_IP_ADDRESS_NOT_ALLOWED, 'Подключения с внешних адресов запрещены')
+            request_ip = IPv4Address(request.ip)
+            block_connect = True
+            try:
+                print(CONFIG['http']['trusted-subnet'])
+                trusted_subnet = IPv4Network(CONFIG['http']['trusted-subnet'])
+                try:
+                    gateway = IPv4Address(CONFIG['http']['gateway'])
+                except:
+                    # Это не говнокод, просто так оно работает куда быстрее, нежели вызов trusted_subnet.hosts()
+                    i = 0
+                    for gateway in trusted_subnet:
+                        i += 1
+                        if i > 1:
+                            break
+                if request_ip != gateway:
+                    block_connect = request_ip not in trusted_subnet
+            except:
+                block_connect = request_ip != IPv4Address('127.0.0.1')
+            if block_connect:
+                return response_error(ERROR_IP_ADDRESS_NOT_ALLOWED,
+                                      'Неразрешённый ip-адрес для данного типа аутентификации')
 
         if method == 'telegram':
             field = 'telegram_id'

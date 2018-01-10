@@ -3,7 +3,9 @@ CONFIG = {
     'debug': True,
     'http': {
         'listen-host': 'alpinebook-http-server',
-        'listen-port': 8001
+        'listen-port': 8001,
+        'trusted-subnet': '172.19.0.0/16',
+        'gateway': '172.19.0.1'
     },
     'postgres': {
         'host': 'alpinebook-postgres',
