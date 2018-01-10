@@ -24,8 +24,8 @@ async def signin(request, user_name: str):
     if 'method' in request.raw_args:
         method = request.raw_args['method'].lower()
 
-        # Для этих методов авторизации подключения разрешены только
-        # с локальных адресов, т.к. они не запрашивают пароль
+        # Для этих методов аутентификации подключения разрешены только
+        # с внутренних доверенных адресов, т.к. они не запрашивают пароль
         if method in ('telegram', 'trusted'):
             request_ip = IPv4Address(request.ip)
             block_connect = True
