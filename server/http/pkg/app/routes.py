@@ -19,7 +19,7 @@ from . import app, v1
 #
 
 
-@v1.post('/users/signin/<user_name:[A-z0-9@-_\.]+>')
+@v1.post('/users/<user_name:[A-z0-9@-_\.]+>/signin')
 @handle_exceptions
 async def signin(request, user_name: str):
     if 'method' in request.raw_args:

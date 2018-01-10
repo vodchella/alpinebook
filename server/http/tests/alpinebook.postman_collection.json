@@ -578,7 +578,7 @@
 								"header": [],
 								"body": {},
 								"url": {
-									"raw": "{{alpinebook-server}}/api/v1/users/signin/:user_name?method=password&password=admin",
+									"raw": "{{alpinebook-server}}/api/v1/users/:user_name/signin?method=password&password=admin",
 									"host": [
 										"{{alpinebook-server}}"
 									],
@@ -586,8 +586,8 @@
 										"api",
 										"v1",
 										"users",
-										"signin",
-										":user_name"
+										":user_name",
+										"signin"
 									],
 									"query": [
 										{
@@ -622,12 +622,9 @@
 							"request": {
 								"method": "POST",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
+								"body": {},
 								"url": {
-									"raw": "{{alpinebook-server}}/api/v1/users/signin/:user_name?method=telegram",
+									"raw": "{{alpinebook-server}}/api/v1/users/:user_name/signin?method=telegram",
 									"host": [
 										"{{alpinebook-server}}"
 									],
@@ -635,8 +632,8 @@
 										"api",
 										"v1",
 										"users",
-										"signin",
-										":user_name"
+										":user_name",
+										"signin"
 									],
 									"query": [
 										{
@@ -660,12 +657,9 @@
 							"request": {
 								"method": "POST",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
+								"body": {},
 								"url": {
-									"raw": "{{alpinebook-server}}/api/v1/users/signin/:user_name?method=trusted",
+									"raw": "{{alpinebook-server}}/api/v1/users/:user_name/signin?method=trusted",
 									"host": [
 										"{{alpinebook-server}}"
 									],
@@ -673,8 +667,8 @@
 										"api",
 										"v1",
 										"users",
-										"signin",
-										":user_name"
+										":user_name",
+										"signin"
 									],
 									"query": [
 										{
