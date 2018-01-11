@@ -25,7 +25,7 @@ from . import app, v1
 @handle_exceptions
 async def change_user_password(request, user_name: str):
     result = 0
-    jwt = AuthHelper().get_jwt_from_request(request)
+    jwt = await AuthHelper().get_jwt_from_request(request)
     if 'old' in request.raw_args and 'new' in request.raw_args:
         user_id = jwt['id'] if jwt else 0
         sql = app.db_queries['get_user_by_param'] % ('email', 'email')
@@ -35,6 +35,8 @@ async def change_user_password(request, user_name: str):
                 hash = AuthHelper().get_hash_from_password(request.raw_args['new'],
                                                            user['utc_created_at'].encode('utf-8'))
                 result = await Executor(request).query_one(app.db_queries['update_user_password'], hash, user_id)
+                user['password'] = hash
+                await app.mongo.upsert_user(user)
                 await asyncio.sleep(2)
     return response.json({'updated': result})
 
@@ -216,7 +218,7 @@ async def get_route(request, route_id: int):
 
 
 async def process_report(request, report_name, report_type):
-    jwt = AuthHelper().get_jwt_from_request(request, return_encoded=True)
+    jwt = await AuthHelper().get_jwt_from_request(request, return_encoded=True)
     result = await app.rabbitmq.rpc_call(f'generate_{report_type}', dict(jwt=jwt,
                                                                          report_name=report_name,
                                                                          params=request.raw_args))

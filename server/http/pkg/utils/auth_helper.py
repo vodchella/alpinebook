@@ -4,6 +4,7 @@ from passlib.hash import argon2
 from datetime import datetime, timedelta
 from pkg.utils.decorators.singleton import singleton
 from pkg.utils.strgen import StringGenerator
+from pkg.app import app
 
 
 @singleton
@@ -19,14 +20,23 @@ class AuthHelper:
             'name': user['name'],
             'exp': datetime.utcnow() + timedelta(hours=12)
         }
-        return jwt.encode(payload, self.__secret_key, algorithm='HS512')
 
-    def get_jwt_from_request(self, request, return_encoded=False):
+        return jwt.encode(payload, user['password'] or self.__secret_key, algorithm='HS512')
+
+    async def get_jwt_from_request(self, request, return_encoded=False):
         if 'authorization' in request.headers:
             authorization = request.headers['authorization']
             if authorization[:6] == 'Bearer':
                 encoded_jwt = authorization[7:]
-                decoded_jwt = jwt.decode(encoded_jwt, self.__secret_key, algorithms='HS512')
+                tmp_jwt = jwt.decode(encoded_jwt, verify=False)
+
+                id = tmp_jwt['id'] if 'id' in tmp_jwt else 0
+                user = None
+                if id:
+                    user = await app.mongo.get_user(id)
+                password = user['password'] if user and 'password' in user else None
+
+                decoded_jwt = jwt.decode(encoded_jwt, password or self.__secret_key, algorithms='HS512')
                 return encoded_jwt if return_encoded else decoded_jwt
 
     @staticmethod

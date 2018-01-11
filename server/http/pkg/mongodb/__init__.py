@@ -10,7 +10,12 @@ class Mongo:
         self.__conn = conn
         self.__db = conn['alpinebook']
         self.__users = self.__db['users']
+        self.__users.create_index('email', unique=True, background=True)
 
     @handle_exceptions
     async def upsert_user(self, user):
         await self.__users.replace_one({'name': user['name']}, user, upsert=True)
+
+    @handle_exceptions
+    async def get_user(self, id):
+        return await self.__users.find_one({'id': id})

@@ -63,7 +63,7 @@ class Executor:
         self._log_full_sql_result = log_full_sql_result
 
     async def _setup_db_values(self, conn):
-        jwt = AuthHelper().get_jwt_from_request(self._http_request)
+        jwt = await AuthHelper().get_jwt_from_request(self._http_request)
         user_id = jwt['id'] if jwt else 0
 
         logger = logging.getLogger('postgres')
