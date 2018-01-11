@@ -89,7 +89,7 @@ async def setup_postgres(app, loop):
     try:
         max_attempts = CONFIG['postgres']['max_conn_attempts']
     except:
-        max_attempts = 60
+        max_attempts = 120
 
     pool_info = f'pool.min_size: {min_s}, pool.max_size: {max_s}, pool.max_inactive_connection_lifetime: {micl}'
     logger.info(f'Connection settings: {pool_info}, command_timeout: {command_timeout}, ssl: {use_ssl}')
