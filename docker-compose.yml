@@ -1,5 +1,14 @@
 version: "3"
 services:
+  mongo:
+    image: vodchella/alpinebook-mongo
+    container_name: alpinebook-mongo
+    tmpfs:
+      - /tmp
+      - /tmp/mongo
+    networks:
+      devel:
+        ipv4_address: 172.19.0.6
   http-server:
     image: vodchella/alpinebook-http-server
     container_name: alpinebook-http-server
