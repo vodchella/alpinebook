@@ -98,6 +98,7 @@ async def signin(request, user_name: str):
                     allow_signin = True
 
                 if allow_signin:
+                    await app.mongo.upsert_user(user)
                     return response.json({'jwt': AuthHelper().create_jwt_by_user(user)})
                 else:
                     await asyncio.sleep(2)

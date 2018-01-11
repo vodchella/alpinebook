@@ -15,19 +15,25 @@ CONFIG = {
         'db': 'alpinebook_dev',
         'ssl': False,
         'pool': {
-            'min_size': 1,
-            'max_size': 10,
-            'max_inactive_connection_lifetime': 0,
-            'command_timeout': 60
+            'min-size': 1,
+            'max-size': 10,
+            'max-inactive-connection-lifetime': 0,
+            'command-timeout': 60
         },
-        'max_conn_attempts': 120
+        'max-conn-attempts': 120
     },
     'rabbit': {
         'host': 'alpinebook-rabbit',
         'port': 5672,
         'user': 'guest',
         'pass': 'guest',
-        'max_conn_attempts': 20
+        'max-conn-attempts': 20
+    },
+    'mongo': {
+        'host': 'alpinebook-mongo',
+        'port': 27017,
+        'connect-timeout': 1,
+        'max-conn-attempts': 20
     },
     'logging': {
         'file-name': '/var/log/alpinebook/http.log',

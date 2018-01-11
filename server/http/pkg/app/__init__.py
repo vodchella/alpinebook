@@ -11,3 +11,4 @@ except:
 
 app.db_queries = {}
 app.rabbitmq = None
+app.mongo = None

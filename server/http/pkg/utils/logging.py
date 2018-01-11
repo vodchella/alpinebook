@@ -56,5 +56,9 @@ LOGGING = {
             'level': 'DEBUG',
             'handlers': alpinebook_handlers
         },
+        'mongodb': {
+            'level': 'DEBUG',
+            'handlers': alpinebook_handlers
+        }
     }
 }
