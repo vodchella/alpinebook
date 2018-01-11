@@ -23,9 +23,9 @@ services:
     networks:
       devel:
         ipv4_address: 172.19.0.4
-  mq:
-    image: vodchella/alpinebook-mq
-    container_name: alpinebook-mq
+  rabbit:
+    image: vodchella/alpinebook-rabbit
+    container_name: alpinebook-rabbit
     networks:
       devel:
         ipv4_address: 172.19.0.3

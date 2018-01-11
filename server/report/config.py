@@ -6,7 +6,7 @@ CONFIG = {
         'port': 8001
     },
     'rabbit': {
-        'host': 'alpinebook-mq',
+        'host': 'alpinebook-rabbit',
         'port': 5672,
         'user': 'guest',
         'pass': 'guest',
