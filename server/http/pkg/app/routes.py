@@ -25,13 +25,11 @@ from . import app, v1
 @handle_exceptions
 async def change_user_password(request, user_name: str):
     result = 0
-    jwt = await AuthHelper().get_jwt_from_request(request)
+    jwt, user = await AuthHelper().get_jwt_and_user_from_request(request)
     if 'old' in request.raw_args and 'new' in request.raw_args:
-        user_id = jwt['id'] if jwt else 0
-        sql = app.db_queries['get_user_by_param'] % ('email', 'email')
-        user = await Executor(request).query_one_json(sql, user_name)
-        if user and user_id == user['id'] and user['active']:
+        if user and user_name == user['name'] and user['active']:
             if AuthHelper().verify_user_password(request, user['password'], pswd_param_name='old'):
+                user_id = jwt['id'] if jwt else 0
                 hash = AuthHelper().get_hash_from_password(request.raw_args['new'],
                                                            user['utc_created_at'].encode('utf-8'))
                 result = await Executor(request).query_one(app.db_queries['update_user_password'], hash, user_id)

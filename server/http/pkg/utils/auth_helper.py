@@ -23,7 +23,7 @@ class AuthHelper:
 
         return jwt.encode(payload, user['password'] or self.__secret_key, algorithm='HS512')
 
-    async def get_jwt_from_request(self, request, return_encoded=False):
+    async def get_jwt_and_user_from_request(self, request, return_encoded=False):
         if 'authorization' in request.headers:
             authorization = request.headers['authorization']
             if authorization[:6] == 'Bearer':
@@ -37,7 +37,12 @@ class AuthHelper:
                 password = user['password'] if user and 'password' in user else None
 
                 decoded_jwt = jwt.decode(encoded_jwt, password or self.__secret_key, algorithms='HS512')
-                return encoded_jwt if return_encoded else decoded_jwt
+                return encoded_jwt if return_encoded else decoded_jwt, user
+
+    async def get_jwt_from_request(self, request, return_encoded=False):
+        result = await self.get_jwt_and_user_from_request(request, return_encoded)
+        if result:
+            return result[0]
 
     @staticmethod
     def verify_user_password(request, pswdhash, pswd_param_name='password'):
