@@ -1,6 +1,3 @@
-from pkg.utils.decorators.handle_exceptions import handle_exceptions
-
-
 class Mongo:
     __conn = None
     __db = None
