@@ -1,4 +1,4 @@
 import { AppRegistry } from 'react-native';
-import Alpinebook from './src/app';
+import Alpinebook from './src/App';
 
 AppRegistry.registerComponent('Alpinebook', () => Alpinebook);
