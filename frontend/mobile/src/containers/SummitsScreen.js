@@ -1,9 +1,10 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import {StackNavigator} from "react-navigation";
+import { StackNavigator } from 'react-navigation';
+import styles from '../styles/Styles';
 
 const SummitsScreen = ({ navigation, screenProps }) => (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={styles.container}>
         <Text>Восхождения</Text>
     </View>
 );
@@ -14,7 +15,7 @@ SummitsScreen.navigationOptions = {
 
 const SummitsScreenWrapper = StackNavigator (
     { SummitsScreen: { screen: SummitsScreen } },
-    { navigationOptions: ({ navigation }) => ({ initialRouteName: 'SummitsScreen' }) }
+    { navigationOptions: () => ({ initialRouteName: 'SummitsScreen' }) }
 );
 
 export default SummitsScreenWrapper;

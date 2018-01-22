@@ -1,15 +1,16 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import styles from '../styles/Styles';
 
 const HomeScreen = ({ navigation, screenProps }) => (
     <View style={styles.container}>
-        <Text style={styles.welcome}>
+        <Text style={_styles.welcome}>
             Вас приветствует Alpinebook v{screenProps.version}!
         </Text>
-        <Text style={styles.instructions}>
+        <Text style={_styles.instructions}>
             Оставайтесь с нами, скоро этим можно будет пользоваться :)
         </Text>
-        <Text style={styles.instructions}>
+        <Text style={_styles.instructions}>
             Чтобы увидеть меню, свайпните слева направо
         </Text>
     </View>
@@ -19,13 +20,7 @@ HomeScreen.navigationOptions = {
     title: 'О программе'
 };
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-    },
+const _styles = StyleSheet.create({
     welcome: {
         fontSize: 20,
         textAlign: 'center',
