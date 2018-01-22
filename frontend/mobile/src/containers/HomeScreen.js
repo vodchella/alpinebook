@@ -1,10 +1,10 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-const HomeScreen = () => (
+const HomeScreen = ({ navigation, screenProps }) => (
     <View style={styles.container}>
         <Text style={styles.welcome}>
-            Добро пожаловать в Alpinebook!
+            Вас приветствует Alpinebook v{screenProps.version}!
         </Text>
         <Text style={styles.instructions}>
             Оставайтесь с нами, скоро этим можно будет пользоваться :)
