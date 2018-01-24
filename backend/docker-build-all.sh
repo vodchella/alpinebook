@@ -1,6 +1,9 @@
 #!/bin/bash
 ROOT_PATH=$(cd $(dirname $0) && pwd);
 
+cd $ROOT_PATH/mongo
+./docker-build.sh
+
 cd $ROOT_PATH/rabbit
 ./docker-build.sh
 
