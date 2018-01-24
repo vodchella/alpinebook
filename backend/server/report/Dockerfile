@@ -10,8 +10,9 @@ RUN curl https://bootstrap.pypa.io/get-pip.py | python3.6
 RUN apt install -y libxrender1 libfontconfig1 libxext6  # Для wkhtmltopdf
 
 WORKDIR /tmp
-RUN wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz \
-    && tar \
+COPY ./wkhtmltox-0.12.4_linux-generic-amd64.tar.xz /tmp/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz
+# RUN wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz \
+RUN tar \
             --extract \
             --file wkhtmltox-0.12.4_linux-generic-amd64.tar.xz \
             --directory /opt \
