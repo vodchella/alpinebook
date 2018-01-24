@@ -13,9 +13,9 @@ SummitsScreen.navigationOptions = {
     title: 'Восхождения'
 };
 
-const SummitsScreenWrapper = StackNavigator (
+const SummitsScreenNavigator = StackNavigator (
     { SummitsScreen: { screen: SummitsScreen } },
     { navigationOptions: () => ({ initialRouteName: 'SummitsScreen' }) }
 );
 
-export default SummitsScreenWrapper;
+export default SummitsScreenNavigator;

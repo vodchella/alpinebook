@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import styles from '../styles/Styles';
 
-const HomeScreen = ({ navigation, screenProps }) => (
+const HomeScreen = ({ screenProps }) => (
     <View style={styles.container}>
         <Text style={_styles.welcome}>
             Вас приветствует Alpinebook v{screenProps.version}!
