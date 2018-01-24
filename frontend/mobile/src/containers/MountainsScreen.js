@@ -50,9 +50,9 @@ class MountainsScreen extends React.Component {
                               const name = item.name ? item.name : '?';
 
                               if (type === 'region') {
-                                  return <ListItem itemHeader><Text>{name}</Text></ListItem>
+                                  return <Separator><Text style={{fontSize: 14}}>{name}</Text></Separator>
                               } else if (type === 'area') {
-                                  return <Separator><Text>{name}</Text></Separator>
+                                  return <Separator><Text style={{fontSize: 10}}>{name}</Text></Separator>
                               } else if (type === 'mountain') {
                                   return <ListItem><Text>{name}</Text></ListItem>
                               } else {
