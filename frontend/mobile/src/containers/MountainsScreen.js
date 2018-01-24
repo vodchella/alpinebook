@@ -11,7 +11,7 @@ class MountainsScreen extends React.Component {
         const store = this.props.screenProps.stores.routes;
         const { navigation } = this.props;
 
-        var testItems = [
+        let testItems = [
             { type: 'region', name: 'Тянь-Шань' },
             { type: 'area', name: 'Заилийский Алатау' },
             { type: 'mountain', name: 'Амангельды' },
@@ -46,12 +46,17 @@ class MountainsScreen extends React.Component {
                 <Content>
                     <List dataArray={testItems}
                           renderRow={(item) => {
-                              if (item.type === 'region') {
-                                  return <ListItem itemHeader><Text>{item.name}</Text></ListItem>
-                              } else if (item.type === 'area') {
-                                  return <Separator><Text>{item.name}</Text></Separator>
+                              const type = item.type ? item.type : '?';
+                              const name = item.name ? item.name : '?';
+
+                              if (type === 'region') {
+                                  return <ListItem itemHeader><Text>{name}</Text></ListItem>
+                              } else if (type === 'area') {
+                                  return <Separator><Text>{name}</Text></Separator>
+                              } else if (type === 'mountain') {
+                                  return <ListItem><Text>{name}</Text></ListItem>
                               } else {
-                                  return <ListItem><Text>{item.name}</Text></ListItem>
+                                  return null;
                               }
                           }}
                     />
