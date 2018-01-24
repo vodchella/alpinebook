@@ -1,5 +1,7 @@
 import React from 'react';
-import { Container, Header, Left, Body, Right, Button, Title, Icon, Content, List, ListItem, Text, Separator } from 'native-base';
+import { Container, Header, Left, Body, Right, Button, } from 'native-base';
+import { Title, Icon, Content, List, ListItem, Text, Separator } from 'native-base';
+import { Alert, TouchableOpacity } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import { observer } from 'mobx-react/native';
 import styles from '../styles/Styles';
@@ -7,6 +9,10 @@ import styles from '../styles/Styles';
 
 @observer
 class MountainsScreen extends React.Component {
+    showRoutes(mountain) {
+        Alert.alert('Show ' + mountain.name)
+    }
+
     render() {
         const store = this.props.screenProps.stores.routes;
         const { navigation } = this.props;
@@ -54,7 +60,14 @@ class MountainsScreen extends React.Component {
                               } else if (type === 'area') {
                                   return <Separator><Text style={{fontSize: 10}}>{name}</Text></Separator>
                               } else if (type === 'mountain') {
-                                  return <ListItem><Text>{name}</Text></ListItem>
+                                  return <ListItem onPress={() => {this.showRoutes(item)}}>
+                                            <Body>
+                                                <TouchableOpacity onPress={() => {this.showRoutes(item)}}>
+                                                    <Text>{name}</Text>
+                                                </TouchableOpacity>
+                                            </Body>
+                                            <Right><Icon name='arrow-forward'/></Right>
+                                         </ListItem>
                               } else {
                                   return null;
                               }
