@@ -1,12 +1,21 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { Container, Header, Left, Body, Right, Title, Icon, Button } from 'native-base';
 import { StackNavigator } from 'react-navigation';
-import styles from '../styles/Styles';
 
-const SummitsScreen = ({ navigation, screenProps }) => (
-    <View style={styles.container}>
-        <Text>Восхождения</Text>
-    </View>
+const SummitsScreen = ({ navigation }) => (
+    <Container>
+        <Header>
+            <Left>
+                <Button transparent onPress={() => {navigation.navigate('DrawerOpen')}}>
+                    <Icon name='menu'/>
+                </Button>
+            </Left>
+            <Body>
+            <Title>Восхождения</Title>
+            </Body>
+            <Right/>
+        </Header>
+    </Container>
 );
 
 SummitsScreen.navigationOptions = {
@@ -15,7 +24,10 @@ SummitsScreen.navigationOptions = {
 
 const SummitsScreenNavigator = StackNavigator (
     { SummitsScreen: { screen: SummitsScreen } },
-    { navigationOptions: () => ({ initialRouteName: 'SummitsScreen' }) }
+    {
+        headerMode: 'none',
+        navigationOptions: () => ({ initialRouteName: 'SummitsScreen' })
+    }
 );
 
 export default SummitsScreenNavigator;

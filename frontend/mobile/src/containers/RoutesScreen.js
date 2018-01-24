@@ -1,35 +1,48 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
+import { Container, Header, Left, Body, Right, Button, Title, Icon } from 'native-base';
 import { StackNavigator } from 'react-navigation';
 import { observer } from 'mobx-react/native';
-import styles from '../styles/Styles';
 
 
 @observer
 class RoutesScreen extends React.Component {
     render() {
         const store = this.props.screenProps.stores.routes;
+        const { navigation } = this.props;
         return (
-            <View style={styles.container}>
-                <Text>{store.searchActive ? 'Поиск маршрутов' : 'Маршруты'}</Text>
-            </View>
+            <Container>
+                <Header>
+                    <Left>
+                        <Button transparent onPress={() => {navigation.navigate('DrawerOpen')}}>
+                            <Icon name='menu'/>
+                        </Button>
+                    </Left>
+                    <Body>
+                        <Title>{store.searchActive ? 'Поиск' : 'Маршруты'}</Title>
+                    </Body>
+                    <Right>
+                        <Button transparent onPress={store.toggleSearchActive}>
+                            <Icon name='search'/>
+                        </Button>
+                    </Right>
+                </Header>
+            </Container>
         )
     }
 }
 
-RoutesScreen.navigationOptions = ({screenProps}) => {
-    const store = screenProps.stores.routes;
+RoutesScreen.navigationOptions = () => {
     return {
-        title: 'Маршруты',
-        headerRight: (
-            <Button title={'Поиск'} onPress={store.toggleSearchActive}/>
-        )
+        title: 'Маршруты'
     };
 };
 
 const RoutesScreenNavigator = StackNavigator (
     { RoutesScreen: { screen: RoutesScreen } },
-    { navigationOptions: () => ({ initialRouteName: 'RoutesScreen' }) }
+    {
+        headerMode: 'none',
+        navigationOptions: () => ({ initialRouteName: 'RoutesScreen' })
+    }
 );
 
 

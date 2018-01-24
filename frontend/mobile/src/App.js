@@ -12,7 +12,7 @@ const RootDrawer = DrawerNavigator (
         Routes: { screen: RoutesScreenNavigator },
         Summits: { screen: SummitsScreenNavigator }
     },
-    { initialRouteName: 'Home' }
+    { initialRouteName: 'Routes' }
 );
 
 export default class Alpinebook extends React.Component {
