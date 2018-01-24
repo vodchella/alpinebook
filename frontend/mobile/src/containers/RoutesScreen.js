@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Header, Left, Body, Right, Button, Title, Icon } from 'native-base';
 import { StackNavigator } from 'react-navigation';
 import { observer } from 'mobx-react/native';
+import styles from '../styles/Styles';
 
 
 @observer
@@ -14,7 +15,7 @@ class RoutesScreen extends React.Component {
                 <Header>
                     <Left>
                         <Button transparent onPress={() => {navigation.navigate('DrawerOpen')}}>
-                            <Icon name='menu'/>
+                            <Icon name='menu' style={styles.headerIcon}/>
                         </Button>
                     </Left>
                     <Body>
@@ -22,7 +23,7 @@ class RoutesScreen extends React.Component {
                     </Body>
                     <Right>
                         <Button transparent onPress={store.toggleSearchActive}>
-                            <Icon name='search'/>
+                            <Icon name='search' style={styles.headerIcon}/>
                         </Button>
                     </Right>
                 </Header>
