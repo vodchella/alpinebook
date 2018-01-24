@@ -19,7 +19,7 @@ class RoutesScreen extends React.Component {
                         </Button>
                     </Left>
                     <Body>
-                        <Title>{store.searchActive ? 'Поиск' : 'Маршруты'}</Title>
+                        <Title style={styles.headerText}>{store.searchActive ? 'Поиск' : 'Маршруты'}</Title>
                     </Body>
                     <Right>
                         <Button transparent onPress={store.toggleSearchActive}>

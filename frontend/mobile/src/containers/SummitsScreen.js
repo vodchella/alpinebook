@@ -12,7 +12,7 @@ const SummitsScreen = ({ navigation }) => (
                 </Button>
             </Left>
             <Body>
-            <Title>Восхождения</Title>
+                <Title style={styles.headerText}>Восхождения</Title>
             </Body>
             <Right/>
         </Header>

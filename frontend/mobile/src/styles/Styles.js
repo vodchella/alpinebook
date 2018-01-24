@@ -9,6 +9,9 @@ const styles = StyleSheet.create({
     },
     headerIcon: {
         color: 'white'
+    },
+    headerText: {
+        fontSize: 18
     }
 });
 
