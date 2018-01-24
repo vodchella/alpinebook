@@ -1,7 +1,7 @@
 import React from 'react';
 import { DrawerNavigator } from 'react-navigation';
 import HomeScreen from './containers/HomeScreen';
-import RoutesScreenNavigator from './containers/RoutesScreen';
+import MountainsScreenNavigator from './containers/MountainsScreen';
 import SummitsScreenNavigator from './containers/SummitsScreen';
 import routesStore from './stores/RoutesStore';
 
@@ -9,7 +9,7 @@ import routesStore from './stores/RoutesStore';
 const RootDrawer = DrawerNavigator (
     {
         Home: { screen: HomeScreen },
-        Routes: { screen: RoutesScreenNavigator },
+        Routes: { screen: MountainsScreenNavigator },
         Summits: { screen: SummitsScreenNavigator }
     },
     { initialRouteName: 'Routes' }
