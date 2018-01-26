@@ -1,7 +1,7 @@
 import React from 'react';
-import { Container, Header, Left, Body, Right, Button, } from 'native-base';
+import { Container, Header, Left, Body, Right, Button } from 'native-base';
 import { Title, Icon, Content, List, ListItem, Text, Separator } from 'native-base';
-import { Alert, TouchableOpacity } from 'react-native';
+import { TouchableOpacity, View, ActivityIndicator, ListView, } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import { observer } from 'mobx-react/native';
 import styles from '../styles/Styles';
@@ -9,8 +9,11 @@ import styles from '../styles/Styles';
 
 @observer
 class MountainsScreen extends React.Component {
-    showRoutes(mountain) {
-        Alert.alert('Show ' + mountain.name)
+    componentDidMount() {
+        setTimeout( () => {
+            const store = this.props.screenProps.stores.routes;
+            store.setRegionsFetchingInProgress(false);
+        }, 1000);
     }
 
     render() {
@@ -32,6 +35,36 @@ class MountainsScreen extends React.Component {
             { type: 'mountain', name: 'Ленина' },
         ];
 
+        let regions = [
+            {region_id: 1, region: 'Тянь-Шань'},
+            {region_id: 2, region: 'Памир'},
+        ];
+
+        let areas_1 = [
+            {area_id: 1, area: 'Заилийский Алатау'},
+            {area_id: 2, area: 'Тенгри-Таг'},
+        ];
+
+        let areas_2 = [
+            {area_id: 3, area: 'Заалайский хребет'},
+        ];
+
+        let mountains_1 = [
+            {mountain_id: 1, mountain: 'Амангельды'},
+            {mountain_id: 2, mountain: 'Маншук Маметовой'},
+            {mountain_id: 3, mountain: 'Талгар'},
+        ];
+
+        let mountains_2 = [
+            {mountain_id: 1, mountain: 'Чапаева'},
+            {mountain_id: 2, mountain: 'Хан-Тенгри'},
+        ];
+
+        let mountains_3 = [
+            {mountain_id: 1, mountain: 'Курумды'},
+            {mountain_id: 2, mountain: 'Ленина'},
+        ];
+
         return (
             <Container>
                 <Header>
@@ -49,31 +82,25 @@ class MountainsScreen extends React.Component {
                         </Button>
                     </Right>
                 </Header>
+                {store.regionsFetchingInProgress ? <View style={styles.container}><ActivityIndicator size='large' color='gray' animating={true}/></View> :
                 <Content>
-                    <List dataArray={testItems}
-                          renderRow={(item) => {
-                              const type = item.type ? item.type : '?';
-                              const name = item.name ? item.name : '?';
-
-                              if (type === 'region') {
-                                  return <Separator><Text style={{fontSize: 15}}>{name}</Text></Separator>
-                              } else if (type === 'area') {
-                                  return <Separator><Text style={{fontSize: 10}}>{name}</Text></Separator>
-                              } else if (type === 'mountain') {
-                                  return <ListItem onPress={() => {this.showRoutes(item)}}>
-                                            <Body>
-                                                <TouchableOpacity onPress={() => {this.showRoutes(item)}}>
-                                                    <Text>{name}</Text>
-                                                </TouchableOpacity>
-                                            </Body>
-                                            <Right><Icon name='arrow-forward'/></Right>
-                                         </ListItem>
-                              } else {
-                                  return null;
+                    <ListView dataSource={store.dataSource}
+                              enableEmptySections={true}
+                              renderRow={(item) =>
+                                  <ListItem>
+                                      <Body>
+                                          <TouchableOpacity onPress={() => {store.setAreasFetchingInProgress(true)}}>
+                                              <Text style={{fontSize: 15}}>{item}</Text>
+                                          </TouchableOpacity>
+                                      </Body>
+                                      <Right>
+                                          {/*item.inProgress ? <ActivityIndicator size='small' color='gray' animating={true}/> :
+                                              <Icon name='arrow-down'/>*/}
+                                      </Right>
+                                  </ListItem>
                               }
-                          }}
                     />
-                </Content>
+                </Content> }
             </Container>
         )
     }
