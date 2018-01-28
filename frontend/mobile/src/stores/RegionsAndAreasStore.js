@@ -1,11 +1,12 @@
 import autobind from 'autobind-decorator';
+import alpinebook from '../connectors/Alpinebook';
 import { observable, computed } from 'mobx';
 import { ListView } from 'react-native';
 import { modifyJsonInArray } from '../utils/Arrays';
-import { requestAlpinebook } from '../utils/Http';
 
 @autobind
 class RegionsAndAreasStore {
+
     /*
      *  Регионы
      */
@@ -34,7 +35,7 @@ class RegionsAndAreasStore {
     loadRegions() {
         if (!this.regionsLoaded) {
             this.setRegionsFetchingInProgress(true);
-            requestAlpinebook(`regions`,
+            alpinebook.getRegions(
                 onOk = (result) => {
                     result.map((region) => {
                         region.inProgress = false;
@@ -69,7 +70,7 @@ class RegionsAndAreasStore {
 
     loadAreas(index, regionId) {
         this.setAreasFetchingInProgress(index, true);
-        requestAlpinebook(`regions/${regionId}/areas`,
+        alpinebook.getAreas(regionId,
             onOk = (result) => {
                 this.areasMap.set(regionId, result);
                 this.setAreasDataLoaded(index, true);
