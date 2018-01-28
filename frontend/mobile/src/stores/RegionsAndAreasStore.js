@@ -6,19 +6,17 @@ import { requestAlpinebook } from '../utils/Http';
 
 @autobind
 class RegionsAndAreasStore {
-    @observable
-    searchActive = false;
+    /*
+     *  Регионы
+     */
 
     @observable
-    regions = [
-        '{"region_id": 1, "region": "Тянь-Шань", "inProgress": false, "dataLoaded": false}',
-        '{"region_id": 2, "region": "Памир", "inProgress": false, "dataLoaded": false}'
-    ];
-    
-    areasMap = new Map();
+    regions = [];
 
     @observable
-    regionsFetchingInProgress = true;
+    regionsFetchingInProgress = false;
+
+    regionsLoaded = false;
 
     ds = new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1 !== r2
@@ -28,6 +26,35 @@ class RegionsAndAreasStore {
     get regionsDataSource() {
         return this.ds.cloneWithRows(this.regions.slice());
     }
+
+    setRegionsFetchingInProgress(val) {
+        this.regionsFetchingInProgress = val;
+    }
+
+    loadRegions() {
+        if (!this.regionsLoaded) {
+            this.setRegionsFetchingInProgress(true);
+            requestAlpinebook(`regions`,
+                onOk = (result) => {
+                    result.map((region) => {
+                        region.inProgress = false;
+                        region.dataLoaded = false;
+                        this.regions.push(JSON.stringify(region));
+                    });
+                    this.regionsLoaded = true;
+                    this.setRegionsFetchingInProgress(false);
+                },
+                onFail = (error) => {
+                    this.setRegionsFetchingInProgress(false);
+                });
+        }
+    }
+
+    /*
+     *  Области
+     */
+
+    areasMap = new Map();
 
     setAreasFetchingInProgress(index, val) {
         modifyJsonInArray(this.regions, index, (rec) => rec.inProgress = val);
@@ -56,9 +83,12 @@ class RegionsAndAreasStore {
         return this.areasMap.get(regionId);
     }
 
-    setRegionsFetchingInProgress(val) {
-        this.regionsFetchingInProgress = val;
-    }
+    /*
+     *  Поиск
+     */
+
+    @observable
+    searchActive = false;
 
     toggleSearchActive() {
         this.searchActive = !this.searchActive;

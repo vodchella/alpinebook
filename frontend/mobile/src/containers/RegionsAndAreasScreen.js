@@ -60,31 +60,13 @@ class RegionsList extends React.Component {
 @observer
 class RegionsAndAreasScreen extends React.Component {
     componentDidMount() {
-        setTimeout( () => {
-            const store = this.props.screenProps.stores.routes;
-            store.setRegionsFetchingInProgress(false);
-        }, 1000);
+        const store = this.props.screenProps.stores.routes;
+        store.loadRegions();
     }
 
     render() {
         const store = this.props.screenProps.stores.routes;
         const { navigation } = this.props;
-
-        let mountains_1 = [
-            {mountain_id: 1, mountain: 'Амангельды'},
-            {mountain_id: 2, mountain: 'Маншук Маметовой'},
-            {mountain_id: 3, mountain: 'Талгар'},
-        ];
-
-        let mountains_2 = [
-            {mountain_id: 1, mountain: 'Чапаева'},
-            {mountain_id: 2, mountain: 'Хан-Тенгри'},
-        ];
-
-        let mountains_3 = [
-            {mountain_id: 1, mountain: 'Курумды'},
-            {mountain_id: 2, mountain: 'Ленина'},
-        ];
 
         return (
             <Container>
