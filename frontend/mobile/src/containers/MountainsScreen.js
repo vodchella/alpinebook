@@ -8,6 +8,30 @@ import styles from '../styles/Styles';
 
 
 @observer
+class RegionsList extends React.Component {
+    render() {
+        const { store } = this.props;
+        return <ListView dataSource={store.dataSource}
+                         enableEmptySections={true}
+                         renderRow={(rowData, sectionID, rowID) => {
+                             let rec = JSON.parse(rowData);
+                             return  <ListItem>
+                                 <Body>
+                                 <TouchableOpacity onPress={() => {store.setAreasFetchingInProgress(rowID, true)}}>
+                                     <Text style={{fontSize: 15}}>{rec.region}</Text>
+                                 </TouchableOpacity>
+                                 </Body>
+                                 <Right>
+                                     {rec.inProgress ? <ActivityIndicator size='small' color='gray' animating={true}/> :
+                                         <Icon name='arrow-down'/>}
+                                 </Right>
+                             </ListItem>
+                         }}
+        />
+    }
+}
+
+@observer
 class MountainsScreen extends React.Component {
     componentDidMount() {
         setTimeout( () => {
@@ -64,24 +88,7 @@ class MountainsScreen extends React.Component {
                 </Header>
                 {store.regionsFetchingInProgress ? <View style={styles.container}><ActivityIndicator size='large' color='gray' animating={true}/></View> :
                 <Content>
-                    <ListView dataSource={store.dataSource}
-                              enableEmptySections={true}
-                              renderRow={(rowData, sectionID, rowID) => {
-                                  let rec = JSON.parse(rowData);
-                                  return  <ListItem>
-                                              <Body>
-                                                  <TouchableOpacity onPress={() => {store.setAreasFetchingInProgress(rowID, true)}}>
-                                                      <Text style={{fontSize: 15}}>{rec.region}</Text>
-                                                  </TouchableOpacity>
-                                              </Body>
-                                              <Right>
-                                                  {rec.inProgress ? <ActivityIndicator size='small' color='gray' animating={true}/> :
-                                                      <Icon name='arrow-down'/>}
-                                              </Right>
-                                          </ListItem>
-                                  }
-                              }
-                    />
+                    <RegionsList store={store}/>
                 </Content> }
             </Container>
         )
