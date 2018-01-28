@@ -10,13 +10,16 @@ import styles from '../styles/Styles';
 class AreasList extends React.Component {
     render() {
         const { regionId, store } = this.props;
-        return <Content style={{marginLeft: 23}}>
-            {store.getAreas(regionId).map((area) =>
-                <TouchableOpacity style={{marginTop: 13}}>
-                    <Text>{area.area}</Text>
-                </TouchableOpacity>
-            )}
-        </Content>
+        let areas = store.getAreas(regionId);
+
+        return areas ?
+            <Content style={{marginLeft: 23}}>{
+                areas.map((area) =>
+                    <TouchableOpacity style={{marginTop: 13}}>
+                        <Text>{area.area}</Text>
+                    </TouchableOpacity>
+                )}
+            </Content> : null
     }
 }
 

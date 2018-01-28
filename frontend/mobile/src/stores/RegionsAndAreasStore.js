@@ -1,6 +1,7 @@
-import { observable, computed, action } from 'mobx';
+import { observable, computed } from 'mobx';
+import { ListView } from 'react-native';
+import { Toast } from 'native-base';
 import autobind from 'autobind-decorator';
-import {Alert, ListView} from "react-native";
 
 @autobind
 class RegionsAndAreasStore {
@@ -27,6 +28,17 @@ class RegionsAndAreasStore {
         return this.ds.cloneWithRows(this.regions.slice());
     }
 
+    getErrorFromJson(jsonObject) {
+        if (jsonObject.error) {
+            let error = jsonObject.error;
+            let code = error.code ? `[${error.code}] ` : '';
+            let message = error.message || JSON.stringify(error);
+            return `${code}${message}`
+        } else {
+            return 'Неизвестная ошибка';
+        }
+    }
+
     modifyJsonInArray(arr, index, fn) {
         let rec = JSON.parse(arr[index]);
         fn(rec);
@@ -47,13 +59,33 @@ class RegionsAndAreasStore {
     loadAreas(index, regionId) {
         this.setAreasFetchingInProgress(index, true);
         fetch(`https://1da69b9f-cf2f-4bb4-8785-ed8fb1dde142.mock.pstmn.io/api/v1/regions/${regionId}/areas`)
-            .then((response) => response.json())
-            .then((responseJson) => {
-                this.areasMap.set(regionId, responseJson);
-                this.setAreasDataLoaded(index, true);
+            .then((response) => {
+                const contentType = response.headers.get('Content-Type') || '';
+                const isJson = contentType.includes('application/json');
+
+                if (response.ok) {
+                    if (isJson) {
+                        response.json().then((responseJson) => {
+                            this.areasMap.set(regionId, responseJson);
+                            this.setAreasDataLoaded(index, true);
+                        });
+                    }
+                } else {
+                    if (isJson) {
+                        response.json().then((responseJson) => {
+                            this.setAreasFetchingInProgress(index, false);
+                            Toast.show({
+                                text: this.getErrorFromJson(responseJson),
+                                type: 'danger',
+                                duration: 3000
+                            });
+                        });
+                    }
+                }
+
             })
             .catch((error) => {
-                console.error(error);
+                Toast.show({text: error, type: 'danger', duration: 3000});
                 this.setAreasFetchingInProgress(index, false);
             });
     }

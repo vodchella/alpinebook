@@ -1,5 +1,6 @@
 import React from 'react';
 import { DrawerNavigator } from 'react-navigation';
+import { Root } from 'native-base';
 import HomeScreen from './containers/HomeScreen';
 import RegionsAndAreasScreenNavigator from './containers/RegionsAndAreasScreen';
 import SummitsScreenNavigator from './containers/SummitsScreen';
@@ -17,7 +18,7 @@ const RootDrawer = DrawerNavigator (
 
 export default class Alpinebook extends React.Component {
   render() {
-      return (
+      return <Root>
           <RootDrawer screenProps={
               {
                   version: '0.01',
@@ -26,6 +27,6 @@ export default class Alpinebook extends React.Component {
                   }
               }
           }/>
-      );
+      </Root>
   }
 }
