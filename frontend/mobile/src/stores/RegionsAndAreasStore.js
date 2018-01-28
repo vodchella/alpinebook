@@ -45,6 +45,10 @@ class RegionsAndAreasStore {
         arr[index] = JSON.stringify(rec);
     }
 
+    showError(msg) {
+        Toast.show({text: msg, type: 'danger', duration: 3000});
+    }
+
     setAreasFetchingInProgress(index, val) {
         this.modifyJsonInArray(this.regions, index, (rec) => rec.inProgress = val);
     }
@@ -62,6 +66,7 @@ class RegionsAndAreasStore {
             .then((response) => {
                 const contentType = response.headers.get('Content-Type') || '';
                 const isJson = contentType.includes('application/json');
+                let invalidContentType = false;
 
                 if (response.ok) {
                     if (isJson) {
@@ -69,24 +74,28 @@ class RegionsAndAreasStore {
                             this.areasMap.set(regionId, responseJson);
                             this.setAreasDataLoaded(index, true);
                         });
+                    } else {
+                        invalidContentType = true;
                     }
                 } else {
                     if (isJson) {
                         response.json().then((responseJson) => {
                             this.setAreasFetchingInProgress(index, false);
-                            Toast.show({
-                                text: this.getErrorFromJson(responseJson),
-                                type: 'danger',
-                                duration: 3000
-                            });
+                            this.showError(this.getErrorFromJson(responseJson));
                         });
+                    } else {
+                        invalidContentType = true;
                     }
+                }
+
+                if (invalidContentType) {
+                    return Promise.reject(new Error('Invalid content type: ' + contentType));
                 }
 
             })
             .catch((error) => {
-                Toast.show({text: error, type: 'danger', duration: 3000});
                 this.setAreasFetchingInProgress(index, false);
+                this.showError(error.message);
             });
     }
 
