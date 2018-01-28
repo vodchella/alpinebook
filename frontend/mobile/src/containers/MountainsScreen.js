@@ -20,26 +20,6 @@ class MountainsScreen extends React.Component {
         const store = this.props.screenProps.stores.routes;
         const { navigation } = this.props;
 
-        let testItems = [
-            { type: 'region', name: 'Тянь-Шань' },
-            { type: 'area', name: 'Заилийский Алатау' },
-            { type: 'mountain', name: 'Амангельды' },
-            { type: 'mountain', name: 'Маншук Маметовой' },
-            { type: 'mountain', name: 'Талгар' },
-            { type: 'area', name: 'Тенгри-Таг' },
-            { type: 'mountain', name: 'Чапаева' },
-            { type: 'mountain', name: 'Хан-Тенгри' },
-            { type: 'region', name: 'Памир' },
-            { type: 'area', name: 'Заалайский хребет' },
-            { type: 'mountain', name: 'Курумды' },
-            { type: 'mountain', name: 'Ленина' },
-        ];
-
-        let regions = [
-            {region_id: 1, region: 'Тянь-Шань'},
-            {region_id: 2, region: 'Памир'},
-        ];
-
         let areas_1 = [
             {area_id: 1, area: 'Заилийский Алатау'},
             {area_id: 2, area: 'Тенгри-Таг'},
@@ -86,18 +66,20 @@ class MountainsScreen extends React.Component {
                 <Content>
                     <ListView dataSource={store.dataSource}
                               enableEmptySections={true}
-                              renderRow={(item) =>
-                                  <ListItem>
-                                      <Body>
-                                          <TouchableOpacity onPress={() => {store.setAreasFetchingInProgress(true)}}>
-                                              <Text style={{fontSize: 15}}>{item}</Text>
-                                          </TouchableOpacity>
-                                      </Body>
-                                      <Right>
-                                          {/*item.inProgress ? <ActivityIndicator size='small' color='gray' animating={true}/> :
-                                              <Icon name='arrow-down'/>*/}
-                                      </Right>
-                                  </ListItem>
+                              renderRow={(rowData, sectionID, rowID) => {
+                                  let rec = JSON.parse(rowData);
+                                  return  <ListItem>
+                                              <Body>
+                                                  <TouchableOpacity onPress={() => {store.setAreasFetchingInProgress(rowID, true)}}>
+                                                      <Text style={{fontSize: 15}}>{rec.region}</Text>
+                                                  </TouchableOpacity>
+                                              </Body>
+                                              <Right>
+                                                  {rec.inProgress ? <ActivityIndicator size='small' color='gray' animating={true}/> :
+                                                      <Icon name='arrow-down'/>}
+                                              </Right>
+                                          </ListItem>
+                                  }
                               }
                     />
                 </Content> }

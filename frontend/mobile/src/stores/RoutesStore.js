@@ -9,15 +9,15 @@ class RoutesStore {
 
     @observable
     regions = [
-        '{region_id: 1, region: "Тянь-Шань", inProgress: false}',
-        '{region_id: 2, region: "Памир", inProgress: true}'
+        '{"region_id": 1, "region": "Тянь-Шань", "inProgress": false}',
+        '{"region_id": 2, "region": "Памир", "inProgress": false}'
     ];
 
     @observable
     regionsFetchingInProgress = true;
 
     ds = new ListView.DataSource({
-        rowHasChanged: (r1, r2) => true //r1.inProgress !== r2.inProgress
+        rowHasChanged: (r1, r2) => r1 !== r2
     });
 
     @computed
@@ -25,8 +25,10 @@ class RoutesStore {
         return this.ds.cloneWithRows(this.regions.slice());
     }
 
-    setAreasFetchingInProgress(val) {
-        this.regions[0] = '!!!';
+    setAreasFetchingInProgress(index, val) {
+        let rec = JSON.parse(this.regions[index]);
+        rec.inProgress = val;
+        this.regions[index] = JSON.stringify(rec);
     }
 
     setRegionsFetchingInProgress(val) {
