@@ -3,7 +3,7 @@ import autobind from 'autobind-decorator';
 import {Alert, ListView} from "react-native";
 
 @autobind
-class RoutesStore {
+class MountainsStore {
     @observable
     searchActive = false;
 
@@ -58,4 +58,4 @@ class RoutesStore {
     }
 }
 
-export default new RoutesStore();
+export default new MountainsStore();
