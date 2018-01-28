@@ -217,6 +217,10 @@ async def get_route(request, route_id: int):
 
 async def process_report(request, report_name, report_type):
     jwt = await AuthHelper().get_jwt_from_request(request, return_encoded=True)
+    if not app.rabbitmq:
+        return response_error(ERROR_RABBITMQ_NOT_AVAIBLE,
+                              'Соединение с RabbitMQ пока не установлено, попробуйте позже',
+                              default_logger='rabbitmq')
     result = await app.rabbitmq.rpc_call(f'generate_{report_type}', dict(jwt=jwt,
                                                                          report_name=report_name,
                                                                          params=request.raw_args))
