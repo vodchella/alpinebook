@@ -2,7 +2,6 @@ import { observable, computed } from 'mobx';
 import { ListView } from 'react-native';
 import { Toast } from 'native-base';
 import autobind from 'autobind-decorator';
-import { showError, getErrorFromJson } from '../utils/Errors';
 import { modifyJsonInArray } from '../utils/Arrays';
 import { requestAlpinebook } from '../utils/Http';
 
