@@ -52,7 +52,7 @@ class RegionsList extends React.Component {
 }
 
 @observer
-class MountainsScreen extends React.Component {
+class RegionsAndAreasScreen extends React.Component {
     componentDidMount() {
         setTimeout( () => {
             const store = this.props.screenProps.stores.routes;
@@ -89,7 +89,7 @@ class MountainsScreen extends React.Component {
                         </Button>
                     </Left>
                     <Body>
-                        <Title style={styles.headerText}>{store.searchActive ? 'Поиск' : 'Горы'}</Title>
+                        <Title style={styles.headerText}>{store.searchActive ? 'Поиск' : 'Регионы'}</Title>
                     </Body>
                     <Right>
                         <Button transparent onPress={store.toggleSearchActive}>
@@ -106,19 +106,19 @@ class MountainsScreen extends React.Component {
     }
 }
 
-MountainsScreen.navigationOptions = () => {
+RegionsAndAreasScreen.navigationOptions = () => {
     return {
         title: 'Горы и маршруты'
     };
 };
 
-const MountainsScreenNavigator = StackNavigator (
-    { MountainsScreen: { screen: MountainsScreen } },
+const RegionsAndAreasScreenNavigator = StackNavigator (
+    { RegionsAndAreasScreen: { screen: RegionsAndAreasScreen } },
     {
         headerMode: 'none',
-        navigationOptions: () => ({ initialRouteName: 'MountainsScreen' })
+        navigationOptions: () => ({ initialRouteName: 'RegionsAndAreasScreen' })
     }
 );
 
 
-export default MountainsScreenNavigator;
+export default RegionsAndAreasScreenNavigator;
