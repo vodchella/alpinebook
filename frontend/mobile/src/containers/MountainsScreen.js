@@ -9,7 +9,7 @@ import styles from '../styles/Styles';
 @observer
 class AreasList extends React.Component {
     render() {
-        const { store } = this.props;
+        const { regionId, store } = this.props;
         return <Content style={{marginLeft: 23}}>
             <TouchableOpacity style={{marginTop: 13}}><Text>Заилийский Алатау</Text></TouchableOpacity>
             <TouchableOpacity style={{marginTop: 13}}><Text>Тенгри-Таг</Text></TouchableOpacity>
@@ -43,7 +43,7 @@ class RegionsList extends React.Component {
                                  <ListItem>
                                      <Body>
                                          <Text style={{fontSize: 15, color: 'grey'}}>{rec.region}</Text>
-                                         <AreasList store={store}/>
+                                         <AreasList regionId={rec.region_id} store={store}/>
                                      </Body>
                                  </ListItem>
                          }}
@@ -63,15 +63,6 @@ class MountainsScreen extends React.Component {
     render() {
         const store = this.props.screenProps.stores.routes;
         const { navigation } = this.props;
-
-        let areas_1 = [
-            {area_id: 1, area: 'Заилийский Алатау'},
-            {area_id: 2, area: 'Тенгри-Таг'},
-        ];
-
-        let areas_2 = [
-            {area_id: 3, area: 'Заалайский хребет'},
-        ];
 
         let mountains_1 = [
             {mountain_id: 1, mountain: 'Амангельды'},
