@@ -2,6 +2,8 @@ import { observable, computed } from 'mobx';
 import { ListView } from 'react-native';
 import { Toast } from 'native-base';
 import autobind from 'autobind-decorator';
+import { showError, getErrorFromJson } from '../utils/Errors';
+import { modifyJsonInArray } from '../utils/Arrays';
 
 @autobind
 class RegionsAndAreasStore {
@@ -28,33 +30,12 @@ class RegionsAndAreasStore {
         return this.ds.cloneWithRows(this.regions.slice());
     }
 
-    getErrorFromJson(jsonObject) {
-        if (jsonObject.error) {
-            let error = jsonObject.error;
-            let code = error.code ? `[${error.code}] ` : '';
-            let message = error.message || JSON.stringify(error);
-            return `${code}${message}`
-        } else {
-            return 'Неизвестная ошибка';
-        }
-    }
-
-    modifyJsonInArray(arr, index, fn) {
-        let rec = JSON.parse(arr[index]);
-        fn(rec);
-        arr[index] = JSON.stringify(rec);
-    }
-
-    showError(msg) {
-        Toast.show({text: msg, type: 'danger', duration: 3000});
-    }
-
     setAreasFetchingInProgress(index, val) {
-        this.modifyJsonInArray(this.regions, index, (rec) => rec.inProgress = val);
+        modifyJsonInArray(this.regions, index, (rec) => rec.inProgress = val);
     }
 
     setAreasDataLoaded(index, val) {
-        this.modifyJsonInArray(this.regions, index, (rec) => {
+        modifyJsonInArray(this.regions, index, (rec) => {
             rec.dataLoaded = val;
             rec.inProgress = false;
         });
@@ -81,7 +62,7 @@ class RegionsAndAreasStore {
                     if (isJson) {
                         response.json().then((responseJson) => {
                             this.setAreasFetchingInProgress(index, false);
-                            this.showError(this.getErrorFromJson(responseJson));
+                            showError(getErrorFromJson(responseJson));
                         });
                     } else {
                         invalidContentType = true;
@@ -95,7 +76,7 @@ class RegionsAndAreasStore {
             })
             .catch((error) => {
                 this.setAreasFetchingInProgress(index, false);
-                this.showError(error.message);
+                showError(error.message);
             });
     }
 
