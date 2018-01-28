@@ -11,15 +11,15 @@ import styles from '../styles/Styles';
 class RegionsList extends React.Component {
     render() {
         const { store } = this.props;
-        return <ListView dataSource={store.dataSource}
+        return <ListView dataSource={store.regionsDataSource}
                          enableEmptySections={true}
                          renderRow={(rowData, sectionID, rowID) => {
                              let rec = JSON.parse(rowData);
                              return  <ListItem>
                                  <Body>
-                                 <TouchableOpacity onPress={() => {store.setAreasFetchingInProgress(rowID, true)}}>
-                                     <Text style={{fontSize: 15}}>{rec.region}</Text>
-                                 </TouchableOpacity>
+                                     <TouchableOpacity onPress={() => {store.loadAreas(rowID)}}>
+                                         <Text style={{fontSize: 15}}>{rec.region}</Text>
+                                     </TouchableOpacity>
                                  </Body>
                                  <Right>
                                      {rec.inProgress ? <ActivityIndicator size='small' color='gray' animating={true}/> :
