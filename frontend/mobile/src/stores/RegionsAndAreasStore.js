@@ -4,6 +4,7 @@ import { Toast } from 'native-base';
 import autobind from 'autobind-decorator';
 import { showError, getErrorFromJson } from '../utils/Errors';
 import { modifyJsonInArray } from '../utils/Arrays';
+import { requestAlpinebook } from '../utils/Http';
 
 @autobind
 class RegionsAndAreasStore {
@@ -43,40 +44,13 @@ class RegionsAndAreasStore {
 
     loadAreas(index, regionId) {
         this.setAreasFetchingInProgress(index, true);
-        fetch(`https://1da69b9f-cf2f-4bb4-8785-ed8fb1dde142.mock.pstmn.io/api/v1/regions/${regionId}/areas`)
-            .then((response) => {
-                const contentType = response.headers.get('Content-Type') || '';
-                const isJson = contentType.includes('application/json');
-                let invalidContentType = false;
-
-                if (response.ok) {
-                    if (isJson) {
-                        response.json().then((responseJson) => {
-                            this.areasMap.set(regionId, responseJson);
-                            this.setAreasDataLoaded(index, true);
-                        });
-                    } else {
-                        invalidContentType = true;
-                    }
-                } else {
-                    if (isJson) {
-                        response.json().then((responseJson) => {
-                            this.setAreasFetchingInProgress(index, false);
-                            showError(getErrorFromJson(responseJson));
-                        });
-                    } else {
-                        invalidContentType = true;
-                    }
-                }
-
-                if (invalidContentType) {
-                    return Promise.reject(new Error('Invalid content type: ' + contentType));
-                }
-
-            })
-            .catch((error) => {
+        requestAlpinebook(`regions/${regionId}/areas`,
+            onOk = (result) => {
+                this.areasMap.set(regionId, result);
+                this.setAreasDataLoaded(index, true);
+            },
+            onFail = (error) => {
                 this.setAreasFetchingInProgress(index, false);
-                showError(error.message);
             });
     }
 
