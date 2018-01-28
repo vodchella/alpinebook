@@ -12,6 +12,8 @@ class RegionsAndAreasStore {
         '{"region_id": 1, "region": "Тянь-Шань", "inProgress": false, "dataLoaded": false}',
         '{"region_id": 2, "region": "Памир", "inProgress": false, "dataLoaded": false}'
     ];
+    
+    areasMap = new Map();
 
     @observable
     regionsFetchingInProgress = true;
@@ -42,11 +44,22 @@ class RegionsAndAreasStore {
         });
     }
 
-    loadAreas(index) {
+    loadAreas(index, regionId) {
         this.setAreasFetchingInProgress(index, true);
-        setTimeout( () => {
-            this.setAreasDataLoaded(index, true);
-        }, 1000);
+        fetch(`https://1da69b9f-cf2f-4bb4-8785-ed8fb1dde142.mock.pstmn.io/api/v1/regions/${regionId}/areas`)
+            .then((response) => response.json())
+            .then((responseJson) => {
+                this.areasMap.set(regionId, responseJson);
+                this.setAreasDataLoaded(index, true);
+            })
+            .catch((error) => {
+                console.error(error);
+                this.setAreasFetchingInProgress(index, false);
+            });
+    }
+
+    getAreas(regionId) {
+        return this.areasMap.get(regionId);
     }
 
     setRegionsFetchingInProgress(val) {

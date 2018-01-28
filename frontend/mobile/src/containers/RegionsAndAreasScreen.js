@@ -11,8 +11,11 @@ class AreasList extends React.Component {
     render() {
         const { regionId, store } = this.props;
         return <Content style={{marginLeft: 23}}>
-            <TouchableOpacity style={{marginTop: 13}}><Text>Заилийский Алатау</Text></TouchableOpacity>
-            <TouchableOpacity style={{marginTop: 13}}><Text>Тенгри-Таг</Text></TouchableOpacity>
+            {store.getAreas(regionId).map((area) =>
+                <TouchableOpacity style={{marginTop: 13}}>
+                    <Text>{area.area}</Text>
+                </TouchableOpacity>
+            )}
         </Content>
     }
 }
@@ -28,7 +31,7 @@ class RegionsList extends React.Component {
                              return !rec.dataLoaded ?
                                  <ListItem>
                                      <Body>
-                                         <TouchableOpacity onPress={() => {store.loadAreas(rowID)}}>
+                                         <TouchableOpacity onPress={() => {store.loadAreas(rowID, rec.region_id)}}>
                                              <Text style={{fontSize: 15}}>{rec.region}</Text>
                                          </TouchableOpacity>
                                      </Body>
