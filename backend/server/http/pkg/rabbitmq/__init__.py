@@ -56,6 +56,8 @@ class Rabbit:
                     resp = HTTPResponse(content_type='application/pdf', body_bytes=raw_pdf)
                 else:
                     send_resp_unknown = True
+        elif type(rpc_result) == HTTPResponse:
+            resp = rpc_result
         else:
             send_resp_unknown = True
 
