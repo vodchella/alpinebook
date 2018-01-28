@@ -23,7 +23,7 @@ export default class Alpinebook extends React.Component {
               {
                   version: '0.01',
                   stores: {
-                      routes: regionsAndAreasStore
+                      regionsAndAreasStore
                   }
               }
           }/>

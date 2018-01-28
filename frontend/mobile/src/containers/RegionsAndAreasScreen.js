@@ -60,12 +60,12 @@ class RegionsList extends React.Component {
 @observer
 class RegionsAndAreasScreen extends React.Component {
     componentDidMount() {
-        const store = this.props.screenProps.stores.routes;
+        const store = this.props.screenProps.stores.regionsAndAreasStore;
         store.loadRegions();
     }
 
     render() {
-        const store = this.props.screenProps.stores.routes;
+        const store = this.props.screenProps.stores.regionsAndAreasStore;
         const { navigation } = this.props;
 
         return (
