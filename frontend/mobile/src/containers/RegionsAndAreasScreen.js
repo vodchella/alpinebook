@@ -85,10 +85,12 @@ class RegionsAndAreasScreen extends React.Component {
                         </Button>
                     </Right>
                 </Header>
-                {store.regionsFetchingInProgress ? <View style={styles.container}><ActivityIndicator size='large' color='gray' animating={true}/></View> :
-                <Content>
-                    <RegionsList store={store}/>
-                </Content> }
+                {store.regionsFetchingInProgress ?
+                    <View style={styles.container}><ActivityIndicator size='large' color='gray' animating={true}/></View>
+                    :
+                    <Content>
+                        <RegionsList store={store}/>
+                    </Content>}
             </Container>
         )
     }

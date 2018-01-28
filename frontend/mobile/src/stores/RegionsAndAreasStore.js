@@ -2,6 +2,7 @@ import autobind from 'autobind-decorator';
 import alpinebook from '../connectors/Alpinebook';
 import { observable, computed } from 'mobx';
 import { ListView } from 'react-native';
+import { Toast } from 'native-base';
 import { modifyJsonInArray } from '../utils/Arrays';
 
 @autobind
@@ -44,6 +45,12 @@ class RegionsAndAreasStore {
                     });
                     this.regionsLoaded = true;
                     this.setRegionsFetchingInProgress(false);
+                    Toast.show({
+                        text: 'Здесь можно выбрать нужный регион или сразу приступить к поиску интересующей тебя горы',
+                        type: 'success',
+                        buttonText: 'Понял!',
+                        duration: 6000
+                    });
                 },
                 onFail = (error) => {
                     this.setRegionsFetchingInProgress(false);

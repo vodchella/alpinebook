@@ -5,13 +5,13 @@ import styles from '../styles/Styles';
 const HomeScreen = ({ screenProps }) => (
     <View style={styles.container}>
         <Text style={_styles.welcome}>
-            Вас приветствует Alpinebook v{screenProps.version}!
+            Привет от Alpinebook v{screenProps.version}!
         </Text>
         <Text style={_styles.instructions}>
-            Оставайтесь с нами, скоро этим можно будет пользоваться :)
+            Оставайся с нами, скоро этим можно будет пользоваться :)
         </Text>
         <Text style={_styles.instructions}>
-            Чтобы увидеть меню, свайпните слева направо
+            Чтобы увидеть меню, свайпни слева направо
         </Text>
     </View>
 );
