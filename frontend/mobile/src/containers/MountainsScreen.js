@@ -6,6 +6,16 @@ import { StackNavigator } from 'react-navigation';
 import { observer } from 'mobx-react/native';
 import styles from '../styles/Styles';
 
+@observer
+class AreasList extends React.Component {
+    render() {
+        const { store } = this.props;
+        return <Content style={{marginLeft: 23}}>
+            <TouchableOpacity style={{marginTop: 13}}><Text>Заилийский Алатау</Text></TouchableOpacity>
+            <TouchableOpacity style={{marginTop: 13}}><Text>Тенгри-Таг</Text></TouchableOpacity>
+        </Content>
+    }
+}
 
 @observer
 class RegionsList extends React.Component {
@@ -15,17 +25,27 @@ class RegionsList extends React.Component {
                          enableEmptySections={true}
                          renderRow={(rowData, sectionID, rowID) => {
                              let rec = JSON.parse(rowData);
-                             return  <ListItem>
-                                 <Body>
-                                     <TouchableOpacity onPress={() => {store.loadAreas(rowID)}}>
-                                         <Text style={{fontSize: 15}}>{rec.region}</Text>
-                                     </TouchableOpacity>
-                                 </Body>
-                                 <Right>
-                                     {rec.inProgress ? <ActivityIndicator size='small' color='gray' animating={true}/> :
-                                         <Icon name='arrow-down'/>}
-                                 </Right>
-                             </ListItem>
+                             return !rec.dataLoaded ?
+                                 <ListItem>
+                                     <Body>
+                                         <TouchableOpacity onPress={() => {store.loadAreas(rowID)}}>
+                                             <Text style={{fontSize: 15}}>{rec.region}</Text>
+                                         </TouchableOpacity>
+                                     </Body>
+                                     <Right>
+                                         {rec.inProgress ?
+                                             <ActivityIndicator size='small' color='gray' animating={true}/>
+                                             :
+                                             <Icon name='arrow-down'/>}
+                                     </Right>
+                                 </ListItem>
+                                 :
+                                 <ListItem>
+                                     <Body>
+                                         <Text style={{fontSize: 15, color: 'grey'}}>{rec.region}</Text>
+                                         <AreasList store={store}/>
+                                     </Body>
+                                 </ListItem>
                          }}
         />
     }
