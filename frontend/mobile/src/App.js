@@ -3,7 +3,7 @@ import { DrawerNavigator } from 'react-navigation';
 import HomeScreen from './containers/HomeScreen';
 import MountainsScreenNavigator from './containers/MountainsScreen';
 import SummitsScreenNavigator from './containers/SummitsScreen';
-import routesStore from './stores/RoutesStore';
+import mountainsStore from './stores/MountainsStore';
 
 
 const RootDrawer = DrawerNavigator (
@@ -22,7 +22,7 @@ export default class Alpinebook extends React.Component {
               {
                   version: '0.01',
                   stores: {
-                      routes: routesStore
+                      routes: mountainsStore
                   }
               }
           }/>
