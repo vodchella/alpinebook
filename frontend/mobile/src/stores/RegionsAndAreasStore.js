@@ -45,12 +45,12 @@ class RegionsAndAreasStore {
                     });
                     this.regionsLoaded = true;
                     this.setRegionsFetchingInProgress(false);
-                    Toast.show({
+                    /*Toast.show({
                         text: 'Здесь можно выбрать нужный регион или сразу приступить к поиску интересующей тебя горы',
                         type: 'success',
                         buttonText: 'Понял!',
                         duration: 6000
-                    });
+                    });*/
                 },
                 onFail = (error) => {
                     this.setRegionsFetchingInProgress(false);

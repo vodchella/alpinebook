@@ -49,6 +49,9 @@ class TwoLevelDynamicListStore {
             arr.push(JSON.stringify(item))
         });
         this.leve1Data = arr;
+        // Порядок вызовов setDataLoaded и setFetchingInProgress важен!
+        this.setLevel1DataLoaded(true);
+        this.setLeve1FetchingInProgress(false);
     }
 
     setLevel1DataLoader(loader) {
@@ -59,8 +62,6 @@ class TwoLevelDynamicListStore {
         if (this.level1DataLoader && !this.leve1Loaded) {
             this.setLeve1FetchingInProgress(true);
             this.level1DataLoader();
-            this.setLeve1FetchingInProgress(false);
-            this.setLevel1DataLoaded(true);
         }
     }
 
@@ -88,7 +89,9 @@ class TwoLevelDynamicListStore {
 
     setLevel2Data(id, index, data) {
         this.level2Map.set(id, data);
+        // Порядок вызовов setDataLoaded и setFetchingInProgress важен!
         this.setLevel2DataLoaded(index, true);
+        this.setLevel2FetchingInProgress(index, false);
     }
 
     setLevel2DataLoader(loader) {
@@ -99,8 +102,6 @@ class TwoLevelDynamicListStore {
         if (this.level2DataLoader) {
             this.setLevel2FetchingInProgress(index, true);
             this.level2DataLoader(id, index);
-            this.setLevel2FetchingInProgress(index, false);
-            this.setLevel2DataLoaded(index, true);
         }
     }
 }
@@ -109,11 +110,11 @@ class TwoLevelDynamicListStore {
 class Level2List extends React.Component {
     render() {
         const { id, store, navigation } = this.props;
-        let areas = store.getLevel2Array(id);
+        const data = store.getLevel2Array(id);
 
-        return areas ?
+        return data ?
             <Content style={{marginLeft: 23}}>{
-                areas.map((item) =>
+                data.map((item) =>
                     <TouchableOpacity onPress={() => Alert.alert('navigation.navigate(\'MountainsAndRoutes\', {item})')}
                                       style={{marginTop: 13}}
                                       key={item.id}>
