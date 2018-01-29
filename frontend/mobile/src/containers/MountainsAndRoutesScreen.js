@@ -4,36 +4,42 @@ import TwoLevelDynamicList from '../components/TwoLevelDynamicList';
 import styles from '../styles/Styles';
 import alpinebook from '../connectors/Alpinebook';
 
-const MountainsAndRoutesScreen = ({ navigation }) => (
-    <Container>
-        <Header>
-            <Left style={styles.headerLeftWithoutRight}>
-                <Button transparent onPress={() => {navigation.goBack(null)}}>
-                    <Icon name='arrow-back' style={styles.headerIcon}/>
-                </Button>
-            </Left>
-            <Body >
-                <Title style={styles.headerText}>{navigation.state.params.area.area}</Title>
-            </Body>
-        </Header>
-        <TwoLevelDynamicList
-            ref={(ref) => {
-                ref.loadLevel1Data(() => {
-                    alpinebook.getRegions(
-                        onOk = (result) => {
-                            let arr = [];
-                            result.map((region) => {
-                                let item = {};
-                                item.id = region.region_id;
-                                item.name = region.region;
-                                arr.push(item);
-                            });
-                            ref.setLevel1Data(arr);
-                        });
+class MountainsAndRoutesScreen extends React.Component {
+    componentDidMount() {
+        this.dynamicList.setLevel1DataLoader(() => {
+            alpinebook.getRegions((result) => {
+                let arr = [];
+                result.map((region) => {
+                    let item = {};
+                    item.id = region.region_id;
+                    item.name = region.region;
+                    arr.push(item);
                 });
-            }}
-        />
-    </Container>
-);
+                this.dynamicList.setLevel1Data(arr);
+            });
+        });
+        this.dynamicList.loadLevel1Data();
+    }
+
+    render() {
+        const { navigation } = this.props;
+
+        return <Container>
+            <Header>
+                <Left style={styles.headerLeftWithoutRight}>
+                    <Button transparent onPress={() => {navigation.goBack(null)}}>
+                        <Icon name='arrow-back' style={styles.headerIcon}/>
+                    </Button>
+                </Left>
+                <Body >
+                <Title style={styles.headerText}>{navigation.state.params.area.area}</Title>
+                </Body>
+            </Header>
+            <TwoLevelDynamicList
+                ref={(ref) => this.dynamicList = ref}
+            />
+        </Container>
+    }
+}
 
 export default MountainsAndRoutesScreen;

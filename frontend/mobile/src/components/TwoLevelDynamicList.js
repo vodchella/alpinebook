@@ -16,6 +16,7 @@ class TwoLevelDynamicListStore {
     leve1FetchingInProgress = false;
 
     leve1Loaded = false;
+    level1DataLoader = undefined;
 
     ds = new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1 !== r2
@@ -50,10 +51,14 @@ class TwoLevelDynamicList extends React.Component {
         this.store.leve1Data = arr;
     }
 
-    loadLevel1Data(worker) {
-        if (!this.store.leve1Loaded) {
+    setLevel1DataLoader(loader) {
+        this.store.level1DataLoader = loader;
+    }
+
+    loadLevel1Data() {
+        if (this.store.level1DataLoader && !this.store.leve1Loaded) {
             this.store.setLeve1FetchingInProgress(true);
-            worker();
+            this.store.level1DataLoader();
             this.store.setLeve1FetchingInProgress(false);
             this.store.setLevel1DataLoaded(true);
         }
