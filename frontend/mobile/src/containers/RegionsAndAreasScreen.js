@@ -5,17 +5,19 @@ import { TouchableOpacity, View, ActivityIndicator, ListView, } from 'react-nati
 import { StackNavigator } from 'react-navigation';
 import { observer } from 'mobx-react/native';
 import styles from '../styles/Styles';
+import MountainsAndRoutesScreen from './MountainsAndRoutesScreen';
 
 @observer
 class AreasList extends React.Component {
     render() {
-        const { regionId, store } = this.props;
+        const { regionId, store, navigation } = this.props;
         let areas = store.getAreas(regionId);
 
         return areas ?
             <Content style={{marginLeft: 23}}>{
                 areas.map((area) =>
-                    <TouchableOpacity style={{marginTop: 13}}>
+                    <TouchableOpacity onPress={() => navigation.navigate('MountainsAndRoutes', {area})}
+                                      style={{marginTop: 13}}>
                         <Text>{area.area}</Text>
                     </TouchableOpacity>
                 )}
@@ -26,7 +28,7 @@ class AreasList extends React.Component {
 @observer
 class RegionsList extends React.Component {
     render() {
-        const { store } = this.props;
+        const { store, navigation } = this.props;
         return <ListView dataSource={store.regionsDataSource}
                          enableEmptySections={true}
                          renderRow={(rowData, sectionID, rowID) => {
@@ -49,7 +51,7 @@ class RegionsList extends React.Component {
                                  <ListItem>
                                      <Body>
                                          <Text style={{fontSize: 15, color: 'grey'}}>{rec.region}</Text>
-                                         <AreasList regionId={rec.region_id} store={store}/>
+                                         <AreasList regionId={rec.region_id} store={store} navigation={navigation}/>
                                      </Body>
                                  </ListItem>
                          }}
@@ -89,7 +91,7 @@ class RegionsAndAreasScreen extends React.Component {
                     <View style={styles.container}><ActivityIndicator size='large' color='gray' animating={true}/></View>
                     :
                     <Content>
-                        <RegionsList store={store}/>
+                        <RegionsList store={store} navigation={navigation}/>
                     </Content>}
             </Container>
         )
@@ -103,10 +105,13 @@ RegionsAndAreasScreen.navigationOptions = () => {
 };
 
 const RegionsAndAreasScreenNavigator = StackNavigator (
-    { RegionsAndAreasScreen: { screen: RegionsAndAreasScreen } },
+    {
+        RegionsAndAreas: { screen: RegionsAndAreasScreen },
+        MountainsAndRoutes: { screen: MountainsAndRoutesScreen }
+    },
     {
         headerMode: 'none',
-        navigationOptions: () => ({ initialRouteName: 'RegionsAndAreasScreen' })
+        navigationOptions: () => ({ initialRouteName: 'RegionsAndAreas' })
     }
 );
 

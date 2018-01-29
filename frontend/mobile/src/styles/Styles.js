@@ -12,6 +12,10 @@ const styles = StyleSheet.create({
     },
     headerText: {
         fontSize: 18
+    },
+    headerLeftWithoutRight: {
+        flex: 0,
+        paddingRight: 30
     }
 });
 
