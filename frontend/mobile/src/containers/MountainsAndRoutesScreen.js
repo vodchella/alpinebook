@@ -4,21 +4,18 @@ import { Container, Content, Header, Left, Body, Right, Title, Icon, Button } fr
 import TwoLevelDynamicList from '../components/TwoLevelDynamicList';
 import styles from '../styles/Styles';
 import alpinebook from '../connectors/Alpinebook';
-import { jsonArrayToListData } from '../utils/Arrays';
 
 class MountainsAndRoutesScreen extends React.Component {
     componentDidMount() {
         this.dynamicList.setLevel1DataLoader(() => {
             alpinebook.getRegions((result) => {
-                let arr = jsonArrayToListData(result, 'region_id', 'region');
-                this.dynamicList.setLevel1Data(arr);
+                this.dynamicList.setLevel1Data(result);
             });
         });
 
         this.dynamicList.setLevel2DataLoader((id, index) => {
             alpinebook.getAreas(id, (result) => {
-                let arr = jsonArrayToListData(result, 'area_id', 'area');
-                this.dynamicList.setLevel2Data(id, index, arr);
+                this.dynamicList.setLevel2Data(id, index, result);
             });
         });
 
