@@ -1,4 +1,5 @@
 import React from 'react';
+import { Alert } from 'react-native';
 import { Container, Content, Header, Left, Body, Right, Title, Icon, Button } from 'native-base';
 import TwoLevelDynamicList from '../components/TwoLevelDynamicList';
 import styles from '../styles/Styles';
@@ -20,6 +21,8 @@ class MountainsAndRoutesScreen extends React.Component {
                 this.dynamicList.setLevel2Data(id, index, arr);
             });
         });
+
+        this.dynamicList.setOnPressHandler(() => {Alert.alert('Ждите', 'Скоро всё будет!')});
 
         this.dynamicList.loadLevel1Data();
     }

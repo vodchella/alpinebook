@@ -1,7 +1,7 @@
 import React from 'react';
 import autobind from 'autobind-decorator';
 import { observer } from 'mobx-react/native';
-import { TouchableOpacity, View, ListView, ActivityIndicator, Alert } from 'react-native';
+import { TouchableOpacity, View, ListView, ActivityIndicator } from 'react-native';
 import { Container, Header, Left, Body, Right, Button } from 'native-base';
 import { Title, Icon, Content, List, ListItem, Text } from 'native-base';
 import { observable, computed } from 'mobx';
@@ -71,6 +71,7 @@ class TwoLevelDynamicListStore {
 
     level2Map = new Map();
     level2DataLoader = undefined;
+    onPress = undefined;
 
     setLevel2FetchingInProgress(index, val) {
         modifyJsonInArray(this.leve1Data, index, (rec) => rec.inProgress = val);
@@ -104,6 +105,16 @@ class TwoLevelDynamicListStore {
             this.level2DataLoader(id, index);
         }
     }
+
+    setOnPressHandler(handler) {
+        this.onPress = handler;
+    }
+
+    execOnPressHandler(navigation, item) {
+        if (this.onPress) {
+            this.onPress(navigation, item);
+        }
+    }
 }
 
 @observer
@@ -115,7 +126,7 @@ class Level2List extends React.Component {
         return data ?
             <Content style={{marginLeft: 23}}>{
                 data.map((item) =>
-                    <TouchableOpacity onPress={() => Alert.alert('navigation.navigate(\'MountainsAndRoutes\', {item})')}
+                    <TouchableOpacity onPress={() => store.execOnPressHandler(navigation, item)}
                                       style={{marginTop: 13}}
                                       key={item.id}>
                         <Text>{item.name}</Text>
@@ -136,6 +147,8 @@ class TwoLevelDynamicList extends React.Component {
     setLevel2Data = this.store.setLevel2Data;
     setLevel2DataLoader = this.store.setLevel2DataLoader;
     loadLevel2Data = this.store.loadLevel2Data;
+
+    setOnPressHandler = this.store.setOnPressHandler;
 
     render() {
         const { navigation } = this.props;
