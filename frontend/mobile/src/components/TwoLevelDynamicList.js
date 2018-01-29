@@ -86,8 +86,41 @@ class TwoLevelDynamicListStore {
         return this.level2Map.get(id);
     }
 
+    setLevel2Data(id, index, data) {
+        this.level2Map.set(id, data);
+        this.setLevel2DataLoaded(index, true);
+    }
+
     setLevel2DataLoader(loader) {
         this.level2DataLoader = loader;
+    }
+
+    loadLevel2Data(id, index) {
+        if (this.level2DataLoader) {
+            this.setLevel2FetchingInProgress(index, true);
+            this.level2DataLoader(id, index);
+            this.setLevel2FetchingInProgress(index, false);
+            this.setLevel2DataLoaded(index, true);
+        }
+    }
+}
+
+@observer
+class Level2List extends React.Component {
+    render() {
+        const { id, store, navigation } = this.props;
+        let areas = store.getLevel2Array(id);
+
+        return areas ?
+            <Content style={{marginLeft: 23}}>{
+                areas.map((item) =>
+                    <TouchableOpacity onPress={() => Alert.alert('navigation.navigate(\'MountainsAndRoutes\', {item})')}
+                                      style={{marginTop: 13}}
+                                      key={item.id}>
+                        <Text>{item.name}</Text>
+                    </TouchableOpacity>
+                )}
+            </Content> : null
     }
 }
 
@@ -99,7 +132,9 @@ class TwoLevelDynamicList extends React.Component {
     setLevel1DataLoader = this.store.setLevel1DataLoader;
     loadLevel1Data = this.store.loadLevel1Data;
 
+    setLevel2Data = this.store.setLevel2Data;
     setLevel2DataLoader = this.store.setLevel2DataLoader;
+    loadLevel2Data = this.store.loadLevel2Data;
 
     render() {
         const { navigation } = this.props;
@@ -117,7 +152,7 @@ class TwoLevelDynamicList extends React.Component {
                                     return !rec.dataLoaded ?
                                         <ListItem>
                                             <Body>
-                                                <TouchableOpacity onPress={() => {Alert.alert('this.store.loadAreas(rowID, rec.id)')}}>
+                                                <TouchableOpacity onPress={() => this.loadLevel2Data(rec.id, rowID)}>
                                                     <Text style={{fontSize: 15}}>{rec.name}</Text>
                                                 </TouchableOpacity>
                                             </Body>
@@ -132,9 +167,7 @@ class TwoLevelDynamicList extends React.Component {
                                         <ListItem>
                                             <Body>
                                                 <Text style={{fontSize: 15, color: 'grey'}}>{rec.name}</Text>
-                                                <ListView>
-                                                    <Text>Вместо AreaList</Text>
-                                                </ListView>
+                                                <Level2List id={rec.id} store={this.store} navigation={navigation}/>
                                             </Body>
                                         </ListItem>
                                     }}
