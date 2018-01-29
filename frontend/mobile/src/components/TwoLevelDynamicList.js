@@ -1,7 +1,9 @@
 import React from 'react';
 import autobind from 'autobind-decorator';
 import { observer } from 'mobx-react/native';
-import { View, ListView, ActivityIndicator, Alert } from 'react-native';
+import { TouchableOpacity, View, ListView, ActivityIndicator, Alert } from 'react-native';
+import { Container, Header, Left, Body, Right, Button } from 'native-base';
+import { Title, Icon, Content, List, ListItem, Text } from 'native-base';
 import { observable, computed } from 'mobx';
 import styles from '../styles/Styles';
 
@@ -27,12 +29,35 @@ class TwoLevelDynamicListStore {
     setLeve1FetchingInProgress(val) {
         this.leve1FetchingInProgress = val;
     }
+
+    setLevel1DataLoaded(val) {
+        this.leve1Loaded = val;
+    }
 }
 
 @observer
 class TwoLevelDynamicList extends React.Component {
 
     store = new TwoLevelDynamicListStore();
+
+    setLevel1Data(data) {
+        let arr = [];
+        data.map((item) => {
+            item.inProgress = false;
+            item.dataLoaded = false;
+            arr.push(JSON.stringify(item))
+        });
+        this.store.leve1Data = arr;
+    }
+
+    loadLevel1Data(worker) {
+        if (!this.store.leve1Loaded) {
+            this.store.setLeve1FetchingInProgress(true);
+            worker();
+            this.store.setLeve1FetchingInProgress(false);
+            this.store.setLevel1DataLoaded(true);
+        }
+    }
 
     render() {
         const { navigation } = this.props;
@@ -43,19 +68,16 @@ class TwoLevelDynamicList extends React.Component {
                     this.store.leve1Loaded ?
                         <Content>
                             <ListView
-                                dataSource={[
-                                    '{"id": 1, "name": "Item1", "inProgress": false, "dataLoaded": false}',
-                                    '{"id": 2, "name": "Item2", "inProgress": false, "dataLoaded": false}'
-                                ]}
+                                dataSource={this.store.leve1DataSource}
                                 enableEmptySections={true}
                                 renderRow={(rowData, sectionID, rowID) => {
                                     let rec = JSON.parse(rowData);
                                     return !rec.dataLoaded ?
                                         <ListItem>
                                             <Body>
-                                            <TouchableOpacity onPress={() => {Alert.alert('this.store.loadAreas(rowID, rec.id)')}}>
-                                                <Text style={{fontSize: 15}}>{rec.name}</Text>
-                                            </TouchableOpacity>
+                                                <TouchableOpacity onPress={() => {Alert.alert('this.store.loadAreas(rowID, rec.id)')}}>
+                                                    <Text style={{fontSize: 15}}>{rec.name}</Text>
+                                                </TouchableOpacity>
                                             </Body>
                                             <Right>
                                                 {rec.inProgress ?

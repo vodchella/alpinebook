@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Header, Left, Body, Right, Button } from 'native-base';
-import { Title, Icon, Content, List, ListItem, Text, Separator } from 'native-base';
+import { Title, Icon, Content, List, ListItem, Text } from 'native-base';
 import { TouchableOpacity, View, ActivityIndicator, ListView, } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import { observer } from 'mobx-react/native';
