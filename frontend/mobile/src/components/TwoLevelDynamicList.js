@@ -5,10 +5,16 @@ import { TouchableOpacity, View, ListView, ActivityIndicator, Alert } from 'reac
 import { Container, Header, Left, Body, Right, Button } from 'native-base';
 import { Title, Icon, Content, List, ListItem, Text } from 'native-base';
 import { observable, computed } from 'mobx';
+import { modifyJsonInArray } from '../utils/Arrays';
 import styles from '../styles/Styles';
 
 @autobind
 class TwoLevelDynamicListStore {
+
+    /*
+     *  Level 1
+     */
+
     @observable
     leve1Data = [];
 
@@ -34,12 +40,6 @@ class TwoLevelDynamicListStore {
     setLevel1DataLoaded(val) {
         this.leve1Loaded = val;
     }
-}
-
-@observer
-class TwoLevelDynamicList extends React.Component {
-
-    store = new TwoLevelDynamicListStore();
 
     setLevel1Data(data) {
         let arr = [];
@@ -48,21 +48,58 @@ class TwoLevelDynamicList extends React.Component {
             item.dataLoaded = false;
             arr.push(JSON.stringify(item))
         });
-        this.store.leve1Data = arr;
+        this.leve1Data = arr;
     }
 
     setLevel1DataLoader(loader) {
-        this.store.level1DataLoader = loader;
+        this.level1DataLoader = loader;
     }
 
     loadLevel1Data() {
-        if (this.store.level1DataLoader && !this.store.leve1Loaded) {
-            this.store.setLeve1FetchingInProgress(true);
-            this.store.level1DataLoader();
-            this.store.setLeve1FetchingInProgress(false);
-            this.store.setLevel1DataLoaded(true);
+        if (this.level1DataLoader && !this.leve1Loaded) {
+            this.setLeve1FetchingInProgress(true);
+            this.level1DataLoader();
+            this.setLeve1FetchingInProgress(false);
+            this.setLevel1DataLoaded(true);
         }
     }
+
+    /*
+     *  Level 2
+     */
+
+    level2Map = new Map();
+    level2DataLoader = undefined;
+
+    setLevel2FetchingInProgress(index, val) {
+        modifyJsonInArray(this.leve1Data, index, (rec) => rec.inProgress = val);
+    }
+
+    setLevel2DataLoaded(index, val) {
+        modifyJsonInArray(this.leve1Data, index, (rec) => {
+            rec.dataLoaded = val;
+            rec.inProgress = false;
+        });
+    }
+
+    getLevel2Array(id) {
+        return this.level2Map.get(id);
+    }
+
+    setLevel2DataLoader(loader) {
+        this.level2DataLoader = loader;
+    }
+}
+
+@observer
+class TwoLevelDynamicList extends React.Component {
+    store = new TwoLevelDynamicListStore();
+
+    setLevel1Data = this.store.setLevel1Data;
+    setLevel1DataLoader = this.store.setLevel1DataLoader;
+    loadLevel1Data = this.store.loadLevel1Data;
+
+    setLevel2DataLoader = this.store.setLevel2DataLoader;
 
     render() {
         const { navigation } = this.props;
