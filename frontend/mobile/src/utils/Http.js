@@ -14,9 +14,9 @@ export function requestAlpinebook(url, onOk, onFail, resultModifier) {
             if (response.ok) {
                 if (isJson) {
                     response.json().then((responseJson) => {
-                        /*if (resultModifier) {
+                        if (resultModifier) {
                             responseJson = resultModifier(responseJson);
-                        }*/
+                        }
                         onOk(responseJson);
                     });
                 } else {

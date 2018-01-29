@@ -1,70 +1,33 @@
 import React from 'react';
 import { Container, Header, Left, Body, Right, Button } from 'native-base';
 import { Title, Icon, Content, List, ListItem, Text } from 'native-base';
-import { TouchableOpacity, View, ActivityIndicator, ListView, } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import { observer } from 'mobx-react/native';
 import styles from '../styles/Styles';
 import MountainsAndRoutesScreen from './MountainsAndRoutesScreen';
-
-@observer
-class AreasList extends React.Component {
-    render() {
-        const { regionId, store, navigation } = this.props;
-        let areas = store.getAreas(regionId);
-
-        return areas ?
-            <Content style={{marginLeft: 23}}>{
-                areas.map((area) =>
-                    <TouchableOpacity onPress={() => navigation.navigate('MountainsAndRoutes', {area})}
-                                      style={{marginTop: 13}}
-                                      key={area.area_id}>
-                        <Text>{area.area}</Text>
-                    </TouchableOpacity>
-                )}
-            </Content> : null
-    }
-}
-
-@observer
-class RegionsList extends React.Component {
-    render() {
-        const { store, navigation } = this.props;
-        return <ListView dataSource={store.regionsDataSource}
-                         enableEmptySections={true}
-                         renderRow={(rowData, sectionID, rowID) => {
-                             let rec = JSON.parse(rowData);
-                             return !rec.dataLoaded ?
-                                 <ListItem>
-                                     <Body>
-                                         <TouchableOpacity onPress={() => {store.loadAreas(rowID, rec.region_id)}}>
-                                             <Text style={{fontSize: 15}}>{rec.region}</Text>
-                                         </TouchableOpacity>
-                                     </Body>
-                                     <Right>
-                                         {rec.inProgress ?
-                                             <ActivityIndicator size='small' color='gray' animating={true}/>
-                                             :
-                                             <Icon name='arrow-down'/>}
-                                     </Right>
-                                 </ListItem>
-                                 :
-                                 <ListItem>
-                                     <Body>
-                                         <Text style={{fontSize: 15, color: 'grey'}}>{rec.region}</Text>
-                                         <AreasList regionId={rec.region_id} store={store} navigation={navigation}/>
-                                     </Body>
-                                 </ListItem>
-                         }}
-        />
-    }
-}
+import TwoLevelDynamicList from '../components/TwoLevelDynamicList';
+import alpinebook from "../connectors/Alpinebook";
 
 @observer
 class RegionsAndAreasScreen extends React.Component {
     componentDidMount() {
-        const store = this.props.screenProps.stores.regionsAndAreasStore;
-        store.loadRegions();
+        this.dynamicList.setLevel1DataLoader(() => {
+            alpinebook.getRegions((result) => {
+                this.dynamicList.setLevel1Data(result);
+            });
+        });
+
+        this.dynamicList.setLevel2DataLoader((id, index) => {
+            alpinebook.getAreas(id, (result) => {
+                this.dynamicList.setLevel2Data(id, index, result);
+            });
+        });
+
+        this.dynamicList.setOnPressHandler((navigation, item) => {
+            navigation.navigate('MountainsAndRoutes', {record: item})
+        });
+
+        this.dynamicList.loadLevel1Data();
     }
 
     render() {
@@ -88,12 +51,10 @@ class RegionsAndAreasScreen extends React.Component {
                         </Button>
                     </Right>
                 </Header>
-                {store.regionsFetchingInProgress ?
-                    <View style={styles.container}><ActivityIndicator size='large' color='gray' animating={true}/></View>
-                    :
-                    <Content>
-                        <RegionsList store={store} navigation={navigation}/>
-                    </Content>}
+                <TwoLevelDynamicList
+                    ref={(ref) => this.dynamicList = ref}
+                    navigation={navigation}
+                />
             </Container>
         )
     }

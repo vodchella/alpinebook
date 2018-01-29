@@ -35,7 +35,7 @@ class MountainsAndRoutesScreen extends React.Component {
                     </Button>
                 </Left>
                 <Body >
-                <Title style={styles.headerText}>{navigation.state.params.area.area}</Title>
+                <Title style={styles.headerText}>{navigation.state.params.record.name}</Title>
                 </Body>
             </Header>
             <TwoLevelDynamicList
