@@ -17,7 +17,8 @@ class AreasList extends React.Component {
             <Content style={{marginLeft: 23}}>{
                 areas.map((area) =>
                     <TouchableOpacity onPress={() => navigation.navigate('MountainsAndRoutes', {area})}
-                                      style={{marginTop: 13}}>
+                                      style={{marginTop: 13}}
+                                      key={area.area_id}>
                         <Text>{area.area}</Text>
                     </TouchableOpacity>
                 )}
