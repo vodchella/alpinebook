@@ -13,6 +13,18 @@ class Alpinebook {
             return jsonArrayToListData(result, 'area_id', 'area');
         });
     }
+
+    getMountains(areaId, onOk, onFail) {
+        requestAlpinebook(`areas/${areaId}/mountains`, onOk, onFail, (result) => {
+            return jsonArrayToListData(result, 'mountain_id', 'mountain');
+        });
+    }
+
+    getRoutes(mountainId, onOk, onFail) {
+        requestAlpinebook(`mountains/${mountainId}/routes`, onOk, onFail, (result) => {
+            return jsonArrayToListData(result, 'route_id', 'route');
+        });
+    }
 }
 
 export default new Alpinebook();

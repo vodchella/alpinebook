@@ -25,7 +25,9 @@ export function requestAlpinebook(url, onOk, onFail, resultModifier) {
             } else {
                 if (isJson) {
                     response.json().then((responseJson) => {
-                        onFail(responseJson);
+                        if (onFail) {
+                            onFail(responseJson);
+                        }
                         showError(getErrorFromJson(responseJson));
                     });
                 } else {
@@ -39,7 +41,9 @@ export function requestAlpinebook(url, onOk, onFail, resultModifier) {
 
         })
         .catch((error) => {
-            onFail(error);
+            if (onFail) {
+                onFail(error);
+            }
             showError(error.message);
         });
 }

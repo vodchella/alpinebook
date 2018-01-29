@@ -11,17 +11,23 @@ import alpinebook from "../connectors/Alpinebook";
 @observer
 class RegionsAndAreasScreen extends React.Component {
     componentDidMount() {
-        this.dynamicList.setLevel1DataLoader(() => {
-            alpinebook.getRegions((result) => {
-                this.dynamicList.setLevel1Data(result);
-            });
-        });
+        this.dynamicList.setLevel1DataLoader(
+            onOk = () => {
+                alpinebook.getRegions((result) => {
+                    this.dynamicList.setLevel1Data(result);
+                });
+            },
+            onFail = this.dynamicList.abort
+        );
 
-        this.dynamicList.setLevel2DataLoader((id, index) => {
-            alpinebook.getAreas(id, (result) => {
-                this.dynamicList.setLevel2Data(id, index, result);
-            });
-        });
+        this.dynamicList.setLevel2DataLoader(
+            onOk = (id, index) => {
+                alpinebook.getAreas(id, (result) => {
+                    this.dynamicList.setLevel2Data(id, index, result);
+                });
+            },
+            onFail = this.dynamicList.abort
+        );
 
         this.dynamicList.setOnPressHandler((navigation, item) => {
             navigation.navigate('MountainsAndRoutes', {record: item})

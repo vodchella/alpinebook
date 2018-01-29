@@ -106,6 +106,10 @@ class TwoLevelDynamicListStore {
         }
     }
 
+    /*
+     *  Common
+     */
+
     setOnPressHandler(handler) {
         this.onPress = handler;
     }
@@ -114,6 +118,16 @@ class TwoLevelDynamicListStore {
         if (this.onPress) {
             this.onPress(navigation, item);
         }
+    }
+
+    abort() {
+        this.setLeve1FetchingInProgress(false);
+        this.level2Map.forEach((value, key) => {
+            let rec = JSON.parse(value);
+            rec.inProgress = false;
+            value = JSON.stringify(rec);
+            this.level2Map.set(key, value);
+        });
     }
 }
 
@@ -149,6 +163,7 @@ class TwoLevelDynamicList extends React.Component {
     loadLevel2Data = this.store.loadLevel2Data;
 
     setOnPressHandler = this.store.setOnPressHandler;
+    abort = this.store.abort;
 
     render() {
         const { navigation } = this.props;

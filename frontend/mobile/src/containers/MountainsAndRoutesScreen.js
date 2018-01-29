@@ -7,17 +7,25 @@ import alpinebook from '../connectors/Alpinebook';
 
 class MountainsAndRoutesScreen extends React.Component {
     componentDidMount() {
-        this.dynamicList.setLevel1DataLoader(() => {
-            alpinebook.getRegions((result) => {
-                this.dynamicList.setLevel1Data(result);
-            });
-        });
+        const areaId = this.props.navigation.state.params.record.id;
 
-        this.dynamicList.setLevel2DataLoader((id, index) => {
-            alpinebook.getAreas(id, (result) => {
-                this.dynamicList.setLevel2Data(id, index, result);
-            });
-        });
+        this.dynamicList.setLevel1DataLoader(
+            onOk = () => {
+                alpinebook.getMountains(areaId, (result) => {
+                    this.dynamicList.setLevel1Data(result);
+                });
+            },
+            onFail = this.dynamicList.abort
+        );
+
+        this.dynamicList.setLevel2DataLoader(
+            onOk = (id, index) => {
+                alpinebook.getRoutes(id, (result) => {
+                    this.dynamicList.setLevel2Data(id, index, result);
+                });
+            },
+            onFail = this.dynamicList.abort
+        );
 
         this.dynamicList.setOnPressHandler(() => {Alert.alert('Ждите', 'Скоро всё будет!')});
 
@@ -35,7 +43,7 @@ class MountainsAndRoutesScreen extends React.Component {
                     </Button>
                 </Left>
                 <Body >
-                <Title style={styles.headerText}>{navigation.state.params.record.name}</Title>
+                    <Title style={styles.headerText}>{navigation.state.params.record.name}</Title>
                 </Body>
             </Header>
             <TwoLevelDynamicList
