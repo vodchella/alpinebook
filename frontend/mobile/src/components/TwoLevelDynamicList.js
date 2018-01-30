@@ -2,9 +2,9 @@ import React from 'react';
 import autobind from 'autobind-decorator';
 import { observer } from 'mobx-react/native';
 import { TouchableOpacity, View, ListView, ActivityIndicator } from 'react-native';
-import { Container, Header, Left, Body, Right, Button } from 'native-base';
-import { Title, Icon, Content, List, ListItem, Text } from 'native-base';
+import { Body, Right, Icon, Content, ListItem, Text } from 'native-base';
 import { observable, computed } from 'mobx';
+import Level2List from './Level2List';
 import { modifyJsonInArray } from '../utils/Arrays';
 import styles from '../styles/Styles';
 
@@ -42,13 +42,12 @@ class TwoLevelDynamicListStore {
     }
 
     setLevel1Data(data) {
-        let arr = [];
-        data.map((item) => {
-            item.inProgress = false;
-            item.dataLoaded = false;
-            arr.push(JSON.stringify(item))
+        this.leve1Data = data.map((item) => {
+            const elem = item;
+            elem.inProgress = false;
+            elem.dataLoaded = false;
+            return JSON.stringify(elem);
         });
-        this.leve1Data = arr;
         // Порядок вызовов setDataLoaded и setFetchingInProgress важен!
         this.setLevel1DataLoaded(true);
         this.setLeve1FetchingInProgress(false);
@@ -74,13 +73,19 @@ class TwoLevelDynamicListStore {
     onPress = undefined;
 
     setLevel2FetchingInProgress(index, val) {
-        modifyJsonInArray(this.leve1Data, index, (rec) => rec.inProgress = val);
+        modifyJsonInArray(this.leve1Data, index, (rec) => {
+            const newRec = rec;
+            newRec.inProgress = val;
+            return newRec;
+        });
     }
 
     setLevel2DataLoaded(index, val) {
         modifyJsonInArray(this.leve1Data, index, (rec) => {
-            rec.dataLoaded = val;
-            rec.inProgress = false;
+            const newRec = rec;
+            newRec.dataLoaded = val;
+            newRec.inProgress = false;
+            return newRec;
         });
     }
 
@@ -123,44 +128,25 @@ class TwoLevelDynamicListStore {
     abort() {
         this.setLeve1FetchingInProgress(false);
         this.level2Map.forEach((value, key) => {
-            let rec = JSON.parse(value);
+            const rec = JSON.parse(value);
             rec.inProgress = false;
-            value = JSON.stringify(rec);
-            this.level2Map.set(key, value);
+            this.level2Map.set(key, JSON.stringify(rec));
         });
     }
 }
 
 @observer
-class Level2List extends React.Component {
-    render() {
-        const { id, store, navigation } = this.props;
-        const data = store.getLevel2Array(id);
-
-        return data ?
-            <Content style={{marginLeft: 23}}>{
-                data.map((item) =>
-                    <TouchableOpacity onPress={() => store.execOnPressHandler(navigation, item)}
-                                      style={{marginTop: 13}}
-                                      key={item.id}>
-                        <Text>{item.name}</Text>
-                    </TouchableOpacity>
-                )}
-            </Content> : null
-    }
-}
-
-@observer
 class TwoLevelDynamicList extends React.Component {
+    
+    /* eslint-disable react/sort-comp */
     store = new TwoLevelDynamicListStore();
 
-    setLevel1Data = this.store.setLevel1Data;
-    setLevel1DataLoader = this.store.setLevel1DataLoader;
     loadLevel1Data = this.store.loadLevel1Data;
-
-    setLevel2Data = this.store.setLevel2Data;
-    setLevel2DataLoader = this.store.setLevel2DataLoader;
     loadLevel2Data = this.store.loadLevel2Data;
+    setLevel1Data = this.store.setLevel1Data;
+    setLevel2Data = this.store.setLevel2Data;
+    setLevel1DataLoader = this.store.setLevel1DataLoader;
+    setLevel2DataLoader = this.store.setLevel2DataLoader;
 
     setOnPressHandler = this.store.setOnPressHandler;
     abort = this.store.abort;
@@ -168,43 +154,47 @@ class TwoLevelDynamicList extends React.Component {
     render() {
         const { navigation } = this.props;
 
+        /* eslint-disable no-nested-ternary */
         return this.store.leve1FetchingInProgress ?
-                    <View style={styles.container}><ActivityIndicator size='large' color='gray' animating={true}/></View>
+                    <View style={styles.container}>
+                        <ActivityIndicator size='large' color='gray' />
+                    </View>
                     :
                     this.store.leve1Loaded ?
                         <Content>
                             <ListView
                                 dataSource={this.store.leve1DataSource}
-                                enableEmptySections={true}
                                 renderRow={(rowData, sectionID, rowID) => {
-                                    let rec = JSON.parse(rowData);
+                                    const rec = JSON.parse(rowData);
                                     return !rec.dataLoaded ?
                                         <ListItem>
                                             <Body>
-                                                <TouchableOpacity onPress={() => this.loadLevel2Data(rec.id, rowID)}>
-                                                    <Text style={{fontSize: 15}}>{rec.name}</Text>
+                                                <TouchableOpacity
+                                                    onPress={() => this.loadLevel2Data(rec.id,
+                                                                                       rowID)}
+                                                >
+                                                    <Text style={{ fontSize: 15 }}>{rec.name}</Text>
                                                 </TouchableOpacity>
                                             </Body>
                                             <Right>
                                                 {rec.inProgress ?
-                                                    <ActivityIndicator size='small' color='gray' animating={true}/>
+                                                    <ActivityIndicator size='small' color='gray' />
                                                     :
-                                                    <Icon name='arrow-down'/>}
+                                                    <Icon name='arrow-down' />}
                                             </Right>
                                         </ListItem>
                                         :
                                         <ListItem>
                                             <Body>
-                                                <Text style={{fontSize: 15, color: 'grey'}}>{rec.name}</Text>
-                                                <Level2List id={rec.id} store={this.store} navigation={navigation}/>
+                                                <Text style={{ fontSize: 15, color: 'grey' }}>{rec.name}</Text>
+                                                <Level2List id={rec.id} store={this.store} navigation={navigation} />
                                             </Body>
-                                        </ListItem>
+                                        </ListItem>;
                                     }}
                             />
                         </Content>
                         :
-                        <View/>
-
+                        <View />;
     }
 }
 

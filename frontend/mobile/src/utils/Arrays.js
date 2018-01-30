@@ -1,16 +1,15 @@
 export function modifyJsonInArray(arr, index, fn) {
-    let rec = JSON.parse(arr[index]);
-    fn(rec);
-    arr[index] = JSON.stringify(rec);
+    const rec = JSON.parse(arr[index]);
+    /* eslint-disable no-param-reassign */
+    arr[index] = JSON.stringify(fn(rec));
 }
 
 export function jsonArrayToListData(arr, idField, nameField) {
-    let result = [];
-    arr.map((elem) => {
-        let item = {};
+    const result = arr.map((elem) => {
+        const item = {};
         item.id = elem[idField];
         item.name = elem[nameField];
-        result.push(item);
+        return item;
     });
     return result;
 }
