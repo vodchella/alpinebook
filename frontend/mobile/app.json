@@ -1,4 +1,9 @@
 {
   "name": "Alpinebook",
-  "displayName": "Alpinebook"
+  "displayName": "Alpinebook",
+  "expo": {
+    "name": "Alpinebook",
+    "slug": "alpinebook",
+    "sdkVersion": "25.0.0"
+  }
 }
