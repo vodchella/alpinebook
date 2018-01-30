@@ -4,13 +4,13 @@ import styles from '../styles/Styles';
 
 const HomeScreen = ({ screenProps }) => (
     <View style={styles.container}>
-        <Text style={_styles.welcome}>
+        <Text style={thisScreenStyles.welcome}>
             Привет от Alpinebook v{screenProps.version}!
         </Text>
-        <Text style={_styles.instructions}>
+        <Text style={thisScreenStyles.instructions}>
             Оставайся с нами, скоро этим можно будет пользоваться :)
         </Text>
-        <Text style={_styles.instructions}>
+        <Text style={thisScreenStyles.instructions}>
             Чтобы увидеть меню, свайпни слева направо
         </Text>
     </View>
@@ -20,7 +20,7 @@ HomeScreen.navigationOptions = {
     title: 'О программе'
 };
 
-const _styles = StyleSheet.create({
+const thisScreenStyles = StyleSheet.create({
     welcome: {
         fontSize: 20,
         textAlign: 'center',

@@ -7,23 +7,21 @@ const SummitsScreen = ({ navigation }) => (
     <Container>
         <Header>
             <Left>
-                <Button transparent onPress={() => {navigation.navigate('DrawerOpen')}}>
-                    <Icon name='menu' style={styles.headerIcon}/>
+                <Button transparent onPress={() => { navigation.navigate('DrawerOpen'); }}>
+                    <Icon name='menu' style={styles.headerIcon} />
                 </Button>
             </Left>
             <Body>
                 <Title style={styles.headerText}>Восхождения</Title>
             </Body>
-            <Right/>
+            <Right />
         </Header>
     </Container>
 );
 
-SummitsScreen.navigationOptions = {
-    title: 'Восхождения'
-};
+SummitsScreen.navigationOptions = { title: 'Восхождения' };
 
-const SummitsScreenNavigator = StackNavigator (
+const SummitsScreenNavigator = StackNavigator(
     { SummitsScreen: { screen: SummitsScreen } },
     {
         headerMode: 'none',

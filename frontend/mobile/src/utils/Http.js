@@ -14,31 +14,29 @@ export function requestAlpinebook(url, onOk, onFail, resultModifier) {
             if (response.ok) {
                 if (isJson) {
                     response.json().then((responseJson) => {
+                        let result = responseJson;
                         if (resultModifier) {
-                            responseJson = resultModifier(responseJson);
+                            result = resultModifier(responseJson);
                         }
-                        onOk(responseJson);
+                        onOk(result);
                     });
                 } else {
                     invalidContentType = true;
                 }
+            } else if (isJson) {
+                response.json().then((responseJson) => {
+                    if (onFail) {
+                        onFail(responseJson);
+                    }
+                    showError(getErrorFromJson(responseJson));
+                });
             } else {
-                if (isJson) {
-                    response.json().then((responseJson) => {
-                        if (onFail) {
-                            onFail(responseJson);
-                        }
-                        showError(getErrorFromJson(responseJson));
-                    });
-                } else {
-                    invalidContentType = true;
-                }
+                invalidContentType = true;
             }
 
             if (invalidContentType) {
-                return Promise.reject(new Error('Invalid content type: ' + contentType));
+                return Promise.reject(new Error(`Invalid content type: ${contentType}`));
             }
-
         })
         .catch((error) => {
             if (onFail) {

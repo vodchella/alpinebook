@@ -7,7 +7,7 @@ import SummitsScreenNavigator from './containers/SummitsScreen';
 import regionsAndAreasStore from './stores/RegionsAndAreasStore';
 
 
-const RootDrawer = DrawerNavigator (
+const RootDrawer = DrawerNavigator(
     {
         Home: { screen: HomeScreen },
         Routes: { screen: RegionsAndAreasScreenNavigator },
@@ -17,16 +17,18 @@ const RootDrawer = DrawerNavigator (
 );
 
 export default class Alpinebook extends React.Component {
-  render() {
-      return <Root>
-          <RootDrawer screenProps={
-              {
-                  version: '0.01',
-                  stores: {
-                      regionsAndAreasStore
-                  }
-              }
-          }/>
-      </Root>
-  }
+    render() {
+        return (
+            <Root>
+                <RootDrawer
+                    screenProps={{
+                        version: '0.01',
+                        stores: {
+                            regionsAndAreasStore
+                        }
+                    }}
+                />
+            </Root>
+        );
+    }
 }
