@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
     },
+
     headerIcon: {
         color: 'white'
     },

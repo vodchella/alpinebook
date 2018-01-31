@@ -6,8 +6,7 @@ import { Content, Text } from 'native-base';
 @observer
 class Level2List extends React.Component {
     render() {
-        const { id, store, navigation } = this.props;
-        const data = store.getLevel2Array(id);
+        const { store, navigation, data } = this.props;
 
         return data ?
             <Content style={{ marginLeft: 23 }}>{
