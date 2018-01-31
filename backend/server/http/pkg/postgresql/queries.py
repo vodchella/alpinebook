@@ -72,8 +72,17 @@ where  m.mountain_id = $1
 """
 
 SQL_GET_ROUTES = """
-select json_build_object('route_id', r.route_id,
-                         'route', get_route_text(r.route_id, false, true)) as mountain
+select case
+         when r.winter_complexity is not null then
+           json_build_object('route_id', r.route_id,
+                             'route', get_route_text(r.route_id, false, false),
+                             'complexity', r.complexity,
+                             'winter_complexity', r.winter_complexity)
+         else
+           json_build_object('route_id', r.route_id,
+                             'route', get_route_text(r.route_id, false, false),
+                             'complexity', r.complexity)
+       end as mountain
 from   routes r
 where  r.mountain_id = $1
 order by r.complexity, r.route

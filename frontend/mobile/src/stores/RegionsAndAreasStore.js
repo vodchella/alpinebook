@@ -1,8 +1,13 @@
-import { observable } from 'mobx';
 import autobind from 'autobind-decorator';
+import { observable } from 'mobx';
 
 @autobind
-class RoutesStore {
+class RegionsAndAreasStore {
+
+    /*
+     *  Поиск
+     */
+
     @observable
     searchActive = false;
 
@@ -11,4 +16,4 @@ class RoutesStore {
     }
 }
 
-export default new RoutesStore();
+export default new RegionsAndAreasStore();
