@@ -2,6 +2,7 @@
 *.log*
 *.pyc
 .idea
+.vscode
 venv*
 __pycache__
 
