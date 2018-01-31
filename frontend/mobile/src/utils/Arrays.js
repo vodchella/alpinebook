@@ -6,7 +6,7 @@ export function modifyJsonInArray(arr, index, fn) {
 
 export function jsonArrayToListData(arr, idField, nameField) {
     const result = arr.map((elem) => {
-        const item = {};
+        const item = elem;
         item.id = elem[idField];
         item.name = elem[nameField];
         return item;

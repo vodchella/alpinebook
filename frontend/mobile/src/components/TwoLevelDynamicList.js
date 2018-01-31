@@ -3,6 +3,7 @@ import { observer } from 'mobx-react/native';
 import { TouchableOpacity, View, ListView, ActivityIndicator } from 'react-native';
 import { Body, Right, Icon, Content, ListItem, Text } from 'native-base';
 import Level2List from './Level2List';
+import Level2RoutesList from './Level2RoutesList';
 import TwoLevelDynamicListStore from '../stores/TwoLevelDynamicListStore';
 import styles from '../styles/Styles';
 
@@ -23,7 +24,7 @@ class TwoLevelDynamicList extends React.Component {
     abort = this.store.abort;
 
     render() {
-        const { navigation } = this.props;
+        const { navigation, viewType } = this.props;
 
         /* eslint-disable no-nested-ternary */
         return this.store.leve1FetchingInProgress ?
@@ -58,7 +59,10 @@ class TwoLevelDynamicList extends React.Component {
                                         <ListItem>
                                             <Body>
                                                 <Text style={{ fontSize: 15, color: 'grey' }}>{rec.name}</Text>
-                                                <Level2List id={rec.id} store={this.store} navigation={navigation} />
+                                                {viewType === 'mountains' ?
+                                                    <Level2RoutesList id={rec.id} store={this.store} navigation={navigation} />
+                                                    :
+                                                    <Level2List id={rec.id} store={this.store} navigation={navigation} />}
                                             </Body>
                                         </ListItem>;
                                     }}

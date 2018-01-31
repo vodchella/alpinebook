@@ -14,7 +14,7 @@ class Level2List extends React.Component {
                 data.map((item) =>
                     <TouchableOpacity
                         onPress={() => store.execOnPressHandler(navigation, item)}
-                        style={{ marginTop: 13 }}
+                        style={{ marginTop: 16 }}
                         key={item.id}
                     >
                         <Text>{item.name}</Text>

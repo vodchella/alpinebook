@@ -49,6 +49,8 @@ class MountainsAndRoutesScreen extends React.Component {
                 </Header>
                 <TwoLevelDynamicList
                     ref={(ref) => { this.dynamicList = ref; }}
+                    navigation={navigation}
+                    viewType={'mountains'}
                 />
             </Container>
         );
