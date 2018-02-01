@@ -58,7 +58,9 @@ class TwoLevelDynamicList extends React.Component {
                                         :
                                         <ListItem>
                                             <Body>
-                                                <Text style={{ fontSize: 15, color: 'grey' }}>{rec.name}</Text>
+                                                <Text style={{ fontSize: 15, color: 'grey' }}>
+                                                    {rec.name}
+                                                </Text>
                                                 {viewType === 'mountains' ?
                                                     <MountainRoutesList
                                                         store={this.store}

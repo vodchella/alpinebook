@@ -26,7 +26,9 @@ class MountainRoutesList extends React.Component {
                 data.map((item) =>
                     <ListItem noBorder key={item.id}>
                         <Left style={{ flex: 0, paddingRight: 20 }}>
-                            <TouchableOpacity onPress={() => store.execOnPressHandler(navigation, item)}>
+                            <TouchableOpacity
+                                onPress={() => store.execOnPressHandler(navigation, item)}
+                            >
                                 <Badge
                                     style={{
                                         borderRadius: 5,
@@ -35,12 +37,16 @@ class MountainRoutesList extends React.Component {
                                         backgroundColor: badgeColor(item.complexity)
                                     }}
                                 >
-                                    <Text>{item.complexity}{item.winter_complexity ? '*' : null}</Text>
+                                    <Text>
+                                        {item.complexity}{item.winter_complexity ? '*' : null}
+                                    </Text>
                                 </Badge>
                             </TouchableOpacity>
                         </Left>
                         <Body>
-                            <TouchableOpacity onPress={() => store.execOnPressHandler(navigation, item)}>
+                            <TouchableOpacity
+                                onPress={() => store.execOnPressHandler(navigation, item)}
+                            >
                                 <Text>{item.name}</Text>
                             </TouchableOpacity>
                         </Body>

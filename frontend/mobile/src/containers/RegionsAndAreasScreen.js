@@ -48,7 +48,9 @@ class RegionsAndAreasScreen extends React.Component {
                         </Button>
                     </Left>
                     <Body>
-                        <Title style={styles.headerText}>{store.searchActive ? 'Поиск' : 'Регионы'}</Title>
+                        <Title style={styles.headerText}>
+                            {store.searchActive ? 'Поиск' : 'Регионы'}
+                        </Title>
                     </Body>
                     <Right>
                         <Button transparent onPress={store.toggleSearchActive}>
