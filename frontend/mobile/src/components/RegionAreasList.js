@@ -4,7 +4,7 @@ import { TouchableOpacity } from 'react-native';
 import { Content, Text } from 'native-base';
 
 @observer
-class Level2List extends React.Component {
+class RegionAreasList extends React.Component {
     render() {
         const { store, navigation, data } = this.props;
 
@@ -23,4 +23,4 @@ class Level2List extends React.Component {
     }
 }
 
-export default Level2List;
+export default RegionAreasList;

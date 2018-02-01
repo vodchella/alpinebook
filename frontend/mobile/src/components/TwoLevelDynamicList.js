@@ -2,7 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react/native';
 import { TouchableOpacity, View, ListView, ActivityIndicator } from 'react-native';
 import { Body, Right, Icon, Content, ListItem, Text } from 'native-base';
-import Level2List from './Level2List';
+import RegionAreasList from './RegionAreasList';
 import MountainRoutesList from './MountainRoutesList';
 import TwoLevelDynamicListStore from '../stores/TwoLevelDynamicListStore';
 import styles from '../styles/Styles';
@@ -66,7 +66,7 @@ class TwoLevelDynamicList extends React.Component {
                                                         data={this.store.getLevel2Array(rec.id)}
                                                     />
                                                     :
-                                                    <Level2List
+                                                    <RegionAreasList
                                                         store={this.store}
                                                         navigation={navigation}
                                                         data={this.store.getLevel2Array(rec.id)}
