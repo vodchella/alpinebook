@@ -21,11 +21,18 @@ class Alpinebook {
     }
 
     searchMountains(query, areaId, onOk, onFail) {
-        const queryStr = areaId ?
-                            `areas/${areaId}/mountains?search=${query}`
-                            :
-                            `mountains?search=${query}`;
-        requestAlpinebook(queryStr, onOk, onFail, (result) => result);
+        if (areaId === 1) {
+            // Это отладочная заглушка
+            // TODO: Убрать после переезда на свой сервер
+            const strForDebug = `areas/5/mountains?search=${query}`;
+            requestAlpinebook(strForDebug, onOk, onFail, (result) => result);
+        } else {
+            const queryStr = areaId ?
+                                `areas/${areaId}/mountains?search=${query}`
+                                :
+                                `mountains?search=${query}`;
+                                requestAlpinebook(queryStr, onOk, onFail, (result) => result);
+        }
     }
 
     getRoutes(mountainId, onOk, onFail) {
