@@ -192,6 +192,18 @@ async def list_mountains(request, area_id: int):
     return response.json(await Executor(request, False).query_all_json(app.db_queries['get_mountains'], area_id))
 
 
+@v1.get('/mountains')
+@handle_exceptions
+async def search_mountains(request):
+    result = []
+    if 'search' in request.raw_args:
+        search = request.raw_args['search'].strip()
+        if search:
+            result = await Executor(request, False).query_all_json(app.db_queries['search_mountains'],
+                                                                   search, False, 0)
+    return response.json(result)
+
+
 @v1.get('/mountains/<mountain_id:int>')
 @handle_exceptions
 async def get_mountain(request, mountain_id: int):
