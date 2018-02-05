@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Alert } from 'react-native';
-import { Container, Header, Left, Body, Title, Icon, Button } from 'native-base';
+import { Container } from 'native-base';
 import TwoLevelDynamicList from '../components/TwoLevelDynamicList';
-import styles from '../styles/Styles';
+import SimpleHeader from '../components/SimpleHeader';
 import alpinebook from '../connectors/Alpinebook';
 
 class MountainsAndRoutesScreen extends Component {
@@ -37,18 +37,10 @@ class MountainsAndRoutesScreen extends Component {
 
         return (
             <Container>
-                <Header>
-                    <Left style={styles.headerLeftWithoutRight}>
-                        <Button transparent onPress={() => { navigation.goBack(null); }}>
-                            <Icon name='arrow-back' style={styles.headerIcon} />
-                        </Button>
-                    </Left>
-                    <Body >
-                        <Title style={styles.headerText}>
-                            {navigation.state.params.record.name}
-                        </Title>
-                    </Body>
-                </Header>
+                <SimpleHeader
+                    navigation={navigation}
+                    caption={navigation.state.params.record.name}
+                />
                 <TwoLevelDynamicList
                     ref={(ref) => { this.dynamicList = ref; }}
                     navigation={navigation}
