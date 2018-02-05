@@ -1,3 +1,4 @@
+import { Platform } from 'react-native';
 import { getErrorFromJson, showError } from './Errors';
 
 export function requestAlpinebook(url, onOk, onFail, resultModifier) {
@@ -5,7 +6,8 @@ export function requestAlpinebook(url, onOk, onFail, resultModifier) {
     const apiUrl = `${baseUrl}api/v1/`;
     const requestUrl = `${apiUrl}${url}`;
 
-    fetch(requestUrl, { headers: { 'User-Agent': 'Alpinebook Android v0.01' } })
+    const platform = Platform.OS === 'ios' ? 'iOS' : 'Android';
+    fetch(requestUrl, { headers: { 'User-Agent': `Alpinebook ${platform} v0.01` } })
         .then((response) => {
             const contentType = response.headers.get('Content-Type') || '';
             const isJson = contentType.includes('application/json');
