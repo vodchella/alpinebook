@@ -44,7 +44,7 @@ class RegionsAndAreasScreen extends React.Component {
         return (
             <Container>
                 {store.searchActive ?
-                <Header searchBar>
+                <Header searchBar rounded>
                     <Left style={styles.headerLeftWithSearchBar}>
                         <Button transparent onPress={() => { navigation.navigate('DrawerOpen'); }}>
                             <Icon name='menu' style={styles.headerIcon} />
