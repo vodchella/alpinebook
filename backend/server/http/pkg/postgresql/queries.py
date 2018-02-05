@@ -170,9 +170,9 @@ mounts as (
                          $3
                      end
 )
-select json_build_object('type', r2.type,
+select json_build_object('t', r2.type,
                          'id', r2.id,
-                         'name', r2.name)
+                         'n', r2.name)
 from   r2
 order by path
 """
