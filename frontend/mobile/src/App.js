@@ -5,6 +5,7 @@ import HomeScreen from './containers/HomeScreen';
 import RegionsAndAreasScreenNavigator from './containers/RegionsAndAreasScreen';
 import SummitsScreenNavigator from './containers/SummitsScreen';
 import regionsAndAreasStore from './stores/RegionsAndAreasStore';
+import TwoLevelDynamicListStore from './stores/TwoLevelDynamicListStore';
 
 
 const RootDrawer = DrawerNavigator(
@@ -18,6 +19,8 @@ const RootDrawer = DrawerNavigator(
 
 export default class Alpinebook extends Component {
     render() {
+        regionsAndAreasStore.listStore = new TwoLevelDynamicListStore();
+
         return (
             <Root>
                 <RootDrawer

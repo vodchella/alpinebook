@@ -74,6 +74,7 @@ class RegionsAndAreasScreen extends Component {
                     <TwoLevelDynamicList
                         ref={(ref) => { this.dynamicList = ref; }}
                         navigation={navigation}
+                        store={store.listStore}
                     />
             </Container>
         );

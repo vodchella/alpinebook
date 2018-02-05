@@ -9,19 +9,24 @@ import styles from '../styles/Styles';
 
 @observer
 class TwoLevelDynamicList extends Component {
-    
-    /* eslint-disable react/sort-comp */
-    store = new TwoLevelDynamicListStore();
+    componentWillMount() {
+        const { store } = this.props;
+        if (store) {
+            this.store = store;
+        } else {
+            this.store = new TwoLevelDynamicListStore();
+        }
 
-    loadLevel1Data = this.store.loadLevel1Data;
-    loadLevel2Data = this.store.loadLevel2Data;
-    setLevel1Data = this.store.setLevel1Data;
-    setLevel2Data = this.store.setLevel2Data;
-    setLevel1DataLoader = this.store.setLevel1DataLoader;
-    setLevel2DataLoader = this.store.setLevel2DataLoader;
+        this.loadLevel1Data = this.store.loadLevel1Data;
+        this.loadLevel2Data = this.store.loadLevel2Data;
+        this.setLevel1Data = this.store.setLevel1Data;
+        this.setLevel2Data = this.store.setLevel2Data;
+        this.setLevel1DataLoader = this.store.setLevel1DataLoader;
+        this.setLevel2DataLoader = this.store.setLevel2DataLoader;
 
-    setOnPressHandler = this.store.setOnPressHandler;
-    abort = this.store.abort;
+        this.setOnPressHandler = this.store.setOnPressHandler;
+        this.abort = this.store.abort;
+    }
 
     render() {
         const { navigation, viewType } = this.props;
