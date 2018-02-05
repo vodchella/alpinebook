@@ -1,5 +1,7 @@
 import React from 'react';
-import { Container, Header, Left, Body, Right, Button, Title, Icon } from 'native-base';
+import {
+    Container, Header, Left, Body, Right, Button, Title, Icon, Item, Input
+} from 'native-base';
 import { StackNavigator } from 'react-navigation';
 import { observer } from 'mobx-react/native';
 import styles from '../styles/Styles';
@@ -41,6 +43,20 @@ class RegionsAndAreasScreen extends React.Component {
 
         return (
             <Container>
+                {store.searchActive ?
+                <Header searchBar>
+                    <Left style={styles.headerLeftWithSearchBar}>
+                        <Button transparent onPress={() => { navigation.navigate('DrawerOpen'); }}>
+                            <Icon name='menu' style={styles.headerIcon} />
+                        </Button>
+                    </Left>
+                    <Item>
+                        <Icon name="search" />
+                        <Input style={styles.searchBarText} placeholder="Поиск по названию горы" />
+                        <Icon name="close" onPress={store.toggleSearchActive} />
+                    </Item>
+                </Header>
+                : 
                 <Header>
                     <Left>
                         <Button transparent onPress={() => { navigation.navigate('DrawerOpen'); }}>
@@ -48,16 +64,14 @@ class RegionsAndAreasScreen extends React.Component {
                         </Button>
                     </Left>
                     <Body>
-                        <Title style={styles.headerText}>
-                            {store.searchActive ? 'Поиск' : 'Регионы'}
-                        </Title>
+                        <Title style={styles.headerText}>Регионы</Title>
                     </Body>
                     <Right>
                         <Button transparent onPress={store.toggleSearchActive}>
                             <Icon name='search' style={styles.headerIcon} />
                         </Button>
                     </Right>
-                </Header>
+                </Header>}
                 <TwoLevelDynamicList
                     ref={(ref) => { this.dynamicList = ref; }}
                     navigation={navigation}

@@ -17,6 +17,14 @@ const styles = StyleSheet.create({
     headerLeftWithoutRight: {
         flex: 0,
         paddingRight: 30
+    },
+    headerLeftWithSearchBar: {
+        flex: 0,
+        paddingRight: 5
+    },
+
+    searchBarText: {
+        fontSize: 14
     }
 });
 
