@@ -172,7 +172,7 @@ mounts as (
 )
 select json_build_object('t', r2.type,
                          'id', r2.id,
-                         'n', r2.name)
+                         'name', r2.name)
 from   r2
 order by path
 """

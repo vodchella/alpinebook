@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Header, Left, Button, Icon, Item, Input } from 'native-base';
 import { Alert } from 'react-native';
 import styles from '../styles/Styles';
+import alpinebook from '../connectors/Alpinebook';
 
 class MountainSearchHeader extends Component {
     constructor(props) {
@@ -12,7 +13,9 @@ class MountainSearchHeader extends Component {
     search = () => {
         const { onClose } = this.props;
         onClose();
-        Alert.alert('Поиск', this.state.searchText);
+        alpinebook.searchMountains(this.state.searchText, null, (result) => {
+            Alert.alert('Поиск', JSON.stringify(result));
+        });
     };
 
     render() {

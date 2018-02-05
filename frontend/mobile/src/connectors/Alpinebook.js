@@ -20,6 +20,14 @@ class Alpinebook {
         );
     }
 
+    searchMountains(query, areaId, onOk, onFail) {
+        const queryStr = areaId ?
+                            `areas/${areaId}/mountains?search=${query}`
+                            :
+                            `mountains?search=${query}`;
+        requestAlpinebook(queryStr, onOk, onFail, (result) => result);
+    }
+
     getRoutes(mountainId, onOk, onFail) {
         requestAlpinebook(`mountains/${mountainId}/routes`, onOk, onFail, (result) =>
              jsonArrayToListData(result, 'route_id', 'route')
