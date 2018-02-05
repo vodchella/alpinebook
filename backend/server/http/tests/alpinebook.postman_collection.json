@@ -32,7 +32,7 @@
 					},
 					"response": [
 						{
-							"id": "f04360be-6db9-4601-ae1d-3b147e950b94",
+							"id": "67641b22-7136-4695-a4b2-8e76768d2218",
 							"name": "get_regions",
 							"originalRequest": {
 								"method": "GET",
@@ -124,7 +124,7 @@
 					},
 					"response": [
 						{
-							"id": "5d309df9-3ef6-4556-be4d-ac96a6213e7e",
+							"id": "12423fa5-66d8-4d1b-b7ef-c9f32f4dfbbb",
 							"name": "get_region_by_id",
 							"originalRequest": {
 								"method": "GET",
@@ -224,7 +224,7 @@
 					},
 					"response": [
 						{
-							"id": "61759e37-7957-4942-a3ca-924f1fda6c0b",
+							"id": "4e1bd7f5-fe51-4127-962f-50cb72af16ac",
 							"name": "get_areas_1",
 							"originalRequest": {
 								"method": "GET",
@@ -293,7 +293,7 @@
 							"body": "[\n    {\n        \"area_id\": 1,\n        \"area\": \"Заилийский алатау\"\n    },\n    {\n        \"area_id\": 2,\n        \"area\": \"Тенгри-Таг\"\n    }\n]"
 						},
 						{
-							"id": "a6e7790e-d322-4a6d-8b00-96fb793a9e6f",
+							"id": "2328074c-377c-42c2-aeec-64f99f62eb8b",
 							"name": "get_areas_2",
 							"originalRequest": {
 								"method": "GET",
@@ -362,7 +362,7 @@
 							"body": "[\n    {\n        \"area_id\": 3,\n        \"area\": \"Заалайский хребет\"\n    }\n]"
 						},
 						{
-							"id": "647fc191-c708-449d-a9e9-ff63d1a285cd",
+							"id": "1b823718-b3ff-4b90-acf2-7172aba69248",
 							"name": "get_areas_100",
 							"originalRequest": {
 								"method": "GET",
@@ -462,7 +462,7 @@
 					},
 					"response": [
 						{
-							"id": "954e4b11-e741-4580-826f-720abdc6d10d",
+							"id": "3e3bf6cf-1c1f-4a91-a929-9a6d8967d0b9",
 							"name": "get_area_by_id",
 							"originalRequest": {
 								"method": "GET",
@@ -562,7 +562,7 @@
 					},
 					"response": [
 						{
-							"id": "bc307cdd-7953-41a7-bd4b-9af2f312eab8",
+							"id": "e86a1a17-4561-4faf-8718-0e5e19521e0e",
 							"name": "get_mountains_1",
 							"originalRequest": {
 								"method": "GET",
@@ -631,7 +631,7 @@
 							"body": "[{\"mountain_id\":1,\"mountain\":\"\\u0410\\u043c\\u0430\\u043d\\u0433\\u0435\\u043b\\u044c\\u0434\\u044b\"},{\"mountain_id\":2,\"mountain\":\"\\u041c\\u0430\\u043d\\u0448\\u0443\\u043a \\u041c\\u0430\\u043c\\u0435\\u0442\\u043e\\u0432\\u043e\\u0439\"}]"
 						},
 						{
-							"id": "a0df8ebf-b651-43eb-b36d-4b9d01fd8e47",
+							"id": "87cc8f2c-e856-43b3-9d51-b2594bdd9852",
 							"name": "get_mountains_2",
 							"originalRequest": {
 								"method": "GET",
@@ -700,7 +700,7 @@
 							"body": "[\n    {\n        \"mountain_id\": 3,\n        \"mountain\": \"Чапаева\"\n    },\n    {\n        \"mountain_id\": 4,\n        \"mountain\": \"Хан-Тенгри\"\n    }\n]"
 						},
 						{
-							"id": "8478a0e2-58fc-401b-bf3a-91901de20fa5",
+							"id": "61f065b0-0011-473f-bc7a-b43c665f3c2d",
 							"name": "get_mountains_3",
 							"originalRequest": {
 								"method": "GET",
@@ -800,7 +800,7 @@
 					},
 					"response": [
 						{
-							"id": "813eba50-4d20-4756-984e-b15ad709b735",
+							"id": "57076822-37ae-452b-87de-25cd0c7bf5f0",
 							"name": "get_mountain_by_id",
 							"originalRequest": {
 								"method": "GET",
@@ -874,33 +874,29 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
-							"raw": "{{alpinebook-server}}/api/v1/areas/:area_id/mountains",
+							"raw": "{{alpinebook-server}}/api/v1/mountains?search=ан",
 							"host": [
 								"{{alpinebook-server}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"areas",
-								":area_id",
 								"mountains"
 							],
-							"variable": [
+							"query": [
 								{
-									"key": "area_id",
-									"value": "1"
+									"key": "search",
+									"value": "ан",
+									"equals": true
 								}
 							]
 						}
 					},
 					"response": [
 						{
-							"id": "e73279f9-a122-4424-9d03-7315dcf7477e",
+							"id": "aef79064-d3ae-42ec-95c6-43da48359bd2",
 							"name": "search_mountains",
 							"originalRequest": {
 								"method": "GET",
@@ -968,6 +964,116 @@
 					]
 				},
 				{
+					"name": "search_mountains_in_area",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{alpinebook-server}}/api/v1/areas/:area_id/mountains?search=ы",
+							"host": [
+								"{{alpinebook-server}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"areas",
+								":area_id",
+								"mountains"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "ы",
+									"equals": true
+								}
+							],
+							"variable": [
+								{
+									"key": "area_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "33cfe87c-e33f-4c34-9d0d-66ff6e37ad4d",
+							"name": "search_mountains_in_area",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"url": {
+									"raw": "{{alpinebook-server}}/api/v1/areas/:area_id/mountains?search=ы",
+									"host": [
+										"{{alpinebook-server}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"areas",
+										":area_id",
+										"mountains"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "ы",
+											"equals": true
+										}
+									],
+									"variable": [
+										{
+											"key": "area_id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "text",
+							"header": [
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"name": "Connection",
+									"description": "Options that are desired for the connection"
+								},
+								{
+									"key": "Content-Length",
+									"value": "279",
+									"name": "Content-Length",
+									"description": "The length of the response body in octets (8-bit bytes)"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "The mime type of this content"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "5",
+									"name": "Keep-Alive",
+									"description": "Custom header"
+								},
+								{
+									"key": "Server",
+									"value": "AlpineBook v0.01",
+									"name": "Server",
+									"description": "A name for the server"
+								}
+							],
+							"cookie": [],
+							"responseTime": 35,
+							"body": "[{\"t\":\"r\",\"id\":1,\"n\":\"\\u0422\\u044f\\u043d\\u044c-\\u0428\\u0430\\u043d\\u044c\"},{\"t\":\"a\",\"id\":1,\"n\":\"\\u0417\\u0430\\u0438\\u043b\\u0438\\u0439\\u0441\\u043a\\u0438\\u0439 \\u0430\\u043b\\u0430\\u0442\\u0430\\u0443\"},{\"t\":\"m\",\"id\":1,\"n\":\"\\u0410\\u043c\\u0430\\u043d\\u0433\\u0435\\u043b\\u044c\\u0434\\u044b\"}]"
+						}
+					]
+				},
+				{
 					"name": "get_routes",
 					"request": {
 						"method": "GET",
@@ -998,7 +1104,7 @@
 					},
 					"response": [
 						{
-							"id": "3c52513e-0ebf-4f76-8f7f-eabf0b680b12",
+							"id": "bd23da88-db7e-4fb0-a1f8-6716aa8f132d",
 							"name": "get_routes",
 							"originalRequest": {
 								"method": "GET",
@@ -1096,7 +1202,7 @@
 					},
 					"response": [
 						{
-							"id": "40dd41db-e8e2-47b3-8fa9-ff64b63567ee",
+							"id": "aa571c0c-308a-478f-8292-4a7fe0c39a20",
 							"name": "get_route_by_id",
 							"originalRequest": {
 								"method": "GET",
@@ -1164,7 +1270,7 @@
 							"body": "{\"route_id\":6,\"complexity\":\"4\\u0410\",\"winter_complexity\":null,\"route_nature\":\"\\u043a\",\"mountain\":{\"mountain_id\":1,\"mountain\":\"\\u0410\\u043c\\u0430\\u043d\\u0433\\u0435\\u043b\\u044c\\u0434\\u044b\",\"altitude\":3999,\"area\":{\"area_id\":1,\"area\":\"\\u0417\\u0430\\u0438\\u043b\\u0438\\u0439\\u0441\\u043a\\u0438\\u0439 \\u0430\\u043b\\u0430\\u0442\\u0430\\u0443\",\"region\":{\"region_id\":1,\"region\":\"\\u0422\\u044f\\u043d\\u044c-\\u0428\\u0430\\u043d\\u044c\"}}},\"route\":null,\"traverse\":true,\"ending_mountain\":{\"mountain_id\":2,\"mountain\":\"\\u041c\\u0430\\u043d\\u0448\\u0443\\u043a \\u041c\\u0430\\u043c\\u0435\\u0442\\u043e\\u0432\\u043e\\u0439\",\"altitude\":4144,\"area\":{\"area_id\":1,\"area\":\"\\u0417\\u0430\\u0438\\u043b\\u0438\\u0439\\u0441\\u043a\\u0438\\u0439 \\u0430\\u043b\\u0430\\u0442\\u0430\\u0443\",\"region\":{\"region_id\":1,\"region\":\"\\u0422\\u044f\\u043d\\u044c-\\u0428\\u0430\\u043d\\u044c\"}}},\"first_ascender\":{\"alpinist_id\":2,\"last_name\":\"\\u041b\\u0435\\u0431\\u0435\\u0434\\u0435\\u0432\",\"first_name\":\"\\u0422\\u0438\\u043c\\u043e\\u0444\\u0435\\u0439\",\"middle_name\":null,\"rank\":null},\"first_ascent_year\":null}"
 						},
 						{
-							"id": "007ffa1a-47c7-4fca-92d2-d8b788668fdc",
+							"id": "25c72461-e7c3-4ca1-9abb-732621c2a8ae",
 							"name": "get_route_by_id",
 							"originalRequest": {
 								"method": "GET",
