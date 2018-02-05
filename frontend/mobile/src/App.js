@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { DrawerNavigator } from 'react-navigation';
 import { Root } from 'native-base';
 import HomeScreen from './containers/HomeScreen';
@@ -16,7 +16,7 @@ const RootDrawer = DrawerNavigator(
     { initialRouteName: 'Routes' }
 );
 
-export default class Alpinebook extends React.Component {
+export default class Alpinebook extends Component {
     render() {
         return (
             <Root>

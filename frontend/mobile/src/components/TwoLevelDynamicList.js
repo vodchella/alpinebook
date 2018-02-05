@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { observer } from 'mobx-react/native';
 import { TouchableOpacity, View, ListView, ActivityIndicator } from 'react-native';
 import { Body, Right, Icon, Content, ListItem, Text } from 'native-base';
@@ -8,7 +8,7 @@ import TwoLevelDynamicListStore from '../stores/TwoLevelDynamicListStore';
 import styles from '../styles/Styles';
 
 @observer
-class TwoLevelDynamicList extends React.Component {
+class TwoLevelDynamicList extends Component {
     
     /* eslint-disable react/sort-comp */
     store = new TwoLevelDynamicListStore();

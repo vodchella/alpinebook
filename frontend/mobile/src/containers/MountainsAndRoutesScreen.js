@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Alert } from 'react-native';
 import { Container, Header, Left, Body, Title, Icon, Button } from 'native-base';
 import TwoLevelDynamicList from '../components/TwoLevelDynamicList';
 import styles from '../styles/Styles';
 import alpinebook from '../connectors/Alpinebook';
 
-class MountainsAndRoutesScreen extends React.Component {
+class MountainsAndRoutesScreen extends Component {
     componentDidMount() {
         const areaId = this.props.navigation.state.params.record.id;
 

@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { observer } from 'mobx-react/native';
 import { TouchableOpacity } from 'react-native';
 import { Content, Text } from 'native-base';
 
 @observer
-class RegionAreasList extends React.Component {
+class RegionAreasList extends Component {
     render() {
         const { store, navigation, data } = this.props;
 

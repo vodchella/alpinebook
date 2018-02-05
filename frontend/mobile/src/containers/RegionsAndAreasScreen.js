@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
     Container, Header, Left, Body, Right, Button, Title, Icon
 } from 'native-base';
@@ -11,7 +11,7 @@ import MountainSearchHeader from '../components/MountainSearchHeader';
 import alpinebook from '../connectors/Alpinebook';
 
 @observer
-class RegionsAndAreasScreen extends React.Component {
+class RegionsAndAreasScreen extends Component {
     componentDidMount() {
         this.dynamicList.setLevel1DataLoader(
             () => {

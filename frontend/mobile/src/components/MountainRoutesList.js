@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { observer } from 'mobx-react/native';
 import { TouchableOpacity } from 'react-native';
 import { Content, Text, Left, Body, Badge, ListItem } from 'native-base';
@@ -17,7 +17,7 @@ const badgeColor = complexity => {
 };
 
 @observer
-class MountainRoutesList extends React.Component {
+class MountainRoutesList extends Component {
     render() {
         const { store, navigation, data } = this.props;
 
