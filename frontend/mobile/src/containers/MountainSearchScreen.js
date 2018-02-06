@@ -12,11 +12,13 @@ class MountainSearchScreen extends Component {
 
         this.list.store.setDataLoader(
             () => {
-                alpinebook.searchMountains(query, null, (result) => {
-                    this.list.store.setData(result);
-                });
-            },
-            () => {}
+                alpinebook.searchMountains(query, null,
+                    (result) => {
+                        this.list.store.setData(result);
+                    },
+                    this.list.store.abort
+                );
+            }
         );
 
         this.list.store.loadData();

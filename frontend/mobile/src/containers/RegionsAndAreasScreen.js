@@ -14,14 +14,14 @@ import alpinebook from '../connectors/Alpinebook';
 @observer
 class RegionsAndAreasScreen extends Component {
     componentDidMount() {
-        this.dynamicList.setLevel1DataLoader(
-            () => {
-                alpinebook.getRegions((result) => {
+        this.dynamicList.setLevel1DataLoader(() => {
+            alpinebook.getRegions(
+                (result) => {
                     this.dynamicList.setLevel1Data(result);
-                });
-            },
-            () => this.dynamicList.abort
-        );
+                },
+                this.dynamicList.abortLevel1
+            );
+        });
 
         this.dynamicList.setLevel2DataLoader(
             (id, index) => {

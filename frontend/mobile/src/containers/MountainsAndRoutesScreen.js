@@ -11,11 +11,13 @@ class MountainsAndRoutesScreen extends Component {
 
         this.dynamicList.setLevel1DataLoader(
             () => {
-                alpinebook.getMountains(areaId, (result) => {
-                    this.dynamicList.setLevel1Data(result);
-                });
-            },
-            () => this.dynamicList.abort
+                alpinebook.getMountains(areaId,
+                    (result) => {
+                        this.dynamicList.setLevel1Data(result);
+                    },
+                    this.dynamicList.abortLevel1
+                );
+            }
         );
 
         this.dynamicList.setLevel2DataLoader(

@@ -25,7 +25,7 @@ class TwoLevelDynamicList extends Component {
         this.setLevel2DataLoader = this.store.setLevel2DataLoader;
 
         this.setOnPressHandler = this.store.setOnPressHandler;
-        this.abort = this.store.abort;
+        this.abortLevel1 = this.store.abortLevel1;
     }
 
     render() {

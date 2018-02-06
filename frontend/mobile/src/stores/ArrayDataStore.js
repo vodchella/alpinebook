@@ -37,6 +37,10 @@ class ArrayDataStore {
             this.dataLoader();
         }
     }
+
+    abort() {
+        this.setFetchingInProgress(false);
+    }
 }
 
 export default ArrayDataStore;

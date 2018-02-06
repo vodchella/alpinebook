@@ -120,13 +120,13 @@ class TwoLevelDynamicListStore {
         }
     }
 
-    abort() {
+    abortLevel1() {
         this.setLeve1FetchingInProgress(false);
-        this.level2Map.forEach((value, key) => {
-            const rec = JSON.parse(value);
-            rec.inProgress = false;
-            this.level2Map.set(key, JSON.stringify(rec));
-        });
+        //this.level2Map.forEach((value, key) => {
+        //    const rec = JSON.parse(value);
+        //    rec.inProgress = false;
+        //    this.level2Map.set(key, JSON.stringify(rec));
+        //});
     }
 }
 

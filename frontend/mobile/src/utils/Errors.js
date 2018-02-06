@@ -1,6 +1,9 @@
 import { Toast } from 'native-base';
+//import { Alert } from 'react-native';
 
 export function showError(msg) {
+    //Alert.alert('Error', msg);
+    console.log(`Error: ${msg}`);
     Toast.show({ text: msg, type: 'danger', duration: 3000 });
 }
 
