@@ -6,6 +6,7 @@ import { StackNavigator } from 'react-navigation';
 import { observer } from 'mobx-react/native';
 import styles from '../styles/Styles';
 import MountainsAndRoutesScreen from './MountainsAndRoutesScreen';
+import MountainSearchScreen from './MountainSearchScreen';
 import TwoLevelDynamicList from '../components/TwoLevelDynamicList';
 import MountainSearchHeader from '../components/MountainSearchHeader';
 import alpinebook from '../connectors/Alpinebook';
@@ -86,7 +87,8 @@ RegionsAndAreasScreen.navigationOptions = { title: 'Горы и маршруты
 const RegionsAndAreasScreenNavigator = StackNavigator(
     {
         RegionsAndAreas: { screen: RegionsAndAreasScreen },
-        MountainsAndRoutes: { screen: MountainsAndRoutesScreen }
+        MountainsAndRoutes: { screen: MountainsAndRoutesScreen },
+        MountainSearch: { screen: MountainSearchScreen }
     },
     {
         headerMode: 'none',
