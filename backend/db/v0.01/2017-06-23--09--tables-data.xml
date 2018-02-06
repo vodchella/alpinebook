@@ -32,6 +32,7 @@
     <changeSet author="twister" id="regions">
         <sql>
             INSERT INTO regions (region_id, region) VALUES (1, 'Тянь-Шань');
+            INSERT INTO regions (region_id, region) VALUES (2, 'Памир');
         </sql>
         <rollback>
             TRUNCATE regions;
@@ -40,6 +41,8 @@
     <changeSet author="twister" id="areas">
         <sql>
             INSERT INTO areas (area_id, region_id, area) VALUES (1, 1, 'Заилийский алатау');
+            INSERT INTO areas (area_id, region_id, area) VALUES (2, 1, 'Тенгри-Таг');
+            INSERT INTO areas (area_id, region_id, area) VALUES (3, 2, 'Заалайский хребет');
         </sql>
         <rollback>
             TRUNCATE areas;
@@ -49,6 +52,9 @@
         <sql>
             INSERT INTO mountains (mountain_id, area_id, mountain, altitude) VALUES (1, 1, 'Амангельды', 3999);
             INSERT INTO mountains (mountain_id, area_id, mountain, altitude) VALUES (2, 1, 'Маншук Маметовой', 4144);
+            INSERT INTO mountains (mountain_id, area_id, mountain, altitude) VALUES (3, 2, 'Чапаева', 6100);
+            INSERT INTO mountains (mountain_id, area_id, mountain, altitude) VALUES (4, 2, 'Хан-Тенгри', 7010);
+            INSERT INTO mountains (mountain_id, area_id, mountain, altitude) VALUES (5, 3, 'Ленина', 7134);
         </sql>
         <rollback>
             TRUNCATE mountains;
