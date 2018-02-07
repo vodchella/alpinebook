@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { observer } from 'mobx-react/native';
 import { TouchableOpacity } from 'react-native';
 import { Content, Text, Left, Body, Badge, ListItem } from 'native-base';
+import ListItemHint from './ListItemHint';
 
 const badgeColor = complexity => {
     let color = '#477EEA';
@@ -21,7 +22,7 @@ class MountainRoutesList extends Component {
     render() {
         const { store, navigation, data } = this.props;
 
-        return data ?
+        return data.length ?
             <Content>{
                 data.map((item) =>
                     <ListItem noBorder key={item.id}>
@@ -52,7 +53,9 @@ class MountainRoutesList extends Component {
                         </Body>
                     </ListItem>
                 )}
-            </Content> : null;
+            </Content>
+            :
+            <ListItemHint caption={'Нет данных'} />;
     }
 }
 

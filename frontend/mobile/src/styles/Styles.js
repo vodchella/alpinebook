@@ -25,6 +25,11 @@ const styles = StyleSheet.create({
 
     searchBarText: {
         fontSize: 14
+    },
+
+    hintText: {
+        fontSize: 10,
+        color: 'grey'
     }
 });
 
