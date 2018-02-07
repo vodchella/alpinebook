@@ -59,6 +59,10 @@ class TwoLevelDynamicListStore {
         }
     }
 
+    abortLevel1() {
+        this.setLeve1FetchingInProgress(false);
+    }
+
     /*
      *  Level 2
      */
@@ -106,6 +110,10 @@ class TwoLevelDynamicListStore {
         }
     }
 
+    abortLevel2(index) {
+        this.setLevel2FetchingInProgress(index, false);
+    }
+
     /*
      *  Common
      */
@@ -118,15 +126,6 @@ class TwoLevelDynamicListStore {
         if (this.onPress) {
             this.onPress(navigation, item);
         }
-    }
-
-    abortLevel1() {
-        this.setLeve1FetchingInProgress(false);
-        //this.level2Map.forEach((value, key) => {
-        //    const rec = JSON.parse(value);
-        //    rec.inProgress = false;
-        //    this.level2Map.set(key, JSON.stringify(rec));
-        //});
     }
 }
 

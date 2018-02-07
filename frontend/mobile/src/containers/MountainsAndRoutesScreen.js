@@ -20,14 +20,16 @@ class MountainsAndRoutesScreen extends Component {
             }
         );
 
-        this.dynamicList.setLevel2DataLoader(
-            (id, index) => {
-                alpinebook.getRoutes(id, (result) => {
+        this.dynamicList.setLevel2DataLoader((id, index) => {
+            alpinebook.getRoutes(id,
+                (result) => {
                     this.dynamicList.setLevel2Data(id, index, result);
-                });
-            },
-            () => this.dynamicList.abort
-        );
+                },
+                () => {
+                    this.dynamicList.abortLevel2(index);
+                }
+            );
+        });
 
         this.dynamicList.setOnPressHandler(() => { Alert.alert('Ждите', 'Скоро всё будет!'); });
 

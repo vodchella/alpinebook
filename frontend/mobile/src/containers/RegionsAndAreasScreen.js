@@ -23,14 +23,16 @@ class RegionsAndAreasScreen extends Component {
             );
         });
 
-        this.dynamicList.setLevel2DataLoader(
-            (id, index) => {
-                alpinebook.getAreas(id, (result) => {
+        this.dynamicList.setLevel2DataLoader((id, index) => {
+            alpinebook.getAreas(id,
+                (result) => {
                     this.dynamicList.setLevel2Data(id, index, result);
-                });
-            },
-            () => this.dynamicList.abort
-        );
+                },
+                () => {
+                    this.dynamicList.abortLevel2(index);
+                }
+            );
+        });
 
         this.dynamicList.setOnPressHandler((navigation, item) => {
             navigation.navigate('MountainsAndRoutes', { record: item });
