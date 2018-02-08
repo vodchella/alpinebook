@@ -57,59 +57,82 @@ class MountainSearchList extends Component {
                             <ActivityIndicator size='large' color='gray' />
                         </View>
                         :
-                        //this.store.data.length ?
-                        1 === 1 ?
+                        this.store.data.length ?
                             <ScrollView>
                                     <View
                                         style={{
                                             flex: 1,
                                             flexDirection: 'column',
                                             alignItems: 'flex-start',
-                                            paddingLeft: 20,
-                                            paddingTop: 10
+                                            paddingLeft: 20
                                         }}
                                     >
-                                        <Text
-                                            style={{
-                                                color: 'grey',
-                                                alignSelf: 'flex-start'
-                                            }}
-                                        >
-                                            Тянь-Шань
-                                        </Text>
-                                        <Text
-                                            style={{
-                                                color: 'grey',
-                                                alignSelf: 'flex-start',
-                                                fontSize: 12,
-                                                paddingLeft: 10
-                                            }}
-                                        >
-                                            Заилийский алатау
-                                        </Text>
-                                        <TouchableOpacity
-                                            style={{
-                                                flex: 1,
-                                                flexDirection: 'row',
-                                                alignSelf: 'flex-start',
-                                                paddingLeft: 10,
-                                                paddingTop: 15,
-                                                paddingRight: 15,
-                                                height: 45,
-                                                justifyContent: 'space-between',
-                                                width: '100%'
-                                            }}
-                                        >
-                                            <Text>Амангельды</Text>
-                                            <Icon
-                                                name='arrow-down'
-                                                style={{ color: 'lightgrey', fontSize: 20 }}
-                                            />
-                                        </TouchableOpacity>
-                                        <MountainRoutesList
-                                            navigation={navigation}
-                                            data={testData}
-                                        />
+                                        {this.store.data.map((item) => {
+                                            switch (item.t) {
+                                                case 'r': return (
+                                                    <Text
+                                                        key={`${item.t}${item.id}`}
+                                                        style={{
+                                                            color: 'grey',
+                                                            alignSelf: 'flex-start',
+                                                            paddingTop: 10
+                                                        }}
+                                                    >
+                                                        {item.name}
+                                                    </Text>);
+                                                case 'a': return (
+                                                    <Text
+                                                        key={`${item.t}${item.id}`}
+                                                        style={{
+                                                            color: 'grey',
+                                                            alignSelf: 'flex-start',
+                                                            fontSize: 12,
+                                                            paddingLeft: 10,
+                                                            paddingBottom: 15
+                                                        }}
+                                                    >
+                                                        {item.name}
+                                                    </Text>);
+                                                case 'm': return (
+                                                    <View
+                                                        key={`${item.t}${item.id}`}
+                                                        style={{
+                                                            flex: 1,
+                                                            flexDirection: 'column',
+                                                            alignSelf: 'flex-start',
+                                                            paddingLeft: 10,
+                                                            paddingRight: 15,
+                                                            paddingBottom: 15,
+                                                            width: '100%'
+                                                        }}
+                                                    >
+                                                        <TouchableOpacity
+                                                            key={`${item.t}${item.id}`}
+                                                            style={{
+                                                                flex: 1,
+                                                                flexDirection: 'row',
+                                                                justifyContent: 'space-between',
+                                                                width: '100%'
+                                                            }}
+                                                        >
+                                                            <Text>{item.name}</Text>
+                                                            <Icon
+                                                                name='arrow-down'
+                                                                style={{
+                                                                    color: 'lightgrey',
+                                                                    fontSize: 20
+                                                                }}
+                                                            />
+                                                        </TouchableOpacity>
+                                                        <MountainRoutesList
+                                                            navigation={navigation}
+                                                            data={testData}
+                                                        />
+                                                    </View>);
+                                                default:
+                                                    return <View key={item.id} />;
+                                            }
+                                        })}
                                     </View>
                             </ScrollView>
                             :
