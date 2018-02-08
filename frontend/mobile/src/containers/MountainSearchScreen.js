@@ -31,7 +31,7 @@ class MountainSearchScreen extends Component {
             <Container>
                 <SimpleHeader
                     navigation={navigation}
-                    caption={'Поиск'}
+                    caption={'Поиск гор'}
                 />
                 <MountainSearchList
                     ref={(ref) => { this.list = ref; }}

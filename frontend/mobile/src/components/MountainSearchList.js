@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react/native';
 import { View, ActivityIndicator } from 'react-native';
-import { Content } from 'native-base';
+import { Content, Text } from 'native-base';
 import ArrayDataStore from '../stores/ArrayDataStore';
 import SearchResultHint from './SearchResultHint';
 import styles from '../styles/Styles';
@@ -17,18 +17,23 @@ class MountainSearchList extends Component {
         const { query } = navigation.state.params;
 
         return (
-            <Content>
+            <View style={{ flex: 1, flexDirection: 'column' }}>
                 <SearchResultHint query={query} />
                 {this.store.fetchingInProgress ?
-                    <View style={styles.container}>
-                        <ActivityIndicator size='large' color='gray' />
-                    </View>
-                    :
-                    this.store.dataLoaded ?
-                        <View />
+                        <View style={styles.container}>
+                            <ActivityIndicator size='large' color='gray' />
+                        </View>
                         :
-                        <View />}
-            </Content>
+                        this.store.data.length ?
+                            <Content>
+                                <Text />
+                            </Content>
+                            :
+                            <View style={styles.container}>
+                                <Text style={styles.inactiveText}>Нет данных</Text>
+                            </View>
+                        }
+            </View>
         );
     }
 }

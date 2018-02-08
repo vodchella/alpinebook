@@ -29,6 +29,20 @@ const styles = StyleSheet.create({
     hintText: {
         fontSize: 10,
         color: 'grey'
+    },
+
+    inactiveText: {
+        fontSize: 12,
+        color: 'grey'
+    },
+
+    searchHint: {
+        height: 40,
+        flex: 0,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F0F2A4'
     }
 });
 

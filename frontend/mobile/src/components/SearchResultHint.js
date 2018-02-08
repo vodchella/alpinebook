@@ -1,15 +1,13 @@
 import React from 'react';
-import { Content, Text, Body, Item, Icon } from 'native-base';
+import { View } from 'react-native';
+import { Text, Icon } from 'native-base';
+import styles from '../styles/Styles';
 
 const SearchResultHint = ({ query }) => (
-    <Content>
-        <Body style={{ paddingTop: 5 }}>
-            <Item>
-                <Icon name='search' style={{ color: 'grey' }} />
-                <Text style={{ color: 'grey', fontSize: 12 }}>Результаты поиска по '{query}'</Text>
-            </Item>
-        </Body>
-    </Content>
+    <View style={styles.searchHint}>
+        <Icon name='search' style={{ color: 'grey', paddingRight: 5 }} />
+        <Text style={styles.inactiveText}>Результаты поиска по '{query}'</Text>
+    </View>
 );
 
 export default SearchResultHint;
