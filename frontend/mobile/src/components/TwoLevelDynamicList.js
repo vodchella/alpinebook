@@ -32,7 +32,6 @@ class TwoLevelDynamicList extends Component {
     render() {
         const { navigation, viewType } = this.props;
 
-        /* eslint-disable no-nested-ternary */
         return this.store.leve1FetchingInProgress ?
                     <View style={styles.container}>
                         <ActivityIndicator size='large' color='gray' />

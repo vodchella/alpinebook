@@ -2,5 +2,8 @@
     "extends": "eslint-config-rallycoding",
     "globals": {
         "fetch": false
+    },
+    "rules": {
+        "no-nested-ternary": "off"
     }
 }
