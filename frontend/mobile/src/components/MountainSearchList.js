@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react/native';
 import { View, ScrollView, ActivityIndicator, TouchableOpacity } from 'react-native';
-import { Text, Badge, Icon } from 'native-base';
+import { Text, Icon } from 'native-base';
+import MountainRoutesList from './MountainRoutesList';
 import ArrayDataStore from '../stores/ArrayDataStore';
 import SearchResultHint from './SearchResultHint';
 import styles from '../styles/Styles';
@@ -83,7 +84,9 @@ class MountainSearchList extends Component {
                                                 fontSize: 12,
                                                 paddingLeft: 10
                                             }}
-                                        >Заилийский алатау</Text>
+                                        >
+                                            Заилийский алатау
+                                        </Text>
                                         <TouchableOpacity
                                             style={{
                                                 flex: 1,
@@ -103,42 +106,10 @@ class MountainSearchList extends Component {
                                                 style={{ color: 'lightgrey', fontSize: 20 }}
                                             />
                                         </TouchableOpacity>
-                                        {testData.map((item) =>
-                                            <TouchableOpacity
-                                                key={item.id}
-                                                style={{
-                                                    flex: 1,
-                                                    flexDirection: 'row',
-                                                    alignSelf: 'flex-start',
-                                                    paddingLeft: 10,
-                                                    height: 45,
-                                                    width: '100%'
-                                                }}
-                                            >
-                                                <Badge
-                                                    style={{
-                                                        borderRadius: 5,
-                                                        height: 25,
-                                                        width: 45,
-                                                        alignSelf: 'center',
-                                                        backgroundColor: '#477EEA'
-                                                    }}
-                                                >
-                                                    <Text>
-                                                        {item.complexity}
-                                                        {item.winter_complexity ? '*' : null}
-                                                    </Text>
-                                                </Badge>
-                                                <Text
-                                                    style={{
-                                                        paddingLeft: 20,
-                                                        paddingRight: 50,
-                                                        alignSelf: 'center'
-                                                    }}
-                                                >
-                                                    {item.name}
-                                                </Text>
-                                            </TouchableOpacity>)}
+                                        <MountainRoutesList
+                                            navigation={navigation}
+                                            data={testData}
+                                        />
                                     </View>
                             </ScrollView>
                             :

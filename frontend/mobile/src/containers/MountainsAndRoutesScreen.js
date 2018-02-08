@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Alert } from 'react-native';
 import { Container } from 'native-base';
 import TwoLevelDynamicList from '../components/TwoLevelDynamicList';
 import SimpleHeader from '../components/SimpleHeader';
@@ -30,8 +29,6 @@ class MountainsAndRoutesScreen extends Component {
                 }
             );
         });
-
-        this.dynamicList.setOnPressHandler(() => { Alert.alert('Ждите', 'Скоро всё будет!'); });
 
         this.dynamicList.loadLevel1Data();
     }

@@ -68,7 +68,6 @@ class TwoLevelDynamicList extends Component {
                                                 </Text>
                                                 {viewType === 'mountains' ?
                                                     <MountainRoutesList
-                                                        store={this.store}
                                                         navigation={navigation}
                                                         data={this.store.getLevel2Array(rec.id)}
                                                     />

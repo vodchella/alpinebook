@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react/native';
-import { TouchableOpacity } from 'react-native';
-import { Content, Text, Left, Body, Badge, ListItem } from 'native-base';
+import { View, TouchableOpacity, Alert } from 'react-native';
+import { Text, Badge } from 'native-base';
 import ListItemHint from './ListItemHint';
 
 const badgeColor = complexity => {
@@ -20,40 +20,56 @@ const badgeColor = complexity => {
 @observer
 class MountainRoutesList extends Component {
     render() {
-        const { store, navigation, data } = this.props;
+        const { data } = this.props;
 
         return data.length ?
-            <Content>{
-                data.map((item) =>
-                    <ListItem noBorder key={item.id}>
-                        <Left style={{ flex: 0, paddingRight: 20 }}>
-                            <TouchableOpacity
-                                onPress={() => store.execOnPressHandler(navigation, item)}
-                            >
-                                <Badge
-                                    style={{
-                                        borderRadius: 5,
-                                        height: 25,
-                                        width: 45,
-                                        backgroundColor: badgeColor(item.complexity)
-                                    }}
-                                >
-                                    <Text>
-                                        {item.complexity}{item.winter_complexity ? '*' : null}
-                                    </Text>
-                                </Badge>
-                            </TouchableOpacity>
-                        </Left>
-                        <Body>
-                            <TouchableOpacity
-                                onPress={() => store.execOnPressHandler(navigation, item)}
-                            >
-                                <Text>{item.name}</Text>
-                            </TouchableOpacity>
-                        </Body>
-                    </ListItem>
-                )}
-            </Content>
+            <View
+                style={{
+                    flex: 1,
+                    flexDirection: 'column',
+                    alignItems: 'flex-start',
+                    paddingLeft: 20
+                }}
+            >
+                {data.map((item) =>
+                    <TouchableOpacity
+                        key={item.id}
+                        onPress={() => Alert.alert('Ждите', 'Скоро всё будет!')}
+                        style={{
+                            flex: 1,
+                            flexDirection: 'row',
+                            alignSelf: 'flex-start',
+                            paddingLeft: 10,
+                            height: 45,
+                            width: '100%'
+                        }}
+                    >
+                        <Badge
+                            style={{
+                                borderRadius: 5,
+                                height: 25,
+                                width: 45,
+                                alignSelf: 'center',
+                                backgroundColor: badgeColor(item.complexity)
+                            }}
+                        >
+                            <Text>
+                                {item.complexity}
+                                {item.winter_complexity ? '*' : null}
+                            </Text>
+                        </Badge>
+                        <Text
+                            style={{
+                                paddingLeft: 20,
+                                paddingRight: 50,
+                                alignSelf: 'center'
+                            }}
+                        >
+                            {item.name}
+                        </Text>
+                    </TouchableOpacity>)
+                }
+            </View>
             :
             <ListItemHint caption={'Нет данных'} />;
     }
