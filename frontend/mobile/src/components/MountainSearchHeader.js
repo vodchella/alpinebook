@@ -8,6 +8,11 @@ class MountainSearchHeader extends Component {
         this.state = { searchText: '' };
     }
 
+    componentDidMount() {
+        /* eslint-disable no-underscore-dangle */
+        this.queryInput._root.focus();
+    }
+
     search = () => {
         const query = this.state.searchText.trim();
         if (query) {
@@ -37,6 +42,7 @@ class MountainSearchHeader extends Component {
                         onSubmitEditing={this.search}
                         autoCapitalize='none'
                         autoCorrect={false}
+                        ref={(ref) => { this.queryInput = ref; }}
                     />
                     <Icon name='close' onPress={onClose} />
                 </Item>
