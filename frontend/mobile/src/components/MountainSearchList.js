@@ -137,7 +137,7 @@ class MountainSearchList extends Component {
                             </ScrollView>
                             :
                             <View style={styles.container}>
-                                <Text style={styles.inactiveText}>Нет данных</Text>
+                                <Text style={styles.inactiveText}>Ничего не найдено</Text>
                             </View>
                         }
             </View>

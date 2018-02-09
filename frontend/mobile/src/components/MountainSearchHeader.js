@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Alert } from 'react-native';
 import { Header, Left, Button, Icon, Item, Input } from 'native-base';
 import styles from '../styles/Styles';
 
@@ -9,16 +10,22 @@ class MountainSearchHeader extends Component {
     }
 
     componentDidMount() {
+        this.focusQueryInput();
+    }
+
+    focusQueryInput = () => {
         /* eslint-disable no-underscore-dangle */
         this.queryInput._root.focus();
     }
 
     search = () => {
         const query = this.state.searchText.trim();
-        if (query) {
+        if (query.length >= 2) {
             const { navigation, onClose } = this.props;
             onClose();
             navigation.navigate('MountainSearch', { query });
+        } else {
+            Alert.alert('Серьёзно', 'не помнишь больше двух букв из названия горы?');
         }
     };
 
