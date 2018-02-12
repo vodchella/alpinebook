@@ -5,6 +5,10 @@ import { modifyJsonInArray } from '../utils/Arrays';
 
 @autobind
 class TwoLevelDynamicListStore {
+    constructor(useJSONStringsAtLevelOne) {
+        this.useJSONStringsAtLevelOne = useJSONStringsAtLevelOne;
+    }
+
 
     /*
      *  Level 1
@@ -41,7 +45,7 @@ class TwoLevelDynamicListStore {
             const elem = item;
             elem.inProgress = false;
             elem.dataLoaded = false;
-            return JSON.stringify(elem);
+            return this.useJSONStringsAtLevelOne ? JSON.stringify(elem) : elem;
         });
         // Порядок вызовов setDataLoaded и setFetchingInProgress важен!
         this.setLevel1DataLoaded(true);

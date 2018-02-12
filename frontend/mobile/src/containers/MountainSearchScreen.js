@@ -10,18 +10,18 @@ class MountainSearchScreen extends Component {
     componentDidMount() {
         const { query } = this.props.navigation.state.params;
 
-        this.list.store.setDataLoader(
+        this.list.store.setLevel1DataLoader(
             () => {
                 alpinebook.searchMountains(query, null,
                     (result) => {
-                        this.list.store.setData(result);
+                        this.list.store.setLevel1Data(result);
                     },
                     this.list.store.abort
                 );
             }
         );
 
-        this.list.store.loadData();
+        this.list.store.loadLevel1Data();
     }
 
     render() {

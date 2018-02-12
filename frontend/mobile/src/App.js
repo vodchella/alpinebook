@@ -19,7 +19,7 @@ const RootDrawer = DrawerNavigator(
 
 export default class Alpinebook extends Component {
     render() {
-        regionsAndAreasStore.listStore = new TwoLevelDynamicListStore();
+        regionsAndAreasStore.listStore = new TwoLevelDynamicListStore(true);
 
         return (
             <Root>

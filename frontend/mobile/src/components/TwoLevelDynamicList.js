@@ -14,7 +14,7 @@ class TwoLevelDynamicList extends Component {
         if (store) {
             this.store = store;
         } else {
-            this.store = new TwoLevelDynamicListStore();
+            this.store = new TwoLevelDynamicListStore(true);
         }
 
         this.loadLevel1Data = this.store.loadLevel1Data;

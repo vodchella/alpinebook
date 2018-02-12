@@ -3,14 +3,14 @@ import { observer } from 'mobx-react/native';
 import { View, ScrollView, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { Text, Icon } from 'native-base';
 import MountainRoutesList from './MountainRoutesList';
-import ArrayDataStore from '../stores/ArrayDataStore';
+import TwoLevelDynamicListStore from '../stores/TwoLevelDynamicListStore';
 import SearchResultHint from './SearchResultHint';
 import styles from '../styles/Styles';
 
 @observer
 class MountainSearchList extends Component {
     componentWillMount() {
-        this.store = new ArrayDataStore();
+        this.store = new TwoLevelDynamicListStore();
     }
 
     render() {
@@ -52,12 +52,12 @@ class MountainSearchList extends Component {
         return (
             <View style={{ flex: 1, flexDirection: 'column' }}>
                 <SearchResultHint query={query} />
-                {this.store.fetchingInProgress ?
+                {this.store.leve1FetchingInProgress ?
                         <View style={styles.container}>
                             <ActivityIndicator size='large' color='gray' />
                         </View>
                         :
-                        this.store.data.length ?
+                        this.store.leve1Data.length ?
                             <ScrollView>
                                     <View
                                         style={{
@@ -67,7 +67,7 @@ class MountainSearchList extends Component {
                                             paddingLeft: 20
                                         }}
                                     >
-                                        {this.store.data.map((item) => {
+                                        {this.store.leve1Data.map((item) => {
                                             switch (item.t) {
                                                 case 'r': return (
                                                     <Text
