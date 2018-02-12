@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { observer } from 'mobx-react/native';
 import { TouchableOpacity } from 'react-native';
 import { Content, Text } from 'native-base';
+import ListItemHint from './ListItemHint';
 
 @observer
-class Level2List extends React.Component {
+class RegionAreasList extends Component {
     render() {
-        const { id, store, navigation } = this.props;
-        const data = store.getLevel2Array(id);
+        const { store, navigation, data } = this.props;
 
-        return data ?
+        return data.length ?
             <Content style={{ marginLeft: 23 }}>{
                 data.map((item) =>
                     <TouchableOpacity
@@ -20,8 +20,10 @@ class Level2List extends React.Component {
                         <Text>{item.name}</Text>
                     </TouchableOpacity>
                 )}
-            </Content> : null;
+            </Content>
+            :
+            <ListItemHint caption={'Нет данных'} />;
     }
 }
 
-export default Level2List;
+export default RegionAreasList;

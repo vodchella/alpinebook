@@ -1,32 +1,37 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { observer } from 'mobx-react/native';
 import { TouchableOpacity, View, ListView, ActivityIndicator } from 'react-native';
 import { Body, Right, Icon, Content, ListItem, Text } from 'native-base';
-import Level2List from './Level2List';
-import Level2RoutesList from './Level2RoutesList';
+import RegionAreasList from './RegionAreasList';
+import MountainRoutesList from './MountainRoutesList';
 import TwoLevelDynamicListStore from '../stores/TwoLevelDynamicListStore';
 import styles from '../styles/Styles';
 
 @observer
-class TwoLevelDynamicList extends React.Component {
-    
-    /* eslint-disable react/sort-comp */
-    store = new TwoLevelDynamicListStore();
+class TwoLevelDynamicList extends Component {
+    componentWillMount() {
+        const { store } = this.props;
+        if (store) {
+            this.store = store;
+        } else {
+            this.store = new TwoLevelDynamicListStore(true);
+        }
 
-    loadLevel1Data = this.store.loadLevel1Data;
-    loadLevel2Data = this.store.loadLevel2Data;
-    setLevel1Data = this.store.setLevel1Data;
-    setLevel2Data = this.store.setLevel2Data;
-    setLevel1DataLoader = this.store.setLevel1DataLoader;
-    setLevel2DataLoader = this.store.setLevel2DataLoader;
+        this.loadLevel1Data = this.store.loadLevel1Data;
+        this.loadLevel2Data = this.store.loadLevel2Data;
+        this.setLevel1Data = this.store.setLevel1Data;
+        this.setLevel2Data = this.store.setLevel2Data;
+        this.setLevel1DataLoader = this.store.setLevel1DataLoader;
+        this.setLevel2DataLoader = this.store.setLevel2DataLoader;
 
-    setOnPressHandler = this.store.setOnPressHandler;
-    abort = this.store.abort;
+        this.setOnPressHandler = this.store.setOnPressHandler;
+        this.abortLevel1 = this.store.abortLevel1;
+        this.abortLevel2 = this.store.abortLevel2;
+    }
 
     render() {
         const { navigation, viewType } = this.props;
 
-        /* eslint-disable no-nested-ternary */
         return this.store.leve1FetchingInProgress ?
                     <View style={styles.container}>
                         <ActivityIndicator size='large' color='gray' />
@@ -58,11 +63,20 @@ class TwoLevelDynamicList extends React.Component {
                                         :
                                         <ListItem>
                                             <Body>
-                                                <Text style={{ fontSize: 15, color: 'grey' }}>{rec.name}</Text>
+                                                <Text style={{ fontSize: 15, color: 'grey' }}>
+                                                    {rec.name}
+                                                </Text>
                                                 {viewType === 'mountains' ?
-                                                    <Level2RoutesList id={rec.id} store={this.store} navigation={navigation} />
+                                                    <MountainRoutesList
+                                                        navigation={navigation}
+                                                        data={this.store.getLevel2Array(rec.id)}
+                                                    />
                                                     :
-                                                    <Level2List id={rec.id} store={this.store} navigation={navigation} />}
+                                                    <RegionAreasList
+                                                        store={this.store}
+                                                        navigation={navigation}
+                                                        data={this.store.getLevel2Array(rec.id)}
+                                                    />}
                                             </Body>
                                         </ListItem>;
                                     }}

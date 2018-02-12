@@ -18,7 +18,7 @@ $BODY$
          end ||
          case r.traverse_bool
            when true then
-             'траверс до ' || em.mountain
+             'тр-с до ' || em.mountain
            else
              r.route
          end

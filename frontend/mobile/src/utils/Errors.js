@@ -1,7 +1,10 @@
-import { Toast } from 'native-base';
+//import { Toast } from 'native-base';
+import { Alert } from 'react-native';
 
 export function showError(msg) {
-    Toast.show({ text: msg, type: 'danger', duration: 3000 });
+    console.log(`Error: ${msg}`);
+    Alert.alert('Ошибка', msg);
+    //Toast.show({ text: msg, type: 'danger', duration: 3000 });
 }
 
 export function getErrorFromJson(jsonObject) {

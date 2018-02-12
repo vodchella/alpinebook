@@ -5,6 +5,10 @@ import { modifyJsonInArray } from '../utils/Arrays';
 
 @autobind
 class TwoLevelDynamicListStore {
+    constructor(useJSONStringsAtLevelOne) {
+        this.useJSONStringsAtLevelOne = useJSONStringsAtLevelOne;
+    }
+
 
     /*
      *  Level 1
@@ -37,11 +41,14 @@ class TwoLevelDynamicListStore {
     }
 
     setLevel1Data(data) {
+        let i = 0;
         this.leve1Data = data.map((item) => {
             const elem = item;
+            elem.index = i;
             elem.inProgress = false;
             elem.dataLoaded = false;
-            return JSON.stringify(elem);
+            i += 1;
+            return this.useJSONStringsAtLevelOne ? JSON.stringify(elem) : elem;
         });
         // Порядок вызовов setDataLoaded и setFetchingInProgress важен!
         this.setLevel1DataLoaded(true);
@@ -59,6 +66,10 @@ class TwoLevelDynamicListStore {
         }
     }
 
+    abortLevel1() {
+        this.setLeve1FetchingInProgress(false);
+    }
+
     /*
      *  Level 2
      */
@@ -68,20 +79,29 @@ class TwoLevelDynamicListStore {
     onPress = undefined;
 
     setLevel2FetchingInProgress(index, val) {
-        modifyJsonInArray(this.leve1Data, index, (rec) => {
-            const newRec = rec;
-            newRec.inProgress = val;
-            return newRec;
-        });
+        if (this.useJSONStringsAtLevelOne) {
+            modifyJsonInArray(this.leve1Data, index, (rec) => {
+                const newRec = rec;
+                newRec.inProgress = val;
+                return newRec;
+            });
+        } else {
+            this.leve1Data[index].inProgress = val;
+        }
     }
 
     setLevel2DataLoaded(index, val) {
-        modifyJsonInArray(this.leve1Data, index, (rec) => {
-            const newRec = rec;
-            newRec.dataLoaded = val;
-            newRec.inProgress = false;
-            return newRec;
-        });
+        if (this.useJSONStringsAtLevelOne) {
+            modifyJsonInArray(this.leve1Data, index, (rec) => {
+                const newRec = rec;
+                newRec.dataLoaded = val;
+                newRec.inProgress = false;
+                return newRec;
+            });
+        } else {
+            this.leve1Data[index].dataLoaded = val;
+            this.leve1Data[index].inProgress = false;
+        }
     }
 
     getLevel2Array(id) {
@@ -106,6 +126,10 @@ class TwoLevelDynamicListStore {
         }
     }
 
+    abortLevel2(index) {
+        this.setLevel2FetchingInProgress(index, false);
+    }
+
     /*
      *  Common
      */
@@ -118,15 +142,6 @@ class TwoLevelDynamicListStore {
         if (this.onPress) {
             this.onPress(navigation, item);
         }
-    }
-
-    abort() {
-        this.setLeve1FetchingInProgress(false);
-        this.level2Map.forEach((value, key) => {
-            const rec = JSON.parse(value);
-            rec.inProgress = false;
-            this.level2Map.set(key, JSON.stringify(rec));
-        });
     }
 }
 

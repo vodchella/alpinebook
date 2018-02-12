@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { DrawerNavigator } from 'react-navigation';
 import { Root } from 'native-base';
 import HomeScreen from './containers/HomeScreen';
 import RegionsAndAreasScreenNavigator from './containers/RegionsAndAreasScreen';
 import SummitsScreenNavigator from './containers/SummitsScreen';
-import regionsAndAreasStore from './stores/RegionsAndAreasStore';
+import RegionsAndAreasStore from './stores/RegionsAndAreasStore';
+import TwoLevelDynamicListStore from './stores/TwoLevelDynamicListStore';
 
 
 const RootDrawer = DrawerNavigator(
@@ -16,7 +17,14 @@ const RootDrawer = DrawerNavigator(
     { initialRouteName: 'Routes' }
 );
 
-export default class Alpinebook extends React.Component {
+export default class Alpinebook extends Component {
+    componentWillMount() {
+        if (!this.regionsAndAreasStore) {
+            this.regionsAndAreasStore = new RegionsAndAreasStore();
+            this.regionsAndAreasStore.listStore = new TwoLevelDynamicListStore(true);
+        }
+    }
+
     render() {
         return (
             <Root>
@@ -24,7 +32,7 @@ export default class Alpinebook extends React.Component {
                     screenProps={{
                         version: '0.01',
                         stores: {
-                            regionsAndAreasStore
+                            regionsAndAreasStore: this.regionsAndAreasStore
                         }
                     }}
                 />

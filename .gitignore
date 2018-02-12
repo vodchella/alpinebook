@@ -1,7 +1,9 @@
 *.jar
+!frontend/mobile/android/gradle/wrapper/gradle-wrapper.jar
 *.log*
 *.pyc
 .idea
+.vscode
 venv*
 __pycache__
 

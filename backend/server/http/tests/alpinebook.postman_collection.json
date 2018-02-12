@@ -1,8 +1,7 @@
 {
 	"info": {
 		"name": "alpinebook",
-		"_postman_id": "c48fde2a-9396-7021-130e-f7d7071af8a5",
-		"description": "",
+		"_postman_id": "c9549d7b-1887-b11a-5b78-f49df262c7b7",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -30,7 +29,70 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"id": "bb0a9e03-8ad7-4877-bffc-bf6f19e19011",
+							"name": "get_regions",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{alpinebook-server}}/api/v1/regions",
+									"host": [
+										"{{alpinebook-server}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"regions"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "html",
+							"header": [
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"name": "Connection",
+									"description": ""
+								},
+								{
+									"key": "Content-Length",
+									"value": "78",
+									"name": "Content-Length",
+									"description": ""
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": ""
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "5",
+									"name": "Keep-Alive",
+									"description": ""
+								},
+								{
+									"key": "Server",
+									"value": "AlpineBook v0.01",
+									"name": "Server",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"responseTime": "546",
+							"body": "[\n    {\n        \"region_id\": 1,\n        \"region\": \"Тянь-Шань\"\n    },\n    {\n        \"region_id\": 2,\n        \"region\": \"Памир\"\n    }\n]"
+						}
+					]
 				},
 				{
 					"name": "get_region_by_id",
@@ -60,7 +122,77 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"id": "9a99ebdc-0ec7-43c4-8594-1219412534b0",
+							"name": "get_region_by_id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{alpinebook-server}}/api/v1/regions/:region_id",
+									"host": [
+										"{{alpinebook-server}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"regions",
+										":region_id"
+									],
+									"variable": [
+										{
+											"key": "region_id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "html",
+							"header": [
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"name": "Connection",
+									"description": ""
+								},
+								{
+									"key": "Content-Length",
+									"value": "76",
+									"name": "Content-Length",
+									"description": ""
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": ""
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "5",
+									"name": "Keep-Alive",
+									"description": ""
+								},
+								{
+									"key": "Server",
+									"value": "AlpineBook v0.01",
+									"name": "Server",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"responseTime": "59",
+							"body": "{\"region_id\":1,\"region\":\"\\u0422\\u044f\\u043d\\u044c-\\u0428\\u0430\\u043d\\u044c\"}"
+						}
+					]
 				},
 				{
 					"name": "get_areas",
@@ -91,7 +223,218 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"id": "7a6887bf-989b-4049-86db-8848abd544a2",
+							"name": "get_areas_1",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{alpinebook-server}}/api/v1/regions/:region_id/areas",
+									"host": [
+										"{{alpinebook-server}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"regions",
+										":region_id",
+										"areas"
+									],
+									"variable": [
+										{
+											"key": "region_id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "html",
+							"header": [
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"name": "Connection",
+									"description": ""
+								},
+								{
+									"key": "Content-Length",
+									"value": "122",
+									"name": "Content-Length",
+									"description": ""
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": ""
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "5",
+									"name": "Keep-Alive",
+									"description": ""
+								},
+								{
+									"key": "Server",
+									"value": "AlpineBook v0.01",
+									"name": "Server",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"responseTime": "37",
+							"body": "[\n    {\n        \"area_id\": 1,\n        \"area\": \"Заилийский алатау\"\n    },\n    {\n        \"area_id\": 2,\n        \"area\": \"Тенгри-Таг\"\n    }\n]"
+						},
+						{
+							"id": "516881e0-44f1-4042-80fa-51fd4295489c",
+							"name": "get_areas_2",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{alpinebook-server}}/api/v1/regions/:region_id/areas",
+									"host": [
+										"{{alpinebook-server}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"regions",
+										":region_id",
+										"areas"
+									],
+									"variable": [
+										{
+											"key": "region_id",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "html",
+							"header": [
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"name": "Connection",
+									"description": ""
+								},
+								{
+									"key": "Content-Length",
+									"value": "122",
+									"name": "Content-Length",
+									"description": ""
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": ""
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "5",
+									"name": "Keep-Alive",
+									"description": ""
+								},
+								{
+									"key": "Server",
+									"value": "AlpineBook v0.01",
+									"name": "Server",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"responseTime": "37",
+							"body": "[\n    {\n        \"area_id\": 3,\n        \"area\": \"Заалайский хребет\"\n    }\n]"
+						},
+						{
+							"id": "47a2732a-2719-4c18-ae24-4491f6cf5023",
+							"name": "get_areas_100",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{alpinebook-server}}/api/v1/regions/:region_id/areas",
+									"host": [
+										"{{alpinebook-server}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"regions",
+										":region_id",
+										"areas"
+									],
+									"variable": [
+										{
+											"key": "region_id",
+											"value": "100"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "html",
+							"header": [
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"name": "Connection",
+									"description": ""
+								},
+								{
+									"key": "Content-Length",
+									"value": "122",
+									"name": "Content-Length",
+									"description": ""
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": ""
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "5",
+									"name": "Keep-Alive",
+									"description": ""
+								},
+								{
+									"key": "Server",
+									"value": "AlpineBook v0.01",
+									"name": "Server",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"responseTime": "1380",
+							"body": "{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"Something wrong\"\n  }\n}"
+						}
+					]
 				},
 				{
 					"name": "get_area_by_id",
@@ -121,7 +464,77 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"id": "fa7abfcf-7ce1-4fd3-a74e-868b51481fbc",
+							"name": "get_area_by_id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{alpinebook-server}}/api/v1/areas/:area_id",
+									"host": [
+										"{{alpinebook-server}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"areas",
+										":area_id"
+									],
+									"variable": [
+										{
+											"key": "area_id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "html",
+							"header": [
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"name": "Connection",
+									"description": ""
+								},
+								{
+									"key": "Content-Length",
+									"value": "206",
+									"name": "Content-Length",
+									"description": ""
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": ""
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "5",
+									"name": "Keep-Alive",
+									"description": ""
+								},
+								{
+									"key": "Server",
+									"value": "AlpineBook v0.01",
+									"name": "Server",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"responseTime": "51",
+							"body": "{\"area_id\":1,\"area\":\"\\u0417\\u0430\\u0438\\u043b\\u0438\\u0439\\u0441\\u043a\\u0438\\u0439 \\u0430\\u043b\\u0430\\u0442\\u0430\\u0443\",\"region\":{\"region_id\":1,\"region\":\"\\u0422\\u044f\\u043d\\u044c-\\u0428\\u0430\\u043d\\u044c\"}}"
+						}
+					]
 				},
 				{
 					"name": "get_mountains",
@@ -152,7 +565,218 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"id": "86fcd253-b691-44a4-88de-1d31f19cf8e4",
+							"name": "get_mountains_1",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{alpinebook-server}}/api/v1/areas/:area_id/mountains",
+									"host": [
+										"{{alpinebook-server}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"areas",
+										":area_id",
+										"mountains"
+									],
+									"variable": [
+										{
+											"key": "area_id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "html",
+							"header": [
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"name": "Connection",
+									"description": ""
+								},
+								{
+									"key": "Content-Length",
+									"value": "216",
+									"name": "Content-Length",
+									"description": ""
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": ""
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "5",
+									"name": "Keep-Alive",
+									"description": ""
+								},
+								{
+									"key": "Server",
+									"value": "AlpineBook v0.01",
+									"name": "Server",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"responseTime": "983",
+							"body": "[{\"mountain_id\":1,\"mountain\":\"\\u0410\\u043c\\u0430\\u043d\\u0433\\u0435\\u043b\\u044c\\u0434\\u044b\"},{\"mountain_id\":2,\"mountain\":\"\\u041c\\u0430\\u043d\\u0448\\u0443\\u043a \\u041c\\u0430\\u043c\\u0435\\u0442\\u043e\\u0432\\u043e\\u0439\"}]"
+						},
+						{
+							"id": "3e454d25-5654-4513-8ab2-1a0891669030",
+							"name": "get_mountains_2",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{alpinebook-server}}/api/v1/areas/:area_id/mountains",
+									"host": [
+										"{{alpinebook-server}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"areas",
+										":area_id",
+										"mountains"
+									],
+									"variable": [
+										{
+											"key": "area_id",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "html",
+							"header": [
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"name": "Connection",
+									"description": ""
+								},
+								{
+									"key": "Content-Length",
+									"value": "216",
+									"name": "Content-Length",
+									"description": ""
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": ""
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "5",
+									"name": "Keep-Alive",
+									"description": ""
+								},
+								{
+									"key": "Server",
+									"value": "AlpineBook v0.01",
+									"name": "Server",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"responseTime": "983",
+							"body": "[\n    {\n        \"mountain_id\": 3,\n        \"mountain\": \"Чапаева\"\n    },\n    {\n        \"mountain_id\": 4,\n        \"mountain\": \"Хан-Тенгри\"\n    }\n]"
+						},
+						{
+							"id": "cab81f89-bb57-4964-aded-47b5a36c7bc6",
+							"name": "get_mountains_3",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{alpinebook-server}}/api/v1/areas/:area_id/mountains",
+									"host": [
+										"{{alpinebook-server}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"areas",
+										":area_id",
+										"mountains"
+									],
+									"variable": [
+										{
+											"key": "area_id",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "html",
+							"header": [
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"name": "Connection",
+									"description": ""
+								},
+								{
+									"key": "Content-Length",
+									"value": "216",
+									"name": "Content-Length",
+									"description": ""
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": ""
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "5",
+									"name": "Keep-Alive",
+									"description": ""
+								},
+								{
+									"key": "Server",
+									"value": "AlpineBook v0.01",
+									"name": "Server",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"responseTime": "983",
+							"body": "[\n    {\n        \"mountain_id\": 5,\n        \"mountain\": \"Ленина\"\n    }\n]"
+						}
+					]
 				},
 				{
 					"name": "get_mountain_by_id",
@@ -182,7 +806,290 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"id": "8aaa9723-2334-429b-974f-e0045b9142ca",
+							"name": "get_mountain_by_id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{alpinebook-server}}/api/v1/mountains/:mountain_id",
+									"host": [
+										"{{alpinebook-server}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"mountains",
+										":mountain_id"
+									],
+									"variable": [
+										{
+											"key": "mountain_id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "html",
+							"header": [
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"name": "Connection",
+									"description": ""
+								},
+								{
+									"key": "Content-Length",
+									"value": "321",
+									"name": "Content-Length",
+									"description": ""
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": ""
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "5",
+									"name": "Keep-Alive",
+									"description": ""
+								},
+								{
+									"key": "Server",
+									"value": "AlpineBook v0.01",
+									"name": "Server",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"responseTime": "54",
+							"body": "{\"mountain_id\":1,\"mountain\":\"\\u0410\\u043c\\u0430\\u043d\\u0433\\u0435\\u043b\\u044c\\u0434\\u044b\",\"altitude\":3999,\"area\":{\"area_id\":1,\"area\":\"\\u0417\\u0430\\u0438\\u043b\\u0438\\u0439\\u0441\\u043a\\u0438\\u0439 \\u0430\\u043b\\u0430\\u0442\\u0430\\u0443\",\"region\":{\"region_id\":1,\"region\":\"\\u0422\\u044f\\u043d\\u044c-\\u0428\\u0430\\u043d\\u044c\"}}}"
+						}
+					]
+				},
+				{
+					"name": "search_mountains",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{alpinebook-server}}/api/v1/mountains?search=ан",
+							"host": [
+								"{{alpinebook-server}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"mountains"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "ан",
+									"equals": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "b64f7fff-4861-4035-87d8-298bedf319f6",
+							"name": "search_mountains",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{alpinebook-server}}/api/v1/mountains?search=ан",
+									"host": [
+										"{{alpinebook-server}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"mountains"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "ан",
+											"equals": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "text",
+							"header": [
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"name": "Connection",
+									"description": "Options that are desired for the connection"
+								},
+								{
+									"key": "Content-Length",
+									"value": "570",
+									"name": "Content-Length",
+									"description": "The length of the response body in octets (8-bit bytes)"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "The mime type of this content"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "5",
+									"name": "Keep-Alive",
+									"description": "Custom header"
+								},
+								{
+									"key": "Server",
+									"value": "AlpineBook v0.01",
+									"name": "Server",
+									"description": "A name for the server"
+								}
+							],
+							"cookie": [],
+							"responseTime": 39,
+							"body": "[{\"t\":\"r\",\"id\":1,\"name\":\"\\u0422\\u044f\\u043d\\u044c-\\u0428\\u0430\\u043d\\u044c\"},{\"t\":\"a\",\"id\":1,\"name\":\"\\u0417\\u0430\\u0438\\u043b\\u0438\\u0439\\u0441\\u043a\\u0438\\u0439 \\u0430\\u043b\\u0430\\u0442\\u0430\\u0443\"},{\"t\":\"m\",\"id\":1,\"name\":\"\\u0410\\u043c\\u0430\\u043d\\u0433\\u0435\\u043b\\u044c\\u0434\\u044b\"},{\"t\":\"m\",\"id\":2,\"name\":\"\\u041c\\u0430\\u043d\\u0448\\u0443\\u043a \\u041c\\u0430\\u043c\\u0435\\u0442\\u043e\\u0432\\u043e\\u0439\"},{\"t\":\"a\",\"id\":2,\"name\":\"\\u0422\\u0435\\u043d\\u0433\\u0440\\u0438-\\u0422\\u0430\\u0433\"},{\"t\":\"m\",\"id\":4,\"name\":\"\\u0425\\u0430\\u043d-\\u0422\\u0435\\u043d\\u0433\\u0440\\u0438\"}]"
+						}
+					]
+				},
+				{
+					"name": "search_mountains_in_area",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{alpinebook-server}}/api/v1/areas/:area_id/mountains?search=ы",
+							"host": [
+								"{{alpinebook-server}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"areas",
+								":area_id",
+								"mountains"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "ы",
+									"equals": true
+								}
+							],
+							"variable": [
+								{
+									"key": "area_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "7841847a-5288-4e27-8dfe-27e32cb49843",
+							"name": "search_mountains_in_area",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"url": {
+									"raw": "{{alpinebook-server}}/api/v1/areas/:area_id/mountains?search=ы",
+									"host": [
+										"{{alpinebook-server}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"areas",
+										":area_id",
+										"mountains"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "ы",
+											"equals": true
+										}
+									],
+									"variable": [
+										{
+											"key": "area_id",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "text",
+							"header": [
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"name": "Connection",
+									"description": "Options that are desired for the connection"
+								},
+								{
+									"key": "Content-Length",
+									"value": "288",
+									"name": "Content-Length",
+									"description": "The length of the response body in octets (8-bit bytes)"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "The mime type of this content"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "5",
+									"name": "Keep-Alive",
+									"description": "Custom header"
+								},
+								{
+									"key": "Server",
+									"value": "AlpineBook v0.01",
+									"name": "Server",
+									"description": "A name for the server"
+								}
+							],
+							"cookie": [],
+							"responseTime": 68,
+							"body": "[{\"t\":\"r\",\"id\":1,\"name\":\"\\u0422\\u044f\\u043d\\u044c-\\u0428\\u0430\\u043d\\u044c\"},{\"t\":\"a\",\"id\":1,\"name\":\"\\u0417\\u0430\\u0438\\u043b\\u0438\\u0439\\u0441\\u043a\\u0438\\u0439 \\u0430\\u043b\\u0430\\u0442\\u0430\\u0443\"},{\"t\":\"m\",\"id\":1,\"name\":\"\\u0410\\u043c\\u0430\\u043d\\u0433\\u0435\\u043b\\u044c\\u0434\\u044b\"}]"
+						}
+					]
 				},
 				{
 					"name": "get_routes",
@@ -213,7 +1120,78 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"id": "2ee56782-e558-4e82-80c9-af1bb8740a53",
+							"name": "get_routes",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{alpinebook-server}}/api/v1/mountains/:mountain_id/routes",
+									"host": [
+										"{{alpinebook-server}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"mountains",
+										":mountain_id",
+										"routes"
+									],
+									"variable": [
+										{
+											"key": "mountain_id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "text",
+							"header": [
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"name": "Connection",
+									"description": "Options that are desired for the connection"
+								},
+								{
+									"key": "Content-Length",
+									"value": "699",
+									"name": "Content-Length",
+									"description": "The length of the response body in octets (8-bit bytes)"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "The mime type of this content"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "5",
+									"name": "Keep-Alive",
+									"description": "Custom header"
+								},
+								{
+									"key": "Server",
+									"value": "AlpineBook v0.01",
+									"name": "Server",
+									"description": "A name for the server"
+								}
+							],
+							"cookie": [],
+							"responseTime": 115,
+							"body": "[\n    {\n        \"route_id\": 1,\n        \"route\": \"С запада\",\n        \"complexity\": \"1Б\"\n    },\n    {\n        \"route_id\": 5,\n        \"route\": \"ЮЗ гребень\",\n        \"complexity\": \"2А\"\n    },\n    {\n        \"route_id\": 2,\n        \"route\": \"Восточный гребень\",\n        \"complexity\": \"2Б\"\n    },\n    {\n        \"route_id\": 3,\n        \"route\": \"СЗ ребро\",\n        \"complexity\": \"2Б\"\n    },\n    {\n        \"route_id\": 4,\n        \"route\": \"Северная стена\",\n        \"complexity\": \"3Б\"\n    },\n    {\n        \"route_id\": 6,\n        \"route\": \"тр-с до Маншук Маметовой\",\n        \"complexity\": \"4А\",\n        \"winter_complexity\": \"4Б\"\n    }\n]"
+						}
+					]
 				},
 				{
 					"name": "get_route_by_id",
@@ -243,7 +1221,165 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"id": "1dec6a7f-77da-41c9-a211-647f483aaa7f",
+							"name": "get_route_by_id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{alpinebook-server}}/api/v1/routes/:route_id",
+									"host": [
+										"{{alpinebook-server}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"routes",
+										":route_id"
+									],
+									"variable": [
+										{
+											"key": "route_id",
+											"value": "6"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "html",
+							"header": [
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"name": "Connection",
+									"description": ""
+								},
+								{
+									"key": "Content-Length",
+									"value": "1025",
+									"name": "Content-Length",
+									"description": ""
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": ""
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "5",
+									"name": "Keep-Alive",
+									"description": ""
+								},
+								{
+									"key": "Server",
+									"value": "AlpineBook v0.01",
+									"name": "Server",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"responseTime": "83",
+							"body": "{\"route_id\":6,\"complexity\":\"4\\u0410\",\"winter_complexity\":null,\"route_nature\":\"\\u043a\",\"mountain\":{\"mountain_id\":1,\"mountain\":\"\\u0410\\u043c\\u0430\\u043d\\u0433\\u0435\\u043b\\u044c\\u0434\\u044b\",\"altitude\":3999,\"area\":{\"area_id\":1,\"area\":\"\\u0417\\u0430\\u0438\\u043b\\u0438\\u0439\\u0441\\u043a\\u0438\\u0439 \\u0430\\u043b\\u0430\\u0442\\u0430\\u0443\",\"region\":{\"region_id\":1,\"region\":\"\\u0422\\u044f\\u043d\\u044c-\\u0428\\u0430\\u043d\\u044c\"}}},\"route\":null,\"traverse\":true,\"ending_mountain\":{\"mountain_id\":2,\"mountain\":\"\\u041c\\u0430\\u043d\\u0448\\u0443\\u043a \\u041c\\u0430\\u043c\\u0435\\u0442\\u043e\\u0432\\u043e\\u0439\",\"altitude\":4144,\"area\":{\"area_id\":1,\"area\":\"\\u0417\\u0430\\u0438\\u043b\\u0438\\u0439\\u0441\\u043a\\u0438\\u0439 \\u0430\\u043b\\u0430\\u0442\\u0430\\u0443\",\"region\":{\"region_id\":1,\"region\":\"\\u0422\\u044f\\u043d\\u044c-\\u0428\\u0430\\u043d\\u044c\"}}},\"first_ascender\":{\"alpinist_id\":2,\"last_name\":\"\\u041b\\u0435\\u0431\\u0435\\u0434\\u0435\\u0432\",\"first_name\":\"\\u0422\\u0438\\u043c\\u043e\\u0444\\u0435\\u0439\",\"middle_name\":null,\"rank\":null},\"first_ascent_year\":null}"
+						},
+						{
+							"id": "d67ddace-2470-4ea0-aaf6-675c50a4fc22",
+							"name": "get_route_by_id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{alpinebook-server}}/api/v1/routes/2",
+									"host": [
+										"{{alpinebook-server}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"routes",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "html",
+							"header": [
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"name": "Connection",
+									"description": ""
+								},
+								{
+									"key": "Content-Length",
+									"value": "713",
+									"name": "Content-Length",
+									"description": ""
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": ""
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "5",
+									"name": "Keep-Alive",
+									"description": ""
+								},
+								{
+									"key": "Server",
+									"value": "AlpineBook v0.01",
+									"name": "Server",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"responseTime": "56",
+							"body": "{\"route_id\":2,\"complexity\":\"2\\u0411\",\"winter_complexity\":null,\"route_nature\":\"\\u0441\\u043a\",\"mountain\":{\"mountain_id\":1,\"mountain\":\"\\u0410\\u043c\\u0430\\u043d\\u0433\\u0435\\u043b\\u044c\\u0434\\u044b\",\"altitude\":3999,\"area\":{\"area_id\":1,\"area\":\"\\u0417\\u0430\\u0438\\u043b\\u0438\\u0439\\u0441\\u043a\\u0438\\u0439 \\u0430\\u043b\\u0430\\u0442\\u0430\\u0443\",\"region\":{\"region_id\":1,\"region\":\"\\u0422\\u044f\\u043d\\u044c-\\u0428\\u0430\\u043d\\u044c\"}}},\"route\":\"\\u0412 \\u0433\\u0440\\u0435\\u0431\\u0435\\u043d\\u044c\",\"traverse\":false,\"ending_mountain\":null,\"first_ascender\":{\"alpinist_id\":5,\"last_name\":\"\\u041d\\u0435\\u0430\\u0440\\u043e\\u043d\\u0441\\u043a\\u0438\\u0439\",\"first_name\":\"\\u0412\",\"middle_name\":null,\"rank\":null},\"first_ascent_year\":null}"
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ed6741e1-ce6d-4a6d-af5f-8868089e1df3",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "88b2c6e3-aed8-4922-b3b7-c22487ec1a60",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		},
@@ -256,36 +1392,21 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "3f833842-0f6f-4377-8110-8e67b6058f1e",
+								"id": "ccc085f0-6256-4627-b906-b23a1d54a171",
 								"type": "text/javascript",
 								"exec": [
-									"const postRequest = {",
-									"    url: pm.environment.get(\"alpinebook-server\") + \"/api/v1/users/twister.kz@gmail.com/signin?method=password&password=admin\",",
-									"    method: \"POST\"",
-									"}",
-									"pm.sendRequest(postRequest, function (err, response) {",
-									"    resp = response.json()",
-									"    jwt = resp[\"jwt\"]",
-									"    pm.globals.set(\"current_jwt\", resp[\"jwt\"]);",
-									"});"
+									""
 								]
 							}
 						}
 					],
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{current_jwt}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "{{alpinebook-server}}/api/v1/summits/alpinist/:alpinist_id",
 							"host": [
@@ -314,36 +1435,21 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "06c9daf6-fd9e-410e-8815-1a6c207733b2",
+								"id": "8515db30-6495-4eb4-93f8-3ebb0cda20b4",
 								"type": "text/javascript",
 								"exec": [
-									"const postRequest = {",
-									"    url: pm.environment.get(\"alpinebook-server\") + \"/api/v1/users/twister.kz@gmail.com/signin?method=password&password=admin\",",
-									"    method: \"POST\"",
-									"}",
-									"pm.sendRequest(postRequest, function (err, response) {",
-									"    resp = response.json()",
-									"    jwt = resp[\"jwt\"]",
-									"    pm.globals.set(\"current_jwt\", resp[\"jwt\"]);",
-									"});"
+									""
 								]
 							}
 						}
 					],
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{current_jwt}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "{{alpinebook-server}}/api/v1/summits/alpinist/:alpinist_id?full_route_info=True",
 							"host": [
@@ -379,33 +1485,15 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "175016fb-2379-441c-99b4-d3fbdccee7f6",
+								"id": "f34d4231-7371-41f7-a399-c573d2ff60d9",
 								"type": "text/javascript",
 								"exec": [
-									"const postRequest = {",
-									"    url: pm.environment.get(\"alpinebook-server\") + \"/api/v1/users/twister.kz@gmail.com/signin?method=password&password=admin\",",
-									"    method: \"POST\"",
-									"}",
-									"pm.sendRequest(postRequest, function (err, response) {",
-									"    resp = response.json()",
-									"    jwt = resp[\"jwt\"]",
-									"    pm.globals.set(\"current_jwt\", resp[\"jwt\"]);",
-									"});"
+									""
 								]
 							}
 						}
 					],
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{current_jwt}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [
 							{
@@ -438,33 +1526,15 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "8684b4dc-75ad-4fab-bdd7-b450929d5f8d",
+								"id": "8840fdf4-95aa-4426-a8c0-dbd839cf567d",
 								"type": "text/javascript",
 								"exec": [
-									"const postRequest = {",
-									"    url: pm.environment.get(\"alpinebook-server\") + \"/api/v1/users/twister.kz@gmail.com/signin?method=password&password=admin\",",
-									"    method: \"POST\"",
-									"}",
-									"pm.sendRequest(postRequest, function (err, response) {",
-									"    resp = response.json()",
-									"    jwt = resp[\"jwt\"]",
-									"    pm.globals.set(\"current_jwt\", resp[\"jwt\"]);",
-									"});"
+									""
 								]
 							}
 						}
 					],
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{current_jwt}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "PUT",
 						"header": [
 							{
@@ -503,33 +1573,15 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "bd28e26d-8e79-4d03-80c6-645b08900b22",
+								"id": "5a85b8e4-bc1e-489e-abbb-75766e5bad86",
 								"type": "text/javascript",
 								"exec": [
-									"const postRequest = {",
-									"    url: pm.environment.get(\"alpinebook-server\") + \"/api/v1/users/twister.kz@gmail.com/signin?method=password&password=admin\",",
-									"    method: \"POST\"",
-									"}",
-									"pm.sendRequest(postRequest, function (err, response) {",
-									"    resp = response.json()",
-									"    jwt = resp[\"jwt\"]",
-									"    pm.globals.set(\"current_jwt\", resp[\"jwt\"]);",
-									"});"
+									""
 								]
 							}
 						}
 					],
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{current_jwt}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "DELETE",
 						"header": [
 							{
@@ -562,6 +1614,46 @@
 					},
 					"response": []
 				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{current_jwt}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "8847a8fe-d748-4bcc-9f08-41bf3055fd99",
+						"type": "text/javascript",
+						"exec": [
+							"const postRequest = {",
+							"    url: pm.environment.get(\"alpinebook-server\") + \"/api/v1/users/twister.kz@gmail.com/signin?method=password&password=admin\",",
+							"    method: \"POST\"",
+							"}",
+							"pm.sendRequest(postRequest, function (err, response) {",
+							"    resp = response.json()",
+							"    jwt = resp[\"jwt\"]",
+							"    pm.globals.set(\"current_jwt\", resp[\"jwt\"]);",
+							"});"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "008d2b30-13d8-443c-be13-8c7ff504ab9e",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
 			]
 		},
 		{
@@ -569,14 +1661,16 @@
 			"item": [
 				{
 					"name": "authentication",
-					"description": "",
 					"item": [
 						{
 							"name": "signin_with_password",
 							"request": {
 								"method": "POST",
 								"header": [],
-								"body": {},
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
 								"url": {
 									"raw": "{{alpinebook-server}}/api/v1/users/:user_name/signin?method=password&password=admin",
 									"host": [
@@ -622,7 +1716,10 @@
 							"request": {
 								"method": "POST",
 								"header": [],
-								"body": {},
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
 								"url": {
 									"raw": "{{alpinebook-server}}/api/v1/users/:user_name/signin?method=telegram",
 									"host": [
@@ -657,7 +1754,10 @@
 							"request": {
 								"method": "POST",
 								"header": [],
-								"body": {},
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
 								"url": {
 									"raw": "{{alpinebook-server}}/api/v1/users/:user_name/signin?method=trusted",
 									"host": [
@@ -747,7 +1847,10 @@
 						},
 						"method": "POST",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "{{alpinebook-server}}/api/v1/users/:user_name/change-password?old=admin&new=admin1",
 							"host": [
@@ -782,11 +1885,35 @@
 					},
 					"response": []
 				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f670d389-f16f-419e-9a1e-921399c84b8b",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "8b75d310-e5e1-4552-a690-5efe0a2b27da",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
 			]
 		},
 		{
 			"name": "reports",
-			"description": null,
 			"item": [
 				{
 					"name": "card.html",
@@ -803,12 +1930,12 @@
 						}
 					],
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "GET",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "{{alpinebook-server}}/reports/card.html?alpinist_id=1",
 							"host": [
@@ -825,8 +1952,7 @@
 									"equals": true
 								}
 							]
-						},
-						"description": null
+						}
 					},
 					"response": []
 				},
@@ -845,12 +1971,12 @@
 						}
 					],
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "GET",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "{{alpinebook-server}}/reports/card.pdf?alpinist_id=1",
 							"host": [
@@ -863,15 +1989,77 @@
 							"query": [
 								{
 									"key": "alpinist_id",
-									"value": "1"
+									"value": "1",
+									"equals": true
 								}
 							]
-						},
-						"description": null
+						}
 					},
 					"response": []
 				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{current_jwt}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "d932f34f-0d50-458a-ba1d-29257253f5e1",
+						"type": "text/javascript",
+						"exec": [
+							"const postRequest = {",
+							"    url: pm.environment.get(\"alpinebook-server\") + \"/api/v1/users/twister.kz@gmail.com/signin?method=password&password=admin\",",
+							"    method: \"POST\"",
+							"}",
+							"pm.sendRequest(postRequest, function (err, response) {",
+							"    resp = response.json()",
+							"    jwt = resp[\"jwt\"]",
+							"    pm.globals.set(\"current_jwt\", resp[\"jwt\"]);",
+							"});"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "49d9b2c7-ef0f-43d1-86f9-3611ce6624dc",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
 			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "ccb2c23b-efe0-4821-83e3-f147f292c07e",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "3179ad48-2a97-4a8d-888a-b8ecaaa45d15",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }

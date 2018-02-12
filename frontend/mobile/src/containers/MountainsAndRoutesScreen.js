@@ -1,33 +1,34 @@
-import React from 'react';
-import { Alert } from 'react-native';
-import { Container, Header, Left, Body, Title, Icon, Button } from 'native-base';
+import React, { Component } from 'react';
+import { Container } from 'native-base';
 import TwoLevelDynamicList from '../components/TwoLevelDynamicList';
-import styles from '../styles/Styles';
+import SimpleHeader from '../components/SimpleHeader';
 import alpinebook from '../connectors/Alpinebook';
 
-class MountainsAndRoutesScreen extends React.Component {
+class MountainsAndRoutesScreen extends Component {
     componentDidMount() {
         const areaId = this.props.navigation.state.params.record.id;
 
         this.dynamicList.setLevel1DataLoader(
             () => {
-                alpinebook.getMountains(areaId, (result) => {
-                    this.dynamicList.setLevel1Data(result);
-                });
-            },
-            () => this.dynamicList.abort
+                alpinebook.getMountains(areaId,
+                    (result) => {
+                        this.dynamicList.setLevel1Data(result);
+                    },
+                    this.dynamicList.abortLevel1
+                );
+            }
         );
 
-        this.dynamicList.setLevel2DataLoader(
-            (id, index) => {
-                alpinebook.getRoutes(id, (result) => {
+        this.dynamicList.setLevel2DataLoader((id, index) => {
+            alpinebook.getRoutes(id,
+                (result) => {
                     this.dynamicList.setLevel2Data(id, index, result);
-                });
-            },
-            () => this.dynamicList.abort
-        );
-
-        this.dynamicList.setOnPressHandler(() => { Alert.alert('Ждите', 'Скоро всё будет!'); });
+                },
+                () => {
+                    this.dynamicList.abortLevel2(index);
+                }
+            );
+        });
 
         this.dynamicList.loadLevel1Data();
     }
@@ -37,16 +38,10 @@ class MountainsAndRoutesScreen extends React.Component {
 
         return (
             <Container>
-                <Header>
-                    <Left style={styles.headerLeftWithoutRight}>
-                        <Button transparent onPress={() => { navigation.goBack(null); }}>
-                            <Icon name='arrow-back' style={styles.headerIcon} />
-                        </Button>
-                    </Left>
-                    <Body >
-                        <Title style={styles.headerText}>{navigation.state.params.record.name}</Title>
-                    </Body>
-                </Header>
+                <SimpleHeader
+                    navigation={navigation}
+                    caption={navigation.state.params.record.name}
+                />
                 <TwoLevelDynamicList
                     ref={(ref) => { this.dynamicList = ref; }}
                     navigation={navigation}

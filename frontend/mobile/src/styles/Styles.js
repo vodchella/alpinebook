@@ -5,8 +5,8 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#F5FCFF',
     },
+
     headerIcon: {
         color: 'white'
     },
@@ -16,6 +16,33 @@ const styles = StyleSheet.create({
     headerLeftWithoutRight: {
         flex: 0,
         paddingRight: 30
+    },
+    headerLeftWithSearchBar: {
+        flex: 0,
+        paddingRight: 5
+    },
+
+    searchBarText: {
+        fontSize: 14
+    },
+
+    hintText: {
+        fontSize: 10,
+        color: 'grey'
+    },
+
+    inactiveText: {
+        fontSize: 12,
+        color: 'grey'
+    },
+
+    searchHint: {
+        height: 40,
+        flex: 0,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F0F2A4'
     }
 });
 
