@@ -16,4 +16,4 @@ class RegionsAndAreasStore {
     }
 }
 
-export default new RegionsAndAreasStore();
+export default RegionsAndAreasStore;

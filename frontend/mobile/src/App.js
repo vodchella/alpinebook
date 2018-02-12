@@ -4,7 +4,7 @@ import { Root } from 'native-base';
 import HomeScreen from './containers/HomeScreen';
 import RegionsAndAreasScreenNavigator from './containers/RegionsAndAreasScreen';
 import SummitsScreenNavigator from './containers/SummitsScreen';
-import regionsAndAreasStore from './stores/RegionsAndAreasStore';
+import RegionsAndAreasStore from './stores/RegionsAndAreasStore';
 import TwoLevelDynamicListStore from './stores/TwoLevelDynamicListStore';
 
 
@@ -18,16 +18,21 @@ const RootDrawer = DrawerNavigator(
 );
 
 export default class Alpinebook extends Component {
-    render() {
-        regionsAndAreasStore.listStore = new TwoLevelDynamicListStore(true);
+    componentWillMount() {
+        if (!this.regionsAndAreasStore) {
+            this.regionsAndAreasStore = new RegionsAndAreasStore();
+            this.regionsAndAreasStore.listStore = new TwoLevelDynamicListStore(true);
+        }
+    }
 
+    render() {
         return (
             <Root>
                 <RootDrawer
                     screenProps={{
                         version: '0.01',
                         stores: {
-                            regionsAndAreasStore
+                            regionsAndAreasStore: this.regionsAndAreasStore
                         }
                     }}
                 />
