@@ -6,6 +6,7 @@ import MountainRoutesList from './MountainRoutesList';
 import TwoLevelDynamicListStore from '../stores/TwoLevelDynamicListStore';
 import SearchResultHint from './SearchResultHint';
 import styles from '../styles/Styles';
+import ls from '../styles/ListStyles';
 
 @observer
 class MountainSearchList extends Component {
@@ -59,69 +60,36 @@ class MountainSearchList extends Component {
                         :
                         this.store.leve1Data.length ?
                             <ScrollView>
-                                    <View
-                                        style={{
-                                            flex: 1,
-                                            flexDirection: 'column',
-                                            alignItems: 'flex-start',
-                                            paddingLeft: 20
-                                        }}
-                                    >
+                                    <View style={ls.list}>
                                         {this.store.leve1Data.map((item) => {
                                             switch (item.t) {
                                                 case 'r': return (
                                                     <Text
                                                         key={`${item.t}${item.id}`}
-                                                        style={{
-                                                            color: 'grey',
-                                                            alignSelf: 'flex-start',
-                                                            paddingTop: 10
-                                                        }}
+                                                        style={ls.listTitleItem}
                                                     >
                                                         {item.name}
                                                     </Text>);
                                                 case 'a': return (
                                                     <Text
                                                         key={`${item.t}${item.id}`}
-                                                        style={{
-                                                            color: 'grey',
-                                                            alignSelf: 'flex-start',
-                                                            fontSize: 12,
-                                                            paddingLeft: 10,
-                                                            paddingBottom: 15
-                                                        }}
+                                                        style={ls.listSubTitleItem}
                                                     >
                                                         {item.name}
                                                     </Text>);
                                                 case 'm': return (
                                                     <View
                                                         key={`${item.t}${item.id}`}
-                                                        style={{
-                                                            flex: 1,
-                                                            flexDirection: 'column',
-                                                            alignSelf: 'flex-start',
-                                                            paddingLeft: 10,
-                                                            paddingRight: 15,
-                                                            paddingBottom: 15,
-                                                            width: '100%'
-                                                        }}
+                                                        style={ls.listItem}
                                                     >
                                                         <TouchableOpacity
                                                             key={`${item.t}${item.id}`}
-                                                            style={{
-                                                                flex: 1,
-                                                                flexDirection: 'row',
-                                                                justifyContent: 'space-between',
-                                                                width: '100%'
-                                                            }}
+                                                            style={ls.listItemTouchableOpacity}
                                                         >
                                                             <Text>{item.name}</Text>
                                                             <Icon
                                                                 name='arrow-down'
-                                                                style={{
-                                                                    color: 'lightgrey',
-                                                                    fontSize: 20
-                                                                }}
+                                                                style={ls.listItemRightIcon}
                                                             />
                                                         </TouchableOpacity>
                                                         <MountainRoutesList
