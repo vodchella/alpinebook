@@ -21,6 +21,17 @@ class MountainSearchScreen extends Component {
             }
         );
 
+        this.list.store.setLevel2DataLoader((id, index) => {
+            alpinebook.getRoutes(id,
+                (result) => {
+                    this.list.store.setLevel2Data(id, index, result);
+                },
+                () => {
+                    this.list.store.abortLevel2(index);
+                }
+            );
+        });
+
         this.list.store.loadLevel1Data();
     }
 

@@ -17,38 +17,6 @@ class MountainSearchList extends Component {
     render() {
         const { navigation } = this.props;
         const { query } = navigation.state.params;
-        const testData = [
-            {
-                id: 1,
-                name: 'С запада',
-                complexity: '1Б'
-            },
-            {
-                id: 5,
-                name: 'ЮЗ гребень',
-                complexity: '2А'
-            },
-            {
-                id: 2,
-                name: 'Восточный гребень',
-                complexity: '2Б'
-            },
-            {
-                id: 3,
-                name: 'СЗ ребро',
-                complexity: '2Б'
-            },
-            {
-                id: 4,
-                name: 'Северная стена',
-                complexity: '3Б'
-            },
-            {
-                id: 6,
-                name: 'тр-с до Маншук Маметовой',
-                complexity: '4А'
-            }
-        ];
 
         return (
             <View style={{ flex: 1, flexDirection: 'column' }}>
@@ -59,50 +27,65 @@ class MountainSearchList extends Component {
                         </View>
                         :
                         this.store.leve1Data.length ?
-                            <ScrollView>
-                                    <View style={ls.list}>
-                                        {this.store.leve1Data.map((item) => {
-                                            switch (item.t) {
-                                                case 'r': return (
-                                                    <Text
-                                                        key={`${item.t}${item.id}`}
-                                                        style={ls.listTitleItem}
-                                                    >
-                                                        {item.name}
-                                                    </Text>);
-                                                case 'a': return (
-                                                    <Text
-                                                        key={`${item.t}${item.id}`}
-                                                        style={ls.listSubTitleItem}
-                                                    >
-                                                        {item.name}
-                                                    </Text>);
-                                                case 'm': return (
-                                                    <View
-                                                        key={`${item.t}${item.id}`}
-                                                        style={ls.listItem}
-                                                    >
-                                                        <TouchableOpacity
-                                                            key={`${item.t}${item.id}`}
-                                                            style={ls.listItemTouchableOpacity}
-                                                        >
-                                                            <Text>{item.name}</Text>
-                                                            <Icon
-                                                                name='arrow-down'
-                                                                style={ls.listItemRightIcon}
-                                                            />
-                                                        </TouchableOpacity>
-                                                        <MountainRoutesList
-                                                            navigation={navigation}
-                                                            data={testData}
+                            <ScrollView><View style={ls.list}>
+                            {this.store.leve1Data.map((item) => {
+                                switch (item.t) {
+                                    case 'r': return (  // Регион, неактивный заголовок
+                                        <Text
+                                            key={`${item.t}${item.id}`}
+                                            style={ls.listTitleItem}
+                                        >
+                                            {item.name}
+                                        </Text>);
+                                    case 'a': return (  // Область, неактивный подзаголовок
+                                        <Text
+                                            key={`${item.t}${item.id}`}
+                                            style={ls.listSubTitleItem}
+                                        >
+                                            {item.name}
+                                        </Text>);
+                                    case 'm': return (  // Гора, активный заголовок
+                                        <View
+                                            key={`${item.t}${item.id}`}
+                                            style={ls.listItem}
+                                        >
+                                            {item.dataLoaded ?
+                                                <Text style={{ color: 'grey' }}>{item.name}</Text>
+                                                :
+                                                <TouchableOpacity
+                                                    key={`${item.t}${item.id}`}
+                                                    style={ls.listItemTouchableOpacity}
+                                                    onPress={
+                                                        () => this.store.loadLevel2Data(item.id,
+                                                                                        item.index)
+                                                    }
+                                                >
+                                                    <Text>{item.name}</Text>
+                                                    {item.inProgress ?
+                                                        <ActivityIndicator
+                                                            size='small'
+                                                            color='gray'
                                                         />
-                                                    </View>);
-                                                default:
-                                                    return <View key={item.id} />;
+                                                        :
+                                                        <Icon
+                                                            name='arrow-down'
+                                                            style={ls.listItemRightIcon}
+                                                        />}
+                                                </TouchableOpacity>
                                             }
-                                        })}
-                                    </View>
-                            </ScrollView>
+                                            {item.dataLoaded ?
+                                                <MountainRoutesList
+                                                    navigation={navigation}
+                                                    data={this.store.getLevel2Array(item.id)}
+                                                />
+                                                :
+                                                null}
+                                        </View>);
+                                    default:
+                                        return <View key={item.id} />;
+                                }
+                            })}
+                            </View></ScrollView>
                             :
                             <View style={styles.container}>
                                 <Text style={styles.inactiveText}>Ничего не найдено</Text>
