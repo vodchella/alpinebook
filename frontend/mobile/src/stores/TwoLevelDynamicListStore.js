@@ -55,6 +55,13 @@ class TwoLevelDynamicListStore {
         this.setLeve1FetchingInProgress(false);
     }
 
+    setLevel1DataObject(obj) {
+        this.leve1Data = obj;
+        // Порядок вызовов setDataLoaded и setFetchingInProgress важен!
+        this.setLevel1DataLoaded(true);
+        this.setLeve1FetchingInProgress(false);
+    }
+
     setLevel1DataLoader(loader) {
         this.level1DataLoader = loader;
     }

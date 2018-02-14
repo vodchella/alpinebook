@@ -96,7 +96,6 @@ const RegionsAndAreasScreenNavigator = StackNavigator(
     },
     {
         headerMode: 'none',
-        initialRouteName: 'Route',
         navigationOptions: () => ({ initialRouteName: 'RegionsAndAreas' })
     }
 );

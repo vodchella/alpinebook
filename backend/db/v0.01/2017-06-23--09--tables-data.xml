@@ -62,7 +62,25 @@
     </changeSet>
     <changeSet author="twister" id="routes">
         <sql>
-            INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, first_ascender_id, complexity, winter_complexity, route_nature, first_ascent_year) VALUES (1, 1, NULL, false, 'С запада', 6, '1Б', NULL, 'ск', NULL);
+            INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, first_ascender_id, complexity, winter_complexity, route_nature, first_ascent_year, description) VALUES (1, 1, NULL, false, 'С запада по кулуару', 6, '1Б', NULL, 'ск', NULL, '![](http://mountain.kz/images/739.jpg)
+
+**Описание маршрута:**
+Вершина Амангельды находится в северо-западном ответвлении Мало-Алматинского отрога.
+От альплагеря Туюкcу двигаться до метеостанции Мынжилки. После пересечения плотины повернуть на восток по крутому склону морены подняться к бивуаку Альпинград. От основного бивуака на площадке Альпинграда идти к подножию большого кулуара с западной стороны вершины, лавируя между возвышающимися островками скал.
+Маршрут подходит под основание скальной башни вершины. Отсюда, пересекая еще один узкий кулуар, подойти к стенке крутизной 55-60 градусов, длиной 25м, которая преодолевается в лоб (перила) или попеременная страховка в зависимости от подготовленности группы. Пройдя стенку повернуть налево и по скальному гребню выйти на вершину.
+Спуск по пути подъёма. Восхождение от альплагеря Туюксу занимает около 7-8 часов.
+Первое восхождение на вершину совершила группа альпинистов из Алма-Аты в 1939 году в количестве шести человек под руководством В. Зимина.
+
+**Рекомендации:**
+1. Количество участников не ограничено.
+1. Исходный бивуак – Альпинград.
+1. Выход с бивуака в 6 часов.
+1. Снаряжение на группу 4 человека:
+   * веревка основная 2х40 м
+
+![](http://mountain.kz/images/740.jpg)
+
+![](http://mountain.kz/images/741.jpg)');
             INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, first_ascender_id, complexity, winter_complexity, route_nature, first_ascent_year) VALUES (2, 1, NULL, false, 'Восточный гребень', 5, '2Б', NULL, 'ск', NULL);
             INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, first_ascender_id, complexity, winter_complexity, route_nature, first_ascent_year) VALUES (3, 1, NULL, false, 'СЗ ребро', NULL, '2Б', NULL, 'ск', NULL);
             INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, first_ascender_id, complexity, winter_complexity, route_nature, first_ascent_year) VALUES (4, 1, NULL, false, 'Северная стена', 4, '3Б', NULL, 'к', NULL);

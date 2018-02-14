@@ -24,6 +24,10 @@ class Alpinebook {
     getRoutes(mountainId, onOk, onFail) {
         requestAlpinebook(`mountains/${mountainId}/routes`, onOk, onFail);
     }
+
+    getRoute(routeId, onOk, onFail) {
+        requestAlpinebook(`routes/${routeId}`, onOk, onFail);
+    }
 }
 
 export default new Alpinebook();
