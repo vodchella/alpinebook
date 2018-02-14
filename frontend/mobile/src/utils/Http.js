@@ -2,7 +2,7 @@ import { Platform } from 'react-native';
 import { getErrorFromJson, showError } from './Errors';
 
 export function requestAlpinebook(url, onOk, onFail, resultModifier) {
-    const baseUrl = 'https://c20e908a-c042-4b95-9a9f-0e797b65ffd6.mock.pstmn.io/';
+    const baseUrl = 'https://b64a1166.ngrok.io/';
     const apiUrl = `${baseUrl}api/v1/`;
     const requestUrl = `${apiUrl}${url}`;
 
