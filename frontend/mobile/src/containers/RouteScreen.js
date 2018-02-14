@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { observer } from 'mobx-react/native';
 import { View, ScrollView, ActivityIndicator } from 'react-native';
 import { Container } from 'native-base';
-import Markdown from 'react-native-markdown-renderer';
-import markdownRules from '../utils/Markdown';
 import SimpleHeader from '../components/SimpleHeader';
+import Markdown from '../components/Markdown';
 import TwoLevelDynamicListStore from '../stores/TwoLevelDynamicListStore';
 import alpinebook from '../connectors/Alpinebook';
 import styles from '../styles/Styles';
@@ -47,13 +46,11 @@ class RouteScreen extends Component {
                     :
                     this.store.leve1Loaded ?
                         <ScrollView>
-                            <View style={{ flex: 1, padding: 10 }}>
-                                <Markdown rules={markdownRules}>
-                                    {`## ${route.mountain.name}\n`}
-                                    {`#### ${route.complexity} к.т. ${route.name}\n\n`}
-                                    {route.description}
-                                </Markdown>
-                            </View>
+                            <Markdown>{
+                                `## ${route.mountain.name}\n` +
+                                `#### ${route.complexity} к.т. ${route.name}\n\n` +
+                                `${route.description}`
+                            }</Markdown>
                         </ScrollView>
                         :
                         <View />}

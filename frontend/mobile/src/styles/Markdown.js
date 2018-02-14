@@ -1,5 +1,5 @@
 import { Platform, StyleSheet } from 'react-native';
-import PlatformEnum from '../enum/PlatformEnum';
+import PlatformEnum from '../enums/PlatformEnum';
 
 export default StyleSheet.create({
     listUnorderedItemIcon: {

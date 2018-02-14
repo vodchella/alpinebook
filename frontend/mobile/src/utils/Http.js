@@ -1,6 +1,6 @@
 import { Platform } from 'react-native';
 import { getErrorFromJson, showError } from './Errors';
-import PlatformEnum from '../enum/PlatformEnum';
+import PlatformEnum from '../enums/PlatformEnum';
 
 export function requestAlpinebook(url, onOk, onFail, resultModifier) {
     const baseUrl = 'https://b64a1166.ngrok.io/';
