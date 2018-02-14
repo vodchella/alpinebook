@@ -32,8 +32,8 @@ where  u.%s = $1
 """
 
 SQL_GET_REGIONS = """
-select json_build_object('region_id', r.region_id,
-                         'region', r.region) as region
+select json_build_object('id', r.region_id,
+                         'name', r.region) as region
 from   regions r
 order by r.region
 """
@@ -45,8 +45,8 @@ where  r.region_id = $1
 """
 
 SQL_GET_AREAS = """
-select json_build_object('area_id', a.area_id,
-                         'area', a.area) as area
+select json_build_object('id', a.area_id,
+                         'name', a.area) as area
 from   areas a
 where  a.region_id = $1
 order by a.area
@@ -59,8 +59,8 @@ where  a.area_id = $1
 """
 
 SQL_GET_MOUNTAINS = """
-select json_build_object('mountain_id', m.mountain_id,
-                         'mountain', m.mountain) as mountain
+select json_build_object('id', m.mountain_id,
+                         'name', m.mountain) as mountain
 from   mountains m
 where  m.area_id = $1
 """
@@ -74,13 +74,13 @@ where  m.mountain_id = $1
 SQL_GET_ROUTES = """
 select case
          when r.winter_complexity is not null then
-           json_build_object('route_id', r.route_id,
-                             'route', get_route_text(r.route_id, false, false),
+           json_build_object('id', r.route_id,
+                             'name', get_route_text(r.route_id, false, false),
                              'complexity', r.complexity,
                              'winter_complexity', r.winter_complexity)
          else
-           json_build_object('route_id', r.route_id,
-                             'route', get_route_text(r.route_id, false, false),
+           json_build_object('id', r.route_id,
+                             'name', get_route_text(r.route_id, false, false),
                              'complexity', r.complexity)
        end as mountain
 from   routes r
@@ -96,7 +96,7 @@ where  rt.route_id = $1
 
 SQL_GET_SUMMITS = """
 select json_build_object('num', row_number() over (order by s.summit_date),
-                         'summit_id', s.alpinist_summit_id,
+                         'id', s.alpinist_summit_id,
                          'summit_date', to_char(s.summit_date, 'DD.MM.YYYY'),
                          'route', case
                                     when $2 = false then

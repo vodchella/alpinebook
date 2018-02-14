@@ -1,23 +1,16 @@
 import { requestAlpinebook } from '../utils/Http';
-import { jsonArrayToListData } from '../utils/Arrays';
 
 class Alpinebook {
     getRegions(onOk, onFail) {
-        requestAlpinebook('regions', onOk, onFail, (result) =>
-            jsonArrayToListData(result, 'region_id', 'region')
-        );
+        requestAlpinebook('regions', onOk, onFail);
     }
 
     getAreas(regionId, onOk, onFail) {
-        requestAlpinebook(`regions/${regionId}/areas`, onOk, onFail, (result) =>
-            jsonArrayToListData(result, 'area_id', 'area')
-        );
+        requestAlpinebook(`regions/${regionId}/areas`, onOk, onFail);
     }
 
     getMountains(areaId, onOk, onFail) {
-        requestAlpinebook(`areas/${areaId}/mountains`, onOk, onFail, (result) =>
-            jsonArrayToListData(result, 'mountain_id', 'mountain')
-        );
+        requestAlpinebook(`areas/${areaId}/mountains`, onOk, onFail);
     }
 
     searchMountains(query, areaId, onOk, onFail) {
@@ -25,13 +18,11 @@ class Alpinebook {
                             `areas/${areaId}/mountains?search=${query}`
                             :
                             `mountains?search=${query}`;
-        requestAlpinebook(queryStr, onOk, onFail, (result) => result);
+        requestAlpinebook(queryStr, onOk, onFail);
     }
 
     getRoutes(mountainId, onOk, onFail) {
-        requestAlpinebook(`mountains/${mountainId}/routes`, onOk, onFail, (result) =>
-             jsonArrayToListData(result, 'route_id', 'route')
-        );
+        requestAlpinebook(`mountains/${mountainId}/routes`, onOk, onFail);
     }
 }
 
