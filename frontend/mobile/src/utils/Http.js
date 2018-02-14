@@ -1,12 +1,16 @@
 import { Platform } from 'react-native';
 import { getErrorFromJson, showError } from './Errors';
+import PlatformEnum from '../enum/PlatformEnum';
 
 export function requestAlpinebook(url, onOk, onFail, resultModifier) {
     const baseUrl = 'https://b64a1166.ngrok.io/';
     const apiUrl = `${baseUrl}api/v1/`;
     const requestUrl = `${apiUrl}${url}`;
 
-    const platform = Platform.OS === 'ios' ? 'iOS' : 'Android';
+    const platform = Platform.select({
+        [PlatformEnum.IOS]: 'iOS',
+        [PlatformEnum.ANDROID]: 'Android'
+    });
     fetch(requestUrl, { headers: { 'User-Agent': `Alpinebook ${platform} v0.01` } })
         .then((response) => {
             const contentType = response.headers.get('Content-Type') || '';
