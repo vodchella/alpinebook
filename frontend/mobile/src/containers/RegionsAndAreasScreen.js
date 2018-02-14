@@ -7,6 +7,7 @@ import { observer } from 'mobx-react/native';
 import styles from '../styles/Styles';
 import MountainsAndRoutesScreen from './MountainsAndRoutesScreen';
 import MountainSearchScreen from './MountainSearchScreen';
+import RouteScreen from './RouteScreen';
 import TwoLevelDynamicList from '../components/TwoLevelDynamicList';
 import MountainSearchHeader from '../components/MountainSearchHeader';
 import alpinebook from '../connectors/Alpinebook';
@@ -90,7 +91,8 @@ const RegionsAndAreasScreenNavigator = StackNavigator(
     {
         RegionsAndAreas: { screen: RegionsAndAreasScreen },
         MountainsAndRoutes: { screen: MountainsAndRoutesScreen },
-        MountainSearch: { screen: MountainSearchScreen }
+        MountainSearch: { screen: MountainSearchScreen },
+        Route: { screen: RouteScreen }
     },
     {
         headerMode: 'none',

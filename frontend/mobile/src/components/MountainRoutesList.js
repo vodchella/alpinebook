@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react/native';
-import { View, TouchableOpacity, Alert } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { Text, Badge } from 'native-base';
 import ListItemHint from './ListItemHint';
 
@@ -20,7 +20,7 @@ const badgeColor = complexity => {
 @observer
 class MountainRoutesList extends Component {
     render() {
-        const { data } = this.props;
+        const { data, navigation } = this.props;
 
         return data.length ?
             <View
@@ -34,7 +34,7 @@ class MountainRoutesList extends Component {
                 {data.map((item) =>
                     <TouchableOpacity
                         key={item.id}
-                        onPress={() => Alert.alert('Ждите', 'Скоро всё будет!')}
+                        onPress={() => navigation.navigate('Route', { id: item.id })}
                         style={{
                             flex: 1,
                             flexDirection: 'row',
