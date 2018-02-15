@@ -5,7 +5,11 @@ export default StyleSheet.create({
     listUnorderedItemIcon: {
         marginLeft: 10,
         marginRight: 10,
-        marginTop: 5,
+        ...Platform.select({
+            [PlatformEnum.ANDROID]: {
+                marginTop: 5
+            }
+        }),
         ...Platform.select({
             [PlatformEnum.IOS]: {
                 lineHeight: 36
@@ -18,7 +22,11 @@ export default StyleSheet.create({
     listOrderedItemIcon: {
         marginLeft: 10,
         marginRight: 10,
-        marginTop: 4,
+        ...Platform.select({
+            [PlatformEnum.ANDROID]: {
+                marginTop: 4
+            }
+        }),
         fontWeight: 'bold',
         ...Platform.select({
             [PlatformEnum.IOS]: {
