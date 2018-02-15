@@ -4,34 +4,32 @@ import { View, ScrollView, ActivityIndicator } from 'react-native';
 import { Container } from 'native-base';
 import SimpleHeader from '../components/SimpleHeader';
 import Markdown from '../components/Markdown';
-import TwoLevelDynamicListStore from '../stores/TwoLevelDynamicListStore';
+import SimpleDataStore from '../stores/SimpleDataStore';
 import alpinebook from '../connectors/Alpinebook';
 import styles from '../styles/Styles';
 
 @observer
 class RouteScreen extends Component {
     componentWillMount() {
-        this.store = new TwoLevelDynamicListStore();
+        this.store = new SimpleDataStore();
     }
 
     componentDidMount() {
         const routeId = this.props.navigation.state.params.id;
 
-        this.store.setLevel1DataLoader(() => {
+        this.store.loadData(() => {
             alpinebook.getRoute(routeId,
                 (result) => {
-                    this.store.setLevel1DataObject(result);
+                    this.store.data = result;
                 },
-                this.store.abortLevel1
+                this.store.abort
             );
         });
-
-        this.store.loadLevel1Data();
     }
 
     render() {
         const { navigation } = this.props;
-        const route = this.store.leve1Data;
+        const route = this.store.data;
 
         return (
             <Container>
@@ -39,12 +37,12 @@ class RouteScreen extends Component {
                     navigation={navigation}
                     caption={'Маршрут'}
                 />
-                {this.store.leve1FetchingInProgress ?
+                {this.store.fetchingInProgress ?
                     <View style={styles.container}>
                         <ActivityIndicator size='large' color='gray' />
                     </View>
                     :
-                    this.store.leve1Loaded ?
+                    this.store.dataLoaded ?
                         <ScrollView>
                             <Markdown>{
                                 `## ${route.mountain.name}\n` +
