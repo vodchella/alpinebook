@@ -4,27 +4,30 @@ import { View, ScrollView, ActivityIndicator } from 'react-native';
 import { Container } from 'native-base';
 import SimpleHeader from '../components/SimpleHeader';
 import Markdown from '../components/Markdown';
-import SimpleDataStore from '../stores/SimpleDataStore';
 import alpinebook from '../connectors/Alpinebook';
 import styles from '../styles/Styles';
 
 @observer
 class RouteScreen extends Component {
     componentWillMount() {
-        this.store = new SimpleDataStore();
+        const { routesStore } = this.props.screenProps.stores;
+        const routeId = this.props.navigation.state.params.id;
+        this.store = routesStore.getRouteStore(routeId);
     }
 
     componentDidMount() {
         const routeId = this.props.navigation.state.params.id;
 
-        this.store.loadData(() => {
-            alpinebook.getRoute(routeId,
-                (result) => {
-                    this.store.data = result;
-                },
-                this.store.abort
-            );
-        });
+        if (!this.store.dataLoaded && !this.store.fetchingInProgress) {
+            this.store.loadData(() => {
+                alpinebook.getRoute(routeId,
+                    (result) => {
+                        this.store.data = result;
+                    },
+                    this.store.abort
+                );
+            });
+        }
     }
 
     render() {
@@ -47,7 +50,7 @@ class RouteScreen extends Component {
                             <Markdown>{
                                 `## ${route.mountain.name}\n` +
                                 `#### ${route.complexity} к.т. ${route.name}\n\n` +
-                                `${route.description}`
+                                `${route.description || ''}`
                             }</Markdown>
                         </ScrollView>
                         :
