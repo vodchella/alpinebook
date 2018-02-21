@@ -103,11 +103,6 @@ class RouteScreen extends Component {
     render() {
         const { navigation } = this.props;
 
-        const renderScene = SceneMap({
-            description: this.descriptionScene,
-            attachments: this.attachmentsScene
-        });
-
         return (
             <Container>
                 <SimpleHeader
@@ -125,10 +120,13 @@ class RouteScreen extends Component {
                             <TabViewAnimated
                                 style={{ flex: 1 }}
                                 navigationState={this.state}
-                                renderScene={renderScene}
                                 renderHeader={this.renderHeader}
                                 onIndexChange={this.handleIndexChange}
                                 initialLayout={initialLayout}
+                                renderScene={SceneMap({
+                                    description: this.descriptionScene,
+                                    attachments: this.attachmentsScene
+                                })}
                             />
                             :
                             this.descriptionScene()
