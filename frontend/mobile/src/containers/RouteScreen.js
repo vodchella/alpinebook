@@ -22,6 +22,9 @@ class RouteScreen extends Component {
             { key: 'description', title: 'Описание' },
             { key: 'attachments', title: 'Вложения' },
         ],
+        showTabs: false,
+        title: 'Маршрут...',
+        subtitle: ''
     };
 
     componentWillMount() {
@@ -38,23 +41,47 @@ class RouteScreen extends Component {
                 alpinebook.getRoute(routeId,
                     (result) => {
                         this.store.data = result;
+
+                        // Отладочная заглушка, потом убрать
+                        if (result.id === 5 || result.id === 1) {
+                            this.store.data.attachments = [
+                                {
+                                    id: 1,
+                                    name: 'aman_1.jpg',
+                                    ext: 'jpg',
+                                    path: 'http://alpfederation.ru/api/files/3630'
+                                },
+                                {
+                                    id: 2,
+                                    name: 'aman_2.pdf',
+                                    ext: 'pdf',
+                                    path: 'http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf'
+                                }
+                            ];
+                        }
+
+                        this.updateState();
                     },
                     this.store.abort
                 );
             });
+        } else {
+            this.updateState();
         }
+    }
+
+    updateState = () => {
+        this.setState({
+            title: this.store.data.mountain.name,
+            subtitle: `${this.store.data.complexity} к.т. ${this.store.data.name}`,
+            showTabs: this.store.data.attachments,
+            index: this.store.data.description ? 0 : 1
+        });
     }
 
     render() {
         const { navigation } = this.props;
         const route = this.store.data;
-
-        let title = 'Маршрут...';
-        let subtitle = '';
-        if (this.store.dataLoaded) {
-            title = route.mountain.name;
-            subtitle = `${route.complexity} к.т. ${route.name}`;
-        }
 
         const DescriptionScene = () => (
             route.description ?
@@ -67,22 +94,7 @@ class RouteScreen extends Component {
                 </View>
         );
 
-        const AttachmentsScene = () => <AttachmentsList
-            data={[
-                {
-                    id: 1,
-                    name: 'aman_1.jpg',
-                    ext: 'jpg',
-                    path: 'http://alpfederation.ru/api/files/3630'
-                },
-                {
-                    id: 2,
-                    name: 'aman_2.pdf',
-                    ext: 'pdf',
-                    path: 'http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf'
-                }
-            ]}
-        />;
+        const AttachmentsScene = () => <AttachmentsList data={route.attachments} />;
 
         const renderScene = SceneMap({
             description: DescriptionScene,
@@ -95,8 +107,8 @@ class RouteScreen extends Component {
             <Container>
                 <SimpleHeader
                     navigation={navigation}
-                    caption={title}
-                    subtitle={subtitle}
+                    caption={this.state.title}
+                    subtitle={this.state.subtitle}
                 />
                 {this.store.fetchingInProgress ?
                     <View style={styles.container}>
@@ -104,14 +116,17 @@ class RouteScreen extends Component {
                     </View>
                     :
                     this.store.dataLoaded ?
-                        <TabViewAnimated
-                            style={{ flex: 1 }}
-                            navigationState={this.state}
-                            renderScene={renderScene}
-                            renderHeader={renderHeader}
-                            onIndexChange={handleIndexChange}
-                            initialLayout={initialLayout}
-                        />
+                        this.state.showTabs ?
+                            <TabViewAnimated
+                                style={{ flex: 1 }}
+                                navigationState={this.state}
+                                renderScene={renderScene}
+                                renderHeader={renderHeader}
+                                onIndexChange={handleIndexChange}
+                                initialLayout={initialLayout}
+                            />
+                            :
+                            DescriptionScene()
                         :
                         <View />}
             </Container>);
