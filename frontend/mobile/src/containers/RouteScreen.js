@@ -79,29 +79,34 @@ class RouteScreen extends Component {
         });
     }
 
+    descriptionScene = () => {
+        const route = this.store.data;
+        return route.description ?
+            <ScrollView>
+                <Markdown>{route.description}</Markdown>
+            </ScrollView>
+            :
+            <View style={styles.container}>
+                <Text style={styles.inactiveText}>Описание отсутствует</Text>
+            </View>;
+    }
+
+    attachmentsScene = () => {
+        const route = this.store.data;
+        return <AttachmentsList data={route.attachments} />;
+    }
+
+    handleIndexChange = index => this.setState({ index });
+
+    renderHeader = props => <TabBar {...props} style={styles.tabBar} />;
+
     render() {
         const { navigation } = this.props;
-        const route = this.store.data;
-
-        const DescriptionScene = () => (
-            route.description ?
-                <ScrollView>
-                    <Markdown>{route.description}</Markdown>
-                </ScrollView>
-                :
-                <View style={styles.container}>
-                    <Text style={styles.inactiveText}>Описание отсутствует</Text>
-                </View>
-        );
-
-        const AttachmentsScene = () => <AttachmentsList data={route.attachments} />;
 
         const renderScene = SceneMap({
-            description: DescriptionScene,
-            attachments: AttachmentsScene
+            description: this.descriptionScene,
+            attachments: this.attachmentsScene
         });
-        const renderHeader = props => <TabBar {...props} style={styles.tabBar} />;
-        const handleIndexChange = index => this.setState({ index });
 
         return (
             <Container>
@@ -121,12 +126,12 @@ class RouteScreen extends Component {
                                 style={{ flex: 1 }}
                                 navigationState={this.state}
                                 renderScene={renderScene}
-                                renderHeader={renderHeader}
-                                onIndexChange={handleIndexChange}
+                                renderHeader={this.renderHeader}
+                                onIndexChange={this.handleIndexChange}
                                 initialLayout={initialLayout}
                             />
                             :
-                            DescriptionScene()
+                            this.descriptionScene()
                         :
                         <View />}
             </Container>);
