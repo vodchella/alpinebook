@@ -55,22 +55,16 @@ class RouteScreen extends Component {
             subtitle = `${route.complexity} к.т. ${route.name}`;
         }
 
-        const DescriptionScene = () => {
-            let scene = null;
-            if (route.description) {
-                scene = (
-                    <ScrollView>
-                        <Markdown>{route.description}</Markdown>
-                    </ScrollView>);
-            } else {
-                scene = (
-                    <View style={styles.container}>
-                        <Text style={styles.inactiveText}>Описание отсутствует</Text>
-                    </View>
-                );
-            }
-            return scene;
-        };
+        const DescriptionScene = () => (
+            route.description ?
+                <ScrollView>
+                    <Markdown>{route.description}</Markdown>
+                </ScrollView>
+                :
+                <View style={styles.container}>
+                    <Text style={styles.inactiveText}>Описание отсутствует</Text>
+                </View>
+        );
 
         const AttachmentsScene = () => <Markdown>test</Markdown>;
 
