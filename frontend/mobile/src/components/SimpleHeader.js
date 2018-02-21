@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Header, Left, Body, Title, Icon, Button } from 'native-base';
+import { Header, Left, Body, Title, Subtitle, Icon, Button } from 'native-base';
 import styles from '../styles/Styles';
 
 class SimpleHeader extends Component {
     render() {
-        const { navigation, caption } = this.props;
+        const { navigation, caption, subtitle } = this.props;
 
         return (
             <Header>
@@ -15,6 +15,10 @@ class SimpleHeader extends Component {
                 </Left>
                 <Body >
                     <Title style={styles.headerText}>{caption}</Title>
+                    {subtitle ?
+                        <Subtitle>{subtitle}</Subtitle>
+                        :
+                        null}
                 </Body>
             </Header>
         );

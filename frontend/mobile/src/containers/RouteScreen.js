@@ -34,11 +34,19 @@ class RouteScreen extends Component {
         const { navigation } = this.props;
         const route = this.store.data;
 
+        let title = 'Маршрут...';
+        let subtitle = '';
+        if (this.store.dataLoaded) {
+            title = route.mountain.name;
+            subtitle = `${route.complexity} к.т. ${route.name}`;
+        }
+
         return (
             <Container>
                 <SimpleHeader
                     navigation={navigation}
-                    caption={'Маршрут'}
+                    caption={title}
+                    subtitle={subtitle}
                 />
                 {this.store.fetchingInProgress ?
                     <View style={styles.container}>
@@ -48,8 +56,6 @@ class RouteScreen extends Component {
                     this.store.dataLoaded ?
                         <ScrollView>
                             <Markdown>{
-                                `## ${route.mountain.name}\n` +
-                                `#### ${route.complexity} к.т. ${route.name}\n\n` +
                                 `${route.description || ''}`
                             }</Markdown>
                         </ScrollView>
