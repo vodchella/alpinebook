@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react/native';
-import { View, ScrollView, ActivityIndicator, Dimensions } from 'react-native';
+import { View, ScrollView, ActivityIndicator, Dimensions, Text } from 'react-native';
 import { Container } from 'native-base';
 import { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view';
 import SimpleHeader from '../components/SimpleHeader';
@@ -55,10 +55,23 @@ class RouteScreen extends Component {
             subtitle = `${route.complexity} к.т. ${route.name}`;
         }
 
-        const DescriptionScene = () => (
-            <ScrollView>
-                <Markdown>{`${route.description || ''}`}</Markdown>
-            </ScrollView>);
+        const DescriptionScene = () => {
+            let scene = null;
+            if (route.description) {
+                scene = (
+                    <ScrollView>
+                        <Markdown>{route.description}</Markdown>
+                    </ScrollView>);
+            } else {
+                scene = (
+                    <View style={styles.container}>
+                        <Text style={styles.inactiveText}>Описание отсутствует</Text>
+                    </View>
+                );
+            }
+            return scene;
+        };
+
         const AttachmentsScene = () => <Markdown>test</Markdown>;
 
         const renderScene = SceneMap({
