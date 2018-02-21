@@ -1,14 +1,28 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react/native';
-import { View, ScrollView, ActivityIndicator } from 'react-native';
+import { View, ScrollView, ActivityIndicator, Dimensions } from 'react-native';
 import { Container } from 'native-base';
+import { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view';
 import SimpleHeader from '../components/SimpleHeader';
 import Markdown from '../components/Markdown';
 import alpinebook from '../connectors/Alpinebook';
 import styles from '../styles/Styles';
 
+const initialLayout = {
+    height: 0,
+    width: Dimensions.get('window').width,
+};
+
 @observer
 class RouteScreen extends Component {
+    state = {
+        index: 0,
+        routes: [
+            { key: 'description', title: 'Описание' },
+            { key: 'attachments', title: 'Вложения' },
+        ],
+    };
+
     componentWillMount() {
         const { routesStore } = this.props.screenProps.stores;
         const routeId = this.props.navigation.state.params.id;
@@ -41,6 +55,19 @@ class RouteScreen extends Component {
             subtitle = `${route.complexity} к.т. ${route.name}`;
         }
 
+        const DescriptionScene = () => (
+            <ScrollView>
+                <Markdown>{`${route.description || ''}`}</Markdown>
+            </ScrollView>);
+        const AttachmentsScene = () => <Markdown>test</Markdown>;
+
+        const renderScene = SceneMap({
+            description: DescriptionScene,
+            attachments: AttachmentsScene
+        });
+        const renderHeader = props => <TabBar {...props} />;
+        const handleIndexChange = index => this.setState({ index });
+
         return (
             <Container>
                 <SimpleHeader
@@ -54,11 +81,14 @@ class RouteScreen extends Component {
                     </View>
                     :
                     this.store.dataLoaded ?
-                        <ScrollView>
-                            <Markdown>{
-                                `${route.description || ''}`
-                            }</Markdown>
-                        </ScrollView>
+                        <TabViewAnimated
+                            style={{ flex: 1 }}
+                            navigationState={this.state}
+                            renderScene={renderScene}
+                            renderHeader={renderHeader}
+                            onIndexChange={handleIndexChange}
+                            initialLayout={initialLayout}
+                        />
                         :
                         <View />}
             </Container>);
