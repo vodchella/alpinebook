@@ -3,7 +3,7 @@ import { getErrorFromJson, showError } from './Errors';
 import PlatformEnum from '../enums/PlatformEnum';
 
 export function requestAlpinebook(url, onOk, onFail, resultModifier) {
-    const baseUrl = 'https://b64a1166.ngrok.io/';
+    const baseUrl = 'https://0e3f560b.ngrok.io/';
     const apiUrl = `${baseUrl}api/v1/`;
     const requestUrl = `${apiUrl}${url}`;
 

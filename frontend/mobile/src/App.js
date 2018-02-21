@@ -5,6 +5,7 @@ import HomeScreen from './containers/HomeScreen';
 import RegionsAndAreasScreenNavigator from './containers/RegionsAndAreasScreen';
 import SummitsScreenNavigator from './containers/SummitsScreen';
 import RegionsAndAreasStore from './stores/RegionsAndAreasStore';
+import MountainsAndRoutesStore from './stores/MountainsAndRoutesStore';
 import RoutesStore from './stores/RoutesStore';
 import TwoLevelDynamicListStore from './stores/TwoLevelDynamicListStore';
 
@@ -27,6 +28,9 @@ export default class Alpinebook extends Component {
         if (!this.routesStore) {
             this.routesStore = new RoutesStore();
         }
+        if (!this.mountainsAndRoutesStore) {
+            this.mountainsAndRoutesStore = new MountainsAndRoutesStore();
+        }
     }
 
     render() {
@@ -37,6 +41,7 @@ export default class Alpinebook extends Component {
                         version: '0.01',
                         stores: {
                             regionsAndAreasStore: this.regionsAndAreasStore,
+                            mountainsAndRoutesStore: this.mountainsAndRoutesStore,
                             routesStore: this.routesStore
                         }
                     }}

@@ -5,6 +5,12 @@ import SimpleHeader from '../components/SimpleHeader';
 import alpinebook from '../connectors/Alpinebook';
 
 class MountainsAndRoutesScreen extends Component {
+    componentWillMount() {
+        const { mountainsAndRoutesStore } = this.props.screenProps.stores;
+        const areaId = this.props.navigation.state.params.record.id;
+        this.store = mountainsAndRoutesStore.getStore(areaId);
+    }
+
     componentDidMount() {
         const areaId = this.props.navigation.state.params.record.id;
 
@@ -45,6 +51,7 @@ class MountainsAndRoutesScreen extends Component {
                 <TwoLevelDynamicList
                     ref={(ref) => { this.dynamicList = ref; }}
                     navigation={navigation}
+                    store={this.store}
                     viewType={'mountains'}
                 />
             </Container>
