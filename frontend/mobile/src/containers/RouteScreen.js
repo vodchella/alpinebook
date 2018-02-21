@@ -67,7 +67,22 @@ class RouteScreen extends Component {
                 </View>
         );
 
-        const AttachmentsScene = () => <AttachmentsList />;
+        const AttachmentsScene = () => <AttachmentsList
+            data={[
+                {
+                    id: 1,
+                    name: 'aman_1.jpg',
+                    ext: 'jpg',
+                    path: 'http://alpfederation.ru/api/files/3630'
+                },
+                {
+                    id: 2,
+                    name: 'aman_2.pdf',
+                    ext: 'pdf',
+                    path: 'http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf'
+                }
+            ]}
+        />;
 
         const renderScene = SceneMap({
             description: DescriptionScene,

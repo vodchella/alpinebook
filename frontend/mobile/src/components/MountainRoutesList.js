@@ -3,6 +3,7 @@ import { observer } from 'mobx-react/native';
 import { View, TouchableOpacity } from 'react-native';
 import { Text, Badge } from 'native-base';
 import ListItemHint from './ListItemHint';
+import ls from '../styles/ListStyles';
 
 const badgeColor = complexity => {
     let color = '#477EEA';
@@ -23,26 +24,12 @@ class MountainRoutesList extends Component {
         const { data, navigation } = this.props;
 
         return data.length ?
-            <View
-                style={{
-                    flex: 1,
-                    flexDirection: 'column',
-                    alignItems: 'flex-start',
-                    paddingLeft: 20
-                }}
-            >
+            <View style={ls.list}>
                 {data.map((item) =>
                     <TouchableOpacity
                         key={item.id}
                         onPress={() => navigation.navigate('Route', { id: item.id })}
-                        style={{
-                            flex: 1,
-                            flexDirection: 'row',
-                            alignSelf: 'flex-start',
-                            paddingLeft: 10,
-                            height: 45,
-                            width: '100%'
-                        }}
+                        style={ls.listTouchableOpacity}
                     >
                         <Badge
                             style={{

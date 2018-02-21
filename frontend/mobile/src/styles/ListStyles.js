@@ -7,6 +7,15 @@ const listStyles = StyleSheet.create({
         alignItems: 'flex-start',
         paddingLeft: 20
     },
+    listTouchableOpacity: {
+        flex: 1,
+        flexDirection: 'row',
+        alignSelf: 'flex-start',
+        alignItems: 'center',
+        paddingLeft: 10,
+        height: 45,
+        width: '100%'
+    },
     listTitleItem: {
         color: 'grey',
         alignSelf: 'flex-start',
