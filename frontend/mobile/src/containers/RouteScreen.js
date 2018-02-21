@@ -65,7 +65,7 @@ class RouteScreen extends Component {
             description: DescriptionScene,
             attachments: AttachmentsScene
         });
-        const renderHeader = props => <TabBar {...props} />;
+        const renderHeader = props => <TabBar {...props} style={styles.tabBar} />;
         const handleIndexChange = index => this.setState({ index });
 
         return (
