@@ -3,6 +3,7 @@ import { observer } from 'mobx-react/native';
 import { View, ScrollView, ActivityIndicator, Dimensions, Text } from 'react-native';
 import { Container } from 'native-base';
 import { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view';
+import AttachmentsList from '../components/AttachmentsList';
 import SimpleHeader from '../components/SimpleHeader';
 import Markdown from '../components/Markdown';
 import alpinebook from '../connectors/Alpinebook';
@@ -66,7 +67,7 @@ class RouteScreen extends Component {
                 </View>
         );
 
-        const AttachmentsScene = () => <Markdown>test</Markdown>;
+        const AttachmentsScene = () => <AttachmentsList />;
 
         const renderScene = SceneMap({
             description: DescriptionScene,
