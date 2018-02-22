@@ -125,8 +125,6 @@
             <column name="route_nature" remarks="Характер маршрута" type="ROUTE_NATURE">
                 <constraints nullable="false"/>
             </column>
-            <column name="first_ascender_id" remarks="Руководитель первопрохождения" type="INT"/>
-            <column name="first_ascent_year" remarks="Год первопрохождения" type="SMALLINT"/>
             <column name="description" remarks="Описание маршрута" type="TEXT"/>
         </createTable>
     </changeSet>
