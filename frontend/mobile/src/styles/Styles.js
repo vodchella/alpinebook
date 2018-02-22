@@ -43,6 +43,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#F0F2A4'
+    },
+
+    tabBar: {
+        backgroundColor: '#3F51B5'
     }
 });
 

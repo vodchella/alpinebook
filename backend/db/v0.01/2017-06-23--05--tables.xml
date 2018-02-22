@@ -125,9 +125,26 @@
             <column name="route_nature" remarks="Характер маршрута" type="ROUTE_NATURE">
                 <constraints nullable="false"/>
             </column>
-            <column name="first_ascender_id" remarks="Руководитель первопрохождения" type="INT"/>
-            <column name="first_ascent_year" remarks="Год первопрохождения" type="SMALLINT"/>
             <column name="description" remarks="Описание маршрута" type="TEXT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="twister" id="route_attachments">
+        <createTable remarks="Вложения к маршрутам" tableName="route_attachments">
+            <column autoIncrement="true" name="route_attachment_id" remarks="Вложение" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="pk_route_attachments"/>
+            </column>
+            <column name="route_id" remarks="Маршрут" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="file_name" remarks="Имя файла" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="content_type" remarks="Тип файла" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="url" remarks="Путь" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 </databaseChangeLog>

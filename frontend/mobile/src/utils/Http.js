@@ -1,9 +1,35 @@
 import { Platform } from 'react-native';
+import RNFetchBlob from 'react-native-fetch-blob';
 import { getErrorFromJson, showError } from './Errors';
 import PlatformEnum from '../enums/PlatformEnum';
 
+export function downloadAndOpenFile(file) {
+    const dirs = RNFetchBlob.fs.dirs;
+    const android = RNFetchBlob.android;
+
+    const fileExt = file.name.slice((file.name.lastIndexOf('.') - 1 >>> 0) + 2);
+    const fileName = file.name.slice(0, file.name.lastIndexOf('.') >>> 0);
+    const fileNewName = `${fileName}-${Date.now()}${fileExt ? `.${fileExt}` : ''}`;
+
+    RNFetchBlob.config({
+        addAndroidDownloads: {
+            title: fileNewName,
+            useDownloadManager: true,
+            mediaScannable: true,
+            notification: true,
+            path: `${dirs.DownloadDir}/${fileNewName}`,
+        },
+    })
+    .fetch('GET', file.url)
+    .then((res) => {
+        android.actionViewIntent(res.path(), file.content_type)
+            .catch((err) => console.log(err));
+    })
+    .catch((err) => showError(err));
+}
+
 export function requestAlpinebook(url, onOk, onFail, resultModifier) {
-    const baseUrl = 'https://0e3f560b.ngrok.io/';
+    const baseUrl = 'https://7b90ae75.ngrok.io/';
     const apiUrl = `${baseUrl}api/v1/`;
     const requestUrl = `${apiUrl}${url}`;
 

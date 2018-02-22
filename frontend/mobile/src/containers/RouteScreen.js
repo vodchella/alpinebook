@@ -1,14 +1,32 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react/native';
-import { View, ScrollView, ActivityIndicator } from 'react-native';
+import { View, ScrollView, ActivityIndicator, Dimensions, Text } from 'react-native';
 import { Container } from 'native-base';
+import { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view';
+import AttachmentsList from '../components/AttachmentsList';
 import SimpleHeader from '../components/SimpleHeader';
 import Markdown from '../components/Markdown';
 import alpinebook from '../connectors/Alpinebook';
 import styles from '../styles/Styles';
 
+const initialLayout = {
+    height: 0,
+    width: Dimensions.get('window').width,
+};
+
 @observer
 class RouteScreen extends Component {
+    state = {
+        index: 0,
+        routes: [
+            { key: 'description', title: 'Описание' },
+            { key: 'attachments', title: 'Вложения' },
+        ],
+        showTabs: false,
+        title: 'Маршрут...',
+        subtitle: ''
+    };
+
     componentWillMount() {
         const { routesStore } = this.props.screenProps.stores;
         const routeId = this.props.navigation.state.params.id;
@@ -23,30 +41,55 @@ class RouteScreen extends Component {
                 alpinebook.getRoute(routeId,
                     (result) => {
                         this.store.data = result;
+                        this.updateState();
                     },
                     this.store.abort
                 );
             });
+        } else {
+            this.updateState();
         }
     }
 
+    updateState = () => {
+        this.setState({
+            title: this.store.data.mountain.name,
+            subtitle: `${this.store.data.complexity} к.т. ${this.store.data.name}`,
+            showTabs: this.store.data.attachments,
+            index: this.store.data.description ? 0 : 1
+        });
+    }
+
+    descriptionScene = () => {
+        const route = this.store.data;
+        return route.description ?
+            <ScrollView>
+                <Markdown>{route.description}</Markdown>
+            </ScrollView>
+            :
+            <View style={styles.container}>
+                <Text style={styles.inactiveText}>Описание отсутствует</Text>
+            </View>;
+    }
+
+    attachmentsScene = () => {
+        const route = this.store.data;
+        return <AttachmentsList data={route.attachments} />;
+    }
+
+    handleIndexChange = index => this.setState({ index });
+
+    renderHeader = props => <TabBar {...props} style={styles.tabBar} />;
+
     render() {
         const { navigation } = this.props;
-        const route = this.store.data;
-
-        let title = 'Маршрут...';
-        let subtitle = '';
-        if (this.store.dataLoaded) {
-            title = route.mountain.name;
-            subtitle = `${route.complexity} к.т. ${route.name}`;
-        }
 
         return (
             <Container>
                 <SimpleHeader
                     navigation={navigation}
-                    caption={title}
-                    subtitle={subtitle}
+                    caption={this.state.title}
+                    subtitle={this.state.subtitle}
                 />
                 {this.store.fetchingInProgress ?
                     <View style={styles.container}>
@@ -54,11 +97,20 @@ class RouteScreen extends Component {
                     </View>
                     :
                     this.store.dataLoaded ?
-                        <ScrollView>
-                            <Markdown>{
-                                `${route.description || ''}`
-                            }</Markdown>
-                        </ScrollView>
+                        this.state.showTabs ?
+                            <TabViewAnimated
+                                style={{ flex: 1 }}
+                                navigationState={this.state}
+                                renderHeader={this.renderHeader}
+                                onIndexChange={this.handleIndexChange}
+                                initialLayout={initialLayout}
+                                renderScene={SceneMap({
+                                    description: this.descriptionScene,
+                                    attachments: this.attachmentsScene
+                                })}
+                            />
+                            :
+                            this.descriptionScene()
                         :
                         <View />}
             </Container>);

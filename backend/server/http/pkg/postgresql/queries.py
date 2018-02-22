@@ -82,14 +82,14 @@ select case
            json_build_object('id', r.route_id,
                              'name', get_route_text(r.route_id, false, false),
                              'complexity', r.complexity)
-       end as mountain
+       end as route
 from   routes r
 where  r.mountain_id = $1
 order by r.complexity, r.route
 """
 
 SQL_GET_ROUTE = """
-select get_route_json(rt.route_id) as mountain
+select get_route_json(rt.route_id) as route
 from   routes rt
 where  rt.route_id = $1
 """
