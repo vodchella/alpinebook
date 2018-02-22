@@ -33,6 +33,9 @@
     <changeSet author="twister" id="routes_ref_mountains_2">
         <addForeignKeyConstraint baseColumnNames="ending_mountain_id" baseTableName="routes" constraintName="routes_ref_mountains_2" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="mountain_id" referencedTableName="mountains"/>
     </changeSet>
+    <changeSet author="twister" id="route_attachments_ref_routes">
+        <addForeignKeyConstraint baseColumnNames="route_id" baseTableName="route_attachments" constraintName="route_attachments_ref_routes" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="route_id" referencedTableName="routes"/>
+    </changeSet>
     <changeSet author="twister" id="users_ref_alpinists">
         <addForeignKeyConstraint baseColumnNames="alpinist_id" baseTableName="users" baseTableSchemaName="auth" constraintName="users_ref_alpinists" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="CASCADE" referencedColumnNames="alpinist_id" referencedTableName="alpinists"/>
     </changeSet>

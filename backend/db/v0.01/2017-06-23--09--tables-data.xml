@@ -3,11 +3,6 @@
     <changeSet author="twister" id="alpinists">
         <sql>
             INSERT INTO alpinists (alpinist_id, last_name, first_name, middle_name, rank) VALUES (1, 'Павлов', 'Максим', 'Андреевич', 'I');
-            INSERT INTO alpinists (alpinist_id, last_name, first_name, middle_name, rank) VALUES (2, 'Лебедев', 'Тимофей', NULL, NULL);
-            INSERT INTO alpinists (alpinist_id, last_name, first_name, middle_name, rank) VALUES (3, 'Горбунов', 'Юрий', NULL, 'МС');
-            INSERT INTO alpinists (alpinist_id, last_name, first_name, middle_name, rank) VALUES (4, 'Саланов', 'Д', NULL, NULL);
-            INSERT INTO alpinists (alpinist_id, last_name, first_name, middle_name, rank) VALUES (5, 'Неаронский', 'В', NULL, NULL);
-            INSERT INTO alpinists (alpinist_id, last_name, first_name, middle_name, rank) VALUES (6, 'Зимин', 'В', NULL, NULL);
         </sql>
         <rollback>
             TRUNCATE alpinists;
@@ -62,7 +57,7 @@
     </changeSet>
     <changeSet author="twister" id="routes">
         <sql>
-            INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, first_ascender_id, complexity, winter_complexity, route_nature, first_ascent_year, description) VALUES (1, 1, NULL, false, 'С запада по кулуару', 6, '1Б', NULL, 'ск', NULL, '![](http://mountain.kz/images/739.jpg)
+            INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, complexity, winter_complexity, route_nature, description) VALUES (1, 1, NULL, false, 'С запада по кулуару', '1Б', NULL, 'ск', '![](http://mountain.kz/images/739.jpg)
 
 **Описание маршрута:**
 Вершина Амангельды находится в северо-западном ответвлении Мало-Алматинского отрога.
@@ -81,14 +76,22 @@
 ![](http://mountain.kz/images/740.jpg)
 
 ![](http://mountain.kz/images/741.jpg)');
-            INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, first_ascender_id, complexity, winter_complexity, route_nature, first_ascent_year) VALUES (2, 1, NULL, false, 'Восточный гребень', 5, '2Б', NULL, 'ск', NULL);
-            INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, first_ascender_id, complexity, winter_complexity, route_nature, first_ascent_year) VALUES (3, 1, NULL, false, 'СЗ ребро', NULL, '2Б', NULL, 'ск', NULL);
-            INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, first_ascender_id, complexity, winter_complexity, route_nature, first_ascent_year) VALUES (4, 1, NULL, false, 'Северная стена', 4, '3Б', NULL, 'к', NULL);
-            INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, first_ascender_id, complexity, winter_complexity, route_nature, first_ascent_year) VALUES (5, 1, NULL, false, 'ЮЗ гребень', 3, '2А', NULL, 'ск', NULL);
-            INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, first_ascender_id, complexity, winter_complexity, route_nature, first_ascent_year) VALUES (6, 1, 2, true, NULL, 2, '4А', NULL, 'к', NULL);
+            INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, complexity, winter_complexity, route_nature) VALUES (2, 1, NULL, false, 'Восточный гребень', '2Б', NULL, 'ск');
+            INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, complexity, winter_complexity, route_nature) VALUES (3, 1, NULL, false, 'СЗ ребро', '2Б', NULL, 'ск');
+            INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, complexity, winter_complexity, route_nature) VALUES (4, 1, NULL, false, 'Северная стена', '3Б', NULL, 'к');
+            INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, complexity, winter_complexity, route_nature) VALUES (5, 1, NULL, false, 'ЮЗ гребень', '2А', NULL, 'ск');
+            INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, complexity, winter_complexity, route_nature) VALUES (6, 1, 2, true, NULL, '4А', NULL, 'к');
         </sql>
         <rollback>
             TRUNCATE routes;
+        </rollback>
+    </changeSet>
+    <changeSet author="twister" id="route_attachments">
+        <sql>
+            INSERT INTO route_attachments (route_attachment_id, route_id, file_name, content_type, url) VALUES (1, 1, 'aman_1.jpg', 'image/jpeg', 'http://alpfederation.ru/api/files/3630');
+        </sql>
+        <rollback>
+            TRUNCATE route_attachments;
         </rollback>
     </changeSet>
 </databaseChangeLog>
