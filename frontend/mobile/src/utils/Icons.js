@@ -1,9 +1,8 @@
-export const getIconByExt = (ext) => {
-    switch (ext) {
-        case 'pdf':
+export const getIconByContentType = (contentType) => {
+    switch (contentType) {
+        case 'application/pdf':
             return 'file-pdf-o';
-        case 'jpg':
-        case 'jpeg':
+        case 'image/jpeg':
             return 'picture-o';
         default:
             return 'file-o';

@@ -48,14 +48,14 @@ class RouteScreen extends Component {
                                 {
                                     id: 1,
                                     name: 'aman_1.jpg',
-                                    ext: 'jpg',
-                                    path: 'http://alpfederation.ru/api/files/3630'
+                                    contentType: 'image/jpeg',
+                                    url: 'http://alpfederation.ru/api/files/3630'
                                 },
                                 {
                                     id: 2,
                                     name: 'aman_2.pdf',
-                                    ext: 'pdf',
-                                    path: 'http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf'
+                                    contentType: 'application/pdf',
+                                    url: 'http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf'
                                 }
                             ];
                         }
