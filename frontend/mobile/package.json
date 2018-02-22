@@ -13,6 +13,7 @@
     "native-base": "^2.3.9",
     "react": "16.2.0",
     "react-native": "^0.53.3",
+    "react-native-fetch-blob": "^0.10.8",
     "react-native-gesture-handler": "^1.0.0-alpha.41",
     "react-native-markdown-renderer": "^3.0.2",
     "react-native-tab-view": "0.0.74",
