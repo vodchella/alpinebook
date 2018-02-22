@@ -1,15 +1,13 @@
 FROM ubuntu:16.04
 
-EXPOSE 5432
-
 RUN apt update
-RUN apt install -y wget
+RUN apt install -y wget unzip build-essential
 
 WORKDIR /tmp
 RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main" > /etc/apt/sources.list.d/pgdg.list \
     && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 RUN apt update
-RUN apt install -y postgresql-9.6 default-jre python3-pip && pip3 install psycopg2
+RUN apt install -y postgresql-9.6 libpq-dev postgresql-server-dev-9.6 default-jre python3-pip && pip3 install psycopg2
 RUN wget https://github.com/liquibase/liquibase/releases/download/liquibase-parent-3.5.3/liquibase-3.5.3-bin.tar.gz \
     && mkdir /usr/share/liquibase \
     && tar \
@@ -31,6 +29,15 @@ RUN chmod 777 /etc/alpinebook/start_alpinebook_db.sh
 ARG tz
 RUN echo $tz > /etc/timezone
 
+RUN wget https://github.com/iCyberon/pg_hashids/archive/master.zip \
+    && unzip master.zip -d /usr/share \
+    && mv /usr/share/pg_hashids-master/ /usr/share/pg_hashids/ \
+    && rm master.zip
+WORKDIR /usr/share/pg_hashids
+RUN make \
+    && make install
+
+WORKDIR /
 USER postgres
 RUN    echo "listen_addresses='*'" >> /etc/postgresql/9.6/main/postgresql.conf \
     && echo "host all  all    172.17.0.0/16  md5" >> /etc/postgresql/9.6/main/pg_hba.conf \
@@ -38,7 +45,8 @@ RUN    echo "listen_addresses='*'" >> /etc/postgresql/9.6/main/postgresql.conf \
     && echo "host all  all    127.0.0.1/32  md5" >> /etc/postgresql/9.6/main/pg_hba.conf \
     && service postgresql start \
     && psql --command "CREATE DATABASE alpinebook_dev" \
-    && psql --command "ALTER USER postgres WITH PASSWORD 'postgres'"
+    && psql --command "ALTER USER postgres WITH PASSWORD 'postgres'" \
+    && psql --command "CREATE EXTENSION pg_hashids" alpinebook_dev
 
 COPY . /etc/alpinebook/db
 
