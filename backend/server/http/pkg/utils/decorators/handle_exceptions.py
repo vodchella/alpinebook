@@ -8,9 +8,11 @@ from asyncpg.exceptions._base import PostgresError
 from jwt.exceptions import InvalidTokenError, InvalidKeyError
 from pika.exceptions import AMQPError
 from pymongo.errors import PyMongoError
+from functools import wraps
 
 
 def handle_exceptions(func):
+    @wraps(func)
     async def wrapped(*positional, **named):
         try:
             return await func(*positional, **named)

@@ -1,8 +1,10 @@
 from pkg.utils.json.validator import Validator
+from functools import wraps
 
 
 def validate_request(schema_name):
     def decorator(func):
+        @wraps(func)
         async def wrapped(*positional, **named):
             request = positional[0]
             invalid = Validator().validate(request.json, schema_name)
