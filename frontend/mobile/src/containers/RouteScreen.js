@@ -41,25 +41,6 @@ class RouteScreen extends Component {
                 alpinebook.getRoute(routeId,
                     (result) => {
                         this.store.data = result;
-
-                        // Отладочная заглушка, потом убрать
-                        if (result.id === 5 || result.id === 1) {
-                            this.store.data.attachments = [
-                                {
-                                    id: 1,
-                                    name: 'aman_1.jpg',
-                                    contentType: 'image/jpeg',
-                                    url: 'http://alpfederation.ru/api/files/3630'
-                                },
-                                {
-                                    id: 2,
-                                    name: 'aman_2.pdf',
-                                    contentType: 'application/pdf',
-                                    url: 'http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf'
-                                }
-                            ];
-                        }
-
                         this.updateState();
                     },
                     this.store.abort

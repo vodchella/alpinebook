@@ -22,7 +22,7 @@ class AttachmentsList extends Component {
                             style={ls.listTouchableOpacity}
                         >
                             <Icon
-                                name={getIconByContentType(item.contentType)}
+                                name={getIconByContentType(item.content_type)}
                                 color='black'
                                 size={22}
                                 style={{ width: 50 }}

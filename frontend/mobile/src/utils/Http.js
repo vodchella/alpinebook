@@ -22,7 +22,7 @@ export function downloadAndOpenFile(file) {
     })
     .fetch('GET', file.url)
     .then((res) => {
-        android.actionViewIntent(res.path(), file.contentType)
+        android.actionViewIntent(res.path(), file.content_type)
             .catch((err) => console.log(err));
     })
     .catch((err) => showError(err));
