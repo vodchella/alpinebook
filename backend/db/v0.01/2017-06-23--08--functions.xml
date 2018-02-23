@@ -18,6 +18,18 @@
             DROP FUNCTION util.string_is_null_or_empty(text);
         </rollback>
     </changeSet>
+    <changeSet author="twister" id="util.id_enc">
+        <createProcedure path="objects/functions/util/id_enc.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            DROP FUNCTION util.id_enc(bigint, text);
+        </rollback>
+    </changeSet>
+    <changeSet author="twister" id="util.id_dec">
+        <createProcedure path="objects/functions/util/id_dec.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            DROP FUNCTION util.id_dec(text, text);
+        </rollback>
+    </changeSet>
     <changeSet author="twister" id="public.get_ascent_members_text">
         <createProcedure path="objects/functions/public/get_ascent_members_text.sql" relativeToChangelogFile="true"/>
         <rollback>
