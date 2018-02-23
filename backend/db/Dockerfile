@@ -29,15 +29,11 @@ RUN chmod 777 /etc/alpinebook/start_alpinebook_db.sh
 ARG tz
 RUN echo $tz > /etc/timezone
 
-RUN wget https://github.com/iCyberon/pg_hashids/archive/master.zip \
-    && unzip master.zip -d /usr/share \
-    && mv /usr/share/pg_hashids-master/ /usr/share/pg_hashids/ \
-    && rm master.zip
-WORKDIR /usr/share/pg_hashids
+COPY . /etc/alpinebook/db
+WORKDIR /etc/alpinebook/db/v0.01/extensions/pg_hashids
 RUN make \
     && make install
 
-WORKDIR /
 USER postgres
 RUN    echo "listen_addresses='*'" >> /etc/postgresql/9.6/main/postgresql.conf \
     && echo "host all  all    172.17.0.0/16  md5" >> /etc/postgresql/9.6/main/pg_hba.conf \
@@ -48,6 +44,5 @@ RUN    echo "listen_addresses='*'" >> /etc/postgresql/9.6/main/postgresql.conf \
     && psql --command "ALTER USER postgres WITH PASSWORD 'postgres'" \
     && psql --command "CREATE EXTENSION pg_hashids" alpinebook_dev
 
-COPY . /etc/alpinebook/db
-
+WORKDIR /
 ENTRYPOINT ["/etc/alpinebook/start_alpinebook_db.sh"]

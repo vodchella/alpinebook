@@ -4,7 +4,7 @@ CREATE OR REPLACE FUNCTION util.id_dec(
   RETURNS bigint AS
 $BODY$
 begin
-  return hash_decode(encoded_id, '7tSW4tjicyS5izPxim4w74sg' || table_name, 3);
+  return hashids.hash_decode(encoded_id, '7tSW4tjicyS5izPxim4w74sg' || table_name, 3);
 end
 $BODY$
   LANGUAGE plpgsql;
