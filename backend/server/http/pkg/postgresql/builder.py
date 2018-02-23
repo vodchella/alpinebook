@@ -77,7 +77,7 @@ class QueryBuilder:
                 'secure_write_sql': secure_write_sql,
                 'values': out_values}
 
-    def _gen_val(self, fields_data, num):
+    def _gen_val(self, fields_data, num, for_update=False):
         def map_name_by_db_name(db_name):
             names = self._map['fields'].keys()
             if db_name in names:
@@ -86,7 +86,7 @@ class QueryBuilder:
                 for (i, f) in enumerate(self._map['fields'].values()):
                     if 'db_name' in f and f['db_name'] == db_name:
                         return list(names)[i]
-        val = '$%s' % num
+        val = f'${num + 1 if for_update else num}'
         field_name = map_name_by_db_name(fields_data['fields'][num - 1])
         field = self._map['fields'][field_name]
         if 'hashid' in field and field['hashid']:
@@ -112,10 +112,10 @@ class QueryBuilder:
         pk = fields_data['primary_key']
         fields_names = [n for (i, n) in enumerate(fields_data['fields']) if n != pk]
         fields_values = [v for (i, v) in enumerate(fields_data['values']) if fields_data['fields'][i] != pk]
-        cols = ',\n         '.join(['%s = $%s' % (fields_names[i], i + 2) for (i, v) in enumerate(fields_names)])
+        cols = ',\n         '.join(['%s = %s' % (fields_names[i - 1], self._gen_val(fields_data, i, True)) for (i, v) in enumerate(fields_names, start=1)])
         secure_sql = fields_data['secure_write_sql'] if secure else ''
-        sql_with = 'with r as (\n  update %s t\n  set    %s \n  where  %s = $1 %s\n  returning 1\n)' % \
-                   (self._table_name, cols, pk, secure_sql)
+        where = f'util.id_dec($1, \'{self._table_name}\')' if self._primary_key_hashid else '$1'
+        sql_with = f'with r as (\n  update {self._table_name} t\n  set    {cols} \n  where  {pk} = {where} {secure_sql}\n  returning 1\n)'
         sql = '\n%s\nselect count(*) from r\n' % sql_with
         return {'sql': sql, 'values': fields_values}
 
