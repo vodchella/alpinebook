@@ -491,7 +491,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"alpinist_id\": 1,\n  \"summit_date\": \"02.01.2017\",\n  \"route_id\": 2,\n  \"leader\": false,\n  \"members\": \"Разные люди +1\"\n}"
+							"raw": "{\n  \"alpinist_id\": \"gL2\",\n  \"summit_date\": \"02.01.2017\",\n  \"route_id\": \"gLe\",\n  \"leader\": false,\n  \"members\": \"Разные люди +1\"\n}"
 						},
 						"url": {
 							"raw": "{{alpinebook-server}}/api/v1/summits/:summit_id",
@@ -507,7 +507,7 @@
 							"variable": [
 								{
 									"key": "summit_id",
-									"value": "666"
+									"value": "vex"
 								}
 							]
 						}
@@ -554,7 +554,7 @@
 							"variable": [
 								{
 									"key": "summit_id",
-									"value": "666"
+									"value": "vex"
 								}
 							]
 						}
