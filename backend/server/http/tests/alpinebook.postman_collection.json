@@ -54,7 +54,7 @@
 							"variable": [
 								{
 									"key": "region_id",
-									"value": "1"
+									"value": "gmM"
 								}
 							]
 						}
@@ -85,7 +85,7 @@
 							"variable": [
 								{
 									"key": "region_id",
-									"value": "1"
+									"value": "gmM"
 								}
 							]
 						}
@@ -115,7 +115,7 @@
 							"variable": [
 								{
 									"key": "area_id",
-									"value": "1"
+									"value": "6gW"
 								}
 							]
 						}
@@ -146,7 +146,7 @@
 							"variable": [
 								{
 									"key": "area_id",
-									"value": "1"
+									"value": "6gW"
 								}
 							]
 						}
@@ -176,7 +176,7 @@
 							"variable": [
 								{
 									"key": "mountain_id",
-									"value": "1"
+									"value": "nm2"
 								}
 							]
 						}
@@ -218,10 +218,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "{{alpinebook-server}}/api/v1/areas/:area_id/mountains?search=ы",
 							"host": [
@@ -244,7 +241,7 @@
 							"variable": [
 								{
 									"key": "area_id",
-									"value": "1"
+									"value": "6gW"
 								}
 							]
 						}
@@ -275,7 +272,7 @@
 							"variable": [
 								{
 									"key": "mountain_id",
-									"value": "1"
+									"value": "nm2"
 								}
 							]
 						}
@@ -305,7 +302,7 @@
 							"variable": [
 								{
 									"key": "route_id",
-									"value": "6"
+									"value": "wDN"
 								}
 							]
 						}
@@ -359,10 +356,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "{{alpinebook-server}}/api/v1/summits/alpinist/:alpinist_id",
 							"host": [
@@ -378,7 +372,7 @@
 							"variable": [
 								{
 									"key": "alpinist_id",
-									"value": "1"
+									"value": "gL2"
 								}
 							]
 						}
@@ -402,10 +396,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "{{alpinebook-server}}/api/v1/summits/alpinist/:alpinist_id?full_route_info=True",
 							"host": [
@@ -428,7 +419,7 @@
 							"variable": [
 								{
 									"key": "alpinist_id",
-									"value": "1"
+									"value": "gL2"
 								}
 							]
 						}
@@ -459,7 +450,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"summit_id\": 666,\n  \"alpinist_id\": 1,\n  \"summit_date\": \"01.01.2017\",\n  \"route_id\": 1,\n  \"leader\": true,\n  \"members\": \"Разные люди\"\n}"
+							"raw": "{\n  \"summit_id\": \"vex\",\n  \"alpinist_id\": \"gL2\",\n  \"summit_date\": \"01.01.2017\",\n  \"route_id\": \"wDN\",\n  \"leader\": true,\n  \"members\": \"Разные люди\"\n}"
 						},
 						"url": {
 							"raw": "{{alpinebook-server}}/api/v1/summits/",
@@ -500,7 +491,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"alpinist_id\": 1,\n  \"summit_date\": \"02.01.2017\",\n  \"route_id\": 2,\n  \"leader\": false,\n  \"members\": \"Разные люди +1\"\n}"
+							"raw": "{\n  \"alpinist_id\": \"gL2\",\n  \"summit_date\": \"02.01.2017\",\n  \"route_id\": \"gLe\",\n  \"leader\": false,\n  \"members\": \"Разные люди +1\"\n}"
 						},
 						"url": {
 							"raw": "{{alpinebook-server}}/api/v1/summits/:summit_id",
@@ -516,7 +507,7 @@
 							"variable": [
 								{
 									"key": "summit_id",
-									"value": "666"
+									"value": "vex"
 								}
 							]
 						}
@@ -563,7 +554,7 @@
 							"variable": [
 								{
 									"key": "summit_id",
-									"value": "666"
+									"value": "vex"
 								}
 							]
 						}

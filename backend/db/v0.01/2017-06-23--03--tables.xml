@@ -5,6 +5,9 @@
             <column autoIncrement="true" name="alpinist_id" remarks="Альпинист" type="SERIAL">
                 <constraints primaryKey="true" primaryKeyName="pk_alpinists"/>
             </column>
+            <column name="hash_id" remarks="Идентификатор" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
             <column name="last_name" remarks="Фамилия" type="TEXT">
                 <constraints nullable="false"/>
             </column>
@@ -17,6 +20,9 @@
         <createTable remarks="Пользователи" tableName="users" schemaName="auth">
             <column autoIncrement="true" name="user_id" remarks="Пользователь" type="SERIAL">
                 <constraints primaryKey="true" primaryKeyName="pk_users"/>
+            </column>
+            <column name="hash_id" remarks="Идентификатор" type="TEXT">
+                <constraints nullable="false"/>
             </column>
             <column name="alpinist_id" remarks="Альпинист" type="INT"/>
             <column name="email" remarks="Электронная почта" type="TEXT"/>

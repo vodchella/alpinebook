@@ -26,4 +26,44 @@
             <column name="telegram_id"/>
         </createIndex>
     </changeSet>
+    <changeSet author="twister" id="idx_alpinists_hash_id">
+        <createIndex indexName="idx_alpinists_hash_id" tableName="alpinists" unique="true">
+            <column name="hash_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="twister" id="idx_users_hash_id">
+        <createIndex indexName="idx_users_hash_id" schemaName="auth" tableName="users" unique="true">
+            <column name="hash_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="twister" id="idx_alpinist_summits_hash_id">
+        <createIndex indexName="idx_alpinist_summits_hash_id" tableName="alpinist_summits" unique="true">
+            <column name="hash_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="twister" id="idx_areas_hash_id">
+        <createIndex indexName="idx_areas_hash_id" tableName="areas" unique="true">
+            <column name="hash_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="twister" id="idx_ascents_hash_id">
+        <createIndex indexName="idx_ascents_hash_id" tableName="ascents" unique="true">
+            <column name="hash_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="twister" id="idx_mountains_hash_id">
+        <createIndex indexName="idx_mountains_hash_id" tableName="mountains" unique="true">
+            <column name="hash_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="twister" id="idx_regions_hash_id">
+        <createIndex indexName="idx_regions_hash_id" tableName="regions" unique="true">
+            <column name="hash_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="twister" id="idx_routes_hash_id">
+        <createIndex indexName="idx_routes_hash_id" tableName="routes" unique="true">
+            <column name="hash_id"/>
+        </createIndex>
+    </changeSet>
 </databaseChangeLog>

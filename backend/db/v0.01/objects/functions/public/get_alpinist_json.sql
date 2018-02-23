@@ -1,7 +1,7 @@
 CREATE OR REPLACE FUNCTION public.get_alpinist_json(id integer)
   RETURNS json AS
 $BODY$
-  select json_build_object('id', a.alpinist_id,
+  select json_build_object('id', a.hash_id,
                            'last_name', a.last_name,
                            'first_name', a.first_name,
                            'middle_name', a.middle_name,

@@ -1,5 +1,7 @@
 from pkg.utils.verbalexpressions import VerEx
 
+REGEX_HASH_ID = '^[A-z0-9]+$'
+
 DATE = (VerEx().
         add('(').
         find(0).range(1, 9).OR().range(1, 2).range(0, 9).OR().find(3).range(0, 1).

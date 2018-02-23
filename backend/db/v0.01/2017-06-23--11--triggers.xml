@@ -42,4 +42,52 @@
             DROP TRIGGER before_insert_or_update_resources_access ON auth.resources_access;
         </rollback>
     </changeSet>
+    <changeSet author="twister" id="auth.users.users_gen_hash_id">
+        <sqlFile path="objects/triggers/auth/users/users_gen_hash_id.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            DROP TRIGGER users_gen_hash_id ON auth.users;
+        </rollback>
+    </changeSet>
+    <changeSet author="twister" id="public.alpinists.alpinists_gen_hash_id">
+        <sqlFile path="objects/triggers/public/alpinists/alpinists_gen_hash_id.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            DROP TRIGGER alpinists_gen_hash_id ON public.alpinists;
+        </rollback>
+    </changeSet>
+    <changeSet author="twister" id="public.alpinist_summits.alpinist_summits_gen_hash_id">
+        <sqlFile path="objects/triggers/public/alpinist_summits/alpinist_summits_gen_hash_id.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            DROP TRIGGER alpinist_summits_gen_hash_id ON public.alpinist_summits;
+        </rollback>
+    </changeSet>
+    <changeSet author="twister" id="public.areas.areas_summits_gen_hash_id">
+        <sqlFile path="objects/triggers/public/areas/areas_gen_hash_id.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            DROP TRIGGER areas_gen_hash_id ON public.areas;
+        </rollback>
+    </changeSet>
+    <changeSet author="twister" id="public.ascents.ascents_summits_gen_hash_id">
+        <sqlFile path="objects/triggers/public/ascents/ascents_gen_hash_id.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            DROP TRIGGER ascents_gen_hash_id ON public.ascents;
+        </rollback>
+    </changeSet>
+    <changeSet author="twister" id="public.mountains.mountains_summits_gen_hash_id">
+        <sqlFile path="objects/triggers/public/mountains/mountains_gen_hash_id.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            DROP TRIGGER mountains_gen_hash_id ON public.mountains;
+        </rollback>
+    </changeSet>
+    <changeSet author="twister" id="public.regions.regions_summits_gen_hash_id">
+        <sqlFile path="objects/triggers/public/regions/regions_gen_hash_id.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            DROP TRIGGER regions_gen_hash_id ON public.regions;
+        </rollback>
+    </changeSet>
+    <changeSet author="twister" id="public.routes.routes_summits_gen_hash_id">
+        <sqlFile path="objects/triggers/public/routes/routes_gen_hash_id.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            DROP TRIGGER routes_gen_hash_id ON public.routes;
+        </rollback>
+    </changeSet>
 </databaseChangeLog>

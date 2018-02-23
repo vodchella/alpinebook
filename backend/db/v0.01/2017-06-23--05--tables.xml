@@ -5,6 +5,9 @@
             <column autoIncrement="true" name="alpinist_summit_id" remarks="Совершённое восхождение" type="SERIAL">
                 <constraints primaryKey="true" primaryKeyName="pk_alpinist_summits"/>
             </column>
+            <column name="hash_id" remarks="Идентификатор" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
             <column name="alpinist_id" remarks="Альпинист" type="INT">
                 <constraints nullable="false"/>
             </column>
@@ -25,6 +28,9 @@
         <createTable remarks="Области" tableName="areas">
             <column autoIncrement="true" name="area_id" remarks="Область" type="SERIAL">
                 <constraints primaryKey="true" primaryKeyName="pk_areas"/>
+            </column>
+            <column name="hash_id" remarks="Идентификатор" type="TEXT">
+                <constraints nullable="false"/>
             </column>
             <column name="region_id" remarks="Регион" type="INT">
                 <constraints nullable="false"/>
@@ -57,6 +63,9 @@
             <column autoIncrement="true" name="ascent_id" remarks="Восхождение" type="SERIAL">
                 <constraints primaryKey="true" primaryKeyName="pk_ascents"/>
             </column>
+            <column name="hash_id" remarks="Идентификатор" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
             <column name="route_id" remarks="Маршрут" type="INT">
                 <constraints nullable="false"/>
             </column>
@@ -84,6 +93,9 @@
             <column autoIncrement="true" name="mountain_id" remarks="Гора" type="SERIAL">
                 <constraints primaryKey="true" primaryKeyName="pk_mountains"/>
             </column>
+            <column name="hash_id" remarks="Идентификатор" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
             <column name="area_id" remarks="Область" type="INT">
                 <constraints nullable="false"/>
             </column>
@@ -100,6 +112,9 @@
             <column autoIncrement="true" name="region_id" remarks="Регион" type="SERIAL">
                 <constraints primaryKey="true" primaryKeyName="pk_regions"/>
             </column>
+            <column name="hash_id" remarks="Идентификатор" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
             <column name="region" remarks="Наименование региона" type="TEXT">
                 <constraints nullable="false"/>
             </column>
@@ -109,6 +124,9 @@
         <createTable remarks="Альпинистские маршруты" tableName="routes">
             <column autoIncrement="true" name="route_id" remarks="Альпинистский маршрут" type="SERIAL">
                 <constraints primaryKey="true" primaryKeyName="pk_routes"/>
+            </column>
+            <column name="hash_id" remarks="Идентификатор" type="TEXT">
+                <constraints nullable="false"/>
             </column>
             <column name="mountain_id" remarks="Гора" type="INT">
                 <constraints nullable="false"/>

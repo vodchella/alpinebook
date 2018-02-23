@@ -29,7 +29,7 @@ async def change_user_password(request, user_name: str):
     if 'old' in request.raw_args and 'new' in request.raw_args:
         if user and user_name == user['name'] and user['active']:
             if AuthHelper().verify_user_password(request, user['password'], pswd_param_name='old'):
-                user_id = jwt['id'] if jwt else 0
+                user_id = jwt['id'] if jwt else '?'
                 hash = AuthHelper().get_hash_from_password(request.raw_args['new'],
                                                            user['utc_created_at'].encode('utf-8'))
                 result = await Executor(request).query_one(app.db_queries['update_user_password'], hash, user_id)
@@ -89,7 +89,7 @@ async def signin(request, user_name: str):
         user = await Executor(request).query_one_json(sql, param)
 
         allow_signin = False
-        if user and user['id']:
+        if user and user['id'] != '?':
             if user['active']:
                 if method == 'password':
                     if 'password' in request.raw_args:
@@ -100,12 +100,11 @@ async def signin(request, user_name: str):
                 if allow_signin:
                     await app.mongo.upsert_user(user)
                     return response.json({'jwt': AuthHelper().create_jwt_by_user(user)})
-                else:
-                    await asyncio.sleep(2)
             else:
                 return response_error(ERROR_USER_NOT_ACTIVE, 'Пользователь заблокирован')
 
         if not allow_signin:
+            await asyncio.sleep(2)
             return response_error(ERROR_INVALID_CREDENTIALS, 'Пара логин/пароль неверна')
 
     else:
@@ -117,9 +116,9 @@ async def signin(request, user_name: str):
 #
 
 
-@v1.get('/summits/alpinist/<alpinist_id:int>')
+@v1.get('/summits/alpinist/<alpinist_id:[A-z0-9]+>')
 @handle_exceptions
-async def get_summits(request, alpinist_id: int):
+async def get_summits(request, alpinist_id: str):
     full = False
     if 'full_route_info' in request.raw_args:
         full = request.raw_args['full_route_info'].lower() == 'true'
@@ -128,18 +127,18 @@ async def get_summits(request, alpinist_id: int):
                                                                        full))
 
 
-@v1.delete('/summits/<summit_id:int>')
+@v1.delete('/summits/<summit_id:[A-z0-9]+>')
 @handle_exceptions
-async def delete_summit(request, summit_id: int):
+async def delete_summit(request, summit_id: str):
     query_data = QueryBuilder('summits').generate_delete()
     result = await Executor(request).query_one(query_data['sql'], summit_id)
     return response.json({'deleted': result})
 
 
-@v1.put('/summits/<summit_id:int>')
+@v1.put('/summits/<summit_id:[A-z0-9]+>')
 @validate_request('summits')
 @handle_exceptions
-async def update_summit(request, summit_id: int):
+async def update_summit(request, summit_id: str):
     query_data = QueryBuilder('summits').generate_update(request.json)
     result = await Executor(request).query_one(query_data['sql'], summit_id, *query_data['values'])
     return response.json({'updated': result})
@@ -168,27 +167,27 @@ async def list_regions(request):
     return response.json(await Executor(request, False).query_all_json(app.db_queries['get_regions']))
 
 
-@v1.get('/regions/<region_id:int>')
+@v1.get('/regions/<region_id:[A-z0-9]+>')
 @handle_exceptions
-async def get_region(request, region_id: int):
+async def get_region(request, region_id: str):
     return response.json(await Executor(request, False).query_one_json(app.db_queries['get_region'], region_id))
 
 
-@v1.get('/regions/<region_id:int>/areas')
+@v1.get('/regions/<region_id:[A-z0-9]+>/areas')
 @handle_exceptions
-async def list_areas(request, region_id: int):
+async def list_areas(request, region_id: str):
     return response.json(await Executor(request, False).query_all_json(app.db_queries['get_areas'], region_id))
 
 
-@v1.get('/areas/<area_id:int>')
+@v1.get('/areas/<area_id:[A-z0-9]+>')
 @handle_exceptions
-async def get_area(request, area_id: int):
+async def get_area(request, area_id: str):
     return response.json(await Executor(request, False).query_one_json(app.db_queries['get_area'], area_id))
 
 
-@v1.get('/areas/<area_id:int>/mountains')
+@v1.get('/areas/<area_id:[A-z0-9]+>/mountains')
 @handle_exceptions
-async def list_mountains(request, area_id: int):
+async def list_mountains(request, area_id: str):
     result = []
     if 'search' in request.raw_args:
         search = request.raw_args['search'].strip()
@@ -208,25 +207,25 @@ async def search_mountains(request):
         search = request.raw_args['search'].strip()
         if search:
             result = await Executor(request, False).query_all_json(app.db_queries['search_mountains'],
-                                                                   search, False, 0)
+                                                                   search, False, '')
     return response.json(result)
 
 
-@v1.get('/mountains/<mountain_id:int>')
+@v1.get('/mountains/<mountain_id:[A-z0-9]+>')
 @handle_exceptions
-async def get_mountain(request, mountain_id: int):
+async def get_mountain(request, mountain_id: str):
     return response.json(await Executor(request, False).query_one_json(app.db_queries['get_mountain'], mountain_id))
 
 
-@v1.get('/mountains/<mountain_id:int>/routes')
+@v1.get('/mountains/<mountain_id:[A-z0-9]+>/routes')
 @handle_exceptions
-async def list_routes(request, mountain_id: int):
+async def list_routes(request, mountain_id: str):
     return response.json(await Executor(request, False).query_all_json(app.db_queries['get_routes'], mountain_id))
 
 
-@v1.get('/routes/<route_id:int>')
+@v1.get('/routes/<route_id:[A-z0-9]+>')
 @handle_exceptions
-async def get_route(request, route_id: int):
+async def get_route(request, route_id: str):
     return response.json(await Executor(request, False).query_one_json(app.db_queries['get_route'], route_id))
 
 

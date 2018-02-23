@@ -2,7 +2,7 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd" logicalFilePath="/v0.01/2017-06-23--09--tables-data.xml">
     <changeSet author="twister" id="alpinists">
         <sql>
-            INSERT INTO alpinists (alpinist_id, last_name, first_name, middle_name, rank) VALUES (1, 'Павлов', 'Максим', 'Андреевич', 'I');
+            INSERT INTO alpinists (alpinist_id, hash_id, last_name, first_name, middle_name, rank) VALUES (1, util.id_enc(1, 'public.alpinists'), 'Павлов', 'Максим', 'Андреевич', 'I');
         </sql>
         <rollback>
             TRUNCATE alpinists;
@@ -10,7 +10,7 @@
     </changeSet>
     <changeSet author="twister" id="users">
         <sql>
-            INSERT INTO auth.users (user_id, alpinist_id, email, password, telegram_id, telegram_name, active_bool, created_at) VALUES (1, 1, 'twister.kz@gmail.com', '$argon2i$v=19$m=512,t=12,p=2$MTAuMDEuMjAxOCAxNzoxMjo1OQ$RUspE7+IN7COsBkeANAIEUI2i4VwKKrVg40gbkvRqoQ4NxLCqUbzpnxpJ460z4cK8n7pIDrYK8VCjYpFPmiK+DJ27HRAiTAL/T3DyjCY9eFLX9uDFx+RezvcZ9s98SUlr9ke945rJcq1r0JU+GWtiidJJ0yKtaRkRVUqQeoYthQ', 111111111, 'vodchella', true, '2018-01-10 23:12:59+06'::timestamptz);
+            INSERT INTO auth.users (user_id, hash_id, alpinist_id, email, password, telegram_id, telegram_name, active_bool, created_at) VALUES (1, util.id_enc(1, 'auth.users'), 1, 'twister.kz@gmail.com', '$argon2i$v=19$m=512,t=12,p=2$MTAuMDEuMjAxOCAxNzoxMjo1OQ$RUspE7+IN7COsBkeANAIEUI2i4VwKKrVg40gbkvRqoQ4NxLCqUbzpnxpJ460z4cK8n7pIDrYK8VCjYpFPmiK+DJ27HRAiTAL/T3DyjCY9eFLX9uDFx+RezvcZ9s98SUlr9ke945rJcq1r0JU+GWtiidJJ0yKtaRkRVUqQeoYthQ', 111111111, 'vodchella', true, '2018-01-10 23:12:59+06'::timestamptz);
         </sql>
         <rollback>
             TRUNCATE auth.users;
@@ -26,8 +26,8 @@
     </changeSet>
     <changeSet author="twister" id="regions">
         <sql>
-            INSERT INTO regions (region_id, region) VALUES (1, 'Тянь-Шань');
-            INSERT INTO regions (region_id, region) VALUES (2, 'Памир');
+            INSERT INTO regions (region_id, hash_id, region) VALUES (1, util.id_enc(1, 'public.regions'), 'Тянь-Шань');
+            INSERT INTO regions (region_id, hash_id, region) VALUES (2, util.id_enc(2, 'public.regions'), 'Памир');
         </sql>
         <rollback>
             TRUNCATE regions;
@@ -35,9 +35,9 @@
     </changeSet>
     <changeSet author="twister" id="areas">
         <sql>
-            INSERT INTO areas (area_id, region_id, area) VALUES (1, 1, 'Заилийский алатау');
-            INSERT INTO areas (area_id, region_id, area) VALUES (2, 1, 'Тенгри-Таг');
-            INSERT INTO areas (area_id, region_id, area) VALUES (3, 2, 'Заалайский хребет');
+            INSERT INTO areas (area_id, hash_id, region_id, area) VALUES (1, util.id_enc(1, 'public.areas'), 1, 'Заилийский алатау');
+            INSERT INTO areas (area_id, hash_id, region_id, area) VALUES (2, util.id_enc(2, 'public.areas'), 1, 'Тенгри-Таг');
+            INSERT INTO areas (area_id, hash_id, region_id, area) VALUES (3, util.id_enc(3, 'public.areas'), 2, 'Заалайский хребет');
         </sql>
         <rollback>
             TRUNCATE areas;
@@ -45,11 +45,11 @@
     </changeSet>
     <changeSet author="twister" id="mountains">
         <sql>
-            INSERT INTO mountains (mountain_id, area_id, mountain, altitude) VALUES (1, 1, 'Амангельды', 3999);
-            INSERT INTO mountains (mountain_id, area_id, mountain, altitude) VALUES (2, 1, 'Маншук Маметовой', 4144);
-            INSERT INTO mountains (mountain_id, area_id, mountain, altitude) VALUES (3, 2, 'Чапаева', 6100);
-            INSERT INTO mountains (mountain_id, area_id, mountain, altitude) VALUES (4, 2, 'Хан-Тенгри', 7010);
-            INSERT INTO mountains (mountain_id, area_id, mountain, altitude) VALUES (5, 3, 'Ленина', 7134);
+            INSERT INTO mountains (mountain_id, hash_id, area_id, mountain, altitude) VALUES (1, util.id_enc(1, 'public.mountains'), 1, 'Амангельды', 3999);
+            INSERT INTO mountains (mountain_id, hash_id, area_id, mountain, altitude) VALUES (2, util.id_enc(2, 'public.mountains'), 1, 'Маншук Маметовой', 4144);
+            INSERT INTO mountains (mountain_id, hash_id, area_id, mountain, altitude) VALUES (3, util.id_enc(3, 'public.mountains'), 2, 'Чапаева', 6100);
+            INSERT INTO mountains (mountain_id, hash_id, area_id, mountain, altitude) VALUES (4, util.id_enc(4, 'public.mountains'), 2, 'Хан-Тенгри', 7010);
+            INSERT INTO mountains (mountain_id, hash_id, area_id, mountain, altitude) VALUES (5, util.id_enc(5, 'public.mountains'), 3, 'Ленина', 7134);
         </sql>
         <rollback>
             TRUNCATE mountains;
@@ -57,7 +57,7 @@
     </changeSet>
     <changeSet author="twister" id="routes">
         <sql>
-            INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, complexity, winter_complexity, route_nature, description) VALUES (1, 1, NULL, false, 'С запада по кулуару', '1Б', NULL, 'ск', '![](http://mountain.kz/images/739.jpg)
+            INSERT INTO routes (route_id, hash_id, mountain_id, ending_mountain_id, traverse_bool, route, complexity, winter_complexity, route_nature, description) VALUES (1, util.id_enc(1, 'public.routes'), 1, NULL, false, 'С запада по кулуару', '1Б', NULL, 'ск', '![](http://mountain.kz/images/739.jpg)
 
 **Описание маршрута:**
 Вершина Амангельды находится в северо-западном ответвлении Мало-Алматинского отрога.
@@ -76,11 +76,11 @@
 ![](http://mountain.kz/images/740.jpg)
 
 ![](http://mountain.kz/images/741.jpg)');
-            INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, complexity, winter_complexity, route_nature) VALUES (2, 1, NULL, false, 'Восточный гребень', '2Б', NULL, 'ск');
-            INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, complexity, winter_complexity, route_nature) VALUES (3, 1, NULL, false, 'СЗ ребро', '2Б', NULL, 'ск');
-            INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, complexity, winter_complexity, route_nature) VALUES (4, 1, NULL, false, 'Северная стена', '3Б', NULL, 'к');
-            INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, complexity, winter_complexity, route_nature) VALUES (5, 1, NULL, false, 'ЮЗ гребень', '2А', NULL, 'ск');
-            INSERT INTO routes (route_id, mountain_id, ending_mountain_id, traverse_bool, route, complexity, winter_complexity, route_nature) VALUES (6, 1, 2, true, NULL, '4А', NULL, 'к');
+            INSERT INTO routes (route_id, hash_id, mountain_id, ending_mountain_id, traverse_bool, route, complexity, winter_complexity, route_nature) VALUES (2, util.id_enc(2, 'public.routes'), 1, NULL, false, 'Восточный гребень', '2Б', NULL, 'ск');
+            INSERT INTO routes (route_id, hash_id, mountain_id, ending_mountain_id, traverse_bool, route, complexity, winter_complexity, route_nature) VALUES (3, util.id_enc(3, 'public.routes'), 1, NULL, false, 'СЗ ребро', '2Б', NULL, 'ск');
+            INSERT INTO routes (route_id, hash_id, mountain_id, ending_mountain_id, traverse_bool, route, complexity, winter_complexity, route_nature) VALUES (4, util.id_enc(4, 'public.routes'), 1, NULL, false, 'Северная стена', '3Б', NULL, 'к');
+            INSERT INTO routes (route_id, hash_id, mountain_id, ending_mountain_id, traverse_bool, route, complexity, winter_complexity, route_nature) VALUES (5, util.id_enc(5, 'public.routes'), 1, NULL, false, 'ЮЗ гребень', '2А', NULL, 'ск');
+            INSERT INTO routes (route_id, hash_id, mountain_id, ending_mountain_id, traverse_bool, route, complexity, winter_complexity, route_nature) VALUES (6, util.id_enc(6, 'public.routes'), 1, 2, true, NULL, '4А', NULL, 'к');
         </sql>
         <rollback>
             TRUNCATE routes;
