@@ -129,6 +129,6 @@ class QueryBuilder:
             secure_field_name = arr[0] if len(arr) else ''
             if secure_field_name:
                 _, secure_sql = self._get_secure_sqls(secure_field_name, 0)
-        sql = '\nwith r as (\n  delete from %s t\n  where  %s = $1 %s\n  returning 1\n)\nselect count(*) from r\n' % \
-              (self._table_name, self._primary_key, secure_sql)
+        where = f'util.id_dec($1, \'{self._table_name}\')' if self._primary_key_hashid else '$1'
+        sql = f'\nwith r as (\n  delete from {self._table_name} t\n  where  {self._primary_key} = {where} {secure_sql}\n  returning 1\n)\nselect count(*) from r\n'
         return {'sql': sql}
