@@ -32,7 +32,7 @@ where  u.%s = $1
 """
 
 SQL_GET_REGIONS = """
-select json_build_object('id', r.region_id,
+select json_build_object('id', r.hash_id,
                          'name', r.region) as region
 from   regions r
 order by r.region
@@ -41,66 +41,69 @@ order by r.region
 SQL_GET_REGION = """
 select get_region_json(r.region_id) as region
 from   regions r
-where  r.region_id = $1
+where  r.hash_id = $1
 """
 
 SQL_GET_AREAS = """
-select json_build_object('id', a.area_id,
+select json_build_object('id', a.hash_id,
                          'name', a.area) as area
 from   areas a
-where  a.region_id = $1
+       inner join regions r using (region_id)
+where  r.hash_id = $1
 order by a.area
 """
 
 SQL_GET_AREA = """
 select get_area_json(a.area_id) as area
 from   areas a
-where  a.area_id = $1
+where  a.hash_id = $1
 """
 
 SQL_GET_MOUNTAINS = """
-select json_build_object('id', m.mountain_id,
+select json_build_object('id', m.hash_id,
                          'name', m.mountain) as mountain
 from   mountains m
-where  m.area_id = $1
+       inner join areas a using (area_id)
+where  a.hash_id = $1
 """
 
 SQL_GET_MOUNTAIN = """
 select get_mountain_json(m.mountain_id) as mountain
 from   mountains m
-where  m.mountain_id = $1
+where  m.hash_id = $1
 """
 
 SQL_GET_ROUTES = """
 select case
          when r.winter_complexity is not null then
-           json_build_object('id', r.route_id,
+           json_build_object('id', r.hash_id,
                              'name', get_route_text(r.route_id, false, false),
                              'complexity', r.complexity,
                              'winter_complexity', r.winter_complexity)
          else
-           json_build_object('id', r.route_id,
+           json_build_object('id', r.hash_id,
                              'name', get_route_text(r.route_id, false, false),
                              'complexity', r.complexity)
        end as route
 from   routes r
-where  r.mountain_id = $1
+       inner join mountains m using (mountain_id)
+where  m.hash_id = $1
 order by r.complexity, r.route
 """
 
 SQL_GET_ROUTE = """
 select get_route_json(rt.route_id) as route
 from   routes rt
-where  rt.route_id = $1
+where  rt.hash_id = $1
 """
 
 SQL_GET_SUMMITS = """
 select json_build_object('num', row_number() over (order by s.summit_date),
-                         'id', s.alpinist_summit_id,
+                         'id', s.hash_id,
                          'summit_date', to_char(s.summit_date, 'DD.MM.YYYY'),
                          'route', case
                                     when $2 = false then
-                                      json_build_object('route_id', s.route_id,
+                                      json_build_object('route_id', r.hash_id,
                                                         'name', get_route_text(s.route_id, true, false),
                                                         'complexity', r.complexity)
                                     else
@@ -155,17 +158,19 @@ r2 as (
          inner join r2 on (m.area_id = r2.id and r2.type = 'a')
 ),
 mounts as (
-  select m.*,
+  select m.hash_id as mountain_id,
+         m.mountain,
+         a.hash_id as area_id,
          a.area,
-         a.region_id,
+         r.hash_id as region_id,
          r.region
   from   mountains m
          inner join areas    a using (area_id)
          inner join regions  r using (region_id)
   where  m.mountain ~* $1 and
-         m.area_id = case
+         a.hash_id = case
                        when $2 = false then
-                         m.area_id
+                         a.hash_id
                        else
                          $3
                      end

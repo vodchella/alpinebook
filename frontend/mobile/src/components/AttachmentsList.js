@@ -17,7 +17,7 @@ class AttachmentsList extends Component {
                 <View style={ls.list}>
                     {data.map((item) =>
                         <TouchableOpacity
-                            key={item.id}
+                            key={`${item.name}${Date.now()}`}
                             onPress={() => downloadAndOpenFile(item)}
                             style={ls.listTouchableOpacity}
                         >

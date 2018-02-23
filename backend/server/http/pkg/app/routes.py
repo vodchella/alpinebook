@@ -168,27 +168,27 @@ async def list_regions(request):
     return response.json(await Executor(request, False).query_all_json(app.db_queries['get_regions']))
 
 
-@v1.get('/regions/<region_id:int>')
+@v1.get('/regions/<region_id:[A-z0-9]+>')
 @handle_exceptions
-async def get_region(request, region_id: int):
+async def get_region(request, region_id: str):
     return response.json(await Executor(request, False).query_one_json(app.db_queries['get_region'], region_id))
 
 
-@v1.get('/regions/<region_id:int>/areas')
+@v1.get('/regions/<region_id:[A-z0-9]+>/areas')
 @handle_exceptions
-async def list_areas(request, region_id: int):
+async def list_areas(request, region_id: str):
     return response.json(await Executor(request, False).query_all_json(app.db_queries['get_areas'], region_id))
 
 
-@v1.get('/areas/<area_id:int>')
+@v1.get('/areas/<area_id:[A-z0-9]+>')
 @handle_exceptions
-async def get_area(request, area_id: int):
+async def get_area(request, area_id: str):
     return response.json(await Executor(request, False).query_one_json(app.db_queries['get_area'], area_id))
 
 
-@v1.get('/areas/<area_id:int>/mountains')
+@v1.get('/areas/<area_id:[A-z0-9]+>/mountains')
 @handle_exceptions
-async def list_mountains(request, area_id: int):
+async def list_mountains(request, area_id: str):
     result = []
     if 'search' in request.raw_args:
         search = request.raw_args['search'].strip()
@@ -208,25 +208,25 @@ async def search_mountains(request):
         search = request.raw_args['search'].strip()
         if search:
             result = await Executor(request, False).query_all_json(app.db_queries['search_mountains'],
-                                                                   search, False, 0)
+                                                                   search, False, '')
     return response.json(result)
 
 
-@v1.get('/mountains/<mountain_id:int>')
+@v1.get('/mountains/<mountain_id:[A-z0-9]+>')
 @handle_exceptions
-async def get_mountain(request, mountain_id: int):
+async def get_mountain(request, mountain_id: str):
     return response.json(await Executor(request, False).query_one_json(app.db_queries['get_mountain'], mountain_id))
 
 
-@v1.get('/mountains/<mountain_id:int>/routes')
+@v1.get('/mountains/<mountain_id:[A-z0-9]+>/routes')
 @handle_exceptions
-async def list_routes(request, mountain_id: int):
+async def list_routes(request, mountain_id: str):
     return response.json(await Executor(request, False).query_all_json(app.db_queries['get_routes'], mountain_id))
 
 
-@v1.get('/routes/<route_id:int>')
+@v1.get('/routes/<route_id:[A-z0-9]+>')
 @handle_exceptions
-async def get_route(request, route_id: int):
+async def get_route(request, route_id: str):
     return response.json(await Executor(request, False).query_one_json(app.db_queries['get_route'], route_id))
 
 

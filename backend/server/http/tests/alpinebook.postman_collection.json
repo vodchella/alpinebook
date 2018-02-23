@@ -54,7 +54,7 @@
 							"variable": [
 								{
 									"key": "region_id",
-									"value": "1"
+									"value": "gmM"
 								}
 							]
 						}
@@ -85,7 +85,7 @@
 							"variable": [
 								{
 									"key": "region_id",
-									"value": "1"
+									"value": "gmM"
 								}
 							]
 						}
@@ -115,7 +115,7 @@
 							"variable": [
 								{
 									"key": "area_id",
-									"value": "1"
+									"value": "6gW"
 								}
 							]
 						}
@@ -146,7 +146,7 @@
 							"variable": [
 								{
 									"key": "area_id",
-									"value": "1"
+									"value": "6gW"
 								}
 							]
 						}
@@ -176,7 +176,7 @@
 							"variable": [
 								{
 									"key": "mountain_id",
-									"value": "1"
+									"value": "nm2"
 								}
 							]
 						}
@@ -218,10 +218,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "{{alpinebook-server}}/api/v1/areas/:area_id/mountains?search=ы",
 							"host": [
@@ -244,7 +241,7 @@
 							"variable": [
 								{
 									"key": "area_id",
-									"value": "1"
+									"value": "6gW"
 								}
 							]
 						}
@@ -275,7 +272,7 @@
 							"variable": [
 								{
 									"key": "mountain_id",
-									"value": "1"
+									"value": "nm2"
 								}
 							]
 						}
@@ -305,7 +302,7 @@
 							"variable": [
 								{
 									"key": "route_id",
-									"value": "6"
+									"value": "wDN"
 								}
 							]
 						}
