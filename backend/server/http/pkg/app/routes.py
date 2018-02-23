@@ -117,9 +117,9 @@ async def signin(request, user_name: str):
 #
 
 
-@v1.get('/summits/alpinist/<alpinist_id:int>')
+@v1.get('/summits/alpinist/<alpinist_id:[A-z0-9]+>')
 @handle_exceptions
-async def get_summits(request, alpinist_id: int):
+async def get_summits(request, alpinist_id: str):
     full = False
     if 'full_route_info' in request.raw_args:
         full = request.raw_args['full_route_info'].lower() == 'true'
@@ -128,18 +128,18 @@ async def get_summits(request, alpinist_id: int):
                                                                        full))
 
 
-@v1.delete('/summits/<summit_id:int>')
+@v1.delete('/summits/<summit_id:[A-z0-9]+>')
 @handle_exceptions
-async def delete_summit(request, summit_id: int):
+async def delete_summit(request, summit_id: str):
     query_data = QueryBuilder('summits').generate_delete()
     result = await Executor(request).query_one(query_data['sql'], summit_id)
     return response.json({'deleted': result})
 
 
-@v1.put('/summits/<summit_id:int>')
+@v1.put('/summits/<summit_id:[A-z0-9]+>')
 @validate_request('summits')
 @handle_exceptions
-async def update_summit(request, summit_id: int):
+async def update_summit(request, summit_id: str):
     query_data = QueryBuilder('summits').generate_update(request.json)
     result = await Executor(request).query_one(query_data['sql'], summit_id, *query_data['values'])
     return response.json({'updated': result})

@@ -356,10 +356,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "{{alpinebook-server}}/api/v1/summits/alpinist/:alpinist_id",
 							"host": [
@@ -375,7 +372,7 @@
 							"variable": [
 								{
 									"key": "alpinist_id",
-									"value": "1"
+									"value": "gL2"
 								}
 							]
 						}
@@ -399,10 +396,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "{{alpinebook-server}}/api/v1/summits/alpinist/:alpinist_id?full_route_info=True",
 							"host": [
@@ -425,7 +419,7 @@
 							"variable": [
 								{
 									"key": "alpinist_id",
-									"value": "1"
+									"value": "gL2"
 								}
 							]
 						}
@@ -456,7 +450,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"summit_id\": 666,\n  \"alpinist_id\": 1,\n  \"summit_date\": \"01.01.2017\",\n  \"route_id\": 1,\n  \"leader\": true,\n  \"members\": \"Разные люди\"\n}"
+							"raw": "{\n  \"summit_id\": \"vex\",\n  \"alpinist_id\": \"gL2\",\n  \"summit_date\": \"01.01.2017\",\n  \"route_id\": \"wDN\",\n  \"leader\": true,\n  \"members\": \"Разные люди\"\n}"
 						},
 						"url": {
 							"raw": "{{alpinebook-server}}/api/v1/summits/",

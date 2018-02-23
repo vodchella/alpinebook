@@ -7,6 +7,7 @@ class QueryBuilder:
     _resource_name = None
     _table_name = None
     _primary_key = None
+    _primary_key_hashid = False
     _map = None
     _validate_json = False
 
@@ -15,7 +16,7 @@ class QueryBuilder:
         self._map = mappings[resource_name]
         self._table_name = self._map['table_name']
         self._validate_json = validate_json
-        self._primary_key = self._get_primary_key()
+        self._primary_key, self._primary_key_hashid = self._get_primary_key()
 
     def _get_primary_key(self):
         primary_key = ''
@@ -25,14 +26,14 @@ class QueryBuilder:
             primary_key = field_name if 'primary_key' in field and field['primary_key'] else primary_key
             if primary_key:
                 break
-        return primary_key
+        return primary_key, field['hashid'] if 'hashid' in field else False
 
     def _get_secure_sqls(self, access_field, access_field_num):
         access_sql = """auth.check_write_access((select max(u.user_id)
                                   from   auth.users u
                                   where  u.alpinist_id = %s),
                                  '""" + self._resource_name + '\')'
-        access_insert_sql = access_sql % '$%s'
+        access_insert_sql = access_sql % 'util.id_dec($%s, \'public.alpinists\')'
         access_write_sql = access_sql % ('t.%s' % access_field)
         secure_insert_sql = ('with secure as (\n  select 1\n  where  %s\n)' % access_insert_sql) % access_field_num
         secure_write_sql = 'and\n         %s' % access_write_sql
@@ -76,15 +77,32 @@ class QueryBuilder:
                 'secure_write_sql': secure_write_sql,
                 'values': out_values}
 
+    def _gen_val(self, fields_data, num):
+        def map_name_by_db_name(db_name):
+            names = self._map['fields'].keys()
+            if db_name in names:
+                return db_name
+            else:
+                for (i, f) in enumerate(self._map['fields'].values()):
+                    if 'db_name' in f and f['db_name'] == db_name:
+                        return list(names)[i]
+        val = '$%s' % num
+        field_name = map_name_by_db_name(fields_data['fields'][num - 1])
+        field = self._map['fields'][field_name]
+        if 'hashid' in field and field['hashid']:
+            link_table = field['link_table'] if 'link_table' in field else self._table_name
+            val = f'util.id_dec({val}, \'{link_table}\')'
+        return val
+
     def generate_insert(self, json_object, secure=True):
         fields = self._get_fields(json_object)
-        ret = 'returning %s' % fields['primary_key'] if fields['primary_key'] else ''
-        vals = ', '.join(['$%s' % i for (i, v) in enumerate(fields['values'], start=1)])
+        ret = 'returning hash_id' if self._primary_key_hashid else 'returning %s' % \
+            fields['primary_key'] if fields['primary_key'] else ''
+        vals = ', '.join([self._gen_val(fields, i) for (i, v) in enumerate(fields['values'], start=1)])
         if secure:
             sql = fields['secure_insert_sql'] + \
-                  '\ninsert into %s (%s)\nselect %s\nfrom   secure\n%s\n' % (self._table_name, ', '.join(
-                                                                                                     fields['fields']),
-                                                                             vals, ret)
+                  '\ninsert into %s (%s)\nselect %s\nfrom   secure\n%s\n' % \
+                  (self._table_name, ', '.join(fields['fields']), vals, ret)
         else:
             sql = '\ninsert into %s (%s)\nvalues (%s) %s' % (self._table_name, ', '.join(fields['fields']), vals, ret)
         return {'sql': sql, 'values': fields['values']}

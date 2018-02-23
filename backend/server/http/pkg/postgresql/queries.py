@@ -118,9 +118,10 @@ select json_build_object('num', row_number() over (order by s.summit_date),
                                 end,
                          'members', s.members)
 from   alpinist_summits s
+       inner join alpinists   a using (alpinist_id)
        inner join routes      r on (r.route_id = s.route_id)
        left  join auth.users  u on (u.alpinist_id = s.alpinist_id)
-where  s.alpinist_id = $1 and
+where  a.hash_id = $1 and
        auth.check_read_access(u.user_id, 'summits')
 order by s.summit_date
 """
