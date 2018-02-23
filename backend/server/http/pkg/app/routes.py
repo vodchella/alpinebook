@@ -29,7 +29,7 @@ async def change_user_password(request, user_name: str):
     if 'old' in request.raw_args and 'new' in request.raw_args:
         if user and user_name == user['name'] and user['active']:
             if AuthHelper().verify_user_password(request, user['password'], pswd_param_name='old'):
-                user_id = jwt['id'] if jwt else 0
+                user_id = jwt['id'] if jwt else '?'
                 hash = AuthHelper().get_hash_from_password(request.raw_args['new'],
                                                            user['utc_created_at'].encode('utf-8'))
                 result = await Executor(request).query_one(app.db_queries['update_user_password'], hash, user_id)
@@ -89,7 +89,7 @@ async def signin(request, user_name: str):
         user = await Executor(request).query_one_json(sql, param)
 
         allow_signin = False
-        if user and user['id']:
+        if user and user['id'] != '?':
             if user['active']:
                 if method == 'password':
                     if 'password' in request.raw_args:
@@ -100,12 +100,11 @@ async def signin(request, user_name: str):
                 if allow_signin:
                     await app.mongo.upsert_user(user)
                     return response.json({'jwt': AuthHelper().create_jwt_by_user(user)})
-                else:
-                    await asyncio.sleep(2)
             else:
                 return response_error(ERROR_USER_NOT_ACTIVE, 'Пользователь заблокирован')
 
         if not allow_signin:
+            await asyncio.sleep(2)
             return response_error(ERROR_INVALID_CREDENTIALS, 'Пара логин/пароль неверна')
 
     else:

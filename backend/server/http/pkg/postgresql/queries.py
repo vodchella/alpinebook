@@ -3,7 +3,7 @@
 #
 
 SQL_SET_USER_ID = """
-select auth.set_user_id($1)
+select auth.set_user_id(util.id_dec($1, 'auth.users')::integer)
 """
 
 SQL_GET_USER_ID = """
@@ -14,7 +14,7 @@ SQL_UPDATE_USER_PASSWORD = """
 with rows as (
   update auth.users
   set    password = $1
-  where  user_id = $2
+  where  user_id = util.id_dec($2, 'auth.users')
   returning 1
 )
 select count(*)
@@ -22,7 +22,7 @@ from   rows
 """
 
 SQL_GET_USER_BY_PARAM = """
-select json_build_object('id', coalesce(max(u.user_id), 0),
+select json_build_object('id', coalesce(max(u.hash_id), '?'),
                          'name', max(u.%s),
                          'password', max(u.password),
                          'utc_created_at', to_char(max(u.created_at), 'DD.MM.YYYY HH24:MI:SS'),
