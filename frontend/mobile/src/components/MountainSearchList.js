@@ -27,33 +27,18 @@ class MountainSearchList extends Component {
                         </View>
                         :
                         this.store.leve1Data.length ?
-                            <ScrollView><View style={ls.list}>
-                            {this.store.leve1Data.map((item) => {
-                                switch (item.t) {
-                                    case 'r': return (  // Регион, неактивный заголовок
-                                        <Text
-                                            key={`${item.t}${item.id}`}
-                                            style={ls.listTitleItem}
-                                        >
-                                            {item.name}
-                                        </Text>);
-                                    case 'a': return (  // Область, неактивный подзаголовок
-                                        <Text
-                                            key={`${item.t}${item.id}`}
-                                            style={ls.listSubTitleItem}
-                                        >
-                                            {item.name}
-                                        </Text>);
-                                    case 'm': return (  // Гора, активный заголовок
-                                        <View
-                                            key={`${item.t}${item.id}`}
-                                            style={ls.listItem}
-                                        >
-                                            {item.dataLoaded ?
-                                                <Text style={{ color: 'grey' }}>{item.name}</Text>
-                                                :
+                            <ScrollView style={{ paddingTop: 20 }}>
+                                <View style={ls.list}>
+                                {this.store.leve1Data.map((item) => (
+                                    <View
+                                        key={item.id}
+                                        style={ls.listItem}
+                                    >
+                                        {item.dataLoaded ?
+                                            <Text style={{ color: 'grey' }}>{item.name}</Text>
+                                            :
+                                            <View>
                                                 <TouchableOpacity
-                                                    key={`${item.t}${item.id}`}
                                                     style={ls.listItemTouchableOpacity}
                                                     onPress={
                                                         () => this.store.loadLevel2Data(item.id,
@@ -72,20 +57,22 @@ class MountainSearchList extends Component {
                                                             style={ls.listItemRightIcon}
                                                         />}
                                                 </TouchableOpacity>
-                                            }
-                                            {item.dataLoaded ?
-                                                <MountainRoutesList
-                                                    navigation={navigation}
-                                                    data={this.store.getLevel2Array(item.id)}
-                                                />
-                                                :
-                                                null}
-                                        </View>);
-                                    default:
-                                        return <View key={item.id} />;
-                                }
-                            })}
-                            </View></ScrollView>
+                                                <Text style={styles.inactiveText}>
+                                                    {item.region}, {item.area}
+                                                </Text>
+                                            </View>
+                                        }
+                                        {item.dataLoaded ?
+                                            <MountainRoutesList
+                                                navigation={navigation}
+                                                data={this.store.getLevel2Array(item.id)}
+                                            />
+                                            :
+                                            null}
+                                    </View>
+                                ))}
+                                </View>
+                            </ScrollView>
                             :
                             <View style={styles.container}>
                                 <Text style={styles.inactiveText}>Ничего не найдено</Text>

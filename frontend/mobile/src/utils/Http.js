@@ -29,7 +29,7 @@ export function downloadAndOpenFile(file) {
 }
 
 export function requestAlpinebook(url, onOk, onFail, resultModifier) {
-    const baseUrl = 'https://3c3cfa65.ngrok.io/';
+    const baseUrl = 'https://913851d7.ngrok.io/';
     const apiUrl = `${baseUrl}api/v1/`;
     const requestUrl = `${apiUrl}${url}`;
 

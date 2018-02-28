@@ -127,58 +127,19 @@ order by s.summit_date
 """
 
 SQL_SEARCH_MOUNTAINS = """
-with recursive r1 as (
-  select distinct
-         region as path,
-         region_id as id,
-         region as name,
-         'r' as type
-  from   mounts
-
-  union all
-
-  select distinct
-         r1.path || '->' || m.area as path,
-         m.area_id as id,
-         m.area as name,
-         'a' as type
-  from   mounts m
-         inner join r1 on (m.region_id = r1.id and r1.type = 'r')
-),
-r2 as (
-  select *
-  from   r1
-
-  union all
-
-  select r2.path || '->' || m.mountain as path,
-         m.mountain_id as id,
-         m.mountain as name,
-         'm' as type
-  from   mounts m
-         inner join r2 on (m.area_id = r2.id and r2.type = 'a')
-),
-mounts as (
-  select m.hash_id as mountain_id,
-         m.mountain,
-         a.hash_id as area_id,
-         a.area,
-         r.hash_id as region_id,
-         r.region
-  from   mountains m
-         inner join areas    a using (area_id)
-         inner join regions  r using (region_id)
-  where  m.mountain ~* $1 and
-         a.hash_id = case
-                       when $2 = false then
-                         a.hash_id
-                       else
-                         $3
-                     end
-)
-select json_build_object('t', r2.type,
-                         'id', r2.id,
-                         'name', r2.name)
-from   r2
-order by path
+select json_build_object('id', m.hash_id,
+                         'name', m.mountain,
+                         'area', a.area,
+                         'region', r.region)
+from   mountains m
+       inner join areas    a using (area_id)
+       inner join regions  r using (region_id)
+where  m.mountain ~* $1 and
+       a.hash_id = case
+                     when $2 = false then
+                       a.hash_id
+                     else
+                       $3
+                   end
+order by m.mountain
 """
